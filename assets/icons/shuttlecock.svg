@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- Lotka do badmintona z banera -->
+  <g transform="rotate(-40 60 60)" opacity="0.85">
+    <!-- Piórka lotki -->
+    <path d="M40 70 L25 25 Q60 15 95 25 L80 70 Z" fill="#FFFFFF" stroke="#0D47A1" stroke-width="2"/>
+    <!-- Żeberka / prążki piórek -->
+    <path d="M42 35 Q60 28 78 35" stroke="#0D47A1" stroke-width="1.5" fill="none"/>
+    <path d="M48 50 Q60 45 72 50" stroke="#0D47A1" stroke-width="1.5" fill="none"/>
+    <line x1="38" y1="26" x2="52" y2="70" stroke="#0D47A1" stroke-width="1"/>
+    <line x1="60" y1="20" x2="60" y2="70" stroke="#0D47A1" stroke-width="1"/>
+    <line x1="82" y1="26" x2="68" y2="70" stroke="#0D47A1" stroke-width="1"/>
+    <!-- Korek lotki -->
+    <path d="M50 70 Q50 90 60 90 Q70 90 70 70 Z" fill="#E65100" stroke="#BF360C" stroke-width="2"/>
+    <rect x="50" y="68" width="20" height="4" fill="#0D47A1"/>
+  </g>
+</svg>

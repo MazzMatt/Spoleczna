@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 170 48" width="100%" height="100%">
+  <defs>
+    <linearGradient id="vulcanRed" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E11D48"/>
+      <stop offset="100%" stop-color="#BE123C"/>
+    </linearGradient>
+  </defs>
+  <!-- Tło / ikona VULCAN -->
+  <rect x="2" y="6" width="36" height="36" rx="8" fill="url(#vulcanRed)"/>
+  <path d="M12 16 L20 32 L28 16" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Napis VULCAN UONET+ -->
+  <text x="46" y="24" font-family="'Montserrat', sans-serif" font-size="14" font-weight="900" fill="#1E2B82" letter-spacing="0.5">VULCAN</text>
+  <text x="46" y="38" font-family="'Montserrat', sans-serif" font-size="11" font-weight="800" fill="#E11D48" letter-spacing="1">UONET+</text>
+</svg>

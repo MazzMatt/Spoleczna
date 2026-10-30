@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pierwsza Społeczna Szkoła Podstawowa w Chełmie | Sapere Aude</title>
+  
+  <!-- Fonty Google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Cinzel:wght@700;900&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Ikony Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Arkusz stylów CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ======================================================================
+       GÓRNY NAGŁÓWEK (HEADER)
+       ====================================================================== -->
+  <header class="site-header">
+    <div class="container">
+      <div class="header-top">
+        
+        <!-- LOGO I NAZWA SZKOŁY -->
+        <a href="index.html" class="brand-wrapper">
+          <img src="assets/icons/logo.png" alt="Godło Pierwszej Społecznej Szkoły Podstawowej w Chełmie" class="brand-logo-img">
+          
+          <div class="brand-titles">
+            <h1 class="brand-name">PIERWSZA SPOŁECZNA SZKOŁA PODSTAWOWA W CHEŁMIE</h1>
+            <div class="brand-subname">
+              <span class="brand-motto-pill"><i class="fa-solid fa-scroll"></i> SAPERE AUDE • od 1992 r.</span>
+            </div>
+            <div class="brand-affil">
+              Organ prowadzący: Chełmskie Towarzystwo Edukacyjne – Stowarzyszenie w Chełmie
+            </div>
+          </div>
+        </a>
+
+        <!-- OFICJALNE MEDIA SPOŁECZNOŚCIOWE, DZIENNIK VULCAN I TELEFON -->
+        <div class="header-actions">
+          <div class="social-links">
+            <a href="https://www.facebook.com/ZespolSzkolSpolecznychwChelmie/?locale=pl_PL" target="_blank" rel="noopener" class="social-btn facebook" title="Facebook">
+              <i class="fa-brands fa-facebook-f"></i>
+            </a>
+            <a href="https://www.instagram.com/spolecznachelm/" target="_blank" rel="noopener" class="social-btn instagram" title="Instagram">
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a href="https://www.youtube.com/channel/UCd0Qn0v7VJMFGs7UoiKlrNg" target="_blank" rel="noopener" class="social-btn youtube" title="YouTube">
+              <i class="fa-brands fa-youtube"></i>
+            </a>
+          </div>
+
+          <!-- Dziennik Elektroniczny VULCAN UONET+ Chełm -->
+          <a href="https://uonetplus.vulcan.net.pl/chelm" target="_blank" rel="noopener" class="vulcan-btn" title="Dziennik Elektroniczny VULCAN UONET+ Chełm">
+            <img src="assets/icons/vulcan-uonet.svg" alt="Dziennik VULCAN" class="vulcan-logo">
+          </a>
+
+          <!-- Telefon do sekretariatu w górnym pasku -->
+          <a href="tel:825654554" class="header-phone-btn" title="Zadzwoń do sekretariatu">
+            <i class="fa-solid fa-phone"></i>
+            <span>tel. 82 565 45 54</span>
+          </a>
+
+          <button class="mobile-nav-toggle" id="mobile-toggle" aria-label="Menu mobilne">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         PASEK NAWIGACJI
+         ==================================================================== -->
+    <div class="navbar-section">
+      <div class="container navbar-container">
+        
+        <nav class="nav-menu" id="main-nav-menu">
+          <a href="index.html" class="nav-home-btn" title="Strona główna">
+            <i class="fa-solid fa-house"></i>
+          </a>
+          <div class="nav-item active"><a href="index.html" class="nav-link">STRONA GŁÓWNA</a></div>
+          <div class="nav-item"><a href="o-szkole.html" class="nav-link">O SZKOLE</a></div>
+          <div class="nav-item"><a href="aktualnosci.html" class="nav-link">AKTUALNOŚCI</a></div>
+          <div class="nav-item"><a href="oferta.html" class="nav-link">OFERTA</a></div>
+          <div class="nav-item"><a href="dla-rodzicow.html" class="nav-link">DLA RODZICÓW</a></div>
+          <div class="nav-item"><a href="regulaminy.html" class="nav-link">REGULAMINY</a></div>
+          <div class="nav-item"><a href="sukcesy.html" class="nav-link">SUKCESY</a></div>
+          <div class="nav-item"><a href="rekrutacja.html" class="nav-link">REKRUTACJA</a></div>
+          <div class="nav-item"><a href="galeria.html" class="nav-link">GALERIA</a></div>
+          <div class="nav-item"><a href="kontakt.html" class="nav-link">KONTAKT</a></div>
+        </nav>
+
+      </div>
+    </div>
+  </header>
+
+
+  <!-- ======================================================================
+       GŁÓWNY BANER (HERO SLIDER)
+       ====================================================================== -->
+  <section class="hero-slider-section" id="glowna">
+    
+    <div class="hero-shapes">
+      <svg class="hero-wave-cream" viewBox="0 0 1000 600" preserveAspectRatio="none">
+        <path d="M 0,0 L 760,0 C 690,140 730,280 620,400 C 530,500 380,560 0,600 Z" />
+      </svg>
+      <svg class="hero-wave-bottom" viewBox="0 0 800 400" preserveAspectRatio="none">
+        <path d="M 120,400 C 250,260 480,240 800,320 L 800,400 Z" />
+      </svg>
+    </div>
+
+    <div class="container hero-slider-wrapper">
+      
+      <!-- Slajd 1: Uczniowie + Okrągła naklejka z hasłem Sapere Aude -->
+      <div class="hero-slide active" data-slide="1">
+        <div class="hero-slide-content">
+          <div class="hero-image-box">
+            <img src="assets/images/children-reading.jpg" alt="Uczniowie Pierwszej Społecznej Szkoły Podstawowej w Chełmie" class="hero-photo">
+          </div>
+          <div class="hero-text-box">
+            <div class="hero-sticker-badge">
+              <span class="badge-word badge-word-1">wiedza</span>
+              <span class="badge-word badge-word-2">pasja</span>
+              <span class="badge-word badge-word-3">sapere aude</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slajd 2: Budynek szkoły -->
+      <div class="hero-slide" data-slide="2">
+        <div class="hero-slide-content">
+          <div class="hero-image-box">
+            <img src="assets/images/school-building.jpg" alt="Budynek szkoły przy ul. Hrubieszowskiej w Chełmie" class="hero-photo" style="border-radius: 20px; max-height: 420px; object-fit: cover;">
+          </div>
+          <div class="hero-text-box">
+            <div class="hero-sticker-badge">
+              <span class="badge-word badge-word-1">tradycja</span>
+              <span class="badge-word badge-word-2">od 1992</span>
+              <span class="badge-word badge-word-3">sukces</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button class="slider-arrow prev" id="slider-prev" aria-label="Poprzedni slajd">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+      <button class="slider-arrow next" id="slider-next" aria-label="Następny slajd">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+
+      <div class="slider-dots" id="slider-dots">
+        <span class="dot active" data-index="0"></span>
+        <span class="dot" data-index="1"></span>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ======================================================================
+       4 GŁÓWNE FILARY SZKOŁY
+       ====================================================================== -->
+  <section class="pillars-section">
+    <div class="container">
+      <div class="pillars-grid">
+        
+        <div class="pillar-card">
+          <div class="pillar-icon-box">
+            <i class="fa-solid fa-users-line"></i>
+          </div>
+          <div class="pillar-content">
+            <h3 class="pillar-title">Klasy do 16 uczniów</h3>
+            <p class="pillar-desc">Indywidualne podejście, rodzinna atmosfera i pełne bezpieczeństwo każdego dziecka.</p>
+          </div>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-icon-box">
+            <i class="fa-solid fa-language"></i>
+          </div>
+          <div class="pillar-content">
+            <h3 class="pillar-title">Języki Obce</h3>
+            <p class="pillar-desc">Wczesna nauka języka angielskiego, niemieckiego i hiszpańskiego w małych grupach lektorskich.</p>
+          </div>
+        </div>
+
+        <!-- ZMIENIONE ZGODNIE Z PROŚBĄ UŻYTKOWNIKA -->
+        <div class="pillar-card">
+          <div class="pillar-icon-box">
+            <i class="fa-solid fa-comments"></i>
+          </div>
+          <div class="pillar-content">
+            <h3 class="pillar-title">Konwersacje z Brytyjczykiem</h3>
+            <p class="pillar-desc">Żywy język angielski, autentyczny akcent i przełamywanie bariery językowej z Native Speakerem.</p>
+          </div>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-icon-box">
+            <i class="fa-solid fa-medal"></i>
+          </div>
+          <div class="pillar-content">
+            <h3 class="pillar-title">Wieloletnia tradycja</h3>
+            <p class="pillar-desc">Ponad 30 lat doświadczenia Chełmskiego Towarzystwa Edukacyjnego i czołowe wyniki egzaminów.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ======================================================================
+       O SZKOLE (ZAJAWKA)
+       ====================================================================== -->
+  <section class="section-padding bg-warm">
+    <div class="container">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center;">
+        
+        <div style="position: relative;">
+          <img src="assets/images/school-building.jpg" alt="Budynek szkoły przy ul. Hrubieszowskiej 102/2 w Chełmie" style="width: 100%; height: 420px; object-fit: cover; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);">
+          <div style="position: absolute; bottom: -20px; right: -15px; width: 130px; height: 130px; background: #FFF; border-radius: 50%; padding: 6px; box-shadow: var(--shadow-lg);">
+            <img src="assets/icons/logo.png" alt="Godło Szkoły" style="width: 100%; height: 100%; object-fit: contain;">
+          </div>
+        </div>
+
+        <div>
+          <span class="section-tag">Wieloletnia tradycja</span>
+          <h2 class="section-title">Pierwsza Społeczna Szkoła Podstawowa w Chełmie</h2>
+          
+          <div class="motto-quote">
+            „SAPERE AUDE” – Odważ się być mądrym
+          </div>
+
+          <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px; line-height: 1.65;">
+            Placówka rozpoczęła swoją działalność w 1992 roku jako pierwsza szkoła niepubliczna w Chełmie, założona przez Chełmskie Towarzystwo Edukacyjne – Stowarzyszenie w Chełmie. Naszym celem jest wszechstronny rozwój intelektualny, emocjonalny i społeczny uczniów.
+          </p>
+
+          <!-- DYREKTOR: BARBARA MAZUREK -->
+          <div style="background: var(--bg-card); padding: 14px 18px; border-radius: var(--radius-md); border-left: 4px solid var(--color-primary); margin-bottom: 24px; box-shadow: var(--shadow-sm); display: flex; align-items: center; gap: 15px; border: 1px solid var(--border-color);">
+            <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--bg-warm); color: var(--color-primary); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0;">
+              <i class="fa-solid fa-user-tie"></i>
+            </div>
+            <div>
+              <h4 style="font-size: 0.95rem; font-weight: 800; color: var(--color-primary);">Dyrektor Szkoły: Barbara Mazurek</h4>
+              <p style="font-size: 0.82rem; color: var(--text-muted); margin: 0;">Organ prowadzący: Chełmskie Towarzystwo Edukacyjne – Stowarzyszenie w Chełmie</p>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+            <a href="o-szkole.html" class="btn-primary">
+              <span>Dowiedz się więcej o szkole</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </a>
+            <a href="rekrutacja.html" class="btn-secondary">
+              <span>Rekrutacja 2026/2027</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ======================================================================
+       LICZNIKI STATYSTYK
+       ====================================================================== -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-number" data-target="1992">1992</div>
+          <div class="stat-label">Rok założenia pierwszej szkoły społecznej</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" style="font-size: 2.1rem; line-height: 1.1;"><i class="fa-solid fa-award"></i> TOP</div>
+          <div class="stat-label">Wysokie wyniki egzaminów</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" data-target="16">max 16</div>
+          <div class="stat-label">Maksymalnie uczniów w klasie</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" data-target="12">12+</div>
+          <div class="stat-label">Kół zainteresowań i zajęć dodatkowych</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ======================================================================
+       AKTUALNOŚCI (ZAJAWKA)
+       ====================================================================== -->
+  <section class="section-padding">
+    <div class="container">
+      
+      <div style="display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 35px; flex-wrap: wrap; gap: 15px;">
+        <div>
+          <span class="section-tag">Wydarzenia i Kronika</span>
+          <h2 class="section-title">Co nowego w szkole?</h2>
+        </div>
+        <a href="aktualnosci.html" class="btn-secondary" style="padding: 9px 20px; font-size: 0.85rem;">
+          Wszystkie aktualności <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+
+      <div class="news-grid">
+        
+        <article class="news-card">
+          <div class="news-card-img-wrap">
+            <img src="assets/images/children-reading.jpg" alt="Życie szkoły" class="news-card-img">
+            <span class="news-tag">Wydarzenia</span>
+          </div>
+          <div class="news-card-body">
+            <div class="news-date"><i class="fa-regular fa-calendar"></i> 28 Października 2026</div>
+            <h3 class="news-card-title">Święto Szkoły i uroczyste ślubowanie pierwszoklasistów</h3>
+            <p class="news-excerpt">Nasi najmłodsi uczniowie uroczyście dołączyli do społeczności Pierwszej Społecznej Szkoły Podstawowej w Chełmie.</p>
+            <a href="aktualnosci.html" style="color: var(--color-primary); font-weight: 800; font-size: 0.88rem;">Czytaj więcej <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </article>
+
+        <article class="news-card">
+          <div class="news-card-img-wrap">
+            <img src="assets/images/school-building.jpg" alt="Gazetka szkolna" class="news-card-img">
+            <span class="news-tag">Społeczna Times</span>
+          </div>
+          <div class="news-card-body">
+            <div class="news-date"><i class="fa-regular fa-calendar"></i> 22 Października 2026</div>
+            <h3 class="news-card-title">Nowy numer gazetki szkolnej „Społeczna Times”</h3>
+            <p class="news-excerpt">Młodzi dziennikarze zredagowali kolejny numer z wywiadami, relacjami z wycieczek oraz twórczością literacką uczniów.</p>
+            <a href="aktualnosci.html" style="color: var(--color-primary); font-weight: 800; font-size: 0.88rem;">Czytaj więcej <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </article>
+
+        <article class="news-card">
+          <div class="news-card-img-wrap">
+            <img src="assets/images/hero-original-kozyszkola.jpg" alt="Turniej sportowy" class="news-card-img">
+            <span class="news-tag">Języki Obce</span>
+          </div>
+          <div class="news-card-body">
+            <div class="news-date"><i class="fa-regular fa-calendar"></i> 15 Października 2026</div>
+            <h3 class="news-card-title">Konwersacje z Brytyjczykiem w praktyce</h3>
+            <p class="news-excerpt">Uczniowie szlifowali praktyczną mowę i brytyjską wymowę podczas angażujących warsztatów językowych z Native Speakerem.</p>
+            <a href="aktualnosci.html" style="color: var(--color-primary); font-weight: 800; font-size: 0.88rem;">Czytaj więcej <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </article>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ======================================================================
+       BANER REKRUTACJA 2026/2027
+       ====================================================================== -->
+  <section class="cta-banner-section">
+    <div class="container">
+      <div class="cta-banner-card">
+        <div class="cta-banner-text">
+          <span style="background: var(--color-accent); color: var(--color-primary); padding: 5px 16px; border-radius: 20px; font-size: 0.84rem; font-weight: 900; text-transform: uppercase;">Rekrutacja 2026/2027</span>
+          <h2 style="margin-top: 14px;">Zapewnij swojemu dziecku najlepszą edukację</h2>
+          <p>
+            Trwa nabór do Oddziału Przedszkolnego (Zerówki) oraz Klas I-VIII Pierwszej Społecznej Szkoły Podstawowej w Chełmie na rok szkolny 2026/2027. Zapraszamy do kontaktu z sekretariatem.
+          </p>
+        </div>
+        <div class="cta-banner-actions">
+          <a href="rekrutacja.html" class="btn-white">
+            <i class="fa-solid fa-file-signature"></i>
+            <span>Rekrutacja 2026/2027</span>
+          </a>
+          <a href="tel:825654554" style="color: #FFFFFF; font-weight: 800; text-align: center; text-decoration: underline;">
+            Zadzwoń: 82 565 45 54
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ======================================================================
+       STOPKA STRONY (FOOTER)
+       ====================================================================== -->
+  <footer class="site-footer">
+    <div class="container">
+      
+      <div class="footer-grid">
+        
+        <div class="footer-brand">
+          <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 14px;">
+            <img src="assets/icons/logo.png" alt="Godło Szkoły" style="width: 54px; height: 54px; object-fit: contain;">
+            <div>
+              <h4 style="margin: 0; font-size: 1rem; color: #FFF;">PIERWSZA SPOŁECZNA SZKOŁA PODSTAWOWA</h4>
+              <span style="font-size: 0.75rem; color: var(--color-accent);">W CHEŁMIE • SAPERE AUDE</span>
+            </div>
+          </div>
+          <p>
+            Organ prowadzący: Chełmskie Towarzystwo Edukacyjne – Stowarzyszenie w Chełmie.
+          </p>
+          <div class="social-links">
+            <a href="https://www.facebook.com/ZespolSzkolSpolecznychwChelmie/?locale=pl_PL" class="social-btn facebook" target="_blank" rel="noopener"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/spolecznachelm/" class="social-btn instagram" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://www.youtube.com/channel/UCd0Qn0v7VJMFGs7UoiKlrNg" class="social-btn youtube" target="_blank" rel="noopener"><i class="fa-brands fa-youtube"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h5>Szkoła</h5>
+          <div class="footer-links">
+            <a href="o-szkole.html" class="footer-link">O szkole i patronie</a>
+            <a href="aktualnosci.html" class="footer-link">Aktualności</a>
+            <a href="oferta.html" class="footer-link">Oferta edukacyjna</a>
+            <a href="regulaminy.html" class="footer-link">Statut i regulaminy</a>
+            <a href="sukcesy.html" class="footer-link">Osiągnięcia</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h5>Dla Rodziców</h5>
+          <div class="footer-links">
+            <a href="https://uonetplus.vulcan.net.pl/chelm" class="footer-link" target="_blank" rel="noopener">Dziennik VULCAN (UONET+)</a>
+            <a href="dla-rodzicow.html" class="footer-link">Plan lekcji i dzwonków</a>
+            <a href="dla-rodzicow.html" class="footer-link">Kalendarz roku szkolnego</a>
+            <a href="regulaminy.html" class="footer-link">Dokumenty do pobrania</a>
+            <a href="rekrutacja.html" class="footer-link">Rekrutacja 2026/2027</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h5>Kontakt</h5>
+          <p style="font-size: 0.88rem; margin-bottom: 6px;"><strong style="color: #FFF;">Adres:</strong> ul. Hrubieszowska 102/2, 22-100 Chełm</p>
+          <p style="font-size: 0.88rem; margin-bottom: 6px;"><strong style="color: #FFF;">Telefon:</strong> 82 565 45 54</p>
+          <p style="font-size: 0.88rem; margin-bottom: 6px;"><strong style="color: #FFF;">E-mail:</strong> spoleczna_chelm@wp.pl</p>
+          <p style="font-size: 0.88rem;"><strong style="color: #FFF;">Sekretariat:</strong> Pn - Pt 7:30 - 16:00</p>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          © 2026 Pierwsza Społeczna Szkoła Podstawowa w Chełmie. Wszelkie prawa zastrzeżone.
+        </div>
+        <div>
+          Oficjalna strona szkoły: <a href="https://www.sapereaude.edu.pl" target="_blank" style="color: var(--color-accent); text-decoration: underline;">sapereaude.edu.pl</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>

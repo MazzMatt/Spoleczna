@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" fill="none">
+  <!-- Rakieta do badmintona w stylu grafiki z banera -->
+  <g transform="rotate(35 120 120)" opacity="0.65">
+    <!-- Główka rakiety owalna -->
+    <ellipse cx="120" cy="70" rx="42" ry="54" stroke="currentColor" stroke-width="4.5" fill="none"/>
+    <!-- Siatka naciągu pionowa -->
+    <path d="M96 35 V105 M108 22 V118 M120 18 V122 M132 22 V118 M144 35 V105" stroke="currentColor" stroke-width="1.8" stroke-dasharray="1 1"/>
+    <!-- Siatka naciągu pozioma -->
+    <path d="M85 45 H155 M80 60 H160 M80 75 H160 M82 90 H158 M92 105 H148" stroke="currentColor" stroke-width="1.8" stroke-dasharray="1 1"/>
+    <!-- Łącznik główki i trzonka -->
+    <path d="M112 122 L116 138 H124 L128 122 Z" fill="currentColor"/>
+    <!-- Trzonek -->
+    <line x1="120" y1="138" x2="120" y2="195" stroke="currentColor" stroke-width="4"/>
+    <!-- Uchwyt owijka -->
+    <rect x="115" y="195" width="10" height="42" rx="3" fill="currentColor"/>
+    <line x1="115" y1="205" x2="125" y2="208" stroke="#ffffff" stroke-width="1.5" opacity="0.5"/>
+    <line x1="115" y1="217" x2="125" y2="220" stroke="#ffffff" stroke-width="1.5" opacity="0.5"/>
+    <line x1="115" y1="229" x2="125" y2="232" stroke="#ffffff" stroke-width="1.5" opacity="0.5"/>
+  </g>
+</svg>
