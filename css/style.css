@@ -202,6 +202,7 @@ button {
   display: flex;
   align-items: center;
   gap: 8px;
+  flex-shrink: 0;
 }
 
 .social-btn {
@@ -214,6 +215,7 @@ button {
   color: #FFFFFF;
   font-size: 1.1rem;
   transition: var(--transition);
+  flex-shrink: 0;
 }
 
 .social-btn.facebook { background: #1877F2; }
@@ -226,18 +228,25 @@ button {
 }
 
 .vulcan-btn {
-  display: flex;
+  display: inline-flex;
   align-items: center;
+  justify-content: center;
   padding: 5px 12px;
   border-radius: 8px;
   border: 1.5px solid var(--border-color);
   background: #FFFFFF;
   transition: var(--transition);
+  flex-shrink: 0;
+  text-decoration: none;
 }
 
 .vulcan-logo {
-  height: 34px;
+  height: 30px;
   width: auto;
+  max-width: 95px;
+  object-fit: contain;
+  display: block;
+  flex-shrink: 0;
 }
 
 .vulcan-btn:hover {
@@ -253,6 +262,9 @@ button {
   font-size: 1.6rem;
   color: var(--color-primary);
   padding: 8px;
+  border: none;
+  cursor: pointer;
+  flex-shrink: 0;
 }
 
 .header-phone-btn,
@@ -272,6 +284,7 @@ button {
   white-space: nowrap;
   box-shadow: 0 2px 8px rgba(30, 43, 130, 0.18);
   text-decoration: none;
+  flex-shrink: 0;
 }
 
 .header-phone-btn:hover,
@@ -1548,12 +1561,67 @@ textarea.form-control {
   }
   .header-actions {
     width: 100%;
-    justify-content: space-between;
-    padding-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: nowrap;
+    padding-top: 12px;
     border-top: 1px solid var(--border-color);
   }
+  .social-links {
+    gap: 6px;
+    flex-shrink: 0;
+  }
+  .social-btn {
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+  }
+  .header-phone-btn span {
+    display: none !important;
+  }
+  .header-phone-btn {
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    padding: 0;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    flex-shrink: 0;
+  }
+  .header-phone-btn i {
+    font-size: 1.05rem;
+    color: #FFFFFF;
+  }
+  .vulcan-btn {
+    height: 38px;
+    padding: 4px 10px;
+    min-width: 80px;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .vulcan-logo {
+    height: 24px;
+    max-width: 85px;
+    width: auto;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
   .mobile-nav-toggle {
-    display: block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    border-radius: 8px;
+    flex-shrink: 0;
   }
   .nav-menu {
     position: fixed;
@@ -1681,7 +1749,7 @@ textarea.form-control {
 }
 
 /* ==========================================================================
-   DODATKOWE KLASY RESPONSIVE DLA PODSTRON (MOBILE, TABLET, DESKTOP)
+   DODATKOWE KLASY RESPONSIVE DLA PODSTRON I ZAJAWEK (MOBILE, TABLET, DESKTOP)
    ========================================================================== */
 .recruitment-grid,
 .two-col-grid,
@@ -1704,6 +1772,122 @@ textarea.form-control {
   gap: 30px;
 }
 
+/* Sekcja O Szkole (Zajawka na stronie głównej) */
+.about-preview-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 45px;
+  align-items: center;
+}
+
+.about-preview-image-box {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: visible;
+}
+
+.about-preview-img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  display: block;
+}
+
+.about-badge-float {
+  position: absolute;
+  bottom: -20px;
+  right: -20px;
+  width: 110px;
+  height: 110px;
+  background: #FFFFFF;
+  border-radius: 50%;
+  padding: 8px;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-badge-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.about-preview-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.about-preview-desc {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--color-gray-dark);
+  margin-bottom: 25px;
+}
+
+.about-director-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: #FFFFFF;
+  padding: 16px 20px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  border-left: 4px solid var(--color-primary);
+  margin-bottom: 25px;
+  width: 100%;
+}
+
+.about-director-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #FEF3C7;
+  color: #D97706;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.about-director-name {
+  margin: 0 0 4px;
+  color: var(--color-primary);
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.about-director-affil {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--color-gray);
+  line-height: 1.4;
+}
+
+.about-preview-btns {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+/* Klasy wspólne dla galerii i formularza */
+.gallery-photo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.form-row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
 @media (max-width: 900px) {
   .recruitment-grid,
   .two-col-grid,
@@ -1716,6 +1900,53 @@ textarea.form-control {
     flex-direction: column !important;
     align-items: flex-start !important;
     gap: 20px !important;
+  }
+  .about-preview-grid {
+    grid-template-columns: 1fr !important;
+    gap: 35px !important;
+  }
+  .about-preview-img {
+    height: 280px !important;
+  }
+  .about-badge-float {
+    width: 90px !important;
+    height: 90px !important;
+    bottom: -15px !important;
+    right: 15px !important;
+  }
+  .about-preview-btns {
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+  .about-preview-btns a {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+  .gallery-photo-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 16px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .form-row-2 {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+}
+
+@media (max-width: 520px) {
+  .gallery-photo-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .about-preview-img {
+    height: 230px !important;
+  }
+  .about-badge-float {
+    width: 75px !important;
+    height: 75px !important;
+    bottom: -12px !important;
+    right: 12px !important;
   }
 }
 
@@ -1735,6 +1966,39 @@ textarea.form-control {
   .container {
     padding-left: 15px !important;
     padding-right: 15px !important;
+  }
+}
+
+@media (max-width: 400px) {
+  .header-actions {
+    gap: 5px !important;
+  }
+  .social-links {
+    gap: 4px !important;
+  }
+  .social-btn {
+    width: 33px !important;
+    height: 33px !important;
+    font-size: 0.95rem !important;
+  }
+  .header-phone-btn {
+    width: 33px !important;
+    height: 33px !important;
+    min-width: 33px !important;
+  }
+  .vulcan-btn {
+    min-width: 68px !important;
+    height: 33px !important;
+    padding: 2px 6px !important;
+  }
+  .vulcan-logo {
+    height: 20px !important;
+    max-width: 65px !important;
+  }
+  .mobile-nav-toggle {
+    width: 33px !important;
+    height: 33px !important;
+    font-size: 1.35rem !important;
   }
 }
 
