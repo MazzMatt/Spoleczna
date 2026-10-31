@@ -21,10 +21,9 @@ const SCHOOL_CONFIG = {
     governingBody: "Chełmskie Towarzystwo Edukacyjne – Stowarzyszenie w Chełmie",
     affiliation: "Stowarzyszenie w Chełmie",
     
-    // Adresy
+    // Adres
     address: {
       street: "ul. Hrubieszowska 102/2",
-      secondaryStreet: "ul. 1 Pułku Szwoleżerów 17B",
       postalCode: "22-100",
       city: "Chełm",
       full: "ul. Hrubieszowska 102/2, 22-100 Chełm"
@@ -34,9 +33,8 @@ const SCHOOL_CONFIG = {
     phone: "82 565 45 54",
     phoneDisplay: "tel. 82 565 45 54",
     email: "spoleczna_chelm@wp.pl",
-    emailAlt: "sekretariat@sapereaude.edu.pl",
     website: "https://www.sapereaude.edu.pl",
-    openingHours: "Poniedziałek – Piątek: 7:30 – 16:00",
+    openingHours: "Poniedziałek – Piątek: 7:30 – 15:00",
     
     // Oficjalne nowe logo szkoły
     logoUrl: "assets/icons/logo.png"

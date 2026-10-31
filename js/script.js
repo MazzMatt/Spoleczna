@@ -126,7 +126,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const target = parseInt(stat.getAttribute('data-target'), 10);
       if (isNaN(target)) return;
       const isPercent = stat.textContent.includes('%');
-      const isMax = stat.textContent.includes('max');
       const isPlus = stat.textContent.includes('+');
       
       const duration = 1800;
@@ -139,8 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const current = Math.floor(easeProgress * target);
 
         let formatted = current;
-        if (isMax) formatted = `max ${current}`;
-        else if (isPercent) formatted = `${current}%`;
+        if (isPercent) formatted = `${current}%`;
         else if (isPlus) formatted = `${current}+`;
 
         stat.textContent = formatted;
@@ -148,8 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (progress < 1) {
           requestAnimationFrame(update);
         } else {
-          if (isMax) stat.textContent = `max ${target}`;
-          else if (isPercent) stat.textContent = `${target}%`;
+          if (isPercent) stat.textContent = `${target}%`;
           else if (isPlus) stat.textContent = `${target}+`;
           else stat.textContent = target;
         }
@@ -157,6 +154,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
       requestAnimationFrame(update);
     });
+
+    // Uruchomienie animacji dla odznaki TOP
+    const badgeTop = document.querySelector('.stat-badge-top');
+    if (badgeTop) {
+      badgeTop.classList.add('animated');
+    }
   }
 
 
@@ -206,15 +209,89 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // ------------------------------------------------------------------
-  // 5. FORMULARZ KONTAKTOWY
+  // 5. FORMULARZ KONTAKTOWY (WYSYŁKA NA POCZTĘ SZKOŁY: spoleczna_chelm@wp.pl)
   // ------------------------------------------------------------------
   const contactForm = document.getElementById('school-contact-form');
+  const formStatus = document.getElementById('form-status');
+  const submitBtn = document.getElementById('form-submit-btn');
+
   if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
+    contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const name = document.getElementById('form-name').value;
-      alert(`Dziękujemy, ${name}! Twoja wiadomość została przekazana do sekretariatu Pierwszej Społecznej Szkoły Podstawowej w Chełmie. Odpowiemy niezwłocznie.`);
-      contactForm.reset();
+
+      const nameInput = document.getElementById('form-name');
+      const phoneInput = document.getElementById('form-phone');
+      const emailInput = document.getElementById('form-email');
+      const subjectInput = document.getElementById('form-subject');
+      const messageInput = document.getElementById('form-message');
+
+      const name = nameInput ? nameInput.value.trim() : '';
+      const phone = phoneInput ? phoneInput.value.trim() : '';
+      const email = emailInput ? emailInput.value.trim() : '';
+      const subject = subjectInput ? subjectInput.value : 'Zapytanie ze strony';
+      const message = messageInput ? messageInput.value.trim() : '';
+
+      const originalBtnHtml = submitBtn ? submitBtn.innerHTML : '';
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span>Wysyłanie wiadomości...</span> <i class="fa-solid fa-spinner fa-spin"></i>';
+      }
+
+      if (formStatus) {
+        formStatus.style.display = 'none';
+      }
+
+      try {
+        const response = await fetch("https://formsubmit.co/ajax/spoleczna_chelm@wp.pl", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify({
+            "Nadawca": name,
+            "Telefon": phone,
+            "Adres e-mail": email,
+            "Temat": subject,
+            "Treść wiadomości": message,
+            "_subject": `[Formularz WWW] ${subject} - ${name}`
+          })
+        });
+
+        const data = await response.json();
+
+        if (response.ok && (data.success === "true" || data.success === true || response.status === 200)) {
+          if (formStatus) {
+            formStatus.style.display = 'block';
+            formStatus.style.background = '#ECFDF5';
+            formStatus.style.color = '#065F46';
+            formStatus.style.border = '1px solid #A7F3D0';
+            formStatus.innerHTML = `<i class="fa-solid fa-circle-check"></i> Dziękujemy, ${name}! Twoja wiadomość została pomyślnie wysłana na pocztę sekretariatu (spoleczna_chelm@wp.pl).`;
+          }
+          contactForm.reset();
+        } else {
+          throw new Error(data.message || 'Błąd wysyłki');
+        }
+      } catch (err) {
+        console.warn('Wysyłka FormSubmit w tle nie powiodła się, uruchamiam bezpieczny fallback mailto:', err);
+        const mailtoUrl = `mailto:spoleczna_chelm@wp.pl?subject=${encodeURIComponent('[Formularz WWW] ' + subject)}&body=${encodeURIComponent(
+          `Imię i nazwisko: ${name}\nTelefon: ${phone}\nE-mail: ${email}\nTemat: ${subject}\n\nWiadomość:\n${message}`
+        )}`;
+        
+        if (formStatus) {
+          formStatus.style.display = 'block';
+          formStatus.style.background = '#EFF6FF';
+          formStatus.style.color = '#1E40AF';
+          formStatus.style.border = '1px solid #BFDBFE';
+          formStatus.innerHTML = `<i class="fa-solid fa-envelope-open-text"></i> Otwieramy Twój program pocztowy z gotową wiadomością do <strong>spoleczna_chelm@wp.pl</strong>. <a href="${mailtoUrl}" style="color: #1E3A8A; text-decoration: underline; font-weight: bold;">Kliknij tutaj, jeśli okno poczty się nie otworzyło</a>.`;
+        }
+        window.location.href = mailtoUrl;
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalBtnHtml;
+        }
+      }
     });
   }
 
