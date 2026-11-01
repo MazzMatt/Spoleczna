@@ -295,4 +295,57 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // ------------------------------------------------------------------
+  // 6. WYSZUKIWARKA I FILTROWANIE KADRY (kadra.html)
+  // ------------------------------------------------------------------
+  const staffFilterBtns = document.querySelectorAll('.staff-filter-btn');
+  const staffCategoryBlocks = document.querySelectorAll('.staff-category-block');
+  const staffSearchInput = document.getElementById('staff-search-input');
+
+  function filterStaffList() {
+    const activeBtn = document.querySelector('.staff-filter-btn.active');
+    const activeFilter = activeBtn ? activeBtn.getAttribute('data-filter') : 'all';
+    const query = staffSearchInput ? staffSearchInput.value.toLowerCase().trim() : '';
+
+    staffCategoryBlocks.forEach(block => {
+      const blockCategory = block.getAttribute('data-category');
+      const categoryMatches = (activeFilter === 'all' || blockCategory === activeFilter);
+
+      const cards = block.querySelectorAll('.staff-card, .management-card');
+      let visibleCount = 0;
+
+      cards.forEach(card => {
+        const text = card.innerText.toLowerCase();
+        const matchesQuery = !query || text.includes(query);
+
+        if (matchesQuery) {
+          card.style.display = 'flex';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      if (categoryMatches && visibleCount > 0) {
+        block.style.display = 'block';
+      } else {
+        block.style.display = 'none';
+      }
+    });
+  }
+
+  if (staffFilterBtns.length) {
+    staffFilterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        staffFilterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        filterStaffList();
+      });
+    });
+  }
+
+  if (staffSearchInput) {
+    staffSearchInput.addEventListener('input', filterStaffList);
+  }
+
 });

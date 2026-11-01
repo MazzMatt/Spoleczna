@@ -1,6 +1,5 @@
 # 🎓 Pierwsza Społeczna Szkoła Podstawowa w Chełmie (Sapere Aude)
 ## Oficjalna nowoczesna strona internetowa placówki
-**Źródło danych i struktury:** [sapereaude.edu.pl](https://www.sapereaude.edu.pl/index.php)
 
 ---
 

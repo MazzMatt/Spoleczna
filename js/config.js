@@ -1,7 +1,6 @@
 /**
  * ====================================================================
  * KONFIGURACJA STRONY: PIERWSZA SPOŁECZNA SZKOŁA PODSTAWOWA W CHEŁMIE
- * Źródło danych: https://www.sapereaude.edu.pl/index.php
  * ====================================================================
  */
 
@@ -33,7 +32,6 @@ const SCHOOL_CONFIG = {
     phone: "82 565 45 54",
     phoneDisplay: "tel. 82 565 45 54",
     email: "spoleczna_chelm@wp.pl",
-    website: "https://www.sapereaude.edu.pl",
     openingHours: "Poniedziałek – Piątek: 7:30 – 15:00",
     
     // Oficjalne nowe logo szkoły
