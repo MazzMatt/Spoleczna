@@ -1,0 +1,16 @@
+name: Keep Render Alive
+
+on:
+  schedule:
+    # Wywołanie co 10 minut zapobiega uśpieniu darmowego serwera Render
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+
+jobs:
+  keep-alive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Strapi Cloud API
+        run: |
+          echo "Pinging https://spoleczna.onrender.com..."
+          curl -s -f --max-time 30 "https://spoleczna.onrender.com/api/galerias?populate=*" > /dev/null && echo "Render is awake and running!" || echo "Ping sent."

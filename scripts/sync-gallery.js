@@ -12,29 +12,45 @@ async function syncGallery() {
   console.log('🔄 SYNCHRONIZACJA GALERII DLA GITHUB PAGES / HOSTINGU');
   console.log('============================================================\n');
 
-  const strapiUrl = process.env.STRAPI_URL || 'http://localhost:1337';
+  const cloudUrl = 'https://spoleczna.onrender.com';
+  const localUrl = 'http://localhost:1337';
+  const urlsToTry = [process.env.STRAPI_URL, cloudUrl, localUrl].filter(Boolean);
+
+  let success = false;
+
+  for (const strapiUrl of urlsToTry) {
+    try {
+      console.log(`Pobieranie danych ze Strapi (${strapiUrl}/api/galerias?populate=*)...`);
+      const res = await fetch(`${strapiUrl}/api/galerias?populate=*`, { signal: AbortSignal.timeout(10000) });
+      if (!res.ok) {
+        continue;
+      }
+
+      const data = await res.json();
+      const count = data.data?.length || 0;
+      console.log(`   ✅ Pobrano ${count} ${count === 1 ? 'folder' : 'folderów'} ze Strapi.\n`);
+
+      // 2. Zapis do data/galerie.json
+      const dataDir = path.join(rootDir, 'data');
+      if (!fs.existsSync(dataDir)) {
+        fs.mkdirSync(dataDir, { recursive: true });
+      }
+
+      const jsonPath = path.join(dataDir, 'galerie.json');
+      fs.writeFileSync(jsonPath, JSON.stringify(data, null, 2), 'utf-8');
+      console.log(`2. Zapisano plik danych dla hostingu:`);
+      console.log(`   ✅ ${jsonPath}\n`);
+      success = true;
+      break;
+    } catch (e) {
+      // Próbuj kolejny URL
+    }
+  }
 
   try {
-    console.log(`1. Pobieranie danych ze Strapi (${strapiUrl}/api/galerias?populate=*)...`);
-    const res = await fetch(`${strapiUrl}/api/galerias?populate=*`, { signal: AbortSignal.timeout(3000) });
-    if (!res.ok) {
-      throw new Error(`Błąd połączenia ze Strapi: HTTP ${res.status}`);
+    if (!success) {
+      throw new Error('Nie udało się pobrać danych z żadnego adresu Strapi.');
     }
-
-    const data = await res.json();
-    const count = data.data?.length || 0;
-    console.log(`   ✅ Pobrano ${count} ${count === 1 ? 'folder' : 'folderów'} ze Strapi.\n`);
-
-    // 2. Zapis do data/galerie.json
-    const dataDir = path.join(rootDir, 'data');
-    if (!fs.existsSync(dataDir)) {
-      fs.mkdirSync(dataDir, { recursive: true });
-    }
-
-    const jsonPath = path.join(dataDir, 'galerie.json');
-    fs.writeFileSync(jsonPath, JSON.stringify(data, null, 2), 'utf-8');
-    console.log(`2. Zapisano plik danych dla hostingu:`);
-    console.log(`   ✅ ${jsonPath}\n`);
 
     // 3. Kopiowanie zdjęć z backend/public/uploads do uploads/ w katalogu głównym
     const backendUploads = path.join(rootDir, 'backend', 'public', 'uploads');

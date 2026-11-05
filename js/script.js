@@ -959,7 +959,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function syncFromCloudBackend(isManual = false) {
       const endpoint = `${activeStrapiBase}/api/galerias?populate=*`;
       try {
-        const timeoutMs = isManual ? 45000 : 7000;
+        const timeoutMs = isManual ? 45000 : 35000;
         const fetchOptions = typeof AbortSignal !== 'undefined' && AbortSignal.timeout
           ? { signal: AbortSignal.timeout(timeoutMs) }
           : {};
