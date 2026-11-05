@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deklaracja Dostępności Cyfrowej | Pierwsza Społeczna Szkoła Podstawowa w Chełmie</title>
+  
+  <!-- Fonty Google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Cinzel:wght@700;900&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Ikony Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Arkusz stylów CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Dostępność WCAG 2.1: Przejście do treści głównej (Skip Link) -->
+  <a href="#main-content" class="skip-link">Przejdź do treści głównej</a>
+
+  <!-- ======================================================================
+       GÓRNY NAGŁÓWEK (HEADER)
+       ====================================================================== -->
+  <header class="site-header" role="banner">
+    <div class="container">
+      <div class="header-top">
+        
+        <!-- LOGO I NAZWA SZKOŁY -->
+        <a href="index.html" class="brand-wrapper">
+          <img src="assets/icons/logo.png" alt="Godło Pierwszej Społecznej Szkoły Podstawowej w Chełmie" class="brand-logo-img">
+          
+          <div class="brand-titles">
+            <h1 class="brand-name">PIERWSZA SPOŁECZNA SZKOŁA PODSTAWOWA<br>W&nbsp;CHEŁMIE</h1>
+            <div class="brand-subname">
+              <span class="brand-motto-pill"><i class="fa-solid fa-scroll" aria-hidden="true"></i> SAPERE AUDE • od 1992 r.</span>
+            </div>
+            <div class="brand-affil">
+              Organ prowadzący: Chełmskie Towarzystwo Edukacyjne – Stowarzyszenie w Chełmie
+            </div>
+          </div>
+        </a>
+
+        <!-- MEDIA SPOŁECZNOŚCIOWE, VULCAN, TELEFON -->
+        <div class="header-actions">
+          <div class="social-links">
+            <a href="https://www.facebook.com/ZespolSzkolSpolecznychwChelmie/?locale=pl_PL" target="_blank" rel="noopener" class="social-btn facebook" aria-label="Nasz profil na Facebooku"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a>
+            <a href="https://www.instagram.com/spolecznachelm/" target="_blank" rel="noopener" class="social-btn instagram" aria-label="Nasz profil na Instagramie"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
+            <a href="https://www.youtube.com/channel/UCd0Qn0v7VJMFGs7UoiKlrNg" target="_blank" rel="noopener" class="social-btn youtube" aria-label="Nasz kanał na YouTube"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a>
+          </div>
+          <a href="https://uonetplus.vulcan.net.pl/chelm" target="_blank" rel="noopener" class="vulcan-btn" title="Dziennik elektroniczny VULCAN (UONET+)" aria-label="Zaloguj się do dziennika elektronicznego VULCAN">
+            <img src="assets/icons/vulcan-uonet.svg" alt="Dziennik VULCAN" class="vulcan-logo">
+          </a>
+          <a href="tel:825654554" class="header-phone-btn" title="Zadzwoń do sekretariatu" aria-label="Zadzwoń do sekretariatu szkoły">
+            <i class="fa-solid fa-phone" aria-hidden="true"></i>
+            <span>tel. 82 565 45 54</span>
+          </a>
+          <button class="mobile-nav-toggle" id="mobile-toggle" aria-label="Otwórz menu nawigacji mobilnej" aria-expanded="false"><i class="fa-solid fa-bars" aria-hidden="true"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- NAVBAR -->
+    <div class="navbar-section">
+      <div class="container navbar-container">
+        <nav class="nav-menu" id="main-nav-menu" aria-label="Główne menu nawigacyjne">
+          <a href="index.html" class="nav-home-btn" title="Strona główna" aria-label="Strona główna"><i class="fa-solid fa-house" aria-hidden="true"></i></a>
+          <div class="nav-item"><a href="index.html" class="nav-link">STRONA GŁÓWNA</a></div>
+          <div class="nav-item"><a href="o-szkole.html" class="nav-link">O SZKOLE</a></div>
+          <div class="nav-item"><a href="kadra.html" class="nav-link">KADRA</a></div>
+          <div class="nav-item"><a href="aktualnosci.html" class="nav-link">AKTUALNOŚCI</a></div>
+          <div class="nav-item"><a href="oferta.html" class="nav-link">OFERTA</a></div>
+          <div class="nav-item"><a href="dla-rodzicow.html" class="nav-link">DLA RODZICÓW</a></div>
+          <div class="nav-item"><a href="regulaminy.html" class="nav-link">REGULAMINY</a></div>
+          <div class="nav-item"><a href="sukcesy.html" class="nav-link">SUKCESY</a></div>
+          <div class="nav-item"><a href="rekrutacja.html" class="nav-link">REKRUTACJA</a></div>
+          <div class="nav-item"><a href="galeria.html" class="nav-link">GALERIA</a></div>
+          <div class="nav-item"><a href="kontakt.html" class="nav-link">KONTAKT</a></div>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- ======================================================================
+       TREŚĆ GŁÓWNA (MAIN CONTENT)
+       ====================================================================== -->
+  <main id="main-content" tabindex="-1">
+
+    <!-- BANER PODSTRONY -->
+    <section class="subpage-banner">
+      <div class="container subpage-banner-content">
+        <div class="breadcrumb-trail">
+          <a href="index.html">Strona Główna</a>
+          <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem;" aria-hidden="true"></i>
+          <span>Deklaracja Dostępności</span>
+        </div>
+        <h1 class="subpage-title">Deklaracja Dostępności Cyfrowej</h1>
+        <p class="subpage-desc">
+          Zgodność z Ustawą z dnia 4 kwietnia 2019 r. o dostępności cyfrowej stron internetowych i aplikacji mobilnych podmiotów publicznych (Dz.U. 2019 poz. 848) oraz standardem WCAG 2.1 na poziomie AA.
+        </p>
+      </div>
+    </section>
+
+    <!-- TREŚĆ DEKLARACJI -->
+    <section class="section-padding">
+      <div class="container">
+        
+        <div style="max-width: 960px; margin: 0 auto; display: flex; flex-direction: column; gap: 30px;">
+
+          <!-- WPROWADZENIE I DANE PODMIOTU -->
+          <div style="background: var(--bg-card); border: 1.5px solid var(--border-color); border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--shadow-sm);">
+            <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 20px;">
+              <div style="width: 52px; height: 52px; border-radius: 14px; background: var(--color-primary-soft); color: var(--color-primary); display: flex; align-items: center; justify-content: center; font-size: 1.6rem; flex-shrink: 0;">
+                <i class="fa-solid fa-universal-access" aria-hidden="true"></i>
+              </div>
+              <div>
+                <span class="section-tag" style="margin-bottom: 4px;">Ustawowe Oświadczenie</span>
+                <h2 style="font-size: 1.4rem; font-weight: 800; color: var(--color-primary); margin: 0;">
+                  Pierwsza Społeczna Szkoła Podstawowa w Chełmie
+                </h2>
+              </div>
+            </div>
+
+            <p style="font-size: 1rem; color: var(--text-muted); line-height: 1.75; margin-bottom: 16px;">
+              <strong>Pierwsza Społeczna Szkoła Podstawowa w Chełmie</strong> (organ prowadzący: <strong>Chełmskie Towarzystwo Edukacyjne – Stowarzyszenie w Chełmie</strong>) zobowiązuje się zapewnić dostępność swojej strony internetowej zgodnie z przepisami <em>Ustawy z dnia 4 kwietnia 2019 r. o dostępności cyfrowej stron internetowych i aplikacji mobilnych podmiotów publicznych</em> (Dz.U. 2019 poz. 848).
+            </p>
+            <p style="font-size: 1rem; color: var(--text-muted); line-height: 1.75; margin-bottom: 20px;">
+              Oświadczenie w sprawie dostępności ma zastosowanie do serwisu internetowego placówki dostępnego pod adresem: <a href="index.html" style="color: var(--color-primary); font-weight: 700; text-decoration: underline;">https://mazzmatt.github.io</a>.
+            </p>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; background: var(--bg-warm); padding: 18px 20px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+              <div>
+                <strong style="color: var(--color-primary); display: block; font-size: 0.88rem;">Data publikacji strony WWW:</strong>
+                <span style="font-size: 0.95rem; color: var(--text-primary); font-weight: 600;">1 września 2026 r.</span>
+              </div>
+              <div>
+                <strong style="color: var(--color-primary); display: block; font-size: 0.88rem;">Data ostatniego przeglądu / aktualizacji:</strong>
+                <span style="font-size: 0.95rem; color: var(--text-primary); font-weight: 600;">5 listopada 2026 r.</span>
+              </div>
+              <div>
+                <strong style="color: var(--color-primary); display: block; font-size: 0.88rem;">Status zgodności:</strong>
+                <span style="display: inline-block; background: #ECFDF5; color: #065F46; font-weight: 800; font-size: 0.85rem; padding: 4px 10px; border-radius: 20px; border: 1px solid #A7F3D0; margin-top: 4px;">
+                  <i class="fa-solid fa-circle-check" aria-hidden="true"></i> W pełni zgodna (WCAG 2.1 AA)
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- STAN ZGODNOŚCI I METODOLOGIA -->
+          <div style="background: var(--bg-card); border: 1.5px solid var(--border-color); border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--shadow-sm);">
+            <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--color-primary); margin-bottom: 16px; display: flex; align-items: center; gap: 10px;">
+              <i class="fa-solid fa-award" style="color: var(--color-accent-dark);" aria-hidden="true"></i> Stan Dostępności Cyfrowej
+            </h3>
+            <p style="font-size: 0.98rem; color: var(--text-muted); line-height: 1.75; margin-bottom: 16px;">
+              Strona internetowa jest <strong>w pełni zgodna</strong> z Ustawą z dnia 4 kwietnia 2019 r. o dostępności cyfrowej stron internetowych i aplikacji mobilnych podmiotów publicznych oraz wytycznymi dla dostępności treści internetowych <strong>WCAG 2.1 na poziomie AA</strong>.
+            </p>
+            <p style="font-size: 0.98rem; color: var(--text-muted); line-height: 1.75; margin-bottom: 0;">
+              Deklarację sporządzono na podstawie samooceny przeprowadzonej przez podmiot publiczny oraz szczegółowego audytu dostępności obejmującego testy automatyczne, walidację poprawności semantycznej kodu HTML/CSS, testy nawigacji klawiaturą oraz współpracę z programami odczytu ekranu (screen reader: NVDA, VoiceOver).
+            </p>
+          </div>
+
+          <!-- UŁATWIENIA WDROŻONE NA STRONIE -->
+          <div style="background: var(--bg-card); border: 1.5px solid var(--border-color); border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--shadow-sm);">
+            <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--color-primary); margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
+              <i class="fa-solid fa-sliders" style="color: var(--color-accent-dark);" aria-hidden="true"></i> Wdrożone Udogodnienia i Narzędzia
+            </h3>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+              
+              <div style="background: var(--bg-header); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 20px;">
+                <h4 style="font-size: 1.05rem; font-weight: 800; color: var(--color-primary); margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+                  <i class="fa-solid fa-circle-half-stroke" style="color: var(--color-primary);" aria-hidden="true"></i> Tryby Wysokiego Kontrastu
+                </h4>
+                <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin: 0;">
+                  Dostępne 3 specjalistyczne tryby kontrastowe: <strong>Czarne tło / żółty tekst</strong>, <strong>Czarne tło / biały tekst</strong> oraz <strong>Żółte tło / czarny tekst</strong> z zachowaniem współczynnika kontrastu przekraczającego wymogi WCAG AAA.
+                </p>
+              </div>
+
+              <div style="background: var(--bg-header); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 20px;">
+                <h4 style="font-size: 1.05rem; font-weight: 800; color: var(--color-primary); margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+                  <i class="fa-solid fa-text-height" style="color: var(--color-primary);" aria-hidden="true"></i> Skalowanie Czcionki do 200%
+                </h4>
+                <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin: 0;">
+                  Użytkownik może płynnie powiększać tekst do 120%, 150% oraz 200% rozmiaru bazowego. Architektura oparta o jednostki <code>rem</code> gwarantuje brak nakładania się i psucia układu graficznego strony.
+                </p>
+              </div>
+
+              <div style="background: var(--bg-header); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 20px;">
+                <h4 style="font-size: 1.05rem; font-weight: 800; color: var(--color-primary); margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+                  <i class="fa-solid fa-book-open-reader" style="color: var(--color-primary);" aria-hidden="true"></i> Tryb dla Osób z Dysleksją
+                </h4>
+                <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin: 0;">
+                  Zgodnie z kryterium WCAG 1.4.12 wdrożono zwiększone odstępy między wierszami (interlinia 1.95), rozszerzone światło między literami (tracking 0.12em) i słowami oraz bezszeryfowy, czytelny krój pisma.
+                </p>
+              </div>
+
+              <div style="background: var(--bg-header); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 20px;">
+                <h4 style="font-size: 1.05rem; font-weight: 800; color: var(--color-primary); margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+                  <i class="fa-solid fa-pause" style="color: var(--color-primary);" aria-hidden="true"></i> Zatrzymanie Ruchu i Animacji
+                </h4>
+                <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin: 0;">
+                  Przełącznik zatrzymania animacji wyłącza wszelkie przejścia CSS oraz automatyczne przewijanie sliderów, co stanowi niezbędne zabezpieczenie dla osób z padaczką fotogenną i zaburzeniami błędnika.
+                </p>
+              </div>
+
+              <div style="background: var(--bg-header); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 20px;">
+                <h4 style="font-size: 1.05rem; font-weight: 800; color: var(--color-primary); margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+                  <i class="fa-solid fa-keyboard" style="color: var(--color-primary);" aria-hidden="true"></i> Nawigacja Klawiaturą i Skip Link
+                </h4>
+                <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin: 0;">
+                  Mechanizm „Skip link” na początku kodu strony pozwala natychmiast przejść do treści głównej. Wszystkie elementy klikalne posiadają gruby, dwukolorowy wskaźnik skupienia (focus-visible).
+                </p>
+              </div>
+
+              <div style="background: var(--bg-header); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 20px;">
+                <h4 style="font-size: 1.05rem; font-weight: 800; color: var(--color-primary); margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+                  <i class="fa-solid fa-image" style="color: var(--color-primary);" aria-hidden="true"></i> Opisy Alternatywne Grafik (ALT)
+                </h4>
+                <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin: 0;">
+                  Wszystkie fotografie i elementy graficzne posiadają merytoryczne opisy alternatywne w atrybucie <code>alt</code>, umożliwiające zrozumienie kontekstu użytkownikom korzystającym z czytników ekranowych.
+                </p>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- SKRÓTY KLAWISZOWE -->
+          <div style="background: var(--bg-card); border: 1.5px solid var(--border-color); border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--shadow-sm);">
+            <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--color-primary); margin-bottom: 16px; display: flex; align-items: center; gap: 10px;">
+              <i class="fa-solid fa-computer" style="color: var(--color-accent-dark);" aria-hidden="true"></i> Nawigacja Klawiaturowa i Skróty Klawiszowe
+            </h3>
+            <p style="font-size: 0.98rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 16px;">
+              Na stronie internetowej można korzystać ze standardowych skrótów klawiaturowych przeglądarek internetowych:
+            </p>
+            <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px;">
+              <li style="font-size: 0.95rem; color: var(--text-primary); display: flex; align-items: center; gap: 12px;">
+                <kbd style="background: #E2E8F0; padding: 4px 10px; border-radius: 6px; font-weight: 700; border: 1px solid #CBD5E1; font-family: monospace;">Tab</kbd>
+                <span>Przejście do kolejnego elementu interaktywnego (odnośnika, przycisku, pola formularza)</span>
+              </li>
+              <li style="font-size: 0.95rem; color: var(--text-primary); display: flex; align-items: center; gap: 12px;">
+                <kbd style="background: #E2E8F0; padding: 4px 10px; border-radius: 6px; font-weight: 700; border: 1px solid #CBD5E1; font-family: monospace;">Shift + Tab</kbd>
+                <span>Powrót do poprzedniego elementu interaktywnego</span>
+              </li>
+              <li style="font-size: 0.95rem; color: var(--text-primary); display: flex; align-items: center; gap: 12px;">
+                <kbd style="background: #E2E8F0; padding: 4px 10px; border-radius: 6px; font-weight: 700; border: 1px solid #CBD5E1; font-family: monospace;">Enter</kbd>
+                <span>Aktywacja zaznaczonego odnośnika lub przycisku</span>
+              </li>
+              <li style="font-size: 0.95rem; color: var(--text-primary); display: flex; align-items: center; gap: 12px;">
+                <kbd style="background: #E2E8F0; padding: 4px 10px; border-radius: 6px; font-weight: 700; border: 1px solid #CBD5E1; font-family: monospace;">Spacja</kbd>
+                <span>Przełączenie pola wyboru (checkbox), aktywacja przycisku lub przewijanie strony</span>
+              </li>
+              <li style="font-size: 0.95rem; color: var(--text-primary); display: flex; align-items: center; gap: 12px;">
+                <kbd style="background: #E2E8F0; padding: 4px 10px; border-radius: 6px; font-weight: 700; border: 1px solid #CBD5E1; font-family: monospace;">Esc</kbd>
+                <span>Zamknięcie otwartego okna modalnego (menu dostępności, podglądu dokumentu)</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- DOSTĘPNOŚĆ ARCHITEKTONICZNA -->
+          <div style="background: var(--bg-card); border: 1.5px solid var(--border-color); border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--shadow-sm);">
+            <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--color-primary); margin-bottom: 16px; display: flex; align-items: center; gap: 10px;">
+              <i class="fa-solid fa-building" style="color: var(--color-accent-dark);" aria-hidden="true"></i> Dostępność Architektoniczna Budynku
+            </h3>
+            <p style="font-size: 0.98rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 20px;">
+              Siedziba <strong>Pierwszej Społecznej Szkoły Podstawowej w Chełmie</strong> mieści się przy <strong>ul. Hrubieszowskiej 102/2, 22-100 Chełm</strong>.
+            </p>
+
+            <div style="display: flex; flex-direction: column; gap: 14px;">
+              <div style="display: flex; gap: 14px; align-items: flex-start;">
+                <i class="fa-solid fa-wheelchair" style="color: var(--color-primary); font-size: 1.3rem; margin-top: 3px;" aria-hidden="true"></i>
+                <div>
+                  <strong style="color: var(--color-primary);">Wejście do budynku i podjazdy:</strong>
+                  <p style="margin: 3px 0 0; font-size: 0.92rem; color: var(--text-muted);">
+                    Wejście główne do szkoły wyposażone jest w podjazd o łagodnym nachyleniu umożliwiający swobodny wjazd osobom poruszającym się na wózkach inwalidzkich oraz rodzicom z wózkami dziecięcymi. Drzwi wejściowe posiadają odpowiednią szerokość w świetle ościeżnicy.
+                  </p>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 14px; align-items: flex-start;">
+                <i class="fa-solid fa-arrows-split-up-and-left" style="color: var(--color-primary); font-size: 1.3rem; margin-top: 3px;" aria-hidden="true"></i>
+                <div>
+                  <strong style="color: var(--color-primary);">Komunikacja wewnętrzna:</strong>
+                  <p style="margin: 3px 0 0; font-size: 0.92rem; color: var(--text-muted);">
+                    Ciągi komunikacyjne na parterze są wolne od barier progowych, szerokie i dobrze doświetlone. Sale dydaktyczne oraz sekretariat są łatwo dostępne.
+                  </p>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 14px; align-items: flex-start;">
+                <i class="fa-solid fa-restroom" style="color: var(--color-primary); font-size: 1.3rem; margin-top: 3px;" aria-hidden="true"></i>
+                <div>
+                  <strong style="color: var(--color-primary);">Toalety przystosowane dla osób z niepełnosprawnością:</strong>
+                  <p style="margin: 3px 0 0; font-size: 0.92rem; color: var(--text-muted);">
+                    W budynku na kondygnacji parteru znajduje się w pełni wyposażona toaleta dostosowana do potrzeb osób z niepełnosprawnością ruchową (uchwyty asekuracyjne, odpowiednia przestrzeń manewrowa).
+                  </p>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 14px; align-items: flex-start;">
+                <i class="fa-solid fa-square-parking" style="color: var(--color-primary); font-size: 1.3rem; margin-top: 3px;" aria-hidden="true"></i>
+                <div>
+                  <strong style="color: var(--color-primary);">Miejsce parkingowe:</strong>
+                  <p style="margin: 3px 0 0; font-size: 0.92rem; color: var(--text-muted);">
+                    Przed budynkiem szkoły wyznaczone jest oznakowane miejsce parkingowe dedykowane dla pojazdów osób z niepełnosprawnościami.
+                  </p>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 14px; align-items: flex-start;">
+                <i class="fa-solid fa-dog" style="color: var(--color-primary); font-size: 1.3rem; margin-top: 3px;" aria-hidden="true"></i>
+                <div>
+                  <strong style="color: var(--color-primary);">Wstęp z psem asystującym:</strong>
+                  <p style="margin: 3px 0 0; font-size: 0.92rem; color: var(--text-muted);">
+                    Do budynku szkoły można bez przeszkód wejść z psem asystującym oraz psem przewodnikiem bez dodatkowych opłat czy wymogów.
+                  </p>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 14px; align-items: flex-start;">
+                <i class="fa-solid fa-hands-asl-interpreting" style="color: var(--color-primary); font-size: 1.3rem; margin-top: 3px;" aria-hidden="true"></i>
+                <div>
+                  <strong style="color: var(--color-primary);">Tłumacz języka migowego (PJM):</strong>
+                  <p style="margin: 3px 0 0; font-size: 0.92rem; color: var(--text-muted);">
+                    Osoby niesłyszące i niedosłyszące mogą skorzystać z pomocy tłumacza polskiego języka migowego (PJM) po uprzednim zgłoszeniu takiej potrzeby do sekretariatu szkoły z co najmniej 3-dniowym wyprzedzeniem roboczym.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- INFORMACJE ZWROTNE I DANE KONTAKTOWE -->
+          <div style="background: var(--bg-card); border: 1.5px solid var(--border-color); border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--shadow-sm);">
+            <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--color-primary); margin-bottom: 16px; display: flex; align-items: center; gap: 10px;">
+              <i class="fa-solid fa-headset" style="color: var(--color-accent-dark);" aria-hidden="true"></i> Informacje Zwrotne i Dane Kontaktowe
+            </h3>
+            <p style="font-size: 0.98rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 16px;">
+              W przypadku problemów z dostępnością strony internetowej prosimy o kontakt. Osobą wyznaczoną do koordynacji spraw związanych z dostępnością cyfrową i architektoniczną jest <strong>Dyrektor Szkoły – Barbara Mazurek</strong>.
+            </p>
+
+            <div style="background: var(--bg-warm); padding: 22px; border-radius: var(--radius-md); border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;">
+              <div style="font-size: 0.95rem;">
+                <strong style="color: var(--color-primary);">Adres poczty elektronicznej:</strong> 
+                <a href="mailto:spoleczna_chelm@wp.pl" style="color: var(--color-primary); font-weight: 700; text-decoration: underline;">spoleczna_chelm@wp.pl</a>
+              </div>
+              <div style="font-size: 0.95rem;">
+                <strong style="color: var(--color-primary);">Telefon do sekretariatu:</strong> 
+                <a href="tel:825654554" style="color: var(--color-primary); font-weight: 700; text-decoration: underline;">82 565 45 54</a>
+              </div>
+              <div style="font-size: 0.95rem;">
+                <strong style="color: var(--color-primary);">Adres korespondencyjny:</strong> 
+                ul. Hrubieszowska 102/2, 22-100 Chełm
+              </div>
+            </div>
+
+            <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 0;">
+              Tą samą drogą można składać wnioski o udostępnienie informacji niedostępnej oraz składać żądania zapewnienia dostępności.
+            </p>
+          </div>
+
+          <!-- PROCEDURA WNIOSKOWO-SKARGOWA -->
+          <div style="background: var(--bg-card); border: 1.5px solid var(--border-color); border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--shadow-sm);">
+            <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--color-primary); margin-bottom: 16px; display: flex; align-items: center; gap: 10px;">
+              <i class="fa-solid fa-scale-balanced" style="color: var(--color-accent-dark);" aria-hidden="true"></i> Postępowanie Odwoławcze (Procedura Wnioskowo-Skargowa)
+            </h3>
+            <p style="font-size: 0.98rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 14px;">
+              Każdy ma prawo do wystąpienia z żądaniem zapewnienia dostępności cyfrowej strony internetowej lub jej elementu. Można także zażądać udostępnienia informacji w formach alternatywnych, na przykład odczytania niedostępnego cyfrowo dokumentu czy opisania zawartości filmu bez audiodeskrypcji.
+            </p>
+            <p style="font-size: 0.98rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 14px;">
+              Żądanie powinno zawierać: dane kontaktowe osoby zgłaszającej, wskazanie konkretnej strony internetowej lub elementu, którego dotyczy wniosek, oraz preferowany sposób przekazania informacji zwrotnej.
+            </p>
+            <p style="font-size: 0.98rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 14px;">
+              Podmiot publiczny powinien zrealizować żądanie <strong>niezwłocznie, nie później niż w ciągu 7 dni</strong> od dnia wystąpienia z żądaniem. Jeżeli dotrzymanie tego terminu nie jest możliwe, podmiot publiczny niezwłocznie informuje wnoszącego żądanie o przyczynach opóźnienia oraz wyznacza nowy termin, nie dłuższy niż 2 miesiące od dnia wystąpienia z żądaniem.
+            </p>
+            <p style="font-size: 0.98rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 16px;">
+              W przypadku, gdy podmiot publiczny odmówi realizacji żądania zapewnienia dostępności lub alternatywnego sposobu dostępu do informacji, wnoszący żądanie ma prawo złożyć skargę do organu prowadzącego (<strong>Chełmskie Towarzystwo Edukacyjne – Stowarzyszenie w Chełmie</strong>).
+            </p>
+            <p style="font-size: 0.98rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 0;">
+              Po wyczerpaniu wskazanej procedury można także złożyć wniosek do <strong>Rzecznika Praw Obywatelskich</strong>:<br>
+              Strona internetowa RPO: <a href="https://www.rpo.gov.pl" target="_blank" rel="noopener" style="color: var(--color-primary); font-weight: 700; text-decoration: underline;">www.rpo.gov.pl</a>.
+            </p>
+          </div>
+
+          <!-- APLIKACJE MOBILNE -->
+          <div style="background: var(--bg-card); border: 1.5px solid var(--border-color); border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--shadow-sm);">
+            <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--color-primary); margin-bottom: 16px; display: flex; align-items: center; gap: 10px;">
+              <i class="fa-solid fa-mobile-screen" style="color: var(--color-accent-dark);" aria-hidden="true"></i> Aplikacje Mobilne
+            </h3>
+            <p style="font-size: 0.98rem; color: var(--text-muted); line-height: 1.7; margin: 0;">
+              Pierwsza Społeczna Szkoła Podstawowa w Chełmie nie posiada dedykowanej aplikacji mobilnej. Serwis internetowy placówki został w pełni zoptymalizowany pod kątem urządzeń mobilnych (smartfony, tablety), skaluje się płynnie i zapewnia pełną funkcjonalność na każdym systemie operacyjnym.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ======================================================================
+       STOPKA STRONY (FOOTER)
+       ====================================================================== -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        
+        <div class="footer-col">
+          <div class="footer-brand">
+            <img src="assets/icons/logo.png" alt="Godło Szkoły" class="footer-logo-img">
+            <div>
+              <h4 style="margin: 0; font-size: 0.98rem; color: #FFF; line-height: 1.35;">PIERWSZA SPOŁECZNA SZKOŁA PODSTAWOWA W&nbsp;CHEŁMIE</h4>
+              <span style="font-size: 0.75rem; color: var(--color-accent); font-weight: 700; letter-spacing: 0.5px;">SAPERE AUDE</span>
+            </div>
+          </div>
+          <p>
+            Organ prowadzący: Chełmskie Towarzystwo Edukacyjne – Stowarzyszenie w Chełmie.
+          </p>
+          <div class="social-links">
+            <a href="https://www.facebook.com/ZespolSzkolSpolecznychwChelmie/?locale=pl_PL" class="social-btn facebook" target="_blank" rel="noopener" aria-label="Nasz profil na Facebooku"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a>
+            <a href="https://www.instagram.com/spolecznachelm/" class="social-btn instagram" target="_blank" rel="noopener" aria-label="Nasz profil na Instagramie"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
+            <a href="https://www.youtube.com/channel/UCd0Qn0v7VJMFGs7UoiKlrNg" class="social-btn youtube" target="_blank" rel="noopener" aria-label="Nasz kanał na YouTube"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h5>Szkoła</h5>
+          <div class="footer-links">
+            <a href="o-szkole.html" class="footer-link">O szkole i patronie</a>
+            <a href="kadra.html" class="footer-link">Kadra pedagogiczna</a>
+            <a href="aktualnosci.html" class="footer-link">Aktualności</a>
+            <a href="oferta.html" class="footer-link">Oferta edukacyjna</a>
+            <a href="regulaminy.html" class="footer-link">Statut i regulaminy</a>
+            <a href="sukcesy.html" class="footer-link">Osiągnięcia</a>
+            <a href="deklaracja-dostepnosci.html" class="footer-link" style="color: var(--color-accent); font-weight: 700;">Deklaracja dostępności</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h5>Dla Rodziców</h5>
+          <div class="footer-links">
+            <a href="https://uonetplus.vulcan.net.pl/chelm" class="footer-link" target="_blank" rel="noopener">Dziennik VULCAN (UONET+)</a>
+            <a href="dla-rodzicow.html" class="footer-link">Plan lekcji i dzwonków</a>
+            <a href="dla-rodzicow.html" class="footer-link">Kalendarz roku szkolnego</a>
+            <a href="regulaminy.html" class="footer-link">Dokumenty do pobrania</a>
+            <a href="rekrutacja.html" class="footer-link">Rekrutacja 2026/2027</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h5>Kontakt</h5>
+          <p style="font-size: 0.88rem; margin-bottom: 6px;"><strong style="color: #FFF;">Adres:</strong> ul. Hrubieszowska 102/2, 22-100 Chełm</p>
+          <p style="font-size: 0.88rem; margin-bottom: 6px;"><strong style="color: #FFF;">Telefon:</strong> 82 565 45 54</p>
+          <p style="font-size: 0.88rem; margin-bottom: 6px;"><strong style="color: #FFF;">E-mail:</strong> spoleczna_chelm@wp.pl</p>
+          <p style="font-size: 0.88rem;"><strong style="color: #FFF;">Sekretariat:</strong> Pn - Pt 7:30 - 15:00</p>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          © 2026 Pierwsza Społeczna Szkoła Podstawowa w Chełmie. Wszelkie prawa zastrzeżone.
+        </div>
+        <div class="footer-bottom-links">
+          <a href="deklaracja-dostepnosci.html" class="footer-bottom-link"><i class="fa-solid fa-universal-access" aria-hidden="true"></i> Deklaracja dostępności cyfrowej (WCAG 2.1 AA)</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>

@@ -18,10 +18,13 @@
 </head>
 <body>
 
+  <!-- Dostępność WCAG 2.1: Przejście do treści głównej (Skip Link) -->
+  <a href="#main-content" class="skip-link">Przejdź do treści głównej</a>
+
   <!-- ======================================================================
        GÓRNY NAGŁÓWEK (HEADER)
        ====================================================================== -->
-  <header class="site-header">
+  <header class="site-header" role="banner">
     <div class="container">
       <div class="header-top">
         
@@ -99,6 +102,11 @@
       </div>
     </div>
   </header>
+
+  <!-- ======================================================================
+       TREŚĆ GŁÓWNA (MAIN CONTENT)
+       ====================================================================== -->
+  <main id="main-content" tabindex="-1">
 
 
   <!-- ======================================================================
@@ -393,7 +401,9 @@
   <!-- ======================================================================
        STOPKA STRONY (FOOTER)
        ====================================================================== -->
-  <footer class="site-footer">
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
     <div class="container">
       
       <div class="footer-grid">
@@ -425,6 +435,7 @@
             <a href="oferta.html" class="footer-link">Oferta edukacyjna</a>
             <a href="regulaminy.html" class="footer-link">Statut i regulaminy</a>
             <a href="sukcesy.html" class="footer-link">Osiągnięcia</a>
+            <a href="deklaracja-dostepnosci.html" class="footer-link">Deklaracja dostępności</a>
           </div>
         </div>
 
@@ -452,6 +463,9 @@
       <div class="footer-bottom">
         <div>
           © 2026 Pierwsza Społeczna Szkoła Podstawowa w Chełmie. Wszelkie prawa zastrzeżone.
+        </div>
+        <div class="footer-bottom-links">
+          <a href="deklaracja-dostepnosci.html" class="footer-bottom-link"><i class="fa-solid fa-universal-access" aria-hidden="true"></i> Deklaracja dostępności cyfrowej (WCAG 2.1 AA)</a>
         </div>
       </div>
 

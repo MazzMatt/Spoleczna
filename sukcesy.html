@@ -13,8 +13,11 @@
 </head>
 <body>
 
+  <!-- Dostępność WCAG 2.1: Przejście do treści głównej (Skip Link) -->
+  <a href="#main-content" class="skip-link">Przejdź do treści głównej</a>
+
   <!-- HEADER -->
-  <header class="site-header">
+  <header class="site-header" role="banner">
     <div class="container">
       <div class="header-top">
         <a href="index.html" class="brand-wrapper">
@@ -69,6 +72,11 @@
       </div>
     </div>
   </header>
+
+  <!-- ======================================================================
+       TREŚĆ GŁÓWNA (MAIN CONTENT)
+       ====================================================================== -->
+  <main id="main-content" tabindex="-1">
 
   <!-- BANER PODSTRONY -->
   <section class="subpage-banner">
@@ -179,7 +187,9 @@
   </section>
 
   <!-- FOOTER -->
-  <footer class="site-footer">
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
@@ -200,10 +210,13 @@
         <div class="footer-col">
           <h5>Szkoła</h5>
           <div class="footer-links">
-            <a href="o-szkole.html" class="footer-link">O szkole</a>
+            <a href="o-szkole.html" class="footer-link">O szkole i patronie</a>
+            <a href="kadra.html" class="footer-link">Kadra pedagogiczna</a>
             <a href="aktualnosci.html" class="footer-link">Aktualności</a>
             <a href="oferta.html" class="footer-link">Oferta edukacyjna</a>
-            <a href="regulaminy.html" class="footer-link">Regulaminy</a>
+            <a href="regulaminy.html" class="footer-link">Statut i regulaminy</a>
+            <a href="sukcesy.html" class="footer-link">Osiągnięcia</a>
+            <a href="deklaracja-dostepnosci.html" class="footer-link">Deklaracja dostępności</a>
           </div>
         </div>
         <div class="footer-col">
@@ -222,8 +235,14 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <div>© 2026 Pierwsza Społeczna Szkoła Podstawowa w Chełmie. Wszelkie prawa zastrzeżone.</div>
+        <div>
+          © 2026 Pierwsza Społeczna Szkoła Podstawowa w Chełmie. Wszelkie prawa zastrzeżone.
+        </div>
+        <div class="footer-bottom-links">
+          <a href="deklaracja-dostepnosci.html" class="footer-bottom-link"><i class="fa-solid fa-universal-access" aria-hidden="true"></i> Deklaracja dostępności cyfrowej (WCAG 2.1 AA)</a>
+        </div>
       </div>
+
     </div>
   </footer>
 

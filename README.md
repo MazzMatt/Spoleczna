@@ -37,9 +37,10 @@
    - Usunięto nazwę „Zespół Szkół Społecznych w Chełmie”.
    - Wszędzie obowiązuje nazwa: **Pierwsza Społeczna Szkoła Podstawowa w Chełmie**.
 
-10. **Wielopodstronowa struktura (10 dedykowanych podstron HTML):**
+10. **Wielopodstronowa struktura (12 dedykowanych podstron HTML):**
    - [index.html](file:///Users/mateuszmazurek/Desktop/Społeczna/index.html) – Strona Główna
    - [o-szkole.html](file:///Users/mateuszmazurek/Desktop/Społeczna/o-szkole.html) – O Szkole (historia od 1992 r., Dyrektor Barbara Mazurek, Chełmskie Towarzystwo Edukacyjne – Stowarzyszenie w Chełmie)
+   - [kadra.html](file:///Users/mateuszmazurek/Desktop/Społeczna/kadra.html) – Kadra pedagogiczna (dyrekcja, nauczyciele przedmiotowi, edukacja wczesnoszkolna, specjaliści, administracja z wyszukiwarką i filtrami)
    - [aktualnosci.html](file:///Users/mateuszmazurek/Desktop/Społeczna/aktualnosci.html) – Aktualności i wydarzenia
    - [oferta.html](file:///Users/mateuszmazurek/Desktop/Społeczna/oferta.html) – Oferta edukacyjna (Oddział Przedszkolny, Konwersacje z Brytyjczykiem, języki obce)
    - [dla-rodzicow.html](file:///Users/mateuszmazurek/Desktop/Społeczna/dla-rodzicow.html) – Strefa Rodzica (VULCAN UONET+, rozkład lekcji i dzwonków, kalendarz)
@@ -48,11 +49,43 @@
    - [rekrutacja.html](file:///Users/mateuszmazurek/Desktop/Społeczna/rekrutacja.html) – Rekrutacja 2026/2027 (Karta Zgłoszenia PDF)
    - [galeria.html](file:///Users/mateuszmazurek/Desktop/Społeczna/galeria.html) – Galeria zdjęć
    - [kontakt.html](file:///Users/mateuszmazurek/Desktop/Społeczna/kontakt.html) – Kontakt i dojazd (ul. Hrubieszowska 102/2, tel. 82 565 45 54)
+   - [deklaracja-dostepnosci.html](file:///Users/mateuszmazurek/Desktop/Społeczna/deklaracja-dostepnosci.html) – Ustawowa Deklaracja Dostępności Cyfrowej (WCAG 2.1 AA)
 
-11. **Uporządkowana struktura katalogów:**
+11. **Dostępność cyfrowa na poziomie WCAG 2.1 AA (Ustawowe wymogi dla szkół):**
+   - **Panel Dostępności (Accessibility Menu):**
+     - Pływający przycisk w lewym dolnym rogu ekranu otwierający okno modalne z ułatwieniami.
+     - 3 tryby wysokiego kontrastu: **Czarne tło / żółty tekst**, **Czarne tło / biały tekst**, **Żółte tło / czarny tekst** oraz tryb standardowy.
+     - Skalowanie rozmiaru tekstu do 200% (przyciski `A-`, `100%`, `120%`, `150%`, `200%`, `A+`) bez psucia layoutu dzięki architekturze `rem`.
+     - Zwiększone odstępy między wierszami (interlinia 1.95), literami (tracking 0.12em) i słowami dla osób z dysleksją (kryterium WCAG 1.4.12).
+     - Wymuszenie podkreślenia wszystkich odnośników na stronie.
+     - Przycisk zatrzymania wszelkich animacji i sliderów (dla osób z padaczką fotogenną i zaburzeniami błędnika).
+     - Przycisk przywrócenia ustawień domyślnych.
+     - Trwałość preferencji w `localStorage` (zapamiętywanie ustawień między podstronami).
+   - **Nawigacja klawiaturą i czytniki ekranu:**
+     - Mechanizm **„Skip link”** (`<a href="#main-content" class="skip-link">Przejdź do treści głównej</a>`) na samym początku `<body>`, widoczny po wciśnięciu klawisza `Tab`.
+     - Bardzo wyraźny, dwukolorowy wskaźnik skupienia (`:focus-visible`) na każdym elemencie klikalnym (kobaltowy granat + złoty obrys).
+     - W pełni semantyczna struktura HTML5 (`role="banner"`, `<main id="main-content" tabindex="-1">`, `role="contentinfo"`).
+     - Focus trap i obsługa klawisza `Escape` w menu dostępności.
+   - **Zabezpieczenie atrybutów alt (CMS / Upload):**
+     - Wbudowany w plik `js/script.js` automatyczny audyt w czasie rzeczywistym i `MutationObserver` wymuszający obecność atrybutu `alt` we wszystkich obrazach.
+     - Skrypt walidacyjny [scripts/verify_wcag.py](file:///Users/mateuszmazurek/Desktop/Społeczna/scripts/verify_wcag.py).
+   - **Ustawowa Deklaracja Dostępności:**
+     - Dedykowana podstrona [deklaracja-dostepnosci.html](file:///Users/mateuszmazurek/Desktop/Społeczna/deklaracja-dostepnosci.html) zgodna z Ustawą z dnia 4 kwietnia 2019 r. o dostępności cyfrowej stron internetowych i aplikacji mobilnych podmiotów publicznych (Dz.U. 2019 poz. 848).
+     - Stały link w stopce każdej podstrony serwisu.
+
+12. **Uporządkowana struktura katalogów:**
    - **`css/`** – arkusze stylów ([css/style.css](file:///Users/mateuszmazurek/Desktop/Społeczna/css/style.css))
    - **`js/`** – skrypty i konfiguracja ([js/config.js](file:///Users/mateuszmazurek/Desktop/Społeczna/js/config.js), [js/script.js](file:///Users/mateuszmazurek/Desktop/Społeczna/js/script.js))
    - **`assets/`** – ikony i grafiki ([assets/icons/](file:///Users/mateuszmazurek/Desktop/Społeczna/assets/icons), [assets/images/](file:///Users/mateuszmazurek/Desktop/Społeczna/assets/images))
+   - **`scripts/`** – skrypty audytujące i pomocnicze ([scripts/verify_wcag.py](file:///Users/mateuszmazurek/Desktop/Społeczna/scripts/verify_wcag.py))
+
+---
+
+## ♿ Audyt Dostępności WCAG 2.1 AA
+Aby sprawdzić zgodność wszystkich podstron serwisu ze standardem WCAG 2.1 AA, uruchom w terminalu:
+```bash
+python3 scripts/verify_wcag.py
+```
 
 ---
 

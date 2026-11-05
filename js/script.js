@@ -1,9 +1,31 @@
 /**
  * ====================================================================
  * PIERWSZA SPOŁECZNA SZKOŁA PODSTAWOWA W CHEŁMIE
- * Skrypt interaktywny: slider, menu mobilne, modal dokumentów, liczniki
+ * Skrypt interaktywny: slider, menu mobilne, modal dokumentów, liczniki,
+ * panel dostępności WCAG 2.1 AA, audyt dostępności cyfrowej
  * ====================================================================
  */
+
+// Natychmiastowe przywrócenie preferencji WCAG z localStorage przed renderem
+(function initA11yEarly() {
+  try {
+    const raw = localStorage.getItem('pssp_a11y_settings');
+    if (!raw) return;
+    const s = JSON.parse(raw);
+    const root = document.documentElement;
+    if (s.contrast && s.contrast !== 'default') {
+      root.setAttribute('data-contrast', s.contrast);
+    }
+    if (s.fontScale && s.fontScale !== '100') {
+      root.classList.add(`font-scale-${s.fontScale}`);
+    }
+    if (s.dyslexia) root.classList.add('dyslexia-mode');
+    if (s.underlineLinks) root.classList.add('underline-links');
+    if (s.stopMotion) root.classList.add('stop-motion');
+  } catch (e) {
+    console.warn('Błąd odczytu ustawień dostępności WCAG:', e);
+  }
+})();
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -53,6 +75,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function startAutoplay() {
     if (slides.length > 1) {
+      if (document.documentElement.classList.contains('stop-motion')) return;
+      clearInterval(slideInterval);
       slideInterval = setInterval(nextSlide, 7000);
     }
   }
@@ -348,4 +372,441 @@ document.addEventListener('DOMContentLoaded', () => {
     staffSearchInput.addEventListener('input', filterStaffList);
   }
 
+
+  // ------------------------------------------------------------------
+  // 7. WIDGET DOSTĘPNOŚCI CYFROWEJ (WCAG 2.1 AA ACCESSIBILITY MENU)
+  // ------------------------------------------------------------------
+  function initA11yWidget() {
+    // 1. Sprawdzenie i dynamiczne wstrzyknięcie HTML widgetu
+    if (!document.getElementById('a11y-trigger')) {
+      const widgetMarkup = `
+        <!-- Przycisk pływający menu dostępności -->
+        <button type="button" id="a11y-trigger" class="a11y-widget-trigger" aria-haspopup="dialog" aria-expanded="false" aria-controls="a11y-modal" aria-label="Otwórz panel ułatwień dostępu (WCAG 2.1)">
+          <i class="fa-solid fa-universal-access" aria-hidden="true"></i>
+          <span class="a11y-trigger-text">Dostępność</span>
+        </button>
+
+        <!-- Okno modalne panelu dostępności -->
+        <div id="a11y-modal" class="a11y-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="a11y-modal-title" hidden>
+          <div class="a11y-modal-container" role="document">
+            
+            <div class="a11y-modal-header">
+              <div class="a11y-modal-heading">
+                <i class="fa-solid fa-universal-access a11y-header-icon" aria-hidden="true"></i>
+                <h2 id="a11y-modal-title" class="a11y-modal-title">Ułatwienia Dostępności</h2>
+              </div>
+              <button type="button" class="a11y-close-btn" id="a11y-close-btn" aria-label="Zamknij panel ułatwień dostępu">
+                <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+              </button>
+            </div>
+
+            <div class="a11y-modal-body">
+              
+              <!-- 1. Kontrast strony -->
+              <section class="a11y-section" aria-labelledby="a11y-contrast-heading">
+                <h3 id="a11y-contrast-heading" class="a11y-section-title">
+                  <i class="fa-solid fa-circle-half-stroke" aria-hidden="true"></i> Tryby wysokiego kontrastu
+                </h3>
+                <div class="a11y-contrast-grid">
+                  <button type="button" class="a11y-contrast-btn active" data-contrast="default" aria-pressed="true">
+                    <span class="a11y-preview-circle preview-default" aria-hidden="true">A</span>
+                    <span>Standardowy</span>
+                  </button>
+                  <button type="button" class="a11y-contrast-btn" data-contrast="black-yellow" aria-pressed="false">
+                    <span class="a11y-preview-circle preview-by" aria-hidden="true">A</span>
+                    <span>Czarne / Żółte</span>
+                  </button>
+                  <button type="button" class="a11y-contrast-btn" data-contrast="black-white" aria-pressed="false">
+                    <span class="a11y-preview-circle preview-bw" aria-hidden="true">A</span>
+                    <span>Czarne / Białe</span>
+                  </button>
+                  <button type="button" class="a11y-contrast-btn" data-contrast="yellow-black" aria-pressed="false">
+                    <span class="a11y-preview-circle preview-yb" aria-hidden="true">A</span>
+                    <span>Żółte / Czarne</span>
+                  </button>
+                </div>
+              </section>
+
+              <!-- 2. Skalowanie czcionki -->
+              <section class="a11y-section" aria-labelledby="a11y-font-heading">
+                <div class="a11y-section-header">
+                  <h3 id="a11y-font-heading" class="a11y-section-title">
+                    <i class="fa-solid fa-text-height" aria-hidden="true"></i> Rozmiar tekstu
+                  </h3>
+                  <span class="a11y-font-badge" id="a11y-font-badge" aria-live="polite">100%</span>
+                </div>
+                <div class="a11y-font-grid">
+                  <button type="button" class="a11y-font-step-btn" id="a11y-font-decrease" aria-label="Zmniejsz rozmiar tekstu">
+                    <i class="fa-solid fa-minus" aria-hidden="true"></i> A-
+                  </button>
+                  <button type="button" class="a11y-font-size-btn active" data-scale="100" aria-pressed="true">100%</button>
+                  <button type="button" class="a11y-font-size-btn" data-scale="120" aria-pressed="false">120%</button>
+                  <button type="button" class="a11y-font-size-btn" data-scale="150" aria-pressed="false">150%</button>
+                  <button type="button" class="a11y-font-size-btn" data-scale="200" aria-pressed="false">200%</button>
+                  <button type="button" class="a11y-font-step-btn" id="a11y-font-increase" aria-label="Zwiększ rozmiar tekstu">
+                    A+ <i class="fa-solid fa-plus" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </section>
+
+              <!-- 3. Odstępy i czytelność (Dysleksja) -->
+              <section class="a11y-section" aria-labelledby="a11y-readability-heading">
+                <h3 id="a11y-readability-heading" class="a11y-section-title">
+                  <i class="fa-solid fa-book-open-reader" aria-hidden="true"></i> Czytelność tekstu
+                </h3>
+                <div class="a11y-toggles-list">
+                  <label class="a11y-toggle-item" for="a11y-toggle-dyslexia">
+                    <span class="a11y-toggle-label">
+                      <strong>Zwiększone odstępy (dysleksja)</strong>
+                      <small>Zwiększa światło między wierszami i literami</small>
+                    </span>
+                    <input type="checkbox" id="a11y-toggle-dyslexia" class="a11y-checkbox">
+                    <span class="a11y-switch-slider" aria-hidden="true"></span>
+                  </label>
+                  
+                  <label class="a11y-toggle-item" for="a11y-toggle-links">
+                    <span class="a11y-toggle-label">
+                      <strong>Podkreślenie odnośników</strong>
+                      <small>Wyraźnie wyróżnia wszystkie linki na stronie</small>
+                    </span>
+                    <input type="checkbox" id="a11y-toggle-links" class="a11y-checkbox">
+                    <span class="a11y-switch-slider" aria-hidden="true"></span>
+                  </label>
+                </div>
+              </section>
+
+              <!-- 4. Ruch i animacje -->
+              <section class="a11y-section" aria-labelledby="a11y-motion-heading">
+                <h3 id="a11y-motion-heading" class="a11y-section-title">
+                  <i class="fa-solid fa-film" aria-hidden="true"></i> Ruch i animacje
+                </h3>
+                <div class="a11y-toggles-list">
+                  <label class="a11y-toggle-item" for="a11y-toggle-motion">
+                    <span class="a11y-toggle-label">
+                      <strong>Zatrzymaj animacje i slider</strong>
+                      <small>Dla osób z padaczką fotogenną i zaburzeniami błędnika</small>
+                    </span>
+                    <input type="checkbox" id="a11y-toggle-motion" class="a11y-checkbox">
+                    <span class="a11y-switch-slider" aria-hidden="true"></span>
+                  </label>
+                </div>
+              </section>
+
+              <!-- 5. Stopka panelu: Reset i Deklaracja -->
+              <div class="a11y-modal-footer">
+                <button type="button" class="a11y-reset-btn" id="a11y-reset-btn" aria-label="Przywróć domyślne ustawienia wyglądu strony">
+                  <i class="fa-solid fa-rotate-left" aria-hidden="true"></i> Przywróć domyślne
+                </button>
+                <a href="deklaracja-dostepnosci.html" class="a11y-decl-link">
+                  <i class="fa-solid fa-file-shield" aria-hidden="true"></i> Deklaracja Dostępności
+                </a>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      `;
+      document.body.insertAdjacentHTML('beforeend', widgetMarkup);
+    }
+
+    const triggerBtn = document.getElementById('a11y-trigger');
+    const modal = document.getElementById('a11y-modal');
+    const closeBtn = document.getElementById('a11y-close-btn');
+    const resetBtn = document.getElementById('a11y-reset-btn');
+
+    const contrastBtns = document.querySelectorAll('.a11y-contrast-btn');
+    const fontSizeBtns = document.querySelectorAll('.a11y-font-size-btn');
+    const fontDecreaseBtn = document.getElementById('a11y-font-decrease');
+    const fontIncreaseBtn = document.getElementById('a11y-font-increase');
+    const fontBadge = document.getElementById('a11y-font-badge');
+
+    const toggleDyslexia = document.getElementById('a11y-toggle-dyslexia');
+    const toggleLinks = document.getElementById('a11y-toggle-links');
+    const toggleMotion = document.getElementById('a11y-toggle-motion');
+
+    const FONT_SCALES = ['100', '120', '150', '200'];
+
+    // Pobranie aktualnego stanu
+    let settings = {
+      contrast: 'default',
+      fontScale: '100',
+      dyslexia: false,
+      underlineLinks: false,
+      stopMotion: false
+    };
+
+    try {
+      const stored = localStorage.getItem('pssp_a11y_settings');
+      if (stored) {
+        settings = Object.assign(settings, JSON.parse(stored));
+      }
+    } catch (e) {
+      console.warn('Błąd parsowania ustawień dostępności:', e);
+    }
+
+    // Synchronizacja kontrolek formularza z załadowanym stanem
+    function syncControls() {
+      // Kontrast
+      contrastBtns.forEach(btn => {
+        const isMatch = btn.getAttribute('data-contrast') === settings.contrast;
+        btn.classList.toggle('active', isMatch);
+        btn.setAttribute('aria-pressed', isMatch ? 'true' : 'false');
+      });
+
+      // Czcionka
+      fontSizeBtns.forEach(btn => {
+        const isMatch = btn.getAttribute('data-scale') === settings.fontScale;
+        btn.classList.toggle('active', isMatch);
+        btn.setAttribute('aria-pressed', isMatch ? 'true' : 'false');
+      });
+      if (fontBadge) {
+        fontBadge.textContent = `${settings.fontScale}%`;
+      }
+
+      // Checkboxy
+      if (toggleDyslexia) toggleDyslexia.checked = !!settings.dyslexia;
+      if (toggleLinks) toggleLinks.checked = !!settings.underlineLinks;
+      if (toggleMotion) toggleMotion.checked = !!settings.stopMotion;
+    }
+
+    function saveSettings() {
+      try {
+        localStorage.setItem('pssp_a11y_settings', JSON.stringify(settings));
+      } catch (e) {
+        console.warn('Nie można zapisać ustawień do localStorage:', e);
+      }
+    }
+
+    // Aplikowanie zmian na dokumencie
+    function applyContrast(contrast) {
+      settings.contrast = contrast;
+      if (contrast === 'default') {
+        document.documentElement.removeAttribute('data-contrast');
+      } else {
+        document.documentElement.setAttribute('data-contrast', contrast);
+      }
+      syncControls();
+      saveSettings();
+    }
+
+    function applyFontScale(scale) {
+      if (!FONT_SCALES.includes(scale)) scale = '100';
+      settings.fontScale = scale;
+
+      document.documentElement.classList.remove('font-scale-120', 'font-scale-150', 'font-scale-200');
+      if (scale !== '100') {
+        document.documentElement.classList.add(`font-scale-${scale}`);
+      }
+
+      syncControls();
+      saveSettings();
+    }
+
+    function applyDyslexia(enabled) {
+      settings.dyslexia = enabled;
+      document.documentElement.classList.toggle('dyslexia-mode', enabled);
+      syncControls();
+      saveSettings();
+    }
+
+    function applyUnderlineLinks(enabled) {
+      settings.underlineLinks = enabled;
+      document.documentElement.classList.toggle('underline-links', enabled);
+      syncControls();
+      saveSettings();
+    }
+
+    function applyStopMotion(enabled) {
+      settings.stopMotion = enabled;
+      document.documentElement.classList.toggle('stop-motion', enabled);
+      if (enabled) {
+        clearInterval(slideInterval);
+      } else {
+        startAutoplay();
+      }
+      syncControls();
+      saveSettings();
+    }
+
+    // Zdarzenia przycisków kontrastu
+    contrastBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        applyContrast(btn.getAttribute('data-contrast'));
+      });
+    });
+
+    // Zdarzenia rozmiaru czcionki
+    fontSizeBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        applyFontScale(btn.getAttribute('data-scale'));
+      });
+    });
+
+    if (fontDecreaseBtn) {
+      fontDecreaseBtn.addEventListener('click', () => {
+        const currentIndex = FONT_SCALES.indexOf(settings.fontScale);
+        if (currentIndex > 0) {
+          applyFontScale(FONT_SCALES[currentIndex - 1]);
+        }
+      });
+    }
+
+    if (fontIncreaseBtn) {
+      fontIncreaseBtn.addEventListener('click', () => {
+        const currentIndex = FONT_SCALES.indexOf(settings.fontScale);
+        if (currentIndex < FONT_SCALES.length - 1) {
+          applyFontScale(FONT_SCALES[currentIndex + 1]);
+        }
+      });
+    }
+
+    // Zdarzenia przełączników
+    if (toggleDyslexia) {
+      toggleDyslexia.addEventListener('change', (e) => applyDyslexia(e.target.checked));
+    }
+
+    if (toggleLinks) {
+      toggleLinks.addEventListener('change', (e) => applyUnderlineLinks(e.target.checked));
+    }
+
+    if (toggleMotion) {
+      toggleMotion.addEventListener('change', (e) => applyStopMotion(e.target.checked));
+    }
+
+    // Resetowanie do ustawień domyślnych
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        settings = {
+          contrast: 'default',
+          fontScale: '100',
+          dyslexia: false,
+          underlineLinks: false,
+          stopMotion: false
+        };
+        document.documentElement.removeAttribute('data-contrast');
+        document.documentElement.classList.remove('font-scale-120', 'font-scale-150', 'font-scale-200', 'dyslexia-mode', 'underline-links', 'stop-motion');
+        try {
+          localStorage.removeItem('pssp_a11y_settings');
+        } catch (e) {}
+        syncControls();
+        startAutoplay();
+      });
+    }
+
+    // Obsługa otwierania i zamykania okna modalnego
+    function openA11yModal() {
+      if (!modal) return;
+      modal.removeAttribute('hidden');
+      if (triggerBtn) triggerBtn.setAttribute('aria-expanded', 'true');
+      syncControls();
+      
+      // Przeniesienie skupienia do przycisku zamknięcia
+      if (closeBtn) closeBtn.focus();
+    }
+
+    function closeA11yModal() {
+      if (!modal) return;
+      modal.setAttribute('hidden', '');
+      if (triggerBtn) {
+        triggerBtn.setAttribute('aria-expanded', 'false');
+        triggerBtn.focus();
+      }
+    }
+
+    if (triggerBtn) triggerBtn.addEventListener('click', openA11yModal);
+    if (closeBtn) closeBtn.addEventListener('click', closeA11yModal);
+
+    if (modal) {
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeA11yModal();
+      });
+
+      // Obsługa klawiatury: ESC do zamknięcia oraz Focus Trap
+      modal.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          closeA11yModal();
+          return;
+        }
+
+        if (e.key === 'Tab') {
+          const focusableEls = modal.querySelectorAll(
+            'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+          );
+          if (!focusableEls.length) return;
+
+          const firstEl = focusableEls[0];
+          const lastEl = focusableEls[focusableEls.length - 1];
+
+          if (e.shiftKey && document.activeElement === firstEl) {
+            e.preventDefault();
+            lastEl.focus();
+          } else if (!e.shiftKey && document.activeElement === lastEl) {
+            e.preventDefault();
+            firstEl.focus();
+          }
+        }
+      });
+    }
+
+    syncControls();
+  }
+
+  initA11yWidget();
+
+
+  // ------------------------------------------------------------------
+  // 8. AUDYT DOSTĘPNOŚCI I WYMUSZENIE ATRYBUTÓW ALT (WCAG 1.1.1)
+  // ------------------------------------------------------------------
+  function enforceImageAltAttributes() {
+    const images = document.querySelectorAll('img');
+    let fixedCount = 0;
+
+    images.forEach((img, idx) => {
+      const alt = img.getAttribute('alt');
+      const isDecorative = img.getAttribute('aria-hidden') === 'true' || img.getAttribute('role') === 'presentation';
+
+      if (alt === null || (alt.trim() === '' && !isDecorative)) {
+        fixedCount++;
+        let fallback = 'Fotografia szkolna – Pierwsza Społeczna Szkoła Podstawowa w Chełmie';
+
+        if (img.classList.contains('brand-logo-img')) {
+          fallback = 'Godło Pierwszej Społecznej Szkoły Podstawowej w Chełmie (Sapere Aude 1992)';
+        } else if (img.closest('.staff-card') || img.closest('.management-card')) {
+          const nameEl = img.closest('.staff-card, .management-card').querySelector('h3, h4');
+          fallback = nameEl ? `Zdjęcie pracownika szkoły: ${nameEl.textContent.trim()}` : 'Zdjęcie nauczyciela szkoły';
+        } else if (img.getAttribute('src')) {
+          const filename = img.getAttribute('src').split('/').pop().replace(/\.[^/.]+$/, "").replace(/[-_]/g, ' ');
+          if (filename) fallback = `Ilustracja: ${filename}`;
+        }
+
+        img.setAttribute('alt', fallback);
+        console.warn(`[WCAG 2.1 AA Audyt] Wykryto brak atrybutu alt w obrazie #${idx + 1}. Automatycznie uzupełniono opis: "${fallback}"`);
+      }
+    });
+
+    if (fixedCount > 0) {
+      console.info(`[WCAG 2.1 AA Audyt] Zabezpieczono ${fixedCount} grafik brakujących atrybutów alt.`);
+    }
+  }
+
+  enforceImageAltAttributes();
+
+  // Obserwator dynamicznie wgrywanych zdjęć (CMS / Galeria)
+  const imgObserver = new MutationObserver((mutations) => {
+    let hasNewImgs = false;
+    mutations.forEach(mutation => {
+      mutation.addedNodes.forEach(node => {
+        if (node.nodeType === 1 && (node.tagName === 'IMG' || node.querySelector('img'))) {
+          hasNewImgs = true;
+        }
+      });
+    });
+    if (hasNewImgs) {
+      enforceImageAltAttributes();
+    }
+  });
+
+  imgObserver.observe(document.body, { childList: true, subtree: true });
+
 });
+
