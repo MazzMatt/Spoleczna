@@ -359,6 +359,7 @@ html.stop-motion *::after {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   padding: 5px 12px;
   border-radius: 8px;
   border: 1.5px solid var(--border-color);
@@ -366,12 +367,23 @@ html.stop-motion *::after {
   transition: var(--transition);
   flex-shrink: 0;
   text-decoration: none;
+  gap: 1px;
+}
+
+.vulcan-label {
+  font-size: 0.6rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  line-height: 1;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .vulcan-logo {
-  height: 30px;
+  height: 26px;
   width: auto;
-  max-width: 95px;
+  max-width: 85px;
   object-fit: contain;
   display: block;
   flex-shrink: 0;
@@ -1833,10 +1845,20 @@ textarea.form-control {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+    gap: 1px;
+  }
+  .vulcan-label {
+    font-size: 0.55rem;
+    font-weight: 800;
+    color: var(--color-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    line-height: 1;
   }
   .vulcan-logo {
-    height: 24px;
-    max-width: 85px;
+    height: 20px;
+    max-width: 80px;
     width: auto;
     object-fit: contain;
     flex-shrink: 0;
@@ -2218,10 +2240,20 @@ textarea.form-control {
     min-width: 68px !important;
     height: 33px !important;
     padding: 2px 6px !important;
+    flex-direction: column !important;
+    gap: 1px !important;
+  }
+  .vulcan-label {
+    font-size: 0.5rem !important;
+    font-weight: 800 !important;
+    color: var(--color-primary) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.4px !important;
+    line-height: 1 !important;
   }
   .vulcan-logo {
-    height: 20px !important;
-    max-width: 65px !important;
+    height: 17px !important;
+    max-width: 60px !important;
   }
   .mobile-nav-toggle {
     width: 33px !important;
@@ -3322,15 +3354,23 @@ html[data-contrast="yellow-black"] :focus-visible {
 }
 
 @media (max-width: 600px) {
+  /* Na mobile: tylko ikona ludzika, bez napisu "Dostępność" */
   .a11y-widget-trigger {
     bottom: 16px;
     left: 14px;
-    padding: 10px 14px;
+    padding: 11px;
     font-size: 0.85rem;
-    gap: 7px;
+    gap: 0;
+    border-radius: 50%;
+    width: 46px;
+    height: 46px;
+    justify-content: center;
+  }
+  .a11y-widget-trigger .a11y-trigger-text {
+    display: none;
   }
   .a11y-widget-trigger i {
-    font-size: 1.15rem;
+    font-size: 1.3rem;
   }
   .a11y-modal-backdrop {
     padding: 12px;
