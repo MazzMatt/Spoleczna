@@ -92,6 +92,32 @@ document.addEventListener('DOMContentLoaded', () => {
   if (sliderSection) {
     sliderSection.addEventListener('mouseenter', () => clearInterval(slideInterval));
     sliderSection.addEventListener('mouseleave', () => startAutoplay());
+
+    // Obsługa gestów swipe na smartfonach i tabletach
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    sliderSection.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].clientX;
+      touchStartY = e.changedTouches[0].clientY;
+    }, { passive: true });
+
+    sliderSection.addEventListener('touchend', (e) => {
+      const touchEndX = e.changedTouches[0].clientX;
+      const touchEndY = e.changedTouches[0].clientY;
+      const diffX = touchStartX - touchEndX;
+      const diffY = touchStartY - touchEndY;
+
+      // Reaguj tylko na wyraźny ruch poziomy (nie blokując scrollowania strony)
+      if (Math.abs(diffX) > 35 && Math.abs(diffX) > Math.abs(diffY)) {
+        if (diffX > 0) {
+          nextSlide();
+        } else {
+          prevSlide();
+        }
+        resetAutoplay();
+      }
+    }, { passive: true });
   }
 
 
