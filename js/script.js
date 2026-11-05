@@ -846,35 +846,38 @@ document.addEventListener('DOMContentLoaded', () => {
       if (url.startsWith('http://') || url.startsWith('https://')) {
         return url;
       }
-      // Jeśli jesteśmy lokalnie (localhost) i serwer Strapi działa
-      if (baseStrapi && (location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
-        return baseStrapi + (url.startsWith('/') ? url : '/' + url);
-      }
-      // Na GitHub Pages lub hostingu statycznym
-      return url.startsWith('/') ? url.slice(1) : url;
+      // Domyślny chmurowy backend Strapi na Renderze
+      const cloudBase = 'https://spoleczna.onrender.com';
+      const isLocalhost = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+      const activeBase = (isLocalhost && baseStrapi) ? baseStrapi : cloudBase;
+      return activeBase + (url.startsWith('/') ? url : '/' + url);
     }
 
-    // Funkcja pobierania galerii ze Strapi / bazy Neon / pliku danych hostingu
+    // Funkcja pobierania galerii ze Strapi w chmurze / lokalnego / pliku danych
     async function loadGalleriesFromBackend() {
+      const CLOUD_STRAPI_URL = 'https://spoleczna.onrender.com';
       const customStrapiUrl = window.STRAPI_URL || (window.SCHOOL_CONFIG && window.SCHOOL_CONFIG.api && window.SCHOOL_CONFIG.api.strapiUrl);
       const isLocalhost = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
-      const strapiUrl = customStrapiUrl || (isLocalhost ? 'http://localhost:1337' : '');
+      const strapiUrl = customStrapiUrl || (isLocalhost ? 'http://localhost:1337' : CLOUD_STRAPI_URL);
 
       const endpoints = [];
       if (strapiUrl) {
-        endpoints.push(`${strapiUrl}/api/galerias?populate=*`);
+        endpoints.push({ url: `${strapiUrl}/api/galerias?populate=*`, timeout: 3500 });
       }
-      if (isLocalhost) {
-        endpoints.push('/api/galerias?populate=*');
+      if (!isLocalhost && strapiUrl !== CLOUD_STRAPI_URL) {
+        endpoints.push({ url: `${CLOUD_STRAPI_URL}/api/galerias?populate=*`, timeout: 3500 });
       }
-      endpoints.push('data/galerie.json');
-      endpoints.push('./data/galerie.json');
+      endpoints.push({ url: 'data/galerie.json', timeout: 5000 });
+      endpoints.push({ url: './data/galerie.json', timeout: 5000 });
 
       let loaded = false;
 
       for (const ep of endpoints) {
         try {
-          const res = await fetch(ep);
+          const fetchOptions = ep.timeout && typeof AbortSignal !== 'undefined' && AbortSignal.timeout
+            ? { signal: AbortSignal.timeout(ep.timeout) }
+            : {};
+          const res = await fetch(ep.url, fetchOptions);
           if (!res.ok) continue;
           const json = await res.json();
           const items = json.data;
