@@ -6,6 +6,7 @@
   "scripts": {
     "build": "node scripts/sync-gallery.js && node scripts/build.js",
     "sync": "node scripts/sync-gallery.js",
+    "publish": "node scripts/sync-gallery.js && git add data/galerie.json && git commit -m 'Aktualizacja galerii na GitHub Pages' && git push",
     "start": "node server.js",
     "dev": "node server.js",
     "test": "node scripts/test-db.js && node scripts/test-server.js",
