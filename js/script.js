@@ -894,11 +894,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const rawUrl = resolveMediaUrl(mAttrs.url, baseStrapi);
 
             let thumbUrl = rawUrl;
-            if (mAttrs.formats) {
+            if (mAttrs.formats && (mAttrs.formats.medium || mAttrs.formats.small || mAttrs.formats.thumbnail)) {
               const bestFormat = mAttrs.formats.medium || mAttrs.formats.small || mAttrs.formats.thumbnail;
               if (bestFormat && bestFormat.url) {
                 thumbUrl = resolveMediaUrl(bestFormat.url, baseStrapi);
               }
+            } else if (rawUrl && rawUrl.includes('res.cloudinary.com') && rawUrl.includes('/image/upload/')) {
+              thumbUrl = rawUrl.replace('/image/upload/', '/image/upload/c_scale,w_600,q_auto,f_auto/');
             }
 
             return {
