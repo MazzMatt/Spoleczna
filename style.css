@@ -355,33 +355,86 @@ html.stop-motion *::after {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
+/* ---- Przycisk Dziennika Elektronicznego (E-DZIENNIK -> VULCAN na hover) ---- */
 .vulcan-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 5px 12px;
+  position: relative;
+  overflow: hidden;
+  height: 38px;
+  min-width: 104px;
+  padding: 0 12px;
   border-radius: 8px;
   border: 1.5px solid var(--border-color);
   background: #FFFFFF;
-  transition: var(--transition);
+  box-shadow: 0 1px 4px rgba(30, 43, 130, 0.05);
+  transition: border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   flex-shrink: 0;
   text-decoration: none;
+  box-sizing: border-box;
 }
 
+/* Domyślnie: napis E-DZIENNIK wycentrowany w przycisku */
+.vulcan-label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  line-height: 1;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.28s ease, transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Logo VULCAN ukryte pod spodem, wyjeżdża po najechaniu */
 .vulcan-logo {
-  height: 30px;
+  height: 24px;
   width: auto;
-  max-width: 95px;
+  max-width: 82px;
   object-fit: contain;
   display: block;
   flex-shrink: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, calc(-50% + 12px));
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.28s ease, transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.vulcan-btn:hover {
+/* Efekt przejścia po najechaniu (hover / focus) */
+.vulcan-btn:hover,
+.vulcan-btn:focus {
   border-color: #E11D48;
   background: #FFF1F2;
   transform: translateY(-2px);
   box-shadow: var(--shadow-sm);
+}
+
+.vulcan-btn:hover .vulcan-label,
+.vulcan-btn:focus .vulcan-label {
+  opacity: 0;
+  transform: translateY(-12px);
+}
+
+.vulcan-btn:hover .vulcan-logo,
+.vulcan-btn:focus .vulcan-logo {
+  opacity: 1;
+  transform: translate(-50%, -50%);
 }
 
 .mobile-nav-toggle {
@@ -1827,19 +1880,19 @@ textarea.form-control {
   }
   .vulcan-btn {
     height: 38px;
-    padding: 4px 10px;
-    min-width: 80px;
+    min-width: 96px;
+    padding: 0 8px;
     flex-shrink: 0;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+  }
+  .vulcan-label {
+    font-size: 0.70rem;
+    letter-spacing: 0.6px;
   }
   .vulcan-logo {
-    height: 24px;
-    max-width: 85px;
+    height: 22px;
+    max-width: 76px;
     width: auto;
     object-fit: contain;
-    flex-shrink: 0;
   }
   .mobile-nav-toggle {
     display: inline-flex;
@@ -2215,13 +2268,17 @@ textarea.form-control {
     min-width: 33px !important;
   }
   .vulcan-btn {
-    min-width: 68px !important;
+    min-width: 76px !important;
     height: 33px !important;
-    padding: 2px 6px !important;
+    padding: 0 6px !important;
+  }
+  .vulcan-label {
+    font-size: 0.58rem !important;
+    letter-spacing: 0.5px !important;
   }
   .vulcan-logo {
-    height: 20px !important;
-    max-width: 65px !important;
+    height: 18px !important;
+    max-width: 60px !important;
   }
   .mobile-nav-toggle {
     width: 33px !important;
@@ -3321,16 +3378,27 @@ html[data-contrast="yellow-black"] :focus-visible {
   color: var(--color-accent);
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
+  /* Na telefonach i tabletach: tylko ikona ludzika, bez napisu "Dostępność" */
   .a11y-widget-trigger {
     bottom: 16px;
     left: 14px;
-    padding: 10px 14px;
+    padding: 0;
     font-size: 0.85rem;
-    gap: 7px;
+    gap: 0;
+    border-radius: 50%;
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .a11y-widget-trigger .a11y-trigger-text {
+    display: none !important;
   }
   .a11y-widget-trigger i {
-    font-size: 1.15rem;
+    font-size: 1.35rem;
+    margin: 0;
   }
   .a11y-modal-backdrop {
     padding: 12px;
