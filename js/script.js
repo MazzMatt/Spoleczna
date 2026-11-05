@@ -840,108 +840,155 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentAlbum = null;
     let activePhotoIndex = 0;
 
+    // 1. Natychmiastowe wczytanie z pamięci podręcznej przeglądarki (0 ms)
+    try {
+      const cached = localStorage.getItem('pssp_cached_albums');
+      if (cached) {
+        const parsed = JSON.parse(cached);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          allAlbums = parsed;
+          renderAlbums(allAlbums);
+        }
+      }
+    } catch (e) {}
+
+    // 2. Jeśli pamięć podręczna jest pusta (nowy użytkownik), pokaż ładny stan ładowania
+    if (allAlbums.length === 0) {
+      container.innerHTML = `
+        <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: rgba(255,255,255,0.7);">
+          <i class="fa-solid fa-spinner fa-spin" style="font-size: 2.2rem; color: #F8C830; margin-bottom: 14px;" aria-hidden="true"></i>
+          <p style="margin: 0; font-size: 1.05rem; font-weight: 600; color: #FFF;">Wczytywanie galerii szkolnych...</p>
+        </div>
+      `;
+    }
+
     // Pomocnicza funkcja do ustalania poprawnego adresu URL dla multimediów
     function resolveMediaUrl(url, baseStrapi) {
       if (!url) return 'assets/images/school-building.jpg';
       if (url.startsWith('http://') || url.startsWith('https://')) {
         return url;
       }
-      // Domyślny chmurowy backend Strapi na Renderze
       const cloudBase = 'https://spoleczna.onrender.com';
       const isLocalhost = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
       const activeBase = (isLocalhost && baseStrapi) ? baseStrapi : cloudBase;
       return activeBase + (url.startsWith('/') ? url : '/' + url);
     }
 
-    // Funkcja pobierania galerii ze Strapi w chmurze / lokalnego / pliku danych
-    async function loadGalleriesFromBackend() {
-      const CLOUD_STRAPI_URL = 'https://spoleczna.onrender.com';
-      const customStrapiUrl = window.STRAPI_URL || (window.SCHOOL_CONFIG && window.SCHOOL_CONFIG.api && window.SCHOOL_CONFIG.api.strapiUrl);
-      const isLocalhost = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
-      const strapiUrl = customStrapiUrl || (isLocalhost ? 'http://localhost:1337' : CLOUD_STRAPI_URL);
+    // Pomocnicza funkcja mapująca dane ze Strapi na obiekty albumów
+    function mapStrapiToAlbums(items, baseStrapi) {
+      if (!Array.isArray(items)) return [];
+      return items.map((item, idx) => {
+        const attrs = item.attributes || item;
+        const title = attrs.Tytul || attrs.tytul || `Folder #${item.id || idx + 1}`;
+        
+        let photosList = [];
+        const rawZdjecia = attrs.Zdjecia || attrs.zdjecia;
 
-      const endpoints = [];
-      if (strapiUrl) {
-        endpoints.push({ url: `${strapiUrl}/api/galerias?populate=*`, timeout: 3500 });
-      }
-      if (!isLocalhost && strapiUrl !== CLOUD_STRAPI_URL) {
-        endpoints.push({ url: `${CLOUD_STRAPI_URL}/api/galerias?populate=*`, timeout: 3500 });
-      }
-      endpoints.push({ url: 'data/galerie.json', timeout: 5000 });
-      endpoints.push({ url: './data/galerie.json', timeout: 5000 });
+        if (rawZdjecia) {
+          const mediaArray = Array.isArray(rawZdjecia) 
+            ? rawZdjecia 
+            : (Array.isArray(rawZdjecia.data) ? rawZdjecia.data : [rawZdjecia]);
 
-      let loaded = false;
+          photosList = mediaArray.map((m, pIdx) => {
+            const mAttrs = m.attributes || m;
+            const rawUrl = resolveMediaUrl(mAttrs.url, baseStrapi);
 
-      for (const ep of endpoints) {
+            let thumbUrl = rawUrl;
+            if (mAttrs.formats) {
+              const bestFormat = mAttrs.formats.medium || mAttrs.formats.small || mAttrs.formats.thumbnail;
+              if (bestFormat && bestFormat.url) {
+                thumbUrl = resolveMediaUrl(bestFormat.url, baseStrapi);
+              }
+            }
+
+            return {
+              url: rawUrl || 'assets/images/children-reading.jpg',
+              thumbUrl: thumbUrl || rawUrl || 'assets/images/children-reading.jpg',
+              caption: `${title} – zdjęcie ${pIdx + 1}`
+            };
+          });
+        }
+
+        return {
+          id: item.documentId || item.id || `strapi-${idx}`,
+          title: title,
+          count: photosList.length,
+          countDisplay: `${photosList.length} Photos`,
+          coverUrl: photosList[0]?.thumbUrl || photosList[0]?.url || 'assets/images/school-building.jpg',
+          photos: photosList,
+          isFromStrapi: true
+        };
+      });
+    }
+
+    const CLOUD_STRAPI_URL = 'https://spoleczna.onrender.com';
+    const isLocalhost = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+    const activeStrapiBase = window.STRAPI_URL || (isLocalhost ? 'http://localhost:1337' : CLOUD_STRAPI_URL);
+
+    // Błyskawiczny odczyt ze statycznego pliku data/galerie.json (zawsze działa natychmiast na GitHub Pages)
+    async function loadStaticFallback() {
+      const candidates = [];
+      try {
+        candidates.push(new URL('data/galerie.json', window.location.href).href);
+      } catch (e) {}
+      candidates.push('data/galerie.json');
+      candidates.push('./data/galerie.json');
+
+      for (const u of candidates) {
         try {
-          const fetchOptions = ep.timeout && typeof AbortSignal !== 'undefined' && AbortSignal.timeout
-            ? { signal: AbortSignal.timeout(ep.timeout) }
-            : {};
-          const res = await fetch(ep.url, fetchOptions);
+          const res = await fetch(u);
           if (!res.ok) continue;
           const json = await res.json();
-          const items = json.data;
+          if (Array.isArray(json.data) && json.data.length > 0) {
+            const mapped = mapStrapiToAlbums(json.data, activeStrapiBase);
+            if (mapped.length > 0) {
+              allAlbums = mapped;
+              renderAlbums(allAlbums);
+              try {
+                localStorage.setItem('pssp_cached_albums', JSON.stringify(mapped));
+              } catch (err) {}
+              return true;
+            }
+          }
+        } catch (e) {}
+      }
+      return false;
+    }
 
-          if (Array.isArray(items)) {
-            loaded = true;
-            const mapped = items.map((item, idx) => {
-              // Strapi v5 posiada pola bezpośrednio na obiekcie, Strapi v4 w item.attributes
-              const attrs = item.attributes || item;
-              const title = attrs.Tytul || attrs.tytul || `Folder #${item.id || idx + 1}`;
-              
-              let photosList = [];
-              const rawZdjecia = attrs.Zdjecia || attrs.zdjecia;
-
-              if (rawZdjecia) {
-                // Może być tablicą lub obiektem z tablicą data (v4)
-                const mediaArray = Array.isArray(rawZdjecia) 
-                  ? rawZdjecia 
-                  : (Array.isArray(rawZdjecia.data) ? rawZdjecia.data : [rawZdjecia]);
-
-                photosList = mediaArray.map((m, pIdx) => {
-                  const mAttrs = m.attributes || m;
-                  const rawUrl = resolveMediaUrl(mAttrs.url, strapiUrl);
-
-                  // Miniatura z formatów Strapi dla szybszego wczytywania kafelków
-                  let thumbUrl = rawUrl;
-                  if (mAttrs.formats) {
-                    const bestFormat = mAttrs.formats.medium || mAttrs.formats.small || mAttrs.formats.thumbnail;
-                    if (bestFormat && bestFormat.url) {
-                      thumbUrl = resolveMediaUrl(bestFormat.url, strapiUrl);
-                    }
-                  }
-
-                  return {
-                    url: rawUrl || 'assets/images/children-reading.jpg',
-                    thumbUrl: thumbUrl || rawUrl || 'assets/images/children-reading.jpg',
-                    caption: `${title} – zdjęcie ${pIdx + 1}`
-                  };
-                });
-              }
-
-              return {
-                id: item.documentId || item.id || `strapi-${idx}`,
-                title: title,
-                count: photosList.length,
-                countDisplay: `${photosList.length} Photos`,
-                coverUrl: photosList[0]?.thumbUrl || photosList[0]?.url || 'assets/images/school-building.jpg',
-                photos: photosList,
-                isFromStrapi: true
-              };
-            });
-
+    // Odpytanie chmurowego API Strapi (w tle lub przy ręcznym kliknięciu Odśwież)
+    async function syncFromCloudBackend(isManual = false) {
+      const endpoint = `${activeStrapiBase}/api/galerias?populate=*`;
+      try {
+        const timeoutMs = isManual ? 45000 : 7000;
+        const fetchOptions = typeof AbortSignal !== 'undefined' && AbortSignal.timeout
+          ? { signal: AbortSignal.timeout(timeoutMs) }
+          : {};
+        const res = await fetch(endpoint, fetchOptions);
+        if (!res.ok) return false;
+        const json = await res.json();
+        if (Array.isArray(json.data) && json.data.length > 0) {
+          const mapped = mapStrapiToAlbums(json.data, activeStrapiBase);
+          if (mapped.length > 0) {
             allAlbums = mapped;
             renderAlbums(allAlbums);
-            return;
+            try {
+              localStorage.setItem('pssp_cached_albums', JSON.stringify(mapped));
+            } catch (err) {}
+            return true;
           }
-        } catch (e) {
-          // Próbuj kolejny endpoint
         }
-      }
+      } catch (e) {}
+      return false;
+    }
 
-      if (!loaded) {
-        allAlbums = [];
-        renderAlbums(allAlbums);
+    // Główna funkcja orkiestrująca wczytywanie
+    async function loadGalleriesFromBackend() {
+      // 1. Spróbuj natychmiast z pliku statycznego GitHub Pages
+      const hasStatic = await loadStaticFallback();
+      // 2. W tle zsynchronizuj z chmurą Strapi na wypadek nowo dodanych albumów
+      syncFromCloudBackend(false);
+      if (!hasStatic && allAlbums.length === 0) {
+        renderAlbums([]);
       }
     }
 
@@ -1094,9 +1141,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (refreshBtn) {
       refreshBtn.addEventListener('click', async () => {
         const originalHtml = refreshBtn.innerHTML;
-        refreshBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i> <span>Pobieranie...</span>';
-        await loadGalleriesFromBackend();
+        refreshBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i> <span>Pobieranie z chmury...</span>';
+        refreshBtn.disabled = true;
+        const cloudOk = await syncFromCloudBackend(true);
+        if (!cloudOk) {
+          await loadStaticFallback();
+        }
         refreshBtn.innerHTML = originalHtml;
+        refreshBtn.disabled = false;
       });
     }
 
