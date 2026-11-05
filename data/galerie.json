@@ -1011,6 +1011,2177 @@
           "publishedAt": "2026-11-05T15:15:24.190Z"
         }
       ]
+    },
+    {
+      "id": 10,
+      "documentId": "cae67vlx48e3xd4ijghl942e",
+      "Tytul": "Nasza godzina W",
+      "Data": "2024-11-12",
+      "createdAt": "2026-11-05T16:50:43.594Z",
+      "updatedAt": "2026-11-05T16:50:43.594Z",
+      "publishedAt": "2026-11-05T16:50:44.186Z",
+      "Zdjecia": [
+        {
+          "id": 50,
+          "documentId": "at538g2yalgelxar34mwjj4t",
+          "name": "20241112-073352.jpg",
+          "alternativeText": "White suggestion box with a green lid and Polish label for mailroom communications.",
+          "caption": "A suggestion box labeled 'Komunikaty poczty podawczej' (Mailroom Communications) sits on a desk, ready for feedback forms.",
+          "focalPoint": null,
+          "width": 1920,
+          "height": 1337,
+          "formats": {
+            "large": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897367/large_20241112_073352_84a9ce2c0e.jpg",
+              "hash": "large_20241112_073352_84a9ce2c0e",
+              "mime": "image/jpeg",
+              "name": "large_20241112-073352.jpg",
+              "path": null,
+              "size": 60.37,
+              "width": 1000,
+              "height": 696,
+              "sizeInBytes": 60370,
+              "provider_metadata": {
+                "public_id": "large_20241112_073352_84a9ce2c0e",
+                "resource_type": "image"
+              }
+            },
+            "small": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897367/small_20241112_073352_84a9ce2c0e.jpg",
+              "hash": "small_20241112_073352_84a9ce2c0e",
+              "mime": "image/jpeg",
+              "name": "small_20241112-073352.jpg",
+              "path": null,
+              "size": 19.15,
+              "width": 500,
+              "height": 348,
+              "sizeInBytes": 19148,
+              "provider_metadata": {
+                "public_id": "small_20241112_073352_84a9ce2c0e",
+                "resource_type": "image"
+              }
+            },
+            "medium": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897367/medium_20241112_073352_84a9ce2c0e.jpg",
+              "hash": "medium_20241112_073352_84a9ce2c0e",
+              "mime": "image/jpeg",
+              "name": "medium_20241112-073352.jpg",
+              "path": null,
+              "size": 37.46,
+              "width": 750,
+              "height": 522,
+              "sizeInBytes": 37457,
+              "provider_metadata": {
+                "public_id": "medium_20241112_073352_84a9ce2c0e",
+                "resource_type": "image"
+              }
+            },
+            "thumbnail": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897367/thumbnail_20241112_073352_84a9ce2c0e.jpg",
+              "hash": "thumbnail_20241112_073352_84a9ce2c0e",
+              "mime": "image/jpeg",
+              "name": "thumbnail_20241112-073352.jpg",
+              "path": null,
+              "size": 5.37,
+              "width": 224,
+              "height": 156,
+              "sizeInBytes": 5372,
+              "provider_metadata": {
+                "public_id": "thumbnail_20241112_073352_84a9ce2c0e",
+                "resource_type": "image"
+              }
+            }
+          },
+          "hash": "20241112_073352_84a9ce2c0e",
+          "ext": ".jpg",
+          "mime": "image/jpeg",
+          "size": 174.81,
+          "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897367/20241112_073352_84a9ce2c0e.jpg",
+          "previewUrl": null,
+          "provider": "cloudinary",
+          "provider_metadata": {
+            "public_id": "20241112_073352_84a9ce2c0e",
+            "resource_type": "image"
+          },
+          "createdAt": "2026-11-05T16:49:28.357Z",
+          "updatedAt": "2026-11-05T16:49:33.121Z",
+          "publishedAt": "2026-11-05T16:49:28.357Z"
+        },
+        {
+          "id": 51,
+          "documentId": "tvb1wrdojrsy45naerbfgdjo",
+          "name": "20241112-081704.jpg",
+          "alternativeText": "Four students sit around a white table, engaged in an activity with papers and pens.",
+          "caption": "Four students are actively engaged in a collaborative learning activity around a white table, focusing on papers and pens.",
+          "focalPoint": null,
+          "width": 1920,
+          "height": 1081,
+          "formats": {
+            "large": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897369/large_20241112_081704_4a6116f256.jpg",
+              "hash": "large_20241112_081704_4a6116f256",
+              "mime": "image/jpeg",
+              "name": "large_20241112-081704.jpg",
+              "path": null,
+              "size": 87.51,
+              "width": 1000,
+              "height": 563,
+              "sizeInBytes": 87511,
+              "provider_metadata": {
+                "public_id": "large_20241112_081704_4a6116f256",
+                "resource_type": "image"
+              }
+            },
+            "small": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897369/small_20241112_081704_4a6116f256.jpg",
+              "hash": "small_20241112_081704_4a6116f256",
+              "mime": "image/jpeg",
+              "name": "small_20241112-081704.jpg",
+              "path": null,
+              "size": 28.31,
+              "width": 500,
+              "height": 281,
+              "sizeInBytes": 28312,
+              "provider_metadata": {
+                "public_id": "small_20241112_081704_4a6116f256",
+                "resource_type": "image"
+              }
+            },
+            "medium": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897369/medium_20241112_081704_4a6116f256.jpg",
+              "hash": "medium_20241112_081704_4a6116f256",
+              "mime": "image/jpeg",
+              "name": "medium_20241112-081704.jpg",
+              "path": null,
+              "size": 54.83,
+              "width": 750,
+              "height": 422,
+              "sizeInBytes": 54830,
+              "provider_metadata": {
+                "public_id": "medium_20241112_081704_4a6116f256",
+                "resource_type": "image"
+              }
+            },
+            "thumbnail": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897369/thumbnail_20241112_081704_4a6116f256.jpg",
+              "hash": "thumbnail_20241112_081704_4a6116f256",
+              "mime": "image/jpeg",
+              "name": "thumbnail_20241112-081704.jpg",
+              "path": null,
+              "size": 9.3,
+              "width": 245,
+              "height": 138,
+              "sizeInBytes": 9299,
+              "provider_metadata": {
+                "public_id": "thumbnail_20241112_081704_4a6116f256",
+                "resource_type": "image"
+              }
+            }
+          },
+          "hash": "20241112_081704_4a6116f256",
+          "ext": ".jpg",
+          "mime": "image/jpeg",
+          "size": 251.54,
+          "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897369/20241112_081704_4a6116f256.jpg",
+          "previewUrl": null,
+          "provider": "cloudinary",
+          "provider_metadata": {
+            "public_id": "20241112_081704_4a6116f256",
+            "resource_type": "image"
+          },
+          "createdAt": "2026-11-05T16:49:29.981Z",
+          "updatedAt": "2026-11-05T16:49:34.545Z",
+          "publishedAt": "2026-11-05T16:49:29.981Z"
+        },
+        {
+          "id": 52,
+          "documentId": "l8qgban2htqgon6z79c4a55i",
+          "name": "20241112-082145.jpg",
+          "alternativeText": "Students browse library shelves, one person bends to examine books on a lower row.",
+          "caption": "A group of students explores the rows of books in a school library, with one individual intently examining a lower shelf for their research.",
+          "focalPoint": null,
+          "width": 1920,
+          "height": 3410,
+          "formats": {
+            "large": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897370/large_20241112_082145_507af1594a.jpg",
+              "hash": "large_20241112_082145_507af1594a",
+              "mime": "image/jpeg",
+              "name": "large_20241112-082145.jpg",
+              "path": null,
+              "size": 96.65,
+              "width": 563,
+              "height": 1000,
+              "sizeInBytes": 96648,
+              "provider_metadata": {
+                "public_id": "large_20241112_082145_507af1594a",
+                "resource_type": "image"
+              }
+            },
+            "small": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897371/small_20241112_082145_507af1594a.jpg",
+              "hash": "small_20241112_082145_507af1594a",
+              "mime": "image/jpeg",
+              "name": "small_20241112-082145.jpg",
+              "path": null,
+              "size": 31.47,
+              "width": 282,
+              "height": 500,
+              "sizeInBytes": 31465,
+              "provider_metadata": {
+                "public_id": "small_20241112_082145_507af1594a",
+                "resource_type": "image"
+              }
+            },
+            "medium": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897370/medium_20241112_082145_507af1594a.jpg",
+              "hash": "medium_20241112_082145_507af1594a",
+              "mime": "image/jpeg",
+              "name": "medium_20241112-082145.jpg",
+              "path": null,
+              "size": 61.34,
+              "width": 422,
+              "height": 750,
+              "sizeInBytes": 61338,
+              "provider_metadata": {
+                "public_id": "medium_20241112_082145_507af1594a",
+                "resource_type": "image"
+              }
+            },
+            "thumbnail": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897370/thumbnail_20241112_082145_507af1594a.jpg",
+              "hash": "thumbnail_20241112_082145_507af1594a",
+              "mime": "image/jpeg",
+              "name": "thumbnail_20241112-082145.jpg",
+              "path": null,
+              "size": 4.61,
+              "width": 88,
+              "height": 156,
+              "sizeInBytes": 4613,
+              "provider_metadata": {
+                "public_id": "thumbnail_20241112_082145_507af1594a",
+                "resource_type": "image"
+              }
+            }
+          },
+          "hash": "20241112_082145_507af1594a",
+          "ext": ".jpg",
+          "mime": "image/jpeg",
+          "size": 711.97,
+          "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897371/20241112_082145_507af1594a.jpg",
+          "previewUrl": null,
+          "provider": "cloudinary",
+          "provider_metadata": {
+            "public_id": "20241112_082145_507af1594a",
+            "resource_type": "image"
+          },
+          "createdAt": "2026-11-05T16:49:31.664Z",
+          "updatedAt": "2026-11-05T16:49:36.995Z",
+          "publishedAt": "2026-11-05T16:49:31.665Z"
+        },
+        {
+          "id": 53,
+          "documentId": "gsom9d85h6xaxqqroddldoqi",
+          "name": "20241112-082153.jpg",
+          "alternativeText": "Three teenagers stand in a library, surrounded by bookshelves, one holding a book.",
+          "caption": "Three students pose in a library, flanked by shelves packed with books. They appear engaged in a learning activity.",
+          "focalPoint": null,
+          "width": 1920,
+          "height": 1081,
+          "formats": {
+            "large": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897372/large_20241112_082153_f8c0d4235e.jpg",
+              "hash": "large_20241112_082153_f8c0d4235e",
+              "mime": "image/jpeg",
+              "name": "large_20241112-082153.jpg",
+              "path": null,
+              "size": 119.61,
+              "width": 1000,
+              "height": 563,
+              "sizeInBytes": 119607,
+              "provider_metadata": {
+                "public_id": "large_20241112_082153_f8c0d4235e",
+                "resource_type": "image"
+              }
+            },
+            "small": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897372/small_20241112_082153_f8c0d4235e.jpg",
+              "hash": "small_20241112_082153_f8c0d4235e",
+              "mime": "image/jpeg",
+              "name": "small_20241112-082153.jpg",
+              "path": null,
+              "size": 35.67,
+              "width": 500,
+              "height": 281,
+              "sizeInBytes": 35667,
+              "provider_metadata": {
+                "public_id": "small_20241112_082153_f8c0d4235e",
+                "resource_type": "image"
+              }
+            },
+            "medium": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897372/medium_20241112_082153_f8c0d4235e.jpg",
+              "hash": "medium_20241112_082153_f8c0d4235e",
+              "mime": "image/jpeg",
+              "name": "medium_20241112-082153.jpg",
+              "path": null,
+              "size": 71.94,
+              "width": 750,
+              "height": 422,
+              "sizeInBytes": 71938,
+              "provider_metadata": {
+                "public_id": "medium_20241112_082153_f8c0d4235e",
+                "resource_type": "image"
+              }
+            },
+            "thumbnail": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897372/thumbnail_20241112_082153_f8c0d4235e.jpg",
+              "hash": "thumbnail_20241112_082153_f8c0d4235e",
+              "mime": "image/jpeg",
+              "name": "thumbnail_20241112-082153.jpg",
+              "path": null,
+              "size": 10.76,
+              "width": 245,
+              "height": 138,
+              "sizeInBytes": 10755,
+              "provider_metadata": {
+                "public_id": "thumbnail_20241112_082153_f8c0d4235e",
+                "resource_type": "image"
+              }
+            }
+          },
+          "hash": "20241112_082153_f8c0d4235e",
+          "ext": ".jpg",
+          "mime": "image/jpeg",
+          "size": 370.57,
+          "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897372/20241112_082153_f8c0d4235e.jpg",
+          "previewUrl": null,
+          "provider": "cloudinary",
+          "provider_metadata": {
+            "public_id": "20241112_082153_f8c0d4235e",
+            "resource_type": "image"
+          },
+          "createdAt": "2026-11-05T16:49:32.789Z",
+          "updatedAt": "2026-11-05T16:49:37.016Z",
+          "publishedAt": "2026-11-05T16:49:32.790Z"
+        },
+        {
+          "id": 54,
+          "documentId": "sw4tyd1ilisvmjon602mqx7x",
+          "name": "20241112-082203.jpg",
+          "alternativeText": "Children browse books on tall shelves in a well-lit library aisle.",
+          "caption": "Young students explore a vast collection of books, carefully selecting titles from the library's many shelves, fostering a love for reading.",
+          "focalPoint": null,
+          "width": 1920,
+          "height": 3410,
+          "formats": {
+            "large": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897373/large_20241112_082203_3cdf4ee247.jpg",
+              "hash": "large_20241112_082203_3cdf4ee247",
+              "mime": "image/jpeg",
+              "name": "large_20241112-082203.jpg",
+              "path": null,
+              "size": 117.43,
+              "width": 563,
+              "height": 1000,
+              "sizeInBytes": 117430,
+              "provider_metadata": {
+                "public_id": "large_20241112_082203_3cdf4ee247",
+                "resource_type": "image"
+              }
+            },
+            "small": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897373/small_20241112_082203_3cdf4ee247.jpg",
+              "hash": "small_20241112_082203_3cdf4ee247",
+              "mime": "image/jpeg",
+              "name": "small_20241112-082203.jpg",
+              "path": null,
+              "size": 36.68,
+              "width": 282,
+              "height": 500,
+              "sizeInBytes": 36677,
+              "provider_metadata": {
+                "public_id": "small_20241112_082203_3cdf4ee247",
+                "resource_type": "image"
+              }
+            },
+            "medium": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897373/medium_20241112_082203_3cdf4ee247.jpg",
+              "hash": "medium_20241112_082203_3cdf4ee247",
+              "mime": "image/jpeg",
+              "name": "medium_20241112-082203.jpg",
+              "path": null,
+              "size": 72.94,
+              "width": 422,
+              "height": 750,
+              "sizeInBytes": 72938,
+              "provider_metadata": {
+                "public_id": "medium_20241112_082203_3cdf4ee247",
+                "resource_type": "image"
+              }
+            },
+            "thumbnail": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897373/thumbnail_20241112_082203_3cdf4ee247.jpg",
+              "hash": "thumbnail_20241112_082203_3cdf4ee247",
+              "mime": "image/jpeg",
+              "name": "thumbnail_20241112-082203.jpg",
+              "path": null,
+              "size": 4.92,
+              "width": 88,
+              "height": 156,
+              "sizeInBytes": 4922,
+              "provider_metadata": {
+                "public_id": "thumbnail_20241112_082203_3cdf4ee247",
+                "resource_type": "image"
+              }
+            }
+          },
+          "hash": "20241112_082203_3cdf4ee247",
+          "ext": ".jpg",
+          "mime": "image/jpeg",
+          "size": 848.07,
+          "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897373/20241112_082203_3cdf4ee247.jpg",
+          "previewUrl": null,
+          "provider": "cloudinary",
+          "provider_metadata": {
+            "public_id": "20241112_082203_3cdf4ee247",
+            "resource_type": "image"
+          },
+          "createdAt": "2026-11-05T16:49:34.492Z",
+          "updatedAt": "2026-11-05T16:49:39.612Z",
+          "publishedAt": "2026-11-05T16:49:34.492Z"
+        },
+        {
+          "id": 55,
+          "documentId": "ttxedalemh6i3vwrbrzno230",
+          "name": "20241112-082318.jpg",
+          "alternativeText": "Group of young people in a store aisle, one proudly holding up a brown paper bag.",
+          "caption": "A group of friends enjoys browsing a store aisle, with one proudly displaying a recent purchase in a paper bag.",
+          "focalPoint": null,
+          "width": 1920,
+          "height": 3410,
+          "formats": {
+            "large": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897375/large_20241112_082318_5256f055b8.jpg",
+              "hash": "large_20241112_082318_5256f055b8",
+              "mime": "image/jpeg",
+              "name": "large_20241112-082318.jpg",
+              "path": null,
+              "size": 113.41,
+              "width": 563,
+              "height": 1000,
+              "sizeInBytes": 113414,
+              "provider_metadata": {
+                "public_id": "large_20241112_082318_5256f055b8",
+                "resource_type": "image"
+              }
+            },
+            "small": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897375/small_20241112_082318_5256f055b8.jpg",
+              "hash": "small_20241112_082318_5256f055b8",
+              "mime": "image/jpeg",
+              "name": "small_20241112-082318.jpg",
+              "path": null,
+              "size": 34.51,
+              "width": 282,
+              "height": 500,
+              "sizeInBytes": 34506,
+              "provider_metadata": {
+                "public_id": "small_20241112_082318_5256f055b8",
+                "resource_type": "image"
+              }
+            },
+            "medium": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897375/medium_20241112_082318_5256f055b8.jpg",
+              "hash": "medium_20241112_082318_5256f055b8",
+              "mime": "image/jpeg",
+              "name": "medium_20241112-082318.jpg",
+              "path": null,
+              "size": 69.88,
+              "width": 422,
+              "height": 750,
+              "sizeInBytes": 69879,
+              "provider_metadata": {
+                "public_id": "medium_20241112_082318_5256f055b8",
+                "resource_type": "image"
+              }
+            },
+            "thumbnail": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897375/thumbnail_20241112_082318_5256f055b8.jpg",
+              "hash": "thumbnail_20241112_082318_5256f055b8",
+              "mime": "image/jpeg",
+              "name": "thumbnail_20241112-082318.jpg",
+              "path": null,
+              "size": 4.66,
+              "width": 88,
+              "height": 156,
+              "sizeInBytes": 4664,
+              "provider_metadata": {
+                "public_id": "thumbnail_20241112_082318_5256f055b8",
+                "resource_type": "image"
+              }
+            }
+          },
+          "hash": "20241112_082318_5256f055b8",
+          "ext": ".jpg",
+          "mime": "image/jpeg",
+          "size": 872.35,
+          "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897375/20241112_082318_5256f055b8.jpg",
+          "previewUrl": null,
+          "provider": "cloudinary",
+          "provider_metadata": {
+            "public_id": "20241112_082318_5256f055b8",
+            "resource_type": "image"
+          },
+          "createdAt": "2026-11-05T16:49:36.053Z",
+          "updatedAt": "2026-11-05T16:49:39.646Z",
+          "publishedAt": "2026-11-05T16:49:36.054Z"
+        },
+        {
+          "id": 56,
+          "documentId": "jhdvvxpp6yunh2uiidqz1ug0",
+          "name": "20241112-082507.jpg",
+          "alternativeText": "Students sit at a long white table, discussing and working in a bright classroom.",
+          "caption": "Students engage in a collaborative learning activity around a large table, fostering discussion and teamwork in a modern classroom.",
+          "focalPoint": null,
+          "width": 1920,
+          "height": 1081,
+          "formats": {
+            "large": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897376/large_20241112_082507_63d110f152.jpg",
+              "hash": "large_20241112_082507_63d110f152",
+              "mime": "image/jpeg",
+              "name": "large_20241112-082507.jpg",
+              "path": null,
+              "size": 96.26,
+              "width": 1000,
+              "height": 563,
+              "sizeInBytes": 96255,
+              "provider_metadata": {
+                "public_id": "large_20241112_082507_63d110f152",
+                "resource_type": "image"
+              }
+            },
+            "small": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897376/small_20241112_082507_63d110f152.jpg",
+              "hash": "small_20241112_082507_63d110f152",
+              "mime": "image/jpeg",
+              "name": "small_20241112-082507.jpg",
+              "path": null,
+              "size": 30.97,
+              "width": 500,
+              "height": 281,
+              "sizeInBytes": 30970,
+              "provider_metadata": {
+                "public_id": "small_20241112_082507_63d110f152",
+                "resource_type": "image"
+              }
+            },
+            "medium": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897376/medium_20241112_082507_63d110f152.jpg",
+              "hash": "medium_20241112_082507_63d110f152",
+              "mime": "image/jpeg",
+              "name": "medium_20241112-082507.jpg",
+              "path": null,
+              "size": 60.22,
+              "width": 750,
+              "height": 422,
+              "sizeInBytes": 60222,
+              "provider_metadata": {
+                "public_id": "medium_20241112_082507_63d110f152",
+                "resource_type": "image"
+              }
+            },
+            "thumbnail": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897376/thumbnail_20241112_082507_63d110f152.jpg",
+              "hash": "thumbnail_20241112_082507_63d110f152",
+              "mime": "image/jpeg",
+              "name": "thumbnail_20241112-082507.jpg",
+              "path": null,
+              "size": 9.93,
+              "width": 245,
+              "height": 138,
+              "sizeInBytes": 9928,
+              "provider_metadata": {
+                "public_id": "thumbnail_20241112_082507_63d110f152",
+                "resource_type": "image"
+              }
+            }
+          },
+          "hash": "20241112_082507_63d110f152",
+          "ext": ".jpg",
+          "mime": "image/jpeg",
+          "size": 268.41,
+          "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897376/20241112_082507_63d110f152.jpg",
+          "previewUrl": null,
+          "provider": "cloudinary",
+          "provider_metadata": {
+            "public_id": "20241112_082507_63d110f152",
+            "resource_type": "image"
+          },
+          "createdAt": "2026-11-05T16:49:37.432Z",
+          "updatedAt": "2026-11-05T16:49:42.102Z",
+          "publishedAt": "2026-11-05T16:49:37.433Z"
+        },
+        {
+          "id": 57,
+          "documentId": "qqnwk1sexf10w3crkroucnoo",
+          "name": "20241112-082518.jpg",
+          "alternativeText": "Students are engaged in an activity at tables in a bright classroom.",
+          "caption": "Students concentrate on a group activity, working at tables in a modern classroom setting.",
+          "focalPoint": null,
+          "width": 1920,
+          "height": 1081,
+          "formats": {
+            "large": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897378/large_20241112_082518_4fbcd7c9f7.jpg",
+              "hash": "large_20241112_082518_4fbcd7c9f7",
+              "mime": "image/jpeg",
+              "name": "large_20241112-082518.jpg",
+              "path": null,
+              "size": 109.08,
+              "width": 1000,
+              "height": 563,
+              "sizeInBytes": 109080,
+              "provider_metadata": {
+                "public_id": "large_20241112_082518_4fbcd7c9f7",
+                "resource_type": "image"
+              }
+            },
+            "small": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897378/small_20241112_082518_4fbcd7c9f7.jpg",
+              "hash": "small_20241112_082518_4fbcd7c9f7",
+              "mime": "image/jpeg",
+              "name": "small_20241112-082518.jpg",
+              "path": null,
+              "size": 33.84,
+              "width": 500,
+              "height": 281,
+              "sizeInBytes": 33839,
+              "provider_metadata": {
+                "public_id": "small_20241112_082518_4fbcd7c9f7",
+                "resource_type": "image"
+              }
+            },
+            "medium": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897378/medium_20241112_082518_4fbcd7c9f7.jpg",
+              "hash": "medium_20241112_082518_4fbcd7c9f7",
+              "mime": "image/jpeg",
+              "name": "medium_20241112-082518.jpg",
+              "path": null,
+              "size": 67.03,
+              "width": 750,
+              "height": 422,
+              "sizeInBytes": 67033,
+              "provider_metadata": {
+                "public_id": "medium_20241112_082518_4fbcd7c9f7",
+                "resource_type": "image"
+              }
+            },
+            "thumbnail": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897378/thumbnail_20241112_082518_4fbcd7c9f7.jpg",
+              "hash": "thumbnail_20241112_082518_4fbcd7c9f7",
+              "mime": "image/jpeg",
+              "name": "thumbnail_20241112-082518.jpg",
+              "path": null,
+              "size": 10.58,
+              "width": 245,
+              "height": 138,
+              "sizeInBytes": 10583,
+              "provider_metadata": {
+                "public_id": "thumbnail_20241112_082518_4fbcd7c9f7",
+                "resource_type": "image"
+              }
+            }
+          },
+          "hash": "20241112_082518_4fbcd7c9f7",
+          "ext": ".jpg",
+          "mime": "image/jpeg",
+          "size": 319.71,
+          "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897378/20241112_082518_4fbcd7c9f7.jpg",
+          "previewUrl": null,
+          "provider": "cloudinary",
+          "provider_metadata": {
+            "public_id": "20241112_082518_4fbcd7c9f7",
+            "resource_type": "image"
+          },
+          "createdAt": "2026-11-05T16:49:38.713Z",
+          "updatedAt": "2026-11-05T16:49:43.989Z",
+          "publishedAt": "2026-11-05T16:49:38.713Z"
+        },
+        {
+          "id": 58,
+          "documentId": "ddnp4ayayfzpt7p6qjrwwcwy",
+          "name": "20241112-082520.jpg",
+          "alternativeText": "An adult woman serves snacks to children sitting around white tables in a room.",
+          "caption": "An adult interacts with a group of children, distributing snacks from a red container during a classroom activity or break.",
+          "focalPoint": null,
+          "width": 1920,
+          "height": 1081,
+          "formats": {
+            "large": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897379/large_20241112_082520_ff1c37b5c3.jpg",
+              "hash": "large_20241112_082520_ff1c37b5c3",
+              "mime": "image/jpeg",
+              "name": "large_20241112-082520.jpg",
+              "path": null,
+              "size": 97.76,
+              "width": 1000,
+              "height": 563,
+              "sizeInBytes": 97755,
+              "provider_metadata": {
+                "public_id": "large_20241112_082520_ff1c37b5c3",
+                "resource_type": "image"
+              }
+            },
+            "small": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897379/small_20241112_082520_ff1c37b5c3.jpg",
+              "hash": "small_20241112_082520_ff1c37b5c3",
+              "mime": "image/jpeg",
+              "name": "small_20241112-082520.jpg",
+              "path": null,
+              "size": 31.55,
+              "width": 500,
+              "height": 281,
+              "sizeInBytes": 31554,
+              "provider_metadata": {
+                "public_id": "small_20241112_082520_ff1c37b5c3",
+                "resource_type": "image"
+              }
+            },
+            "medium": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897379/medium_20241112_082520_ff1c37b5c3.jpg",
+              "hash": "medium_20241112_082520_ff1c37b5c3",
+              "mime": "image/jpeg",
+              "name": "medium_20241112-082520.jpg",
+              "path": null,
+              "size": 60.99,
+              "width": 750,
+              "height": 422,
+              "sizeInBytes": 60985,
+              "provider_metadata": {
+                "public_id": "medium_20241112_082520_ff1c37b5c3",
+                "resource_type": "image"
+              }
+            },
+            "thumbnail": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897379/thumbnail_20241112_082520_ff1c37b5c3.jpg",
+              "hash": "thumbnail_20241112_082520_ff1c37b5c3",
+              "mime": "image/jpeg",
+              "name": "thumbnail_20241112-082520.jpg",
+              "path": null,
+              "size": 10.03,
+              "width": 245,
+              "height": 138,
+              "sizeInBytes": 10030,
+              "provider_metadata": {
+                "public_id": "thumbnail_20241112_082520_ff1c37b5c3",
+                "resource_type": "image"
+              }
+            }
+          },
+          "hash": "20241112_082520_ff1c37b5c3",
+          "ext": ".jpg",
+          "mime": "image/jpeg",
+          "size": 277.21,
+          "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897379/20241112_082520_ff1c37b5c3.jpg",
+          "previewUrl": null,
+          "provider": "cloudinary",
+          "provider_metadata": {
+            "public_id": "20241112_082520_ff1c37b5c3",
+            "resource_type": "image"
+          },
+          "createdAt": "2026-11-05T16:49:40.282Z",
+          "updatedAt": "2026-11-05T16:49:44.723Z",
+          "publishedAt": "2026-11-05T16:49:40.282Z"
+        },
+        {
+          "id": 59,
+          "documentId": "k5n5ah9wbdsjf380jj57dvti",
+          "name": "20241112-082726.jpg",
+          "alternativeText": "Five students collaborate around a table, writing on papers with pens in a classroom setting.",
+          "caption": "Five students collaborate around a white table, actively writing and discussing during a group study session.",
+          "focalPoint": null,
+          "width": 1920,
+          "height": 1081,
+          "formats": {
+            "large": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897381/large_20241112_082726_5df05c9d4f.jpg",
+              "hash": "large_20241112_082726_5df05c9d4f",
+              "mime": "image/jpeg",
+              "name": "large_20241112-082726.jpg",
+              "path": null,
+              "size": 107.59,
+              "width": 1000,
+              "height": 563,
+              "sizeInBytes": 107589,
+              "provider_metadata": {
+                "public_id": "large_20241112_082726_5df05c9d4f",
+                "resource_type": "image"
+              }
+            },
+            "small": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897381/small_20241112_082726_5df05c9d4f.jpg",
+              "hash": "small_20241112_082726_5df05c9d4f",
+              "mime": "image/jpeg",
+              "name": "small_20241112-082726.jpg",
+              "path": null,
+              "size": 33.02,
+              "width": 500,
+              "height": 281,
+              "sizeInBytes": 33022,
+              "provider_metadata": {
+                "public_id": "small_20241112_082726_5df05c9d4f",
+                "resource_type": "image"
+              }
+            },
+            "medium": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897381/medium_20241112_082726_5df05c9d4f.jpg",
+              "hash": "medium_20241112_082726_5df05c9d4f",
+              "mime": "image/jpeg",
+              "name": "medium_20241112-082726.jpg",
+              "path": null,
+              "size": 65.65,
+              "width": 750,
+              "height": 422,
+              "sizeInBytes": 65652,
+              "provider_metadata": {
+                "public_id": "medium_20241112_082726_5df05c9d4f",
+                "resource_type": "image"
+              }
+            },
+            "thumbnail": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897381/thumbnail_20241112_082726_5df05c9d4f.jpg",
+              "hash": "thumbnail_20241112_082726_5df05c9d4f",
+              "mime": "image/jpeg",
+              "name": "thumbnail_20241112-082726.jpg",
+              "path": null,
+              "size": 10.48,
+              "width": 245,
+              "height": 138,
+              "sizeInBytes": 10475,
+              "provider_metadata": {
+                "public_id": "thumbnail_20241112_082726_5df05c9d4f",
+                "resource_type": "image"
+              }
+            }
+          },
+          "hash": "20241112_082726_5df05c9d4f",
+          "ext": ".jpg",
+          "mime": "image/jpeg",
+          "size": 327.73,
+          "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897381/20241112_082726_5df05c9d4f.jpg",
+          "previewUrl": null,
+          "provider": "cloudinary",
+          "provider_metadata": {
+            "public_id": "20241112_082726_5df05c9d4f",
+            "resource_type": "image"
+          },
+          "createdAt": "2026-11-05T16:49:41.653Z",
+          "updatedAt": "2026-11-05T16:49:47.395Z",
+          "publishedAt": "2026-11-05T16:49:41.653Z"
+        },
+        {
+          "id": 60,
+          "documentId": "hnucwpuqvpfxtdwcy6j6n2kq",
+          "name": "20241112-082734.jpg",
+          "alternativeText": "Students collaborate around a white table with papers and supplies in a museum workshop.",
+          "caption": "Students engage in a collaborative workshop, working together at a table filled with materials. They are actively learning in an interactive environment.",
+          "focalPoint": null,
+          "width": 1920,
+          "height": 1081,
+          "formats": {
+            "large": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897382/large_20241112_082734_90fa616b18.jpg",
+              "hash": "large_20241112_082734_90fa616b18",
+              "mime": "image/jpeg",
+              "name": "large_20241112-082734.jpg",
+              "path": null,
+              "size": 100.98,
+              "width": 1000,
+              "height": 563,
+              "sizeInBytes": 100979,
+              "provider_metadata": {
+                "public_id": "large_20241112_082734_90fa616b18",
+                "resource_type": "image"
+              }
+            },
+            "small": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897382/small_20241112_082734_90fa616b18.jpg",
+              "hash": "small_20241112_082734_90fa616b18",
+              "mime": "image/jpeg",
+              "name": "small_20241112-082734.jpg",
+              "path": null,
+              "size": 30.27,
+              "width": 500,
+              "height": 281,
+              "sizeInBytes": 30274,
+              "provider_metadata": {
+                "public_id": "small_20241112_082734_90fa616b18",
+                "resource_type": "image"
+              }
+            },
+            "medium": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897382/medium_20241112_082734_90fa616b18.jpg",
+              "hash": "medium_20241112_082734_90fa616b18",
+              "mime": "image/jpeg",
+              "name": "medium_20241112-082734.jpg",
+              "path": null,
+              "size": 61.25,
+              "width": 750,
+              "height": 422,
+              "sizeInBytes": 61249,
+              "provider_metadata": {
+                "public_id": "medium_20241112_082734_90fa616b18",
+                "resource_type": "image"
+              }
+            },
+            "thumbnail": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897382/thumbnail_20241112_082734_90fa616b18.jpg",
+              "hash": "thumbnail_20241112_082734_90fa616b18",
+              "mime": "image/jpeg",
+              "name": "thumbnail_20241112-082734.jpg",
+              "path": null,
+              "size": 9.31,
+              "width": 245,
+              "height": 138,
+              "sizeInBytes": 9312,
+              "provider_metadata": {
+                "public_id": "thumbnail_20241112_082734_90fa616b18",
+                "resource_type": "image"
+              }
+            }
+          },
+          "hash": "20241112_082734_90fa616b18",
+          "ext": ".jpg",
+          "mime": "image/jpeg",
+          "size": 308.21,
+          "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897382/20241112_082734_90fa616b18.jpg",
+          "previewUrl": null,
+          "provider": "cloudinary",
+          "provider_metadata": {
+            "public_id": "20241112_082734_90fa616b18",
+            "resource_type": "image"
+          },
+          "createdAt": "2026-11-05T16:49:42.863Z",
+          "updatedAt": "2026-11-05T16:49:50.035Z",
+          "publishedAt": "2026-11-05T16:49:42.863Z"
+        },
+        {
+          "id": 61,
+          "documentId": "q7929j82hb55had7ctei7rjk",
+          "name": "20241112-082822.jpg",
+          "alternativeText": "Four students collaborate around a table with papers, one instructor observes them.",
+          "caption": "Students actively engage in a group activity, working together on a project in a classroom setting.",
+          "focalPoint": null,
+          "width": 1920,
+          "height": 1081,
+          "formats": {
+            "large": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897383/large_20241112_082822_fa4ed68b8c.jpg",
+              "hash": "large_20241112_082822_fa4ed68b8c",
+              "mime": "image/jpeg",
+              "name": "large_20241112-082822.jpg",
+              "path": null,
+              "size": 90.36,
+              "width": 1000,
+              "height": 563,
+              "sizeInBytes": 90356,
+              "provider_metadata": {
+                "public_id": "large_20241112_082822_fa4ed68b8c",
+                "resource_type": "image"
+              }
+            },
+            "small": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897383/small_20241112_082822_fa4ed68b8c.jpg",
+              "hash": "small_20241112_082822_fa4ed68b8c",
+              "mime": "image/jpeg",
+              "name": "small_20241112-082822.jpg",
+              "path": null,
+              "size": 29.32,
+              "width": 500,
+              "height": 281,
+              "sizeInBytes": 29320,
+              "provider_metadata": {
+                "public_id": "small_20241112_082822_fa4ed68b8c",
+                "resource_type": "image"
+              }
+            },
+            "medium": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897383/medium_20241112_082822_fa4ed68b8c.jpg",
+              "hash": "medium_20241112_082822_fa4ed68b8c",
+              "mime": "image/jpeg",
+              "name": "medium_20241112-082822.jpg",
+              "path": null,
+              "size": 56.11,
+              "width": 750,
+              "height": 422,
+              "sizeInBytes": 56107,
+              "provider_metadata": {
+                "public_id": "medium_20241112_082822_fa4ed68b8c",
+                "resource_type": "image"
+              }
+            },
+            "thumbnail": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897383/thumbnail_20241112_082822_fa4ed68b8c.jpg",
+              "hash": "thumbnail_20241112_082822_fa4ed68b8c",
+              "mime": "image/jpeg",
+              "name": "thumbnail_20241112-082822.jpg",
+              "path": null,
+              "size": 9.74,
+              "width": 245,
+              "height": 138,
+              "sizeInBytes": 9736,
+              "provider_metadata": {
+                "public_id": "thumbnail_20241112_082822_fa4ed68b8c",
+                "resource_type": "image"
+              }
+            }
+          },
+          "hash": "20241112_082822_fa4ed68b8c",
+          "ext": ".jpg",
+          "mime": "image/jpeg",
+          "size": 277.27,
+          "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897383/20241112_082822_fa4ed68b8c.jpg",
+          "previewUrl": null,
+          "provider": "cloudinary",
+          "provider_metadata": {
+            "public_id": "20241112_082822_fa4ed68b8c",
+            "resource_type": "image"
+          },
+          "createdAt": "2026-11-05T16:49:44.085Z",
+          "updatedAt": "2026-11-05T16:49:48.502Z",
+          "publishedAt": "2026-11-05T16:49:44.085Z"
+        },
+        {
+          "id": 62,
+          "documentId": "a4l98pnhyu7ej4nlrfxyxxqs",
+          "name": "20241112-082925.jpg",
+          "alternativeText": "Three students work at a table, focusing on papers and holding rulers for a project.",
+          "caption": "Students collaborate on a project, using rulers to measure and analyze documents at a white table. This fosters hands-on learning.",
+          "focalPoint": null,
+          "width": 1920,
+          "height": 1081,
+          "formats": {
+            "large": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897384/large_20241112_082925_f58dd2944c.jpg",
+              "hash": "large_20241112_082925_f58dd2944c",
+              "mime": "image/jpeg",
+              "name": "large_20241112-082925.jpg",
+              "path": null,
+              "size": 83.36,
+              "width": 1000,
+              "height": 563,
+              "sizeInBytes": 83359,
+              "provider_metadata": {
+                "public_id": "large_20241112_082925_f58dd2944c",
+                "resource_type": "image"
+              }
+            },
+            "small": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897384/small_20241112_082925_f58dd2944c.jpg",
+              "hash": "small_20241112_082925_f58dd2944c",
+              "mime": "image/jpeg",
+              "name": "small_20241112-082925.jpg",
+              "path": null,
+              "size": 26.35,
+              "width": 500,
+              "height": 281,
+              "sizeInBytes": 26351,
+              "provider_metadata": {
+                "public_id": "small_20241112_082925_f58dd2944c",
+                "resource_type": "image"
+              }
+            },
+            "medium": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897384/medium_20241112_082925_f58dd2944c.jpg",
+              "hash": "medium_20241112_082925_f58dd2944c",
+              "mime": "image/jpeg",
+              "name": "medium_20241112-082925.jpg",
+              "path": null,
+              "size": 51.6,
+              "width": 750,
+              "height": 422,
+              "sizeInBytes": 51595,
+              "provider_metadata": {
+                "public_id": "medium_20241112_082925_f58dd2944c",
+                "resource_type": "image"
+              }
+            },
+            "thumbnail": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897384/thumbnail_20241112_082925_f58dd2944c.jpg",
+              "hash": "thumbnail_20241112_082925_f58dd2944c",
+              "mime": "image/jpeg",
+              "name": "thumbnail_20241112-082925.jpg",
+              "path": null,
+              "size": 8.48,
+              "width": 245,
+              "height": 138,
+              "sizeInBytes": 8477,
+              "provider_metadata": {
+                "public_id": "thumbnail_20241112_082925_f58dd2944c",
+                "resource_type": "image"
+              }
+            }
+          },
+          "hash": "20241112_082925_f58dd2944c",
+          "ext": ".jpg",
+          "mime": "image/jpeg",
+          "size": 246.56,
+          "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897384/20241112_082925_f58dd2944c.jpg",
+          "previewUrl": null,
+          "provider": "cloudinary",
+          "provider_metadata": {
+            "public_id": "20241112_082925_f58dd2944c",
+            "resource_type": "image"
+          },
+          "createdAt": "2026-11-05T16:49:45.234Z",
+          "updatedAt": "2026-11-05T16:49:52.521Z",
+          "publishedAt": "2026-11-05T16:49:45.234Z"
+        },
+        {
+          "id": 63,
+          "documentId": "orib41z1zjsf384dvl6uw2sq",
+          "name": "20241112-083446.jpg",
+          "alternativeText": "Young students collaboratively engaged in an activity around a white table in a classroom setting.",
+          "caption": "Students work together on a project, focused on their tasks at a white table in a bright learning environment.",
+          "focalPoint": null,
+          "width": 1920,
+          "height": 1081,
+          "formats": {
+            "large": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897385/large_20241112_083446_78fb9cbabf.jpg",
+              "hash": "large_20241112_083446_78fb9cbabf",
+              "mime": "image/jpeg",
+              "name": "large_20241112-083446.jpg",
+              "path": null,
+              "size": 101.53,
+              "width": 1000,
+              "height": 563,
+              "sizeInBytes": 101525,
+              "provider_metadata": {
+                "public_id": "large_20241112_083446_78fb9cbabf",
+                "resource_type": "image"
+              }
+            },
+            "small": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897385/small_20241112_083446_78fb9cbabf.jpg",
+              "hash": "small_20241112_083446_78fb9cbabf",
+              "mime": "image/jpeg",
+              "name": "small_20241112-083446.jpg",
+              "path": null,
+              "size": 31.52,
+              "width": 500,
+              "height": 281,
+              "sizeInBytes": 31521,
+              "provider_metadata": {
+                "public_id": "small_20241112_083446_78fb9cbabf",
+                "resource_type": "image"
+              }
+            },
+            "medium": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897385/medium_20241112_083446_78fb9cbabf.jpg",
+              "hash": "medium_20241112_083446_78fb9cbabf",
+              "mime": "image/jpeg",
+              "name": "medium_20241112-083446.jpg",
+              "path": null,
+              "size": 62.08,
+              "width": 750,
+              "height": 422,
+              "sizeInBytes": 62084,
+              "provider_metadata": {
+                "public_id": "medium_20241112_083446_78fb9cbabf",
+                "resource_type": "image"
+              }
+            },
+            "thumbnail": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897385/thumbnail_20241112_083446_78fb9cbabf.jpg",
+              "hash": "thumbnail_20241112_083446_78fb9cbabf",
+              "mime": "image/jpeg",
+              "name": "thumbnail_20241112-083446.jpg",
+              "path": null,
+              "size": 10.06,
+              "width": 245,
+              "height": 138,
+              "sizeInBytes": 10056,
+              "provider_metadata": {
+                "public_id": "thumbnail_20241112_083446_78fb9cbabf",
+                "resource_type": "image"
+              }
+            }
+          },
+          "hash": "20241112_083446_78fb9cbabf",
+          "ext": ".jpg",
+          "mime": "image/jpeg",
+          "size": 302.91,
+          "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897385/20241112_083446_78fb9cbabf.jpg",
+          "previewUrl": null,
+          "provider": "cloudinary",
+          "provider_metadata": {
+            "public_id": "20241112_083446_78fb9cbabf",
+            "resource_type": "image"
+          },
+          "createdAt": "2026-11-05T16:49:46.525Z",
+          "updatedAt": "2026-11-05T16:49:51.203Z",
+          "publishedAt": "2026-11-05T16:49:46.525Z"
+        },
+        {
+          "id": 64,
+          "documentId": "uduseqsm71ljesiz8qa6fr9m",
+          "name": "20241112-083606.jpg",
+          "alternativeText": "Students and an instructor collaborate around a table in a modern classroom setting.",
+          "caption": "A group of students and an instructor actively engage in a collaborative discussion around a table in a modern learning space.",
+          "focalPoint": null,
+          "width": 1920,
+          "height": 1081,
+          "formats": {
+            "large": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897387/large_20241112_083606_1121c128cd.jpg",
+              "hash": "large_20241112_083606_1121c128cd",
+              "mime": "image/jpeg",
+              "name": "large_20241112-083606.jpg",
+              "path": null,
+              "size": 102.36,
+              "width": 1000,
+              "height": 563,
+              "sizeInBytes": 102362,
+              "provider_metadata": {
+                "public_id": "large_20241112_083606_1121c128cd",
+                "resource_type": "image"
+              }
+            },
+            "small": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897387/small_20241112_083606_1121c128cd.jpg",
+              "hash": "small_20241112_083606_1121c128cd",
+              "mime": "image/jpeg",
+              "name": "small_20241112-083606.jpg",
+              "path": null,
+              "size": 30.03,
+              "width": 500,
+              "height": 281,
+              "sizeInBytes": 30033,
+              "provider_metadata": {
+                "public_id": "small_20241112_083606_1121c128cd",
+                "resource_type": "image"
+              }
+            },
+            "medium": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897387/medium_20241112_083606_1121c128cd.jpg",
+              "hash": "medium_20241112_083606_1121c128cd",
+              "mime": "image/jpeg",
+              "name": "medium_20241112-083606.jpg",
+              "path": null,
+              "size": 61.06,
+              "width": 750,
+              "height": 422,
+              "sizeInBytes": 61064,
+              "provider_metadata": {
+                "public_id": "medium_20241112_083606_1121c128cd",
+                "resource_type": "image"
+              }
+            },
+            "thumbnail": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897387/thumbnail_20241112_083606_1121c128cd.jpg",
+              "hash": "thumbnail_20241112_083606_1121c128cd",
+              "mime": "image/jpeg",
+              "name": "thumbnail_20241112-083606.jpg",
+              "path": null,
+              "size": 9.51,
+              "width": 245,
+              "height": 138,
+              "sizeInBytes": 9511,
+              "provider_metadata": {
+                "public_id": "thumbnail_20241112_083606_1121c128cd",
+                "resource_type": "image"
+              }
+            }
+          },
+          "hash": "20241112_083606_1121c128cd",
+          "ext": ".jpg",
+          "mime": "image/jpeg",
+          "size": 325.77,
+          "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897387/20241112_083606_1121c128cd.jpg",
+          "previewUrl": null,
+          "provider": "cloudinary",
+          "provider_metadata": {
+            "public_id": "20241112_083606_1121c128cd",
+            "resource_type": "image"
+          },
+          "createdAt": "2026-11-05T16:49:47.810Z",
+          "updatedAt": "2026-11-05T16:49:52.548Z",
+          "publishedAt": "2026-11-05T16:49:47.810Z"
+        },
+        {
+          "id": 65,
+          "documentId": "vwdvx0emxlesps061k5dxl7n",
+          "name": "20241112-083623.jpg",
+          "alternativeText": "Students and an instructor engaged in an educational activity at a museum table.",
+          "caption": "Students actively participate in a hands-on workshop, guided by an instructor, within a museum exhibiting historical documents.",
+          "focalPoint": null,
+          "width": 1920,
+          "height": 1081,
+          "formats": {
+            "large": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897388/large_20241112_083623_bdad25f0dc.jpg",
+              "hash": "large_20241112_083623_bdad25f0dc",
+              "mime": "image/jpeg",
+              "name": "large_20241112-083623.jpg",
+              "path": null,
+              "size": 93.24,
+              "width": 1000,
+              "height": 563,
+              "sizeInBytes": 93235,
+              "provider_metadata": {
+                "public_id": "large_20241112_083623_bdad25f0dc",
+                "resource_type": "image"
+              }
+            },
+            "small": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897388/small_20241112_083623_bdad25f0dc.jpg",
+              "hash": "small_20241112_083623_bdad25f0dc",
+              "mime": "image/jpeg",
+              "name": "small_20241112-083623.jpg",
+              "path": null,
+              "size": 28.9,
+              "width": 500,
+              "height": 281,
+              "sizeInBytes": 28904,
+              "provider_metadata": {
+                "public_id": "small_20241112_083623_bdad25f0dc",
+                "resource_type": "image"
+              }
+            },
+            "medium": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897388/medium_20241112_083623_bdad25f0dc.jpg",
+              "hash": "medium_20241112_083623_bdad25f0dc",
+              "mime": "image/jpeg",
+              "name": "medium_20241112-083623.jpg",
+              "path": null,
+              "size": 57.36,
+              "width": 750,
+              "height": 422,
+              "sizeInBytes": 57363,
+              "provider_metadata": {
+                "public_id": "medium_20241112_083623_bdad25f0dc",
+                "resource_type": "image"
+              }
+            },
+            "thumbnail": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897388/thumbnail_20241112_083623_bdad25f0dc.jpg",
+              "hash": "thumbnail_20241112_083623_bdad25f0dc",
+              "mime": "image/jpeg",
+              "name": "thumbnail_20241112-083623.jpg",
+              "path": null,
+              "size": 9.11,
+              "width": 245,
+              "height": 138,
+              "sizeInBytes": 9107,
+              "provider_metadata": {
+                "public_id": "thumbnail_20241112_083623_bdad25f0dc",
+                "resource_type": "image"
+              }
+            }
+          },
+          "hash": "20241112_083623_bdad25f0dc",
+          "ext": ".jpg",
+          "mime": "image/jpeg",
+          "size": 280.9,
+          "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897388/20241112_083623_bdad25f0dc.jpg",
+          "previewUrl": null,
+          "provider": "cloudinary",
+          "provider_metadata": {
+            "public_id": "20241112_083623_bdad25f0dc",
+            "resource_type": "image"
+          },
+          "createdAt": "2026-11-05T16:49:49.177Z",
+          "updatedAt": "2026-11-05T16:49:53.756Z",
+          "publishedAt": "2026-11-05T16:49:49.178Z"
+        },
+        {
+          "id": 66,
+          "documentId": "r5xu0sknv16p8h9od0tgj8oj",
+          "name": "20241112-084301.jpg",
+          "alternativeText": "Students actively participate in a workshop, seated at tables while an instructor speaks.",
+          "caption": "Students engage in a hands-on learning activity in a bright, modern classroom setting. An instructor guides the group, fostering collaboration.",
+          "focalPoint": null,
+          "width": 1920,
+          "height": 1081,
+          "formats": {
+            "large": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897390/large_20241112_084301_7862a04e05.jpg",
+              "hash": "large_20241112_084301_7862a04e05",
+              "mime": "image/jpeg",
+              "name": "large_20241112-084301.jpg",
+              "path": null,
+              "size": 109.53,
+              "width": 1000,
+              "height": 563,
+              "sizeInBytes": 109529,
+              "provider_metadata": {
+                "public_id": "large_20241112_084301_7862a04e05",
+                "resource_type": "image"
+              }
+            },
+            "small": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897390/small_20241112_084301_7862a04e05.jpg",
+              "hash": "small_20241112_084301_7862a04e05",
+              "mime": "image/jpeg",
+              "name": "small_20241112-084301.jpg",
+              "path": null,
+              "size": 33.13,
+              "width": 500,
+              "height": 281,
+              "sizeInBytes": 33130,
+              "provider_metadata": {
+                "public_id": "small_20241112_084301_7862a04e05",
+                "resource_type": "image"
+              }
+            },
+            "medium": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897390/medium_20241112_084301_7862a04e05.jpg",
+              "hash": "medium_20241112_084301_7862a04e05",
+              "mime": "image/jpeg",
+              "name": "medium_20241112-084301.jpg",
+              "path": null,
+              "size": 66.66,
+              "width": 750,
+              "height": 422,
+              "sizeInBytes": 66663,
+              "provider_metadata": {
+                "public_id": "medium_20241112_084301_7862a04e05",
+                "resource_type": "image"
+              }
+            },
+            "thumbnail": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897389/thumbnail_20241112_084301_7862a04e05.jpg",
+              "hash": "thumbnail_20241112_084301_7862a04e05",
+              "mime": "image/jpeg",
+              "name": "thumbnail_20241112-084301.jpg",
+              "path": null,
+              "size": 10.45,
+              "width": 245,
+              "height": 138,
+              "sizeInBytes": 10445,
+              "provider_metadata": {
+                "public_id": "thumbnail_20241112_084301_7862a04e05",
+                "resource_type": "image"
+              }
+            }
+          },
+          "hash": "20241112_084301_7862a04e05",
+          "ext": ".jpg",
+          "mime": "image/jpeg",
+          "size": 340.07,
+          "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897389/20241112_084301_7862a04e05.jpg",
+          "previewUrl": null,
+          "provider": "cloudinary",
+          "provider_metadata": {
+            "public_id": "20241112_084301_7862a04e05",
+            "resource_type": "image"
+          },
+          "createdAt": "2026-11-05T16:49:50.468Z",
+          "updatedAt": "2026-11-05T16:49:54.209Z",
+          "publishedAt": "2026-11-05T16:49:50.468Z"
+        },
+        {
+          "id": 67,
+          "documentId": "b8iz5iqlye5kdh9b7maepe79",
+          "name": "20241112-085545.jpg",
+          "alternativeText": "Group of students writing at a long white table in a classroom.",
+          "caption": "Students actively engage in a collaborative learning session, seated around a long white table in a bright classroom.",
+          "focalPoint": null,
+          "width": 1920,
+          "height": 1081,
+          "formats": {
+            "large": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897391/large_20241112_085545_ea28febc5f.jpg",
+              "hash": "large_20241112_085545_ea28febc5f",
+              "mime": "image/jpeg",
+              "name": "large_20241112-085545.jpg",
+              "path": null,
+              "size": 86.52,
+              "width": 1000,
+              "height": 563,
+              "sizeInBytes": 86519,
+              "provider_metadata": {
+                "public_id": "large_20241112_085545_ea28febc5f",
+                "resource_type": "image"
+              }
+            },
+            "small": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897391/small_20241112_085545_ea28febc5f.jpg",
+              "hash": "small_20241112_085545_ea28febc5f",
+              "mime": "image/jpeg",
+              "name": "small_20241112-085545.jpg",
+              "path": null,
+              "size": 28.71,
+              "width": 500,
+              "height": 281,
+              "sizeInBytes": 28714,
+              "provider_metadata": {
+                "public_id": "small_20241112_085545_ea28febc5f",
+                "resource_type": "image"
+              }
+            },
+            "medium": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897391/medium_20241112_085545_ea28febc5f.jpg",
+              "hash": "medium_20241112_085545_ea28febc5f",
+              "mime": "image/jpeg",
+              "name": "medium_20241112-085545.jpg",
+              "path": null,
+              "size": 55.13,
+              "width": 750,
+              "height": 422,
+              "sizeInBytes": 55131,
+              "provider_metadata": {
+                "public_id": "medium_20241112_085545_ea28febc5f",
+                "resource_type": "image"
+              }
+            },
+            "thumbnail": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897391/thumbnail_20241112_085545_ea28febc5f.jpg",
+              "hash": "thumbnail_20241112_085545_ea28febc5f",
+              "mime": "image/jpeg",
+              "name": "thumbnail_20241112-085545.jpg",
+              "path": null,
+              "size": 9.4,
+              "width": 245,
+              "height": 138,
+              "sizeInBytes": 9402,
+              "provider_metadata": {
+                "public_id": "thumbnail_20241112_085545_ea28febc5f",
+                "resource_type": "image"
+              }
+            }
+          },
+          "hash": "20241112_085545_ea28febc5f",
+          "ext": ".jpg",
+          "mime": "image/jpeg",
+          "size": 236.58,
+          "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897391/20241112_085545_ea28febc5f.jpg",
+          "previewUrl": null,
+          "provider": "cloudinary",
+          "provider_metadata": {
+            "public_id": "20241112_085545_ea28febc5f",
+            "resource_type": "image"
+          },
+          "createdAt": "2026-11-05T16:49:52.288Z",
+          "updatedAt": "2026-11-05T16:49:56.169Z",
+          "publishedAt": "2026-11-05T16:49:52.288Z"
+        },
+        {
+          "id": 68,
+          "documentId": "ouq9cj22g23ax28qh9pmnt6y",
+          "name": "20241112-085600.jpg",
+          "alternativeText": "Five students writing at a large white table in a classroom with historical displays.",
+          "caption": "Young students collaboratively engage in a writing activity around a large table, surrounded by educational display boards. This group learning environment encourages active participation.",
+          "focalPoint": null,
+          "width": 1920,
+          "height": 1081,
+          "formats": {
+            "large": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897393/large_20241112_085600_6afd74830b.jpg",
+              "hash": "large_20241112_085600_6afd74830b",
+              "mime": "image/jpeg",
+              "name": "large_20241112-085600.jpg",
+              "path": null,
+              "size": 83.42,
+              "width": 1000,
+              "height": 563,
+              "sizeInBytes": 83415,
+              "provider_metadata": {
+                "public_id": "large_20241112_085600_6afd74830b",
+                "resource_type": "image"
+              }
+            },
+            "small": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897393/small_20241112_085600_6afd74830b.jpg",
+              "hash": "small_20241112_085600_6afd74830b",
+              "mime": "image/jpeg",
+              "name": "small_20241112-085600.jpg",
+              "path": null,
+              "size": 25.44,
+              "width": 500,
+              "height": 281,
+              "sizeInBytes": 25439,
+              "provider_metadata": {
+                "public_id": "small_20241112_085600_6afd74830b",
+                "resource_type": "image"
+              }
+            },
+            "medium": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897393/medium_20241112_085600_6afd74830b.jpg",
+              "hash": "medium_20241112_085600_6afd74830b",
+              "mime": "image/jpeg",
+              "name": "medium_20241112-085600.jpg",
+              "path": null,
+              "size": 50.72,
+              "width": 750,
+              "height": 422,
+              "sizeInBytes": 50721,
+              "provider_metadata": {
+                "public_id": "medium_20241112_085600_6afd74830b",
+                "resource_type": "image"
+              }
+            },
+            "thumbnail": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897392/thumbnail_20241112_085600_6afd74830b.jpg",
+              "hash": "thumbnail_20241112_085600_6afd74830b",
+              "mime": "image/jpeg",
+              "name": "thumbnail_20241112-085600.jpg",
+              "path": null,
+              "size": 8.12,
+              "width": 245,
+              "height": 138,
+              "sizeInBytes": 8115,
+              "provider_metadata": {
+                "public_id": "thumbnail_20241112_085600_6afd74830b",
+                "resource_type": "image"
+              }
+            }
+          },
+          "hash": "20241112_085600_6afd74830b",
+          "ext": ".jpg",
+          "mime": "image/jpeg",
+          "size": 263.24,
+          "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897392/20241112_085600_6afd74830b.jpg",
+          "previewUrl": null,
+          "provider": "cloudinary",
+          "provider_metadata": {
+            "public_id": "20241112_085600_6afd74830b",
+            "resource_type": "image"
+          },
+          "createdAt": "2026-11-05T16:49:53.584Z",
+          "updatedAt": "2026-11-05T16:49:57.836Z",
+          "publishedAt": "2026-11-05T16:49:53.585Z"
+        },
+        {
+          "id": 69,
+          "documentId": "wpkfqr6uffh9uey7k4qh70tl",
+          "name": "20241112-090146.jpg",
+          "alternativeText": "Young students listen attentively to an older person at a long table in a classroom setting.",
+          "caption": "Students engage in a discussion with an older adult, likely a mentor or guest speaker, at a table. This educational interaction fosters learning and intergenerational connection.",
+          "focalPoint": null,
+          "width": 1920,
+          "height": 1081,
+          "formats": {
+            "large": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897394/large_20241112_090146_d96b98463c.jpg",
+              "hash": "large_20241112_090146_d96b98463c",
+              "mime": "image/jpeg",
+              "name": "large_20241112-090146.jpg",
+              "path": null,
+              "size": 96.4,
+              "width": 1000,
+              "height": 563,
+              "sizeInBytes": 96398,
+              "provider_metadata": {
+                "public_id": "large_20241112_090146_d96b98463c",
+                "resource_type": "image"
+              }
+            },
+            "small": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897394/small_20241112_090146_d96b98463c.jpg",
+              "hash": "small_20241112_090146_d96b98463c",
+              "mime": "image/jpeg",
+              "name": "small_20241112-090146.jpg",
+              "path": null,
+              "size": 31.24,
+              "width": 500,
+              "height": 281,
+              "sizeInBytes": 31236,
+              "provider_metadata": {
+                "public_id": "small_20241112_090146_d96b98463c",
+                "resource_type": "image"
+              }
+            },
+            "medium": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897394/medium_20241112_090146_d96b98463c.jpg",
+              "hash": "medium_20241112_090146_d96b98463c",
+              "mime": "image/jpeg",
+              "name": "medium_20241112-090146.jpg",
+              "path": null,
+              "size": 60.33,
+              "width": 750,
+              "height": 422,
+              "sizeInBytes": 60325,
+              "provider_metadata": {
+                "public_id": "medium_20241112_090146_d96b98463c",
+                "resource_type": "image"
+              }
+            },
+            "thumbnail": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897394/thumbnail_20241112_090146_d96b98463c.jpg",
+              "hash": "thumbnail_20241112_090146_d96b98463c",
+              "mime": "image/jpeg",
+              "name": "thumbnail_20241112-090146.jpg",
+              "path": null,
+              "size": 10.01,
+              "width": 245,
+              "height": 138,
+              "sizeInBytes": 10009,
+              "provider_metadata": {
+                "public_id": "thumbnail_20241112_090146_d96b98463c",
+                "resource_type": "image"
+              }
+            }
+          },
+          "hash": "20241112_090146_d96b98463c",
+          "ext": ".jpg",
+          "mime": "image/jpeg",
+          "size": 283.01,
+          "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897394/20241112_090146_d96b98463c.jpg",
+          "previewUrl": null,
+          "provider": "cloudinary",
+          "provider_metadata": {
+            "public_id": "20241112_090146_d96b98463c",
+            "resource_type": "image"
+          },
+          "createdAt": "2026-11-05T16:49:54.641Z",
+          "updatedAt": "2026-11-05T16:49:58.493Z",
+          "publishedAt": "2026-11-05T16:49:54.641Z"
+        },
+        {
+          "id": 70,
+          "documentId": "b4tq7gy8y0e6aho7z5qvwnzp",
+          "name": "20241112-090612.jpg",
+          "alternativeText": "Students sit at tables in a classroom, engaged in an activity with educational displays.",
+          "caption": "Students engage in a classroom activity, with educational displays on easels in the background, creating an interactive learning experience.",
+          "focalPoint": null,
+          "width": 1920,
+          "height": 1081,
+          "formats": {
+            "large": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897395/large_20241112_090612_cd26b896c4.jpg",
+              "hash": "large_20241112_090612_cd26b896c4",
+              "mime": "image/jpeg",
+              "name": "large_20241112-090612.jpg",
+              "path": null,
+              "size": 104.57,
+              "width": 1000,
+              "height": 563,
+              "sizeInBytes": 104571,
+              "provider_metadata": {
+                "public_id": "large_20241112_090612_cd26b896c4",
+                "resource_type": "image"
+              }
+            },
+            "small": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897395/small_20241112_090612_cd26b896c4.jpg",
+              "hash": "small_20241112_090612_cd26b896c4",
+              "mime": "image/jpeg",
+              "name": "small_20241112-090612.jpg",
+              "path": null,
+              "size": 31.61,
+              "width": 500,
+              "height": 281,
+              "sizeInBytes": 31611,
+              "provider_metadata": {
+                "public_id": "small_20241112_090612_cd26b896c4",
+                "resource_type": "image"
+              }
+            },
+            "medium": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897395/medium_20241112_090612_cd26b896c4.jpg",
+              "hash": "medium_20241112_090612_cd26b896c4",
+              "mime": "image/jpeg",
+              "name": "medium_20241112-090612.jpg",
+              "path": null,
+              "size": 63.14,
+              "width": 750,
+              "height": 422,
+              "sizeInBytes": 63144,
+              "provider_metadata": {
+                "public_id": "medium_20241112_090612_cd26b896c4",
+                "resource_type": "image"
+              }
+            },
+            "thumbnail": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897395/thumbnail_20241112_090612_cd26b896c4.jpg",
+              "hash": "thumbnail_20241112_090612_cd26b896c4",
+              "mime": "image/jpeg",
+              "name": "thumbnail_20241112-090612.jpg",
+              "path": null,
+              "size": 9.9,
+              "width": 245,
+              "height": 138,
+              "sizeInBytes": 9902,
+              "provider_metadata": {
+                "public_id": "thumbnail_20241112_090612_cd26b896c4",
+                "resource_type": "image"
+              }
+            }
+          },
+          "hash": "20241112_090612_cd26b896c4",
+          "ext": ".jpg",
+          "mime": "image/jpeg",
+          "size": 322.41,
+          "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897395/20241112_090612_cd26b896c4.jpg",
+          "previewUrl": null,
+          "provider": "cloudinary",
+          "provider_metadata": {
+            "public_id": "20241112_090612_cd26b896c4",
+            "resource_type": "image"
+          },
+          "createdAt": "2026-11-05T16:49:56.032Z",
+          "updatedAt": "2026-11-05T16:50:01.485Z",
+          "publishedAt": "2026-11-05T16:49:56.033Z"
+        },
+        {
+          "id": 71,
+          "documentId": "pxh7urbtgr00vtlmjptp7cls",
+          "name": "20241112-0817041.jpg",
+          "alternativeText": "Students, one with an arm sling, focus on materials at a white table in a classroom.",
+          "caption": "Four students are engaged in a collaborative activity around a white table, interacting with papers and small objects. One wears an arm sling.",
+          "focalPoint": null,
+          "width": 1920,
+          "height": 1081,
+          "formats": {
+            "large": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897396/large_20241112_0817041_ec043f4c5f.jpg",
+              "hash": "large_20241112_0817041_ec043f4c5f",
+              "mime": "image/jpeg",
+              "name": "large_20241112-0817041.jpg",
+              "path": null,
+              "size": 87.51,
+              "width": 1000,
+              "height": 563,
+              "sizeInBytes": 87511,
+              "provider_metadata": {
+                "public_id": "large_20241112_0817041_ec043f4c5f",
+                "resource_type": "image"
+              }
+            },
+            "small": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897396/small_20241112_0817041_ec043f4c5f.jpg",
+              "hash": "small_20241112_0817041_ec043f4c5f",
+              "mime": "image/jpeg",
+              "name": "small_20241112-0817041.jpg",
+              "path": null,
+              "size": 28.31,
+              "width": 500,
+              "height": 281,
+              "sizeInBytes": 28312,
+              "provider_metadata": {
+                "public_id": "small_20241112_0817041_ec043f4c5f",
+                "resource_type": "image"
+              }
+            },
+            "medium": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897396/medium_20241112_0817041_ec043f4c5f.jpg",
+              "hash": "medium_20241112_0817041_ec043f4c5f",
+              "mime": "image/jpeg",
+              "name": "medium_20241112-0817041.jpg",
+              "path": null,
+              "size": 54.83,
+              "width": 750,
+              "height": 422,
+              "sizeInBytes": 54830,
+              "provider_metadata": {
+                "public_id": "medium_20241112_0817041_ec043f4c5f",
+                "resource_type": "image"
+              }
+            },
+            "thumbnail": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897396/thumbnail_20241112_0817041_ec043f4c5f.jpg",
+              "hash": "thumbnail_20241112_0817041_ec043f4c5f",
+              "mime": "image/jpeg",
+              "name": "thumbnail_20241112-0817041.jpg",
+              "path": null,
+              "size": 9.3,
+              "width": 245,
+              "height": 138,
+              "sizeInBytes": 9299,
+              "provider_metadata": {
+                "public_id": "thumbnail_20241112_0817041_ec043f4c5f",
+                "resource_type": "image"
+              }
+            }
+          },
+          "hash": "20241112_0817041_ec043f4c5f",
+          "ext": ".jpg",
+          "mime": "image/jpeg",
+          "size": 251.54,
+          "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897396/20241112_0817041_ec043f4c5f.jpg",
+          "previewUrl": null,
+          "provider": "cloudinary",
+          "provider_metadata": {
+            "public_id": "20241112_0817041_ec043f4c5f",
+            "resource_type": "image"
+          },
+          "createdAt": "2026-11-05T16:49:57.208Z",
+          "updatedAt": "2026-11-05T16:50:07.261Z",
+          "publishedAt": "2026-11-05T16:49:57.208Z"
+        },
+        {
+          "id": 72,
+          "documentId": "tqftqw3stmu7ns1zdz8zx72l",
+          "name": "20241112-0817042.jpg",
+          "alternativeText": "Group of five students working together at a white table in a classroom setting.",
+          "caption": "Young students collaborate on a project, intently focused on papers and small objects spread across their white table.",
+          "focalPoint": null,
+          "width": 1920,
+          "height": 1081,
+          "formats": {
+            "large": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897397/large_20241112_0817042_98eb6759b2.jpg",
+              "hash": "large_20241112_0817042_98eb6759b2",
+              "mime": "image/jpeg",
+              "name": "large_20241112-0817042.jpg",
+              "path": null,
+              "size": 87.51,
+              "width": 1000,
+              "height": 563,
+              "sizeInBytes": 87511,
+              "provider_metadata": {
+                "public_id": "large_20241112_0817042_98eb6759b2",
+                "resource_type": "image"
+              }
+            },
+            "small": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897397/small_20241112_0817042_98eb6759b2.jpg",
+              "hash": "small_20241112_0817042_98eb6759b2",
+              "mime": "image/jpeg",
+              "name": "small_20241112-0817042.jpg",
+              "path": null,
+              "size": 28.31,
+              "width": 500,
+              "height": 281,
+              "sizeInBytes": 28312,
+              "provider_metadata": {
+                "public_id": "small_20241112_0817042_98eb6759b2",
+                "resource_type": "image"
+              }
+            },
+            "medium": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897397/medium_20241112_0817042_98eb6759b2.jpg",
+              "hash": "medium_20241112_0817042_98eb6759b2",
+              "mime": "image/jpeg",
+              "name": "medium_20241112-0817042.jpg",
+              "path": null,
+              "size": 54.83,
+              "width": 750,
+              "height": 422,
+              "sizeInBytes": 54830,
+              "provider_metadata": {
+                "public_id": "medium_20241112_0817042_98eb6759b2",
+                "resource_type": "image"
+              }
+            },
+            "thumbnail": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897397/thumbnail_20241112_0817042_98eb6759b2.jpg",
+              "hash": "thumbnail_20241112_0817042_98eb6759b2",
+              "mime": "image/jpeg",
+              "name": "thumbnail_20241112-0817042.jpg",
+              "path": null,
+              "size": 9.3,
+              "width": 245,
+              "height": 138,
+              "sizeInBytes": 9299,
+              "provider_metadata": {
+                "public_id": "thumbnail_20241112_0817042_98eb6759b2",
+                "resource_type": "image"
+              }
+            }
+          },
+          "hash": "20241112_0817042_98eb6759b2",
+          "ext": ".jpg",
+          "mime": "image/jpeg",
+          "size": 251.54,
+          "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897397/20241112_0817042_98eb6759b2.jpg",
+          "previewUrl": null,
+          "provider": "cloudinary",
+          "provider_metadata": {
+            "public_id": "20241112_0817042_98eb6759b2",
+            "resource_type": "image"
+          },
+          "createdAt": "2026-11-05T16:49:58.526Z",
+          "updatedAt": "2026-11-05T16:50:02.701Z",
+          "publishedAt": "2026-11-05T16:49:58.526Z"
+        },
+        {
+          "id": 73,
+          "documentId": "ilxqhussk9u2wtb80k75k94w",
+          "name": "20241112-0817043.jpg",
+          "alternativeText": "Four students collaborate at a white table, examining papers and small objects.",
+          "caption": "Young students work together on an activity at a table in a modern learning environment. They are focused on papers and small items, fostering collaboration.",
+          "focalPoint": null,
+          "width": 1920,
+          "height": 1081,
+          "formats": {
+            "large": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897399/large_20241112_0817043_2a33b6e227.jpg",
+              "hash": "large_20241112_0817043_2a33b6e227",
+              "mime": "image/jpeg",
+              "name": "large_20241112-0817043.jpg",
+              "path": null,
+              "size": 87.51,
+              "width": 1000,
+              "height": 563,
+              "sizeInBytes": 87511,
+              "provider_metadata": {
+                "public_id": "large_20241112_0817043_2a33b6e227",
+                "resource_type": "image"
+              }
+            },
+            "small": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897399/small_20241112_0817043_2a33b6e227.jpg",
+              "hash": "small_20241112_0817043_2a33b6e227",
+              "mime": "image/jpeg",
+              "name": "small_20241112-0817043.jpg",
+              "path": null,
+              "size": 28.31,
+              "width": 500,
+              "height": 281,
+              "sizeInBytes": 28312,
+              "provider_metadata": {
+                "public_id": "small_20241112_0817043_2a33b6e227",
+                "resource_type": "image"
+              }
+            },
+            "medium": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897399/medium_20241112_0817043_2a33b6e227.jpg",
+              "hash": "medium_20241112_0817043_2a33b6e227",
+              "mime": "image/jpeg",
+              "name": "medium_20241112-0817043.jpg",
+              "path": null,
+              "size": 54.83,
+              "width": 750,
+              "height": 422,
+              "sizeInBytes": 54830,
+              "provider_metadata": {
+                "public_id": "medium_20241112_0817043_2a33b6e227",
+                "resource_type": "image"
+              }
+            },
+            "thumbnail": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897399/thumbnail_20241112_0817043_2a33b6e227.jpg",
+              "hash": "thumbnail_20241112_0817043_2a33b6e227",
+              "mime": "image/jpeg",
+              "name": "thumbnail_20241112-0817043.jpg",
+              "path": null,
+              "size": 9.3,
+              "width": 245,
+              "height": 138,
+              "sizeInBytes": 9299,
+              "provider_metadata": {
+                "public_id": "thumbnail_20241112_0817043_2a33b6e227",
+                "resource_type": "image"
+              }
+            }
+          },
+          "hash": "20241112_0817043_2a33b6e227",
+          "ext": ".jpg",
+          "mime": "image/jpeg",
+          "size": 251.54,
+          "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793897399/20241112_0817043_2a33b6e227.jpg",
+          "previewUrl": null,
+          "provider": "cloudinary",
+          "provider_metadata": {
+            "public_id": "20241112_0817043_2a33b6e227",
+            "resource_type": "image"
+          },
+          "createdAt": "2026-11-05T16:49:59.892Z",
+          "updatedAt": "2026-11-05T16:50:03.481Z",
+          "publishedAt": "2026-11-05T16:49:59.892Z"
+        }
+      ]
     }
   ],
   "meta": {
@@ -1018,7 +3189,7 @@
       "page": 1,
       "pageSize": 25,
       "pageCount": 1,
-      "total": 2
+      "total": 3
     }
   }
 }
