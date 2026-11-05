@@ -1,0 +1,1024 @@
+{
+  "data": [
+    {
+      "id": 6,
+      "documentId": "f22xnf2cf50ggc6z8tpja51s",
+      "Tytul": "Kreatywna dynia",
+      "Data": "2024-11-04",
+      "createdAt": "2026-11-05T15:13:08.826Z",
+      "updatedAt": "2026-11-05T15:13:08.826Z",
+      "publishedAt": "2026-11-05T15:13:09.368Z",
+      "Zdjecia": [
+        {
+          "id": 39,
+          "documentId": "aantf5efo0dmfjtbeqxkqtye",
+          "name": "20241104-104755.jpg",
+          "alternativeText": "Young children and teachers proudly display books in a vibrant classroom setting.",
+          "caption": "Young students proudly display their storybooks with their teachers in a cheerful classroom environment.",
+          "focalPoint": null,
+          "width": 1920,
+          "height": 1081,
+          "formats": {
+            "large": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893635/spoleczna/galerie/large_20241104_104755_64c4de332e.jpg",
+              "hash": "large_20241104_104755_64c4de332e",
+              "mime": "image/jpeg",
+              "name": "large_20241104-104755.jpg",
+              "path": null,
+              "size": 128.25,
+              "width": 1000,
+              "height": 563,
+              "sizeInBytes": 128254,
+              "provider_metadata": {
+                "public_id": "spoleczna/galerie/large_20241104_104755_64c4de332e",
+                "resource_type": "image"
+              }
+            },
+            "small": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893636/spoleczna/galerie/small_20241104_104755_64c4de332e.jpg",
+              "hash": "small_20241104_104755_64c4de332e",
+              "mime": "image/jpeg",
+              "name": "small_20241104-104755.jpg",
+              "path": null,
+              "size": 39.86,
+              "width": 500,
+              "height": 281,
+              "sizeInBytes": 39863,
+              "provider_metadata": {
+                "public_id": "spoleczna/galerie/small_20241104_104755_64c4de332e",
+                "resource_type": "image"
+              }
+            },
+            "medium": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893637/spoleczna/galerie/medium_20241104_104755_64c4de332e.jpg",
+              "hash": "medium_20241104_104755_64c4de332e",
+              "mime": "image/jpeg",
+              "name": "medium_20241104-104755.jpg",
+              "path": null,
+              "size": 79.28,
+              "width": 750,
+              "height": 422,
+              "sizeInBytes": 79279,
+              "provider_metadata": {
+                "public_id": "spoleczna/galerie/medium_20241104_104755_64c4de332e",
+                "resource_type": "image"
+              }
+            },
+            "thumbnail": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893637/spoleczna/galerie/thumbnail_20241104_104755_64c4de332e.jpg",
+              "hash": "thumbnail_20241104_104755_64c4de332e",
+              "mime": "image/jpeg",
+              "name": "thumbnail_20241104-104755.jpg",
+              "path": null,
+              "size": 12.08,
+              "width": 245,
+              "height": 138,
+              "sizeInBytes": 12079,
+              "provider_metadata": {
+                "public_id": "spoleczna/galerie/thumbnail_20241104_104755_64c4de332e",
+                "resource_type": "image"
+              }
+            }
+          },
+          "hash": "20241104_104755_64c4de332e",
+          "ext": ".jpg",
+          "mime": "image/jpeg",
+          "size": 381.56,
+          "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893634/spoleczna/galerie/20241104_104755_64c4de332e.jpg",
+          "previewUrl": null,
+          "provider": "cloudinary",
+          "provider_metadata": {
+            "public_id": "spoleczna/galerie/20241104_104755_64c4de332e",
+            "resource_type": "image"
+          },
+          "createdAt": "2026-11-05T15:12:49.809Z",
+          "updatedAt": "2026-11-05T15:12:55.405Z",
+          "publishedAt": "2026-11-05T15:12:49.809Z"
+        },
+        {
+          "id": 40,
+          "documentId": "u2pscdxyqcbup1boq9hhexub",
+          "name": "20241104-105844.jpg",
+          "alternativeText": "Two young boys proudly display their creative projects in a classroom setting.",
+          "caption": "Two young students show off their completed craft projects in the classroom, looking proud of their work.",
+          "focalPoint": null,
+          "width": 1920,
+          "height": 3410,
+          "formats": {
+            "large": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893638/spoleczna/galerie/large_20241104_105844_3e632e05e1.jpg",
+              "hash": "large_20241104_105844_3e632e05e1",
+              "mime": "image/jpeg",
+              "name": "large_20241104-105844.jpg",
+              "path": null,
+              "size": 86.83,
+              "width": 563,
+              "height": 1000,
+              "sizeInBytes": 86826,
+              "provider_metadata": {
+                "public_id": "spoleczna/galerie/large_20241104_105844_3e632e05e1",
+                "resource_type": "image"
+              }
+            },
+            "small": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893639/spoleczna/galerie/small_20241104_105844_3e632e05e1.jpg",
+              "hash": "small_20241104_105844_3e632e05e1",
+              "mime": "image/jpeg",
+              "name": "small_20241104-105844.jpg",
+              "path": null,
+              "size": 24.33,
+              "width": 282,
+              "height": 500,
+              "sizeInBytes": 24331,
+              "provider_metadata": {
+                "public_id": "spoleczna/galerie/small_20241104_105844_3e632e05e1",
+                "resource_type": "image"
+              }
+            },
+            "medium": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893639/spoleczna/galerie/medium_20241104_105844_3e632e05e1.jpg",
+              "hash": "medium_20241104_105844_3e632e05e1",
+              "mime": "image/jpeg",
+              "name": "medium_20241104-105844.jpg",
+              "path": null,
+              "size": 50.6,
+              "width": 422,
+              "height": 750,
+              "sizeInBytes": 50604,
+              "provider_metadata": {
+                "public_id": "spoleczna/galerie/medium_20241104_105844_3e632e05e1",
+                "resource_type": "image"
+              }
+            },
+            "thumbnail": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893640/spoleczna/galerie/thumbnail_20241104_105844_3e632e05e1.jpg",
+              "hash": "thumbnail_20241104_105844_3e632e05e1",
+              "mime": "image/jpeg",
+              "name": "thumbnail_20241104-105844.jpg",
+              "path": null,
+              "size": 3.56,
+              "width": 88,
+              "height": 156,
+              "sizeInBytes": 3564,
+              "provider_metadata": {
+                "public_id": "spoleczna/galerie/thumbnail_20241104_105844_3e632e05e1",
+                "resource_type": "image"
+              }
+            }
+          },
+          "hash": "20241104_105844_3e632e05e1",
+          "ext": ".jpg",
+          "mime": "image/jpeg",
+          "size": 827.27,
+          "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893638/spoleczna/galerie/20241104_105844_3e632e05e1.jpg",
+          "previewUrl": null,
+          "provider": "cloudinary",
+          "provider_metadata": {
+            "public_id": "spoleczna/galerie/20241104_105844_3e632e05e1",
+            "resource_type": "image"
+          },
+          "createdAt": "2026-11-05T15:12:50.716Z",
+          "updatedAt": "2026-11-05T15:12:54.894Z",
+          "publishedAt": "2026-11-05T15:12:50.716Z"
+        },
+        {
+          "id": 41,
+          "documentId": "sqgpn1574ss6ugk8flpyyqr1",
+          "name": "20241104-110128.jpg",
+          "alternativeText": "Young girl in glasses smiling, holding a book and crafts in a classroom.",
+          "caption": "A young girl proudly displays her colorful craft project and a small book, smiling brightly in her classroom.",
+          "focalPoint": null,
+          "width": 1920,
+          "height": 3410,
+          "formats": {
+            "large": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893641/spoleczna/galerie/large_20241104_110128_e34e1898c4.jpg",
+              "hash": "large_20241104_110128_e34e1898c4",
+              "mime": "image/jpeg",
+              "name": "large_20241104-110128.jpg",
+              "path": null,
+              "size": 100.21,
+              "width": 563,
+              "height": 1000,
+              "sizeInBytes": 100214,
+              "provider_metadata": {
+                "public_id": "spoleczna/galerie/large_20241104_110128_e34e1898c4",
+                "resource_type": "image"
+              }
+            },
+            "small": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893642/spoleczna/galerie/small_20241104_110128_e34e1898c4.jpg",
+              "hash": "small_20241104_110128_e34e1898c4",
+              "mime": "image/jpeg",
+              "name": "small_20241104-110128.jpg",
+              "path": null,
+              "size": 26.01,
+              "width": 282,
+              "height": 500,
+              "sizeInBytes": 26010,
+              "provider_metadata": {
+                "public_id": "spoleczna/galerie/small_20241104_110128_e34e1898c4",
+                "resource_type": "image"
+              }
+            },
+            "medium": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893642/spoleczna/galerie/medium_20241104_110128_e34e1898c4.jpg",
+              "hash": "medium_20241104_110128_e34e1898c4",
+              "mime": "image/jpeg",
+              "name": "medium_20241104-110128.jpg",
+              "path": null,
+              "size": 58.09,
+              "width": 422,
+              "height": 750,
+              "sizeInBytes": 58092,
+              "provider_metadata": {
+                "public_id": "spoleczna/galerie/medium_20241104_110128_e34e1898c4",
+                "resource_type": "image"
+              }
+            },
+            "thumbnail": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893643/spoleczna/galerie/thumbnail_20241104_110128_e34e1898c4.jpg",
+              "hash": "thumbnail_20241104_110128_e34e1898c4",
+              "mime": "image/jpeg",
+              "name": "thumbnail_20241104-110128.jpg",
+              "path": null,
+              "size": 3.32,
+              "width": 88,
+              "height": 156,
+              "sizeInBytes": 3315,
+              "provider_metadata": {
+                "public_id": "spoleczna/galerie/thumbnail_20241104_110128_e34e1898c4",
+                "resource_type": "image"
+              }
+            }
+          },
+          "hash": "20241104_110128_e34e1898c4",
+          "ext": ".jpg",
+          "mime": "image/jpeg",
+          "size": 884.31,
+          "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893641/spoleczna/galerie/20241104_110128_e34e1898c4.jpg",
+          "previewUrl": null,
+          "provider": "cloudinary",
+          "provider_metadata": {
+            "public_id": "spoleczna/galerie/20241104_110128_e34e1898c4",
+            "resource_type": "image"
+          },
+          "createdAt": "2026-11-05T15:12:51.416Z",
+          "updatedAt": "2026-11-05T15:12:54.081Z",
+          "publishedAt": "2026-11-05T15:12:51.416Z"
+        },
+        {
+          "id": 42,
+          "documentId": "acaq21n1g56dfi5xb6crctrn",
+          "name": "20241104-110439.jpg",
+          "alternativeText": "A woman and several children smile while holding certificates and an orange paper craft.",
+          "caption": "A group of smiling children and an adult proudly display their certificates and a decorative orange paper craft after an event.",
+          "focalPoint": null,
+          "width": 1920,
+          "height": 1081,
+          "formats": {
+            "large": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893644/spoleczna/galerie/large_20241104_110439_dd9ce96f75.jpg",
+              "hash": "large_20241104_110439_dd9ce96f75",
+              "mime": "image/jpeg",
+              "name": "large_20241104-110439.jpg",
+              "path": null,
+              "size": 95.98,
+              "width": 1000,
+              "height": 563,
+              "sizeInBytes": 95980,
+              "provider_metadata": {
+                "public_id": "spoleczna/galerie/large_20241104_110439_dd9ce96f75",
+                "resource_type": "image"
+              }
+            },
+            "small": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893645/spoleczna/galerie/small_20241104_110439_dd9ce96f75.jpg",
+              "hash": "small_20241104_110439_dd9ce96f75",
+              "mime": "image/jpeg",
+              "name": "small_20241104-110439.jpg",
+              "path": null,
+              "size": 28.78,
+              "width": 500,
+              "height": 281,
+              "sizeInBytes": 28779,
+              "provider_metadata": {
+                "public_id": "spoleczna/galerie/small_20241104_110439_dd9ce96f75",
+                "resource_type": "image"
+              }
+            },
+            "medium": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893645/spoleczna/galerie/medium_20241104_110439_dd9ce96f75.jpg",
+              "hash": "medium_20241104_110439_dd9ce96f75",
+              "mime": "image/jpeg",
+              "name": "medium_20241104-110439.jpg",
+              "path": null,
+              "size": 58.11,
+              "width": 750,
+              "height": 422,
+              "sizeInBytes": 58106,
+              "provider_metadata": {
+                "public_id": "spoleczna/galerie/medium_20241104_110439_dd9ce96f75",
+                "resource_type": "image"
+              }
+            },
+            "thumbnail": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893646/spoleczna/galerie/thumbnail_20241104_110439_dd9ce96f75.jpg",
+              "hash": "thumbnail_20241104_110439_dd9ce96f75",
+              "mime": "image/jpeg",
+              "name": "thumbnail_20241104-110439.jpg",
+              "path": null,
+              "size": 8.81,
+              "width": 245,
+              "height": 138,
+              "sizeInBytes": 8805,
+              "provider_metadata": {
+                "public_id": "spoleczna/galerie/thumbnail_20241104_110439_dd9ce96f75",
+                "resource_type": "image"
+              }
+            }
+          },
+          "hash": "20241104_110439_dd9ce96f75",
+          "ext": ".jpg",
+          "mime": "image/jpeg",
+          "size": 294.9,
+          "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893643/spoleczna/galerie/20241104_110439_dd9ce96f75.jpg",
+          "previewUrl": null,
+          "provider": "cloudinary",
+          "provider_metadata": {
+            "public_id": "spoleczna/galerie/20241104_110439_dd9ce96f75",
+            "resource_type": "image"
+          },
+          "createdAt": "2026-11-05T15:12:51.989Z",
+          "updatedAt": "2026-11-05T15:12:55.976Z",
+          "publishedAt": "2026-11-05T15:12:51.989Z"
+        },
+        {
+          "id": 43,
+          "documentId": "q7zllhqiausvuguuusce9adh",
+          "name": "20241104-111004.jpg",
+          "alternativeText": "Six students proudly display their awards and certificates in a classroom.",
+          "caption": "Students proudly show off their well-deserved awards and certificates in the classroom, celebrating their achievements.",
+          "focalPoint": null,
+          "width": 1920,
+          "height": 1081,
+          "formats": {
+            "large": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893647/spoleczna/galerie/large_20241104_111004_ac881a694f.jpg",
+              "hash": "large_20241104_111004_ac881a694f",
+              "mime": "image/jpeg",
+              "name": "large_20241104-111004.jpg",
+              "path": null,
+              "size": 91.39,
+              "width": 1000,
+              "height": 563,
+              "sizeInBytes": 91385,
+              "provider_metadata": {
+                "public_id": "spoleczna/galerie/large_20241104_111004_ac881a694f",
+                "resource_type": "image"
+              }
+            },
+            "small": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893647/spoleczna/galerie/small_20241104_111004_ac881a694f.jpg",
+              "hash": "small_20241104_111004_ac881a694f",
+              "mime": "image/jpeg",
+              "name": "small_20241104-111004.jpg",
+              "path": null,
+              "size": 28.84,
+              "width": 500,
+              "height": 281,
+              "sizeInBytes": 28844,
+              "provider_metadata": {
+                "public_id": "spoleczna/galerie/small_20241104_111004_ac881a694f",
+                "resource_type": "image"
+              }
+            },
+            "medium": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893648/spoleczna/galerie/medium_20241104_111004_ac881a694f.jpg",
+              "hash": "medium_20241104_111004_ac881a694f",
+              "mime": "image/jpeg",
+              "name": "medium_20241104-111004.jpg",
+              "path": null,
+              "size": 56.24,
+              "width": 750,
+              "height": 422,
+              "sizeInBytes": 56244,
+              "provider_metadata": {
+                "public_id": "spoleczna/galerie/medium_20241104_111004_ac881a694f",
+                "resource_type": "image"
+              }
+            },
+            "thumbnail": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893649/spoleczna/galerie/thumbnail_20241104_111004_ac881a694f.jpg",
+              "hash": "thumbnail_20241104_111004_ac881a694f",
+              "mime": "image/jpeg",
+              "name": "thumbnail_20241104-111004.jpg",
+              "path": null,
+              "size": 9.15,
+              "width": 245,
+              "height": 138,
+              "sizeInBytes": 9150,
+              "provider_metadata": {
+                "public_id": "spoleczna/galerie/thumbnail_20241104_111004_ac881a694f",
+                "resource_type": "image"
+              }
+            }
+          },
+          "hash": "20241104_111004_ac881a694f",
+          "ext": ".jpg",
+          "mime": "image/jpeg",
+          "size": 273.13,
+          "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893646/spoleczna/galerie/20241104_111004_ac881a694f.jpg",
+          "previewUrl": null,
+          "provider": "cloudinary",
+          "provider_metadata": {
+            "public_id": "spoleczna/galerie/20241104_111004_ac881a694f",
+            "resource_type": "image"
+          },
+          "createdAt": "2026-11-05T15:12:52.573Z",
+          "updatedAt": "2026-11-05T15:12:57.005Z",
+          "publishedAt": "2026-11-05T15:12:52.573Z"
+        },
+        {
+          "id": 44,
+          "documentId": "z1w22tp5timunnyk1djcw313",
+          "name": "20241104-111158.jpg",
+          "alternativeText": "Two smiling teenagers stand holding books, possibly awards, in a brightly lit room.",
+          "caption": "Two students proudly display their books, likely awards for an academic achievement or competition, as they stand in a classroom.",
+          "focalPoint": null,
+          "width": 1920,
+          "height": 3410,
+          "formats": {
+            "large": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893650/spoleczna/galerie/large_20241104_111158_a1b78bc183.jpg",
+              "hash": "large_20241104_111158_a1b78bc183",
+              "mime": "image/jpeg",
+              "name": "large_20241104-111158.jpg",
+              "path": null,
+              "size": 55.8,
+              "width": 563,
+              "height": 1000,
+              "sizeInBytes": 55796,
+              "provider_metadata": {
+                "public_id": "spoleczna/galerie/large_20241104_111158_a1b78bc183",
+                "resource_type": "image"
+              }
+            },
+            "small": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893650/spoleczna/galerie/small_20241104_111158_a1b78bc183.jpg",
+              "hash": "small_20241104_111158_a1b78bc183",
+              "mime": "image/jpeg",
+              "name": "small_20241104-111158.jpg",
+              "path": null,
+              "size": 18.03,
+              "width": 282,
+              "height": 500,
+              "sizeInBytes": 18027,
+              "provider_metadata": {
+                "public_id": "spoleczna/galerie/small_20241104_111158_a1b78bc183",
+                "resource_type": "image"
+              }
+            },
+            "medium": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893651/spoleczna/galerie/medium_20241104_111158_a1b78bc183.jpg",
+              "hash": "medium_20241104_111158_a1b78bc183",
+              "mime": "image/jpeg",
+              "name": "medium_20241104-111158.jpg",
+              "path": null,
+              "size": 34.68,
+              "width": 422,
+              "height": 750,
+              "sizeInBytes": 34684,
+              "provider_metadata": {
+                "public_id": "spoleczna/galerie/medium_20241104_111158_a1b78bc183",
+                "resource_type": "image"
+              }
+            },
+            "thumbnail": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893651/spoleczna/galerie/thumbnail_20241104_111158_a1b78bc183.jpg",
+              "hash": "thumbnail_20241104_111158_a1b78bc183",
+              "mime": "image/jpeg",
+              "name": "thumbnail_20241104-111158.jpg",
+              "path": null,
+              "size": 3.16,
+              "width": 88,
+              "height": 156,
+              "sizeInBytes": 3161,
+              "provider_metadata": {
+                "public_id": "spoleczna/galerie/thumbnail_20241104_111158_a1b78bc183",
+                "resource_type": "image"
+              }
+            }
+          },
+          "hash": "20241104_111158_a1b78bc183",
+          "ext": ".jpg",
+          "mime": "image/jpeg",
+          "size": 599.06,
+          "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893649/spoleczna/galerie/20241104_111158_a1b78bc183.jpg",
+          "previewUrl": null,
+          "provider": "cloudinary",
+          "provider_metadata": {
+            "public_id": "spoleczna/galerie/20241104_111158_a1b78bc183",
+            "resource_type": "image"
+          },
+          "createdAt": "2026-11-05T15:12:53.409Z",
+          "updatedAt": "2026-11-05T15:12:57.587Z",
+          "publishedAt": "2026-11-05T15:12:53.410Z"
+        },
+        {
+          "id": 45,
+          "documentId": "qds6red62dwe5sp8uv301z1v",
+          "name": "img-20241104-wa0016.jpg",
+          "alternativeText": "Two smiling children proudly display their colorful handmade crafts.",
+          "caption": "Two cheerful children proudly showcase their creative handmade crafts, ready for display.",
+          "focalPoint": null,
+          "width": 1126,
+          "height": 2000,
+          "formats": {
+            "large": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893653/spoleczna/galerie/large_img_20241104_wa0016_7d099fac16.jpg",
+              "hash": "large_img_20241104_wa0016_7d099fac16",
+              "mime": "image/jpeg",
+              "name": "large_img-20241104-wa0016.jpg",
+              "path": null,
+              "size": 106.87,
+              "width": 563,
+              "height": 1000,
+              "sizeInBytes": 106872,
+              "provider_metadata": {
+                "public_id": "spoleczna/galerie/large_img_20241104_wa0016_7d099fac16",
+                "resource_type": "image"
+              }
+            },
+            "small": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893653/spoleczna/galerie/small_img_20241104_wa0016_7d099fac16.jpg",
+              "hash": "small_img_20241104_wa0016_7d099fac16",
+              "mime": "image/jpeg",
+              "name": "small_img-20241104-wa0016.jpg",
+              "path": null,
+              "size": 29.28,
+              "width": 282,
+              "height": 500,
+              "sizeInBytes": 29284,
+              "provider_metadata": {
+                "public_id": "spoleczna/galerie/small_img_20241104_wa0016_7d099fac16",
+                "resource_type": "image"
+              }
+            },
+            "medium": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893654/spoleczna/galerie/medium_img_20241104_wa0016_7d099fac16.jpg",
+              "hash": "medium_img_20241104_wa0016_7d099fac16",
+              "mime": "image/jpeg",
+              "name": "medium_img-20241104-wa0016.jpg",
+              "path": null,
+              "size": 62.14,
+              "width": 422,
+              "height": 750,
+              "sizeInBytes": 62144,
+              "provider_metadata": {
+                "public_id": "spoleczna/galerie/medium_img_20241104_wa0016_7d099fac16",
+                "resource_type": "image"
+              }
+            },
+            "thumbnail": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893654/spoleczna/galerie/thumbnail_img_20241104_wa0016_7d099fac16.jpg",
+              "hash": "thumbnail_img_20241104_wa0016_7d099fac16",
+              "mime": "image/jpeg",
+              "name": "thumbnail_img-20241104-wa0016.jpg",
+              "path": null,
+              "size": 4.21,
+              "width": 87,
+              "height": 156,
+              "sizeInBytes": 4205,
+              "provider_metadata": {
+                "public_id": "spoleczna/galerie/thumbnail_img_20241104_wa0016_7d099fac16",
+                "resource_type": "image"
+              }
+            }
+          },
+          "hash": "img_20241104_wa0016_7d099fac16",
+          "ext": ".jpg",
+          "mime": "image/jpeg",
+          "size": 331.09,
+          "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893652/spoleczna/galerie/img_20241104_wa0016_7d099fac16.jpg",
+          "previewUrl": null,
+          "provider": "cloudinary",
+          "provider_metadata": {
+            "public_id": "spoleczna/galerie/img_20241104_wa0016_7d099fac16",
+            "resource_type": "image"
+          },
+          "createdAt": "2026-11-05T15:12:54.601Z",
+          "updatedAt": "2026-11-05T15:12:57.614Z",
+          "publishedAt": "2026-11-05T15:12:54.601Z"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "documentId": "rytk2a3syq04f1075m8pmu1h",
+      "Tytul": "Druga klasa, trzecia klasa, chętnie na dworze zawsze hasa",
+      "Data": "2026-11-08",
+      "createdAt": "2026-11-05T15:15:57.831Z",
+      "updatedAt": "2026-11-05T15:15:57.831Z",
+      "publishedAt": "2026-11-05T15:15:58.414Z",
+      "Zdjecia": [
+        {
+          "id": 46,
+          "documentId": "paygw0p5ok72e681io2beh7v",
+          "name": "1dn.jpg",
+          "alternativeText": "Five smiling children in winter clothes pose outdoors among trees and branches.",
+          "caption": "A group of happy children, dressed warmly in hats and scarves, enjoys playing together in a natural outdoor setting.",
+          "focalPoint": null,
+          "width": 1600,
+          "height": 1200,
+          "formats": {
+            "large": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893655/spoleczna/galerie/large_1dn_52a3d82f46.jpg",
+              "hash": "large_1dn_52a3d82f46",
+              "mime": "image/jpeg",
+              "name": "large_1dn.jpg",
+              "path": null,
+              "size": 218.1,
+              "width": 1000,
+              "height": 750,
+              "sizeInBytes": 218098,
+              "provider_metadata": {
+                "public_id": "spoleczna/galerie/large_1dn_52a3d82f46",
+                "resource_type": "image"
+              }
+            },
+            "small": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893656/spoleczna/galerie/small_1dn_52a3d82f46.jpg",
+              "hash": "small_1dn_52a3d82f46",
+              "mime": "image/jpeg",
+              "name": "small_1dn.jpg",
+              "path": null,
+              "size": 64.62,
+              "width": 500,
+              "height": 375,
+              "sizeInBytes": 64619,
+              "provider_metadata": {
+                "public_id": "spoleczna/galerie/small_1dn_52a3d82f46",
+                "resource_type": "image"
+              }
+            },
+            "medium": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893657/spoleczna/galerie/medium_1dn_52a3d82f46.jpg",
+              "hash": "medium_1dn_52a3d82f46",
+              "mime": "image/jpeg",
+              "name": "medium_1dn.jpg",
+              "path": null,
+              "size": 135.43,
+              "width": 750,
+              "height": 563,
+              "sizeInBytes": 135427,
+              "provider_metadata": {
+                "public_id": "spoleczna/galerie/medium_1dn_52a3d82f46",
+                "resource_type": "image"
+              }
+            },
+            "thumbnail": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893658/spoleczna/galerie/thumbnail_1dn_52a3d82f46.jpg",
+              "hash": "thumbnail_1dn_52a3d82f46",
+              "mime": "image/jpeg",
+              "name": "thumbnail_1dn.jpg",
+              "path": null,
+              "size": 12.82,
+              "width": 208,
+              "height": 156,
+              "sizeInBytes": 12819,
+              "provider_metadata": {
+                "public_id": "spoleczna/galerie/thumbnail_1dn_52a3d82f46",
+                "resource_type": "image"
+              }
+            }
+          },
+          "hash": "1dn_52a3d82f46",
+          "ext": ".jpg",
+          "mime": "image/jpeg",
+          "size": 419.91,
+          "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893655/spoleczna/galerie/1dn_52a3d82f46.jpg",
+          "previewUrl": null,
+          "provider": "cloudinary",
+          "provider_metadata": {
+            "public_id": "spoleczna/galerie/1dn_52a3d82f46",
+            "resource_type": "image"
+          },
+          "createdAt": "2026-11-05T15:15:22.194Z",
+          "updatedAt": "2026-11-05T15:15:28.056Z",
+          "publishedAt": "2026-11-05T15:15:22.194Z"
+        },
+        {
+          "id": 47,
+          "documentId": "pvy33fl5hfgvesh856llz3a3",
+          "name": "2dn.jpg",
+          "alternativeText": "Five smiling children in winter hats and coats posing together outdoors in a wooded area.",
+          "caption": "Five cheerful kids wearing warm hats and jackets enjoy an outdoor adventure together in a natural, wooded setting.",
+          "focalPoint": null,
+          "width": 1600,
+          "height": 1200,
+          "formats": {
+            "large": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893659/spoleczna/galerie/large_2dn_36e1773908.jpg",
+              "hash": "large_2dn_36e1773908",
+              "mime": "image/jpeg",
+              "name": "large_2dn.jpg",
+              "path": null,
+              "size": 204.51,
+              "width": 1000,
+              "height": 750,
+              "sizeInBytes": 204512,
+              "provider_metadata": {
+                "public_id": "spoleczna/galerie/large_2dn_36e1773908",
+                "resource_type": "image"
+              }
+            },
+            "small": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893659/spoleczna/galerie/small_2dn_36e1773908.jpg",
+              "hash": "small_2dn_36e1773908",
+              "mime": "image/jpeg",
+              "name": "small_2dn.jpg",
+              "path": null,
+              "size": 63.08,
+              "width": 500,
+              "height": 375,
+              "sizeInBytes": 63084,
+              "provider_metadata": {
+                "public_id": "spoleczna/galerie/small_2dn_36e1773908",
+                "resource_type": "image"
+              }
+            },
+            "medium": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893660/spoleczna/galerie/medium_2dn_36e1773908.jpg",
+              "hash": "medium_2dn_36e1773908",
+              "mime": "image/jpeg",
+              "name": "medium_2dn.jpg",
+              "path": null,
+              "size": 129.41,
+              "width": 750,
+              "height": 563,
+              "sizeInBytes": 129409,
+              "provider_metadata": {
+                "public_id": "spoleczna/galerie/medium_2dn_36e1773908",
+                "resource_type": "image"
+              }
+            },
+            "thumbnail": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893661/spoleczna/galerie/thumbnail_2dn_36e1773908.jpg",
+              "hash": "thumbnail_2dn_36e1773908",
+              "mime": "image/jpeg",
+              "name": "thumbnail_2dn.jpg",
+              "path": null,
+              "size": 12.79,
+              "width": 208,
+              "height": 156,
+              "sizeInBytes": 12788,
+              "provider_metadata": {
+                "public_id": "spoleczna/galerie/thumbnail_2dn_36e1773908",
+                "resource_type": "image"
+              }
+            }
+          },
+          "hash": "2dn_36e1773908",
+          "ext": ".jpg",
+          "mime": "image/jpeg",
+          "size": 386.41,
+          "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893658/spoleczna/galerie/2dn_36e1773908.jpg",
+          "previewUrl": null,
+          "provider": "cloudinary",
+          "provider_metadata": {
+            "public_id": "spoleczna/galerie/2dn_36e1773908",
+            "resource_type": "image"
+          },
+          "createdAt": "2026-11-05T15:15:22.908Z",
+          "updatedAt": "2026-11-05T15:15:26.242Z",
+          "publishedAt": "2026-11-05T15:15:22.908Z"
+        },
+        {
+          "id": 48,
+          "documentId": "kkpqkk5dbkd66d2o015keysh",
+          "name": "3dn.jpg",
+          "alternativeText": "Five girls sit at an outdoor picnic table, holding colorful fluffy crafts they created.",
+          "caption": "Five girls in winter attire display their colorful, fluffy craft creations at an outdoor picnic table.",
+          "focalPoint": null,
+          "width": 1600,
+          "height": 1200,
+          "formats": {
+            "large": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893662/spoleczna/galerie/large_3dn_9938cf2224.jpg",
+              "hash": "large_3dn_9938cf2224",
+              "mime": "image/jpeg",
+              "name": "large_3dn.jpg",
+              "path": null,
+              "size": 190.98,
+              "width": 1000,
+              "height": 750,
+              "sizeInBytes": 190976,
+              "provider_metadata": {
+                "public_id": "spoleczna/galerie/large_3dn_9938cf2224",
+                "resource_type": "image"
+              }
+            },
+            "small": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893663/spoleczna/galerie/small_3dn_9938cf2224.jpg",
+              "hash": "small_3dn_9938cf2224",
+              "mime": "image/jpeg",
+              "name": "small_3dn.jpg",
+              "path": null,
+              "size": 50.18,
+              "width": 500,
+              "height": 375,
+              "sizeInBytes": 50184,
+              "provider_metadata": {
+                "public_id": "spoleczna/galerie/small_3dn_9938cf2224",
+                "resource_type": "image"
+              }
+            },
+            "medium": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893664/spoleczna/galerie/medium_3dn_9938cf2224.jpg",
+              "hash": "medium_3dn_9938cf2224",
+              "mime": "image/jpeg",
+              "name": "medium_3dn.jpg",
+              "path": null,
+              "size": 111.28,
+              "width": 750,
+              "height": 563,
+              "sizeInBytes": 111280,
+              "provider_metadata": {
+                "public_id": "spoleczna/galerie/medium_3dn_9938cf2224",
+                "resource_type": "image"
+              }
+            },
+            "thumbnail": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893664/spoleczna/galerie/thumbnail_3dn_9938cf2224.jpg",
+              "hash": "thumbnail_3dn_9938cf2224",
+              "mime": "image/jpeg",
+              "name": "thumbnail_3dn.jpg",
+              "path": null,
+              "size": 10.34,
+              "width": 208,
+              "height": 156,
+              "sizeInBytes": 10339,
+              "provider_metadata": {
+                "public_id": "spoleczna/galerie/thumbnail_3dn_9938cf2224",
+                "resource_type": "image"
+              }
+            }
+          },
+          "hash": "3dn_9938cf2224",
+          "ext": ".jpg",
+          "mime": "image/jpeg",
+          "size": 414.76,
+          "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893661/spoleczna/galerie/3dn_9938cf2224.jpg",
+          "previewUrl": null,
+          "provider": "cloudinary",
+          "provider_metadata": {
+            "public_id": "spoleczna/galerie/3dn_9938cf2224",
+            "resource_type": "image"
+          },
+          "createdAt": "2026-11-05T15:15:23.544Z",
+          "updatedAt": "2026-11-05T15:15:33.823Z",
+          "publishedAt": "2026-11-05T15:15:23.544Z"
+        },
+        {
+          "id": 49,
+          "documentId": "sze98ps23oznpg21glemeh38",
+          "name": "4dn.jpg",
+          "alternativeText": "Five young girls in winter coats play with dolls at an outdoor picnic table.",
+          "caption": "Young girls enjoy playing with their dolls around an outdoor picnic table, bundled in winter coats.",
+          "focalPoint": null,
+          "width": 1600,
+          "height": 1200,
+          "formats": {
+            "large": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893666/spoleczna/galerie/large_4dn_c22f67c16b.jpg",
+              "hash": "large_4dn_c22f67c16b",
+              "mime": "image/jpeg",
+              "name": "large_4dn.jpg",
+              "path": null,
+              "size": 189.74,
+              "width": 1000,
+              "height": 750,
+              "sizeInBytes": 189742,
+              "provider_metadata": {
+                "public_id": "spoleczna/galerie/large_4dn_c22f67c16b",
+                "resource_type": "image"
+              }
+            },
+            "small": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893667/spoleczna/galerie/small_4dn_c22f67c16b.jpg",
+              "hash": "small_4dn_c22f67c16b",
+              "mime": "image/jpeg",
+              "name": "small_4dn.jpg",
+              "path": null,
+              "size": 50.07,
+              "width": 500,
+              "height": 375,
+              "sizeInBytes": 50070,
+              "provider_metadata": {
+                "public_id": "spoleczna/galerie/small_4dn_c22f67c16b",
+                "resource_type": "image"
+              }
+            },
+            "medium": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893668/spoleczna/galerie/medium_4dn_c22f67c16b.jpg",
+              "hash": "medium_4dn_c22f67c16b",
+              "mime": "image/jpeg",
+              "name": "medium_4dn.jpg",
+              "path": null,
+              "size": 110.69,
+              "width": 750,
+              "height": 563,
+              "sizeInBytes": 110691,
+              "provider_metadata": {
+                "public_id": "spoleczna/galerie/medium_4dn_c22f67c16b",
+                "resource_type": "image"
+              }
+            },
+            "thumbnail": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893669/spoleczna/galerie/thumbnail_4dn_c22f67c16b.jpg",
+              "hash": "thumbnail_4dn_c22f67c16b",
+              "mime": "image/jpeg",
+              "name": "thumbnail_4dn.jpg",
+              "path": null,
+              "size": 10.41,
+              "width": 208,
+              "height": 156,
+              "sizeInBytes": 10410,
+              "provider_metadata": {
+                "public_id": "spoleczna/galerie/thumbnail_4dn_c22f67c16b",
+                "resource_type": "image"
+              }
+            }
+          },
+          "hash": "4dn_c22f67c16b",
+          "ext": ".jpg",
+          "mime": "image/jpeg",
+          "size": 410.56,
+          "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793893665/spoleczna/galerie/4dn_c22f67c16b.jpg",
+          "previewUrl": null,
+          "provider": "cloudinary",
+          "provider_metadata": {
+            "public_id": "spoleczna/galerie/4dn_c22f67c16b",
+            "resource_type": "image"
+          },
+          "createdAt": "2026-11-05T15:15:24.190Z",
+          "updatedAt": "2026-11-05T15:15:31.189Z",
+          "publishedAt": "2026-11-05T15:15:24.190Z"
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "pagination": {
+      "page": 1,
+      "pageSize": 25,
+      "pageCount": 1,
+      "total": 2
+    }
+  }
+}

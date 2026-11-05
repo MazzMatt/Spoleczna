@@ -840,14 +840,35 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentAlbum = null;
     let activePhotoIndex = 0;
 
-    // Funkcja pobierania galerii ze Strapi / bazy Neon
+    // Pomocnicza funkcja do ustalania poprawnego adresu URL dla multimediów
+    function resolveMediaUrl(url, baseStrapi) {
+      if (!url) return 'assets/images/school-building.jpg';
+      if (url.startsWith('http://') || url.startsWith('https://')) {
+        return url;
+      }
+      // Jeśli jesteśmy lokalnie (localhost) i serwer Strapi działa
+      if (baseStrapi && (location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
+        return baseStrapi + (url.startsWith('/') ? url : '/' + url);
+      }
+      // Na GitHub Pages lub hostingu statycznym
+      return url.startsWith('/') ? url.slice(1) : url;
+    }
+
+    // Funkcja pobierania galerii ze Strapi / bazy Neon / pliku danych hostingu
     async function loadGalleriesFromBackend() {
-      const strapiUrl = window.STRAPI_URL || 'http://localhost:1337';
-      const endpoints = [
-        `${strapiUrl}/api/galerias?populate=*`,
-        `/api/galerias?populate=*`,
-        `/api/galerias`
-      ];
+      const customStrapiUrl = window.STRAPI_URL || (window.SCHOOL_CONFIG && window.SCHOOL_CONFIG.api && window.SCHOOL_CONFIG.api.strapiUrl);
+      const isLocalhost = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+      const strapiUrl = customStrapiUrl || (isLocalhost ? 'http://localhost:1337' : '');
+
+      const endpoints = [];
+      if (strapiUrl) {
+        endpoints.push(`${strapiUrl}/api/galerias?populate=*`);
+      }
+      if (isLocalhost) {
+        endpoints.push('/api/galerias?populate=*');
+      }
+      endpoints.push('data/galerie.json');
+      endpoints.push('./data/galerie.json');
 
       let loaded = false;
 
@@ -876,17 +897,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 photosList = mediaArray.map((m, pIdx) => {
                   const mAttrs = m.attributes || m;
-                  let rawUrl = mAttrs.url || '';
-                  if (rawUrl && !rawUrl.startsWith('http://') && !rawUrl.startsWith('https://')) {
-                    rawUrl = strapiUrl + rawUrl;
-                  }
+                  const rawUrl = resolveMediaUrl(mAttrs.url, strapiUrl);
 
                   // Miniatura z formatów Strapi dla szybszego wczytywania kafelków
                   let thumbUrl = rawUrl;
                   if (mAttrs.formats) {
                     const bestFormat = mAttrs.formats.medium || mAttrs.formats.small || mAttrs.formats.thumbnail;
                     if (bestFormat && bestFormat.url) {
-                      thumbUrl = bestFormat.url.startsWith('http') ? bestFormat.url : strapiUrl + bestFormat.url;
+                      thumbUrl = resolveMediaUrl(bestFormat.url, strapiUrl);
                     }
                   }
 

@@ -4,7 +4,8 @@
   "type": "module",
   "description": "Pierwsza Społeczna Szkoła Podstawowa w Chełmie - zintegrowana z Neon Lakebase Postgres",
   "scripts": {
-    "build": "node scripts/build.js",
+    "build": "node scripts/sync-gallery.js && node scripts/build.js",
+    "sync": "node scripts/sync-gallery.js",
     "start": "node server.js",
     "dev": "node server.js",
     "test": "node scripts/test-db.js && node scripts/test-server.js",
