@@ -292,6 +292,25 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       try {
+        // 1. Zapis do bazy danych Neon Lakebase Postgres (gdy serwer jest uruchomiony)
+        let neonSuccess = false;
+        try {
+          const neonRes = await fetch('/api/contact', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify({ name, phone, email, subject, message })
+          });
+          if (neonRes.ok) {
+            neonSuccess = true;
+          }
+        } catch (neonErr) {
+          // Pomijamy jeśli strona działa w trybie czysto statycznym (np. GitHub Pages)
+        }
+
+        // 2. Wysłanie powiadomienia e-mail przez FormSubmit
         const response = await fetch("https://formsubmit.co/ajax/spoleczna_chelm@wp.pl", {
           method: "POST",
           headers: {
@@ -316,7 +335,17 @@ document.addEventListener('DOMContentLoaded', () => {
             formStatus.style.background = '#ECFDF5';
             formStatus.style.color = '#065F46';
             formStatus.style.border = '1px solid #A7F3D0';
-            formStatus.innerHTML = `<i class="fa-solid fa-circle-check"></i> Dziękujemy, ${name}! Twoja wiadomość została pomyślnie wysłana na pocztę sekretariatu (spoleczna_chelm@wp.pl).`;
+            formStatus.innerHTML = `<i class="fa-solid fa-circle-check"></i> Dziękujemy, ${name}! Twoja wiadomość została pomyślnie wysłana i zapisana${neonSuccess ? ' w bazie danych szkoły' : ''}.`;
+          }
+          contactForm.reset();
+        } else if (neonSuccess) {
+          // Zapisano w bazie Neon, mimo ewentualnego problemu z bramką mailową
+          if (formStatus) {
+            formStatus.style.display = 'block';
+            formStatus.style.background = '#ECFDF5';
+            formStatus.style.color = '#065F46';
+            formStatus.style.border = '1px solid #A7F3D0';
+            formStatus.innerHTML = `<i class="fa-solid fa-circle-check"></i> Dziękujemy, ${name}! Wiadomość została bezpiecznie zarejestrowana w bazie danych szkoły.`;
           }
           contactForm.reset();
         } else {
@@ -778,6 +807,290 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   initA11yWidget();
+
+
+  // ------------------------------------------------------------------
+  // 8. DYNAMICZNA GALERIA FOLDERÓW I ZDJĘĆ ZE STRAPI / NEON
+  // ------------------------------------------------------------------
+  function initSchoolGallery() {
+    const container = document.getElementById('gallery-albums-container');
+    if (!container) return; // Uruchamiaj tylko na galeria.html
+
+    const refreshBtn = document.getElementById('gallery-refresh-btn');
+    const emptyState = document.getElementById('gallery-empty-state');
+    const emptyTitle = document.getElementById('gallery-empty-title');
+    const emptyDesc = document.getElementById('gallery-empty-desc');
+    
+    const albumsView = document.getElementById('gallery-albums-view');
+    const detailsView = document.getElementById('album-details-view');
+    const detailTitle = document.getElementById('album-detail-title');
+    const detailMeta = document.getElementById('album-detail-meta');
+    const photosContainer = document.getElementById('album-photos-container');
+    const backBtn = document.getElementById('album-back-btn');
+
+    const lightboxModal = document.getElementById('gallery-lightbox-modal');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxInfo = document.getElementById('lightbox-info');
+    const lightboxClose = document.getElementById('lightbox-close-btn');
+    const lightboxPrev = document.getElementById('lightbox-prev-btn');
+    const lightboxNext = document.getElementById('lightbox-next-btn');
+
+    // Tablica albumów pobierana w 100% z bazy Strapi
+    let allAlbums = [];
+    let currentAlbum = null;
+    let activePhotoIndex = 0;
+
+    // Funkcja pobierania galerii ze Strapi / bazy Neon
+    async function loadGalleriesFromBackend() {
+      const strapiUrl = window.STRAPI_URL || 'http://localhost:1337';
+      const endpoints = [
+        `${strapiUrl}/api/galerias?populate=*`,
+        `/api/galerias?populate=*`,
+        `/api/galerias`
+      ];
+
+      let loaded = false;
+
+      for (const ep of endpoints) {
+        try {
+          const res = await fetch(ep);
+          if (!res.ok) continue;
+          const json = await res.json();
+          const items = json.data;
+
+          if (Array.isArray(items)) {
+            loaded = true;
+            const mapped = items.map((item, idx) => {
+              // Strapi v5 posiada pola bezpośrednio na obiekcie, Strapi v4 w item.attributes
+              const attrs = item.attributes || item;
+              const title = attrs.Tytul || attrs.tytul || `Folder #${item.id || idx + 1}`;
+              
+              let photosList = [];
+              const rawZdjecia = attrs.Zdjecia || attrs.zdjecia;
+
+              if (rawZdjecia) {
+                // Może być tablicą lub obiektem z tablicą data (v4)
+                const mediaArray = Array.isArray(rawZdjecia) 
+                  ? rawZdjecia 
+                  : (Array.isArray(rawZdjecia.data) ? rawZdjecia.data : [rawZdjecia]);
+
+                photosList = mediaArray.map((m, pIdx) => {
+                  const mAttrs = m.attributes || m;
+                  let rawUrl = mAttrs.url || '';
+                  if (rawUrl && !rawUrl.startsWith('http://') && !rawUrl.startsWith('https://')) {
+                    rawUrl = strapiUrl + rawUrl;
+                  }
+
+                  // Miniatura z formatów Strapi dla szybszego wczytywania kafelków
+                  let thumbUrl = rawUrl;
+                  if (mAttrs.formats) {
+                    const bestFormat = mAttrs.formats.medium || mAttrs.formats.small || mAttrs.formats.thumbnail;
+                    if (bestFormat && bestFormat.url) {
+                      thumbUrl = bestFormat.url.startsWith('http') ? bestFormat.url : strapiUrl + bestFormat.url;
+                    }
+                  }
+
+                  return {
+                    url: rawUrl || 'assets/images/children-reading.jpg',
+                    thumbUrl: thumbUrl || rawUrl || 'assets/images/children-reading.jpg',
+                    caption: `${title} – zdjęcie ${pIdx + 1}`
+                  };
+                });
+              }
+
+              return {
+                id: item.documentId || item.id || `strapi-${idx}`,
+                title: title,
+                count: photosList.length,
+                countDisplay: `${photosList.length} Photos`,
+                coverUrl: photosList[0]?.thumbUrl || photosList[0]?.url || 'assets/images/school-building.jpg',
+                photos: photosList,
+                isFromStrapi: true
+              };
+            });
+
+            allAlbums = mapped;
+            renderAlbums(allAlbums);
+            return;
+          }
+        } catch (e) {
+          // Próbuj kolejny endpoint
+        }
+      }
+
+      if (!loaded) {
+        allAlbums = [];
+        renderAlbums(allAlbums);
+      }
+    }
+
+    // Renderowanie kafelków folderów w siatce
+    function renderAlbums(albumsToRender) {
+      container.innerHTML = '';
+
+      if (albumsToRender.length === 0) {
+        if (emptyState) {
+          emptyState.style.display = 'block';
+          if (emptyTitle) emptyTitle.textContent = 'Brak folderów ze zdjęciami w bazie';
+          if (emptyDesc) emptyDesc.innerHTML = 'Wszystkie foldery i zdjęcia wczytywane są na podstawie tego, co wprowadzisz w Strapi. Zaloguj się do panelu pod adresem <strong>http://localhost:1337/admin</strong>, przejdź do <em>Content Manager &rarr; Galeria</em>, utwórz folder, wgraj zdjęcia i kliknij <em>Publish</em>.';
+        }
+        return;
+      }
+
+      if (emptyState) emptyState.style.display = 'none';
+
+      albumsToRender.forEach(album => {
+        const card = document.createElement('button');
+        card.type = 'button';
+        card.className = 'album-card';
+        card.setAttribute('aria-label', `Otwórz folder: ${album.title} (${album.count} zdjęć)`);
+
+        card.innerHTML = `
+          <img src="${album.coverUrl}" alt="${album.title} – okładka folderu" class="album-cover-img" loading="lazy">
+          <span class="album-badge-folder">
+            <i class="fa-solid fa-folder-open" aria-hidden="true"></i>
+          </span>
+          <div class="album-overlay">
+            <h3 class="album-title">${album.title}</h3>
+            <div class="album-meta">
+              <span>${album.countDisplay || `${album.count} Photos`}</span>
+            </div>
+          </div>
+        `;
+
+        card.addEventListener('click', () => openAlbumDetails(album));
+        container.appendChild(card);
+      });
+    }
+
+    // Otwarcie wybranego albumu (widok zdjęć w folderze)
+    function openAlbumDetails(album) {
+      currentAlbum = album;
+      if (albumsView) albumsView.style.display = 'none';
+      if (detailsView) detailsView.classList.add('active');
+
+      if (detailTitle) detailTitle.textContent = album.title;
+      if (detailMeta) detailMeta.textContent = `Fotorelacja szkolna • ${album.count} ${album.count === 1 ? 'zdjęcie' : (album.count < 5 ? 'zdjęcia' : 'zdjęć')}`;
+
+      if (photosContainer) {
+        photosContainer.innerHTML = '';
+        if (album.photos.length === 0) {
+          photosContainer.innerHTML = '<p style="color: rgba(255,255,255,0.7); grid-column: 1 / -1; text-align: center; padding: 40px 0;">Ten folder nie zawiera jeszcze żadnych zdjęć. Wgraj pliki w panelu Strapi.</p>';
+        } else {
+          album.photos.forEach((photo, idx) => {
+            const thumb = document.createElement('button');
+            thumb.type = 'button';
+            thumb.className = 'photo-thumb-card';
+            thumb.setAttribute('aria-label', `Powiększ zdjęcie ${idx + 1} z folderu ${album.title}`);
+
+            thumb.innerHTML = `
+              <img src="${photo.thumbUrl || photo.url}" alt="${photo.caption}" loading="lazy">
+              <div class="photo-thumb-overlay" aria-hidden="true">
+                <i class="fa-solid fa-magnifying-glass-plus"></i>
+              </div>
+            `;
+
+            thumb.addEventListener('click', () => openLightbox(idx));
+            photosContainer.appendChild(thumb);
+          });
+        }
+      }
+
+      // Płynne przewinięcie do widoku galerii
+      const darkWrap = document.querySelector('.gallery-dark-wrap');
+      if (darkWrap) {
+        darkWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    // Powrót do listy folderów
+    if (backBtn) {
+      backBtn.addEventListener('click', () => {
+        if (detailsView) detailsView.classList.remove('active');
+        if (albumsView) albumsView.style.display = 'block';
+        currentAlbum = null;
+      });
+    }
+
+    // Obsługa Lightboxa (pełnoekranowego podglądu zdjęć)
+    function openLightbox(photoIndex) {
+      if (!currentAlbum || !currentAlbum.photos[photoIndex]) return;
+      activePhotoIndex = photoIndex;
+      updateLightboxPhoto();
+      if (lightboxModal) lightboxModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      if (lightboxClose) lightboxClose.focus();
+    }
+
+    function closeLightbox() {
+      if (lightboxModal) lightboxModal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function updateLightboxPhoto() {
+      if (!currentAlbum || !currentAlbum.photos[activePhotoIndex]) return;
+      const photo = currentAlbum.photos[activePhotoIndex];
+      if (lightboxImg) {
+        lightboxImg.src = photo.url;
+        lightboxImg.alt = `${currentAlbum.title} – zdjęcie ${activePhotoIndex + 1}`;
+      }
+      if (lightboxInfo) {
+        lightboxInfo.innerHTML = `Zdjęcie ${activePhotoIndex + 1} z ${currentAlbum.photos.length}`;
+      }
+    }
+
+    function nextPhoto() {
+      if (!currentAlbum || currentAlbum.photos.length === 0) return;
+      activePhotoIndex = (activePhotoIndex + 1) % currentAlbum.photos.length;
+      updateLightboxPhoto();
+    }
+
+    function prevPhoto() {
+      if (!currentAlbum || currentAlbum.photos.length === 0) return;
+      activePhotoIndex = (activePhotoIndex - 1 + currentAlbum.photos.length) % currentAlbum.photos.length;
+      updateLightboxPhoto();
+    }
+
+    if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
+    if (lightboxNext) lightboxNext.addEventListener('click', nextPhoto);
+    if (lightboxPrev) lightboxPrev.addEventListener('click', prevPhoto);
+
+    if (lightboxModal) {
+      lightboxModal.addEventListener('click', (e) => {
+        if (e.target === lightboxModal) closeLightbox();
+      });
+    }
+
+    // Nawigacja klawiaturą (WCAG 2.1)
+    window.addEventListener('keydown', (e) => {
+      if (!lightboxModal || !lightboxModal.classList.contains('active')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowRight') nextPhoto();
+      if (e.key === 'ArrowLeft') prevPhoto();
+    });
+
+    // Przycisk ręcznego odświeżania danych ze Strapi
+    if (refreshBtn) {
+      refreshBtn.addEventListener('click', async () => {
+        const originalHtml = refreshBtn.innerHTML;
+        refreshBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i> <span>Pobieranie...</span>';
+        await loadGalleriesFromBackend();
+        refreshBtn.innerHTML = originalHtml;
+      });
+    }
+
+    // Automatyczne odświeżenie po powrocie użytkownika do karty przeglądarki (np. po dodaniu wpisu w Strapi)
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible' && !currentAlbum) {
+        loadGalleriesFromBackend();
+      }
+    });
+
+    // Rozpoczęcie ładowania
+    loadGalleriesFromBackend();
+  }
+
+  initSchoolGallery();
 
 
   // ------------------------------------------------------------------

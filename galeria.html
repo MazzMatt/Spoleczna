@@ -94,40 +94,95 @@
     </div>
   </section>
 
-  <!-- SIATKA ZDJĘĆ -->
-  <section class="section-padding">
+  <!-- SIATKA ZDJĘĆ I FOLDERÓW -->
+  <section class="section-padding" style="padding-top: 30px;">
     <div class="container">
       
-      <div class="gallery-photo-grid">
+      <!-- GŁÓWNY KONTENER GALERII -->
+      <div class="gallery-dark-wrap">
         
-        <div style="border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm); height: 260px;">
-          <img src="assets/images/children-reading.jpg" alt="Radość ze wspólnej nauki" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'">
+        <!-- Pasek górny: Tytuł "Galerie", wyszukiwarka i status źródła danych -->
+        <div class="gallery-top-bar">
+          <div>
+            <h2 class="gallery-section-heading">
+              <i class="fa-solid fa-images" aria-hidden="true"></i>
+              <span>Galerie</span>
+            </h2>
+            <p style="color: rgba(255, 255, 255, 0.7); font-size: 0.88rem; margin: 4px 0 0 0;">
+              Kliknij wybrany folder ze zdjęciami, aby przejrzeć pełną fotorelację
+            </p>
+          </div>
+
+          <div>
+            <button id="gallery-refresh-btn" type="button" class="album-back-btn" style="padding: 8px 18px; font-size: 0.88rem;" title="Pobierz aktualne foldery ze Strapi">
+              <i class="fa-solid fa-rotate-right" aria-hidden="true"></i>
+              <span>Odśwież</span>
+            </button>
+          </div>
         </div>
 
-        <div style="border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm); height: 260px;">
-          <img src="assets/images/school-building.jpg" alt="Budynek i fasada szkoły" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'">
+        <!-- 1. WIDOK LISTY FOLDERÓW / ALBUMÓW -->
+        <div id="gallery-albums-view">
+          <div id="gallery-albums-container" class="gallery-albums-grid" role="region" aria-label="Lista albumów fotograficznych">
+            <!-- Dynamicznie generowane kafelki albumów wprowadzone w Strapi -->
+          </div>
+          
+          <div id="gallery-empty-state" style="display: none; text-align: center; padding: 60px 20px;">
+            <i class="fa-solid fa-folder-open" style="font-size: 3.5rem; color: #F8C830; margin-bottom: 18px;" aria-hidden="true"></i>
+            <h3 id="gallery-empty-title" style="color: #FFF; font-size: 1.4rem; font-weight: 700; margin-bottom: 10px;">Brak folderów ze zdjęciami w bazie</h3>
+            <p id="gallery-empty-desc" style="color: rgba(255, 255, 255, 0.75); font-size: 0.98rem; max-width: 560px; margin: 0 auto 20px auto; line-height: 1.5;">
+              Strona wczytuje foldery i zdjęcia bezpośrednio z Twojej bazy danych Strapi. Utwórz swój pierwszy wpis w kolekcji <strong>Galeria</strong> w panelu administracyjnym, dodaj zdjęcia i kliknij <em>Publish</em>.
+            </p>
+            <a href="http://localhost:1337/admin" target="_blank" rel="noopener" class="album-back-btn" style="display: inline-flex; text-decoration: none;">
+              <i class="fa-solid fa-plus" aria-hidden="true"></i>
+              <span>Otwórz panel Strapi i dodaj folder</span>
+            </a>
+          </div>
         </div>
 
-        <div style="border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm); height: 260px;">
-          <img src="assets/images/hero-original-kozyszkola.jpg" alt="Sport i ruch" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'">
-        </div>
+        <!-- 2. WIDOK SZCZEGÓŁÓW WYBRANEGO ALBUMU -->
+        <div id="album-details-view" class="album-details-view" role="region" aria-label="Szczegóły otwartego albumu">
+          <div class="album-details-header">
+            <div>
+              <button id="album-back-btn" class="album-back-btn" type="button" aria-label="Wróć do listy wszystkich folderów">
+                <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+                <span>Wszystkie galerie</span>
+              </button>
+              <h3 id="album-detail-title" style="color: #FFF; font-size: 1.6rem; font-weight: 800; margin: 14px 0 4px 0;"></h3>
+              <p id="album-detail-meta" style="color: rgba(255, 255, 255, 0.7); font-size: 0.88rem; margin: 0;"></p>
+            </div>
+          </div>
 
-        <div style="border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm); height: 260px;">
-          <img src="assets/images/school-building.jpg" alt="Zajęcia w szkole" style="width: 100%; height: 100%; object-fit: cover; filter: brightness(1.05); transition: transform 0.5s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'">
-        </div>
-
-        <div style="border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm); height: 260px;">
-          <img src="assets/images/children-reading.jpg" alt="Praca w małych grupach" style="width: 100%; height: 100%; object-fit: cover; filter: hue-rotate(10deg); transition: transform 0.5s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'">
-        </div>
-
-        <div style="border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm); height: 260px;">
-          <img src="assets/images/hero-original-kozyszkola.jpg" alt="Wydarzenia i integracja" style="width: 100%; height: 100%; object-fit: cover; filter: saturate(1.1); transition: transform 0.5s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'">
+          <div id="album-photos-container" class="album-photos-grid" role="region" aria-label="Zdjęcia w albumie">
+            <!-- Dynamicznie generowane zdjęcia z wybranego albumu -->
+          </div>
         </div>
 
       </div>
 
     </div>
   </section>
+
+  <!-- LIGHTBOX (POWIĘKSZENIE PEŁNOEKRANOWE ZDJĘCIA) -->
+  <div id="gallery-lightbox-modal" class="gallery-lightbox-modal" role="dialog" aria-modal="true" aria-label="Podgląd pełnoekranowy zdjęcia">
+    <div class="lightbox-controls">
+      <button id="lightbox-close-btn" class="lightbox-btn" type="button" aria-label="Zamknij podgląd (Escape)">
+        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+      </button>
+    </div>
+
+    <button id="lightbox-prev-btn" class="lightbox-nav-btn prev" type="button" aria-label="Poprzednie zdjęcie">
+      <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+    </button>
+
+    <img id="lightbox-img" class="lightbox-main-img" src="assets/images/children-reading.jpg" alt="Powiększone zdjęcie z galerii">
+
+    <button id="lightbox-next-btn" class="lightbox-nav-btn next" type="button" aria-label="Następne zdjęcie">
+      <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+    </button>
+
+    <div id="lightbox-info" class="lightbox-info">Zdjęcie 1 z 8</div>
+  </div>
 
   <!-- FOOTER -->
   </main>
