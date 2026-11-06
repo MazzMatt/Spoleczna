@@ -884,7 +884,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return copy;
     }
 
-    const CACHE_KEY = 'pssp_cached_albums_v8';
+    const CACHE_KEY = 'pssp_cached_albums_v9';
     // 1. Natychmiastowe wczytanie z pamięci podręcznej przeglądarki (0 ms)
     try {
       localStorage.removeItem('pssp_cached_albums');
@@ -894,6 +894,7 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.removeItem('pssp_cached_albums_v5');
       localStorage.removeItem('pssp_cached_albums_v6');
       localStorage.removeItem('pssp_cached_albums_v7');
+      localStorage.removeItem('pssp_cached_albums_v8');
       const cached = localStorage.getItem(CACHE_KEY);
       if (cached) {
         const parsed = JSON.parse(cached);
@@ -959,13 +960,18 @@ document.addEventListener('DOMContentLoaded', () => {
             const rawUrl = resolveMediaUrl(mAttrs.url, baseStrapi);
 
             let thumbUrl = rawUrl;
-            if (mAttrs.formats && (mAttrs.formats.medium || mAttrs.formats.small || mAttrs.formats.thumbnail)) {
-              const bestFormat = mAttrs.formats.medium || mAttrs.formats.small || mAttrs.formats.thumbnail;
+            if (rawUrl && rawUrl.includes('res.cloudinary.com') && rawUrl.includes('/image/upload/')) {
+              // Wysokiej jakości ostra miniatura HD (do 1000px, jakość wysoka q_auto:best, f_auto)
+              // Zapewnia idealną ostrość i wyrazistość twarzy na zdjęciach bez rozmycia i pikselozy
+              thumbUrl = rawUrl.replace('/image/upload/', '/image/upload/c_limit,w_1000,q_auto:best,f_auto/');
+            } else if (mAttrs.formats && (mAttrs.formats.large || mAttrs.formats.medium)) {
+              // Nigdy nie używamy małych mikrominiaturek thumbnail (117px) ze Strapi!
+              const bestFormat = mAttrs.formats.large || mAttrs.formats.medium;
               if (bestFormat && bestFormat.url) {
                 thumbUrl = resolveMediaUrl(bestFormat.url, baseStrapi);
               }
-            } else if (rawUrl && rawUrl.includes('res.cloudinary.com') && rawUrl.includes('/image/upload/')) {
-              thumbUrl = rawUrl.replace('/image/upload/', '/image/upload/c_scale,w_600,q_auto,f_auto/');
+            } else {
+              thumbUrl = rawUrl;
             }
 
             return {
@@ -1017,7 +1023,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Błyskawiczny odczyt ze statycznego pliku data/galerie.json (zawsze działa natychmiast na GitHub Pages)
     async function loadStaticFallback(forceBust = false) {
-      const cacheBust = forceBust ? `?v=${Date.now()}` : `?v=20261106P`;
+      const cacheBust = forceBust ? `?v=${Date.now()}` : `?v=20261106Q`;
       const candidates = [];
       try {
         candidates.push(new URL(`data/galerie.json${cacheBust}`, window.location.href).href);
