@@ -142,7 +142,7 @@
 
         <!-- 2. WIDOK SZCZEGÓŁÓW WYBRANEGO ALBUMU -->
         <div id="album-details-view" class="album-details-view" role="region" aria-label="Szczegóły otwartego albumu">
-          <div class="album-details-header">
+          <div class="album-details-header" style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 14px;">
             <div>
               <button id="album-back-btn" class="album-back-btn" type="button" aria-label="Wróć do listy wszystkich folderów">
                 <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
@@ -150,6 +150,13 @@
               </button>
               <h3 id="album-detail-title" style="color: #FFF; font-size: 1.6rem; font-weight: 800; margin: 14px 0 4px 0;"></h3>
               <p id="album-detail-meta" style="color: rgba(255, 255, 255, 0.7); font-size: 0.88rem; margin: 0;"></p>
+            </div>
+
+            <div>
+              <button id="album-detail-refresh-btn" type="button" class="album-back-btn" style="padding: 8px 18px; font-size: 0.88rem;" title="Pobierz zaktualizowane zdjęcia ze Strapi">
+                <i class="fa-solid fa-rotate-right" aria-hidden="true"></i>
+                <span>Odśwież zdjęcia</span>
+              </button>
             </div>
           </div>
 
@@ -245,6 +252,6 @@
   </footer>
 
   <script src="js/config.js"></script>
-  <script src="js/script.js?v=20261106g"></script>
+  <script src="js/script.js?v=20261106h"></script>
 </body>
 </html>

@@ -840,10 +840,12 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentAlbum = null;
     let activePhotoIndex = 0;
 
-    const CACHE_KEY = 'pssp_cached_albums_v3';
+    const CACHE_KEY = 'pssp_cached_albums_v4';
     // 1. Natychmiastowe wczytanie z pamięci podręcznej przeglądarki (0 ms)
     try {
-      localStorage.removeItem('pssp_cached_albums'); // Wyczyszczenie starej pamięci podręcznej
+      localStorage.removeItem('pssp_cached_albums');
+      localStorage.removeItem('pssp_cached_albums_v2');
+      localStorage.removeItem('pssp_cached_albums_v3');
       const cached = localStorage.getItem(CACHE_KEY);
       if (cached) {
         const parsed = JSON.parse(cached);
@@ -961,7 +963,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Błyskawiczny odczyt ze statycznego pliku data/galerie.json (zawsze działa natychmiast na GitHub Pages)
     async function loadStaticFallback(forceBust = false) {
-      const cacheBust = forceBust ? `?v=${Date.now()}` : `?v=20261106e`;
+      const cacheBust = forceBust ? `?v=${Date.now()}` : `?v=20261106h`;
       const candidates = [];
       try {
         candidates.push(new URL(`data/galerie.json${cacheBust}`, window.location.href).href);
@@ -978,12 +980,19 @@ document.addEventListener('DOMContentLoaded', () => {
             const mapped = mapStrapiToAlbums(json.data, activeStrapiBase);
             if (mapped.length > 0) {
               allAlbums = mapped;
-              if (!currentAlbum) {
-                renderAlbums(allAlbums);
-              }
               try {
                 localStorage.setItem(CACHE_KEY, JSON.stringify(mapped));
               } catch (err) {}
+
+              if (currentAlbum) {
+                const freshAlbum = mapped.find(a => a.id === currentAlbum.id || a.title === currentAlbum.title);
+                if (freshAlbum) {
+                  currentAlbum = freshAlbum;
+                  renderAlbumPhotos(currentAlbum);
+                }
+              } else {
+                renderAlbums(allAlbums);
+              }
               return true;
             }
           }
@@ -1007,12 +1016,19 @@ document.addEventListener('DOMContentLoaded', () => {
           const mapped = mapStrapiToAlbums(json.data, activeStrapiBase);
           if (mapped.length > 0) {
             allAlbums = mapped;
-            if (!currentAlbum) {
-              renderAlbums(allAlbums);
-            }
             try {
               localStorage.setItem(CACHE_KEY, JSON.stringify(mapped));
             } catch (err) {}
+
+            if (currentAlbum) {
+              const freshAlbum = mapped.find(a => a.id === currentAlbum.id || a.title === currentAlbum.title);
+              if (freshAlbum) {
+                currentAlbum = freshAlbum;
+                renderAlbumPhotos(currentAlbum);
+              }
+            } else {
+              renderAlbums(allAlbums);
+            }
             return true;
           }
         }
@@ -1076,12 +1092,9 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Otwarcie wybranego albumu (widok zdjęć w folderze)
-    function openAlbumDetails(album) {
-      currentAlbum = album;
-      if (albumsView) albumsView.style.display = 'none';
-      if (detailsView) detailsView.classList.add('active');
-
+    // Wyświetlenie zdjęć wewnątrz otwartego folderu
+    function renderAlbumPhotos(album) {
+      if (!album) return;
       if (detailTitle) detailTitle.textContent = album.title;
       if (detailMeta) {
         const datePart = album.dateDisplay ? `${album.dateDisplay} • ` : '';
@@ -1111,6 +1124,15 @@ document.addEventListener('DOMContentLoaded', () => {
           });
         }
       }
+    }
+
+    // Otwarcie wybranego albumu (widok zdjęć w folderze)
+    function openAlbumDetails(album) {
+      currentAlbum = album;
+      if (albumsView) albumsView.style.display = 'none';
+      if (detailsView) detailsView.classList.add('active');
+
+      renderAlbumPhotos(album);
 
       // Płynne przewinięcie do widoku galerii
       const darkWrap = document.querySelector('.gallery-dark-wrap');
@@ -1125,6 +1147,23 @@ document.addEventListener('DOMContentLoaded', () => {
         if (detailsView) detailsView.classList.remove('active');
         if (albumsView) albumsView.style.display = 'block';
         currentAlbum = null;
+        renderAlbums(allAlbums);
+      });
+    }
+
+    // Przycisk odświeżania wewnątrz otwartego folderu
+    const detailRefreshBtn = document.getElementById('album-detail-refresh-btn');
+    if (detailRefreshBtn) {
+      detailRefreshBtn.addEventListener('click', async () => {
+        const originalHtml = detailRefreshBtn.innerHTML;
+        detailRefreshBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i> <span>Pobieranie...</span>';
+        detailRefreshBtn.disabled = true;
+        try {
+          localStorage.removeItem(CACHE_KEY);
+        } catch (e) {}
+        await syncFromCloudBackend(true);
+        detailRefreshBtn.innerHTML = originalHtml;
+        detailRefreshBtn.disabled = false;
       });
     }
 
