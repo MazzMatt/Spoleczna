@@ -879,10 +879,23 @@ document.addEventListener('DOMContentLoaded', () => {
     // Pomocnicza funkcja mapująca dane ze Strapi na obiekty albumów
     function mapStrapiToAlbums(items, baseStrapi) {
       if (!Array.isArray(items)) return [];
-      return items.map((item, idx) => {
+      const mapped = items.map((item, idx) => {
         const attrs = item.attributes || item;
         const title = attrs.Tytul || attrs.tytul || `Folder #${item.id || idx + 1}`;
         
+        const rawDate = attrs.Data || attrs.data;
+        let dateDisplay = '';
+        let timestamp = 0;
+        if (rawDate) {
+          try {
+            const d = new Date(rawDate);
+            if (!isNaN(d.getTime())) {
+              timestamp = d.getTime();
+              dateDisplay = d.toLocaleDateString('pl-PL', { day: '2-digit', month: '2-digit', year: 'numeric' });
+            }
+          } catch (e) {}
+        }
+
         let photosList = [];
         const rawZdjecia = attrs.Zdjecia || attrs.zdjecia;
 
@@ -913,16 +926,33 @@ document.addEventListener('DOMContentLoaded', () => {
           });
         }
 
+        const count = photosList.length;
+        const countDisplay = `${count} ${count === 1 ? 'zdjęcie' : (count < 5 ? 'zdjęcia' : 'zdjęć')}`;
+
         return {
           id: item.documentId || item.id || `strapi-${idx}`,
+          idNum: parseInt(item.id, 10) || (idx + 1),
           title: title,
-          count: photosList.length,
-          countDisplay: `${photosList.length} Photos`,
+          rawDate: rawDate,
+          dateDisplay: dateDisplay,
+          timestamp: timestamp,
+          count: count,
+          countDisplay: countDisplay,
           coverUrl: photosList[0]?.thumbUrl || photosList[0]?.url || 'assets/images/school-building.jpg',
           photos: photosList,
           isFromStrapi: true
         };
       });
+
+      // Sortowanie od najnowszych do najstarszych po dacie wydarzenia
+      mapped.sort((a, b) => {
+        if (b.timestamp !== a.timestamp) {
+          return b.timestamp - a.timestamp;
+        }
+        return b.idNum - a.idNum;
+      });
+
+      return mapped;
     }
 
     const CLOUD_STRAPI_URL = 'https://spoleczna.onrender.com';
@@ -1010,6 +1040,18 @@ document.addEventListener('DOMContentLoaded', () => {
         countBadge.textContent = albumsToRender.length;
       }
 
+      const totalPhotos = albumsToRender.reduce((acc, a) => acc + (a.count || 0), 0);
+      const countNumber = document.getElementById('gallery-count-number');
+      const photosTotal = document.getElementById('gallery-photos-total');
+      const countText = document.getElementById('gallery-count-text');
+
+      if (countNumber) countNumber.textContent = albumsToRender.length;
+      if (photosTotal) photosTotal.textContent = totalPhotos;
+      if (countText) {
+        const c = albumsToRender.length;
+        countText.textContent = c === 1 ? 'folder' : (c < 5 ? 'foldery' : 'folderów');
+      }
+
       if (albumsToRender.length === 0) {
         if (emptyState) {
           emptyState.style.display = 'block';
@@ -1035,7 +1077,8 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="album-overlay">
             <h3 class="album-title">${album.title}</h3>
             <div class="album-meta">
-              <span>${album.countDisplay || `${album.count} Photos`}</span>
+              ${album.dateDisplay ? `<span style="display: inline-flex; align-items: center; gap: 4px; margin-right: 6px;"><i class="fa-regular fa-calendar" aria-hidden="true"></i>${album.dateDisplay}</span>` : ''}
+              <span>${album.countDisplay}</span>
             </div>
           </div>
         `;
@@ -1052,7 +1095,10 @@ document.addEventListener('DOMContentLoaded', () => {
       if (detailsView) detailsView.classList.add('active');
 
       if (detailTitle) detailTitle.textContent = album.title;
-      if (detailMeta) detailMeta.textContent = `Fotorelacja szkolna • ${album.count} ${album.count === 1 ? 'zdjęcie' : (album.count < 5 ? 'zdjęcia' : 'zdjęć')}`;
+      if (detailMeta) {
+        const datePart = album.dateDisplay ? `${album.dateDisplay} • ` : '';
+        detailMeta.textContent = `Fotorelacja szkolna • ${datePart}${album.count} ${album.count === 1 ? 'zdjęcie' : (album.count < 5 ? 'zdjęcia' : 'zdjęć')}`;
+      }
 
       if (photosContainer) {
         photosContainer.innerHTML = '';
