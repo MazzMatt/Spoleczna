@@ -840,11 +840,13 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentAlbum = null;
     let activePhotoIndex = 0;
 
-    // Obsługa wyboru sortowania albumów
-    let currentSortMode = 'event-date-desc';
+    // Obsługa wyboru sortowania albumów ("Od najnowszych" / "Od najstarszych")
+    let currentSortMode = 'desc';
     try {
       const savedSort = localStorage.getItem('pssp_gallery_sort');
-      if (savedSort) currentSortMode = savedSort;
+      if (savedSort === 'asc' || savedSort === 'desc') {
+        currentSortMode = savedSort;
+      }
     } catch (e) {}
 
     const sortSelect = document.getElementById('gallery-sort-select');
@@ -859,30 +861,24 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Funkcja sortująca albumy wg wybranego trybu
+    // Funkcja sortująca albumy: 'desc' (od najnowszych) lub 'asc' (od najstarszych)
     function getSortedAlbums(albums, sortMode = currentSortMode) {
       const copy = [...albums];
-      if (sortMode === 'created-desc') {
+      if (sortMode === 'asc') {
         copy.sort((a, b) => {
-          if (b.createdTimestamp && a.createdTimestamp && b.createdTimestamp !== a.createdTimestamp) {
-            return b.createdTimestamp - a.createdTimestamp;
-          }
-          return (b.idNum || 0) - (a.idNum || 0);
-        });
-      } else if (sortMode === 'event-date-asc') {
-        copy.sort((a, b) => {
-          if (b.timestamp !== a.timestamp) {
+          if (a.timestamp && b.timestamp && a.timestamp !== b.timestamp) {
             return a.timestamp - b.timestamp;
           }
           return (a.idNum || 0) - (b.idNum || 0);
         });
-      } else if (sortMode === 'title-asc') {
-        copy.sort((a, b) => (a.title || '').localeCompare(b.title || '', 'pl'));
       } else {
-        // 'event-date-desc' (domyślnie: data wydarzenia, od najnowszych)
+        // 'desc' (od najnowszych)
         copy.sort((a, b) => {
-          if (b.timestamp !== a.timestamp) {
+          if (a.timestamp && b.timestamp && a.timestamp !== b.timestamp) {
             return b.timestamp - a.timestamp;
+          }
+          if (b.createdTimestamp && a.createdTimestamp && b.createdTimestamp !== a.createdTimestamp) {
+            return b.createdTimestamp - a.createdTimestamp;
           }
           return (b.idNum || 0) - (a.idNum || 0);
         });
@@ -1021,7 +1017,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Błyskawiczny odczyt ze statycznego pliku data/galerie.json (zawsze działa natychmiast na GitHub Pages)
     async function loadStaticFallback(forceBust = false) {
-      const cacheBust = forceBust ? `?v=${Date.now()}` : `?v=20261106L`;
+      const cacheBust = forceBust ? `?v=${Date.now()}` : `?v=20261106M`;
       const candidates = [];
       try {
         candidates.push(new URL(`data/galerie.json${cacheBust}`, window.location.href).href);
