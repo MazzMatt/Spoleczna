@@ -101,24 +101,19 @@
       <!-- GŁÓWNY KONTENER GALERII -->
       <div class="gallery-dark-wrap">
         
-        <!-- Pasek górny: Tytuł "Galerie", informacja o pobranych danych i przycisk Odśwież -->
+        <!-- Pasek górny: Tytuł "Galerie", liczba galerii i przycisk Odśwież -->
         <div class="gallery-top-bar">
           <div>
             <h2 class="gallery-section-heading">
               <i class="fa-solid fa-images" aria-hidden="true"></i>
-              <span>Galerie szkolne</span>
+              <span>Galerie (<span id="gallery-count-number" style="color: #F8C830;">30</span>)</span>
             </h2>
             <p style="color: rgba(255, 255, 255, 0.7); font-size: 0.88rem; margin: 4px 0 0 0;">
               Kliknij wybrany folder ze zdjęciami, aby przejrzeć pełną fotorelację
             </p>
           </div>
 
-          <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
-            <div id="gallery-status-indicator" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(248, 200, 48, 0.12); border: 1px solid rgba(248, 200, 48, 0.35); padding: 8px 16px; border-radius: 20px; font-size: 0.88rem; color: #FFF;">
-              <i class="fa-solid fa-folder-open" style="color: #F8C830;" aria-hidden="true"></i>
-              <span>Załadowano: <strong id="gallery-count-number" style="color: #F8C830;">30</strong> folderów (<strong id="gallery-photos-total" style="color: #F8C830;">384</strong> zdjęć)</span>
-            </div>
-
+          <div>
             <button id="gallery-refresh-btn" type="button" class="album-back-btn" style="padding: 8px 18px; font-size: 0.88rem;" title="Pobierz aktualne foldery ze Strapi">
               <i class="fa-solid fa-rotate-right" aria-hidden="true"></i>
               <span>Odśwież</span>
@@ -250,6 +245,6 @@
   </footer>
 
   <script src="js/config.js"></script>
-  <script src="js/script.js?v=20261106f"></script>
+  <script src="js/script.js?v=20261106g"></script>
 </body>
 </html>

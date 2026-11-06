@@ -1035,21 +1035,9 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderAlbums(albumsToRender) {
       container.innerHTML = '';
 
-      const countBadge = document.getElementById('gallery-count-badge');
-      if (countBadge) {
-        countBadge.textContent = albumsToRender.length;
-      }
-
-      const totalPhotos = albumsToRender.reduce((acc, a) => acc + (a.count || 0), 0);
       const countNumber = document.getElementById('gallery-count-number');
-      const photosTotal = document.getElementById('gallery-photos-total');
-      const countText = document.getElementById('gallery-count-text');
-
-      if (countNumber) countNumber.textContent = albumsToRender.length;
-      if (photosTotal) photosTotal.textContent = totalPhotos;
-      if (countText) {
-        const c = albumsToRender.length;
-        countText.textContent = c === 1 ? 'folder' : (c < 5 ? 'foldery' : 'folderów');
+      if (countNumber) {
+        countNumber.textContent = albumsToRender.length;
       }
 
       if (albumsToRender.length === 0) {
