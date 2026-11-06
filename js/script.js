@@ -928,13 +928,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const activeStrapiBase = window.STRAPI_URL || (isLocalhost ? 'http://localhost:1337' : CLOUD_STRAPI_URL);
 
     // Błyskawiczny odczyt ze statycznego pliku data/galerie.json (zawsze działa natychmiast na GitHub Pages)
-    async function loadStaticFallback() {
+    async function loadStaticFallback(forceBust = false) {
+      const cacheBust = forceBust ? `?v=${Date.now()}` : `?v=20261106d`;
       const candidates = [];
       try {
-        candidates.push(new URL('data/galerie.json', window.location.href).href);
+        candidates.push(new URL(`data/galerie.json${cacheBust}`, window.location.href).href);
       } catch (e) {}
-      candidates.push('data/galerie.json');
-      candidates.push('./data/galerie.json');
+      candidates.push(`data/galerie.json${cacheBust}`);
+      candidates.push(`./data/galerie.json${cacheBust}`);
 
       for (const u of candidates) {
         try {
@@ -945,7 +946,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const mapped = mapStrapiToAlbums(json.data, activeStrapiBase);
             if (mapped.length > 0) {
               allAlbums = mapped;
-              renderAlbums(allAlbums);
+              if (!currentAlbum) {
+                renderAlbums(allAlbums);
+              }
               try {
                 localStorage.setItem('pssp_cached_albums', JSON.stringify(mapped));
               } catch (err) {}
@@ -959,7 +962,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Odpytanie chmurowego API Strapi (w tle lub przy ręcznym kliknięciu Odśwież)
     async function syncFromCloudBackend(isManual = false) {
-      const endpoint = `${activeStrapiBase}/api/galerias?populate=*`;
+      const endpoint = `${activeStrapiBase}/api/galerias?populate=*&pagination[pageSize]=100&sort=Data:desc,createdAt:desc&_t=${Date.now()}`;
       try {
         const timeoutMs = isManual ? 45000 : 35000;
         const fetchOptions = typeof AbortSignal !== 'undefined' && AbortSignal.timeout
@@ -972,7 +975,9 @@ document.addEventListener('DOMContentLoaded', () => {
           const mapped = mapStrapiToAlbums(json.data, activeStrapiBase);
           if (mapped.length > 0) {
             allAlbums = mapped;
-            renderAlbums(allAlbums);
+            if (!currentAlbum) {
+              renderAlbums(allAlbums);
+            }
             try {
               localStorage.setItem('pssp_cached_albums', JSON.stringify(mapped));
             } catch (err) {}
@@ -1145,9 +1150,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const originalHtml = refreshBtn.innerHTML;
         refreshBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i> <span>Pobieranie z chmury...</span>';
         refreshBtn.disabled = true;
+        try {
+          localStorage.removeItem('pssp_cached_albums');
+        } catch (e) {}
         const cloudOk = await syncFromCloudBackend(true);
         if (!cloudOk) {
-          await loadStaticFallback();
+          await loadStaticFallback(true);
         }
         refreshBtn.innerHTML = originalHtml;
         refreshBtn.disabled = false;

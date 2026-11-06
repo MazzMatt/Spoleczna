@@ -20,8 +20,9 @@ async function syncGallery() {
 
   for (const strapiUrl of urlsToTry) {
     try {
-      console.log(`Pobieranie danych ze Strapi (${strapiUrl}/api/galerias?populate=*)...`);
-      const res = await fetch(`${strapiUrl}/api/galerias?populate=*`, { signal: AbortSignal.timeout(10000) });
+      const endpoint = `${strapiUrl}/api/galerias?populate=*&pagination[pageSize]=100&sort=Data:desc,createdAt:desc`;
+      console.log(`Pobieranie danych ze Strapi (${endpoint})...`);
+      const res = await fetch(endpoint, { signal: AbortSignal.timeout(15000) });
       if (!res.ok) {
         continue;
       }

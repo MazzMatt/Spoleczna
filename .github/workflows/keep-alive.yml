@@ -13,4 +13,4 @@ jobs:
       - name: Ping Strapi Cloud API
         run: |
           echo "Pinging https://spoleczna.onrender.com..."
-          curl -s -f --max-time 30 "https://spoleczna.onrender.com/api/galerias?populate=*" > /dev/null && echo "Render is awake and running!" || echo "Ping sent."
+          curl -s -f --max-time 30 "https://spoleczna.onrender.com/api/galerias?populate=*&pagination[pageSize]=100&sort=Data:desc,createdAt:desc" > /dev/null && echo "Render is awake and running!" || echo "Ping sent."
