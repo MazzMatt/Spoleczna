@@ -861,21 +861,22 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Funkcja sortująca albumy: 'desc' (od najnowszych - nowo dodane na samej górze!) lub 'asc' (od najstarszych)
+    // Funkcja sortująca albumy po dacie wydarzenia wpisanej w Strapi (pole Data)
     function getSortedAlbums(albums, sortMode = currentSortMode) {
       const copy = [...albums];
       if (sortMode === 'asc') {
+        // Od najstarszych po dacie w Strapi
         copy.sort((a, b) => {
-          if (a.createdTimestamp && b.createdTimestamp && a.createdTimestamp !== b.createdTimestamp) {
-            return a.createdTimestamp - b.createdTimestamp;
+          if (a.timestamp && b.timestamp && a.timestamp !== b.timestamp) {
+            return a.timestamp - b.timestamp;
           }
           return (a.idNum || 0) - (b.idNum || 0);
         });
       } else {
-        // 'desc' (od najnowszych - cokolwiek dodano ostatnio w Strapi, pojawia się natychmiast na samej górze!)
+        // Od najnowszych po dacie w Strapi
         copy.sort((a, b) => {
-          if (b.createdTimestamp && a.createdTimestamp && b.createdTimestamp !== a.createdTimestamp) {
-            return b.createdTimestamp - a.createdTimestamp;
+          if (b.timestamp && a.timestamp && b.timestamp !== a.timestamp) {
+            return b.timestamp - a.timestamp;
           }
           return (b.idNum || 0) - (a.idNum || 0);
         });
@@ -883,7 +884,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return copy;
     }
 
-    const CACHE_KEY = 'pssp_cached_albums_v7';
+    const CACHE_KEY = 'pssp_cached_albums_v8';
     // 1. Natychmiastowe wczytanie z pamięci podręcznej przeglądarki (0 ms)
     try {
       localStorage.removeItem('pssp_cached_albums');
@@ -892,6 +893,7 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.removeItem('pssp_cached_albums_v4');
       localStorage.removeItem('pssp_cached_albums_v5');
       localStorage.removeItem('pssp_cached_albums_v6');
+      localStorage.removeItem('pssp_cached_albums_v7');
       const cached = localStorage.getItem(CACHE_KEY);
       if (cached) {
         const parsed = JSON.parse(cached);
@@ -1015,7 +1017,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Błyskawiczny odczyt ze statycznego pliku data/galerie.json (zawsze działa natychmiast na GitHub Pages)
     async function loadStaticFallback(forceBust = false) {
-      const cacheBust = forceBust ? `?v=${Date.now()}` : `?v=20261106O`;
+      const cacheBust = forceBust ? `?v=${Date.now()}` : `?v=20261106P`;
       const candidates = [];
       try {
         candidates.push(new URL(`data/galerie.json${cacheBust}`, window.location.href).href);
@@ -1055,13 +1057,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Odpytanie chmurowego API Strapi (w tle lub przy ręcznym kliknięciu Odśwież)
     async function syncFromCloudBackend(isManual = false) {
-      const endpoint = `${activeStrapiBase}/api/galerias?populate=*&pagination[pageSize]=100&sort=createdAt:desc,id:desc&_t=${Date.now()}`;
+      // UWAGA: Nigdy nie dodawać niestandardowych parametrów (jak _t), bo Strapi v5 rzuca błędem HTTP 400!
+      const endpoint = `${activeStrapiBase}/api/galerias?populate=*&pagination[pageSize]=100&sort=createdAt:desc,id:desc`;
       const refreshBtn = document.getElementById('gallery-refresh-btn');
       const refreshIcon = refreshBtn ? refreshBtn.querySelector('i') : null;
       const syncStatus = document.getElementById('gallery-sync-status');
 
       if (refreshIcon) refreshIcon.classList.add('fa-spin');
-      if (syncStatus && isManual) {
+      if (syncStatus) {
         syncStatus.style.display = 'inline-flex';
         syncStatus.innerHTML = '<i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i><span>Sprawdzanie bazy...</span>';
         syncStatus.style.color = '#F8C830';
@@ -1069,11 +1072,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
       try {
         const timeoutMs = 75000; // Do 75s na wypadek wybudzania darmowego serwera Render
-        const fetchOptions = typeof AbortSignal !== 'undefined' && AbortSignal.timeout
-          ? { signal: AbortSignal.timeout(timeoutMs) }
-          : {};
+        const fetchOptions = {
+          cache: 'no-store',
+          headers: {
+            'Accept': 'application/json'
+          }
+        };
+        if (typeof AbortSignal !== 'undefined' && AbortSignal.timeout) {
+          fetchOptions.signal = AbortSignal.timeout(timeoutMs);
+        }
         const res = await fetch(endpoint, fetchOptions);
-        if (!res.ok) return false;
+        if (!res.ok) {
+          throw new Error('HTTP ' + res.status);
+        }
         const json = await res.json();
         if (Array.isArray(json.data) && json.data.length > 0) {
           const mapped = mapStrapiToAlbums(json.data, activeStrapiBase);
@@ -1105,6 +1116,15 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         }
       } catch (e) {
+        console.warn('Sync from cloud notice:', e);
+        if (syncStatus) {
+          syncStatus.style.display = 'inline-flex';
+          syncStatus.innerHTML = '<i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i><span>Błąd serwera</span>';
+          syncStatus.style.color = '#F87171';
+          setTimeout(() => {
+            if (syncStatus) syncStatus.style.display = 'none';
+          }, 3500);
+        }
       } finally {
         if (refreshIcon) refreshIcon.classList.remove('fa-spin');
       }
