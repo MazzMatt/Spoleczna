@@ -1,6 +1,185 @@
 {
   "data": [
     {
+      "id": 71,
+      "documentId": "ybxfgmftdecp335c24ckrx05",
+      "Tytul": "W lesie",
+      "Data": "2024-10-14",
+      "createdAt": "2026-11-06T01:46:47.572Z",
+      "updatedAt": "2026-11-06T01:46:47.572Z",
+      "publishedAt": "2026-11-06T01:46:47.687Z",
+      "Zdjecia": [
+        {
+          "id": 452,
+          "documentId": "bkaizz2f1ftzzsy2kis9g9xb",
+          "name": "1.jpg",
+          "alternativeText": null,
+          "caption": null,
+          "focalPoint": null,
+          "width": 1200,
+          "height": 1600,
+          "formats": {
+            "thumbnail": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793929595/thumbnail_1_bed94dc62e.jpg",
+              "hash": "thumbnail_1_bed94dc62e",
+              "mime": "image/jpeg",
+              "name": "thumbnail_1.jpg",
+              "path": null,
+              "size": 7.89,
+              "width": 117,
+              "height": 156,
+              "sizeInBytes": 7890,
+              "provider_metadata": {
+                "public_id": "thumbnail_1_bed94dc62e",
+                "resource_type": "image"
+              }
+            }
+          },
+          "hash": "1_bed94dc62e",
+          "ext": ".jpg",
+          "mime": "image/jpeg",
+          "size": 651.25,
+          "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793929596/1_bed94dc62e.jpg",
+          "previewUrl": null,
+          "provider": "cloudinary",
+          "provider_metadata": {
+            "public_id": "1_bed94dc62e",
+            "resource_type": "image"
+          },
+          "createdAt": "2026-11-06T01:46:36.469Z",
+          "updatedAt": "2026-11-06T01:46:36.469Z",
+          "publishedAt": "2026-11-06T01:46:36.470Z"
+        },
+        {
+          "id": 453,
+          "documentId": "ycz5pevnpz4173b692mjw1fa",
+          "name": "2.jpg",
+          "alternativeText": null,
+          "caption": null,
+          "focalPoint": null,
+          "width": 2048,
+          "height": 1536,
+          "formats": {
+            "thumbnail": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793929598/thumbnail_2_e0ad8b10bb.jpg",
+              "hash": "thumbnail_2_e0ad8b10bb",
+              "mime": "image/jpeg",
+              "name": "thumbnail_2.jpg",
+              "path": null,
+              "size": 12.52,
+              "width": 208,
+              "height": 156,
+              "sizeInBytes": 12520,
+              "provider_metadata": {
+                "public_id": "thumbnail_2_e0ad8b10bb",
+                "resource_type": "image"
+              }
+            }
+          },
+          "hash": "2_e0ad8b10bb",
+          "ext": ".jpg",
+          "mime": "image/jpeg",
+          "size": 739.31,
+          "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793929598/2_e0ad8b10bb.jpg",
+          "previewUrl": null,
+          "provider": "cloudinary",
+          "provider_metadata": {
+            "public_id": "2_e0ad8b10bb",
+            "resource_type": "image"
+          },
+          "createdAt": "2026-11-06T01:46:39.481Z",
+          "updatedAt": "2026-11-06T01:46:39.481Z",
+          "publishedAt": "2026-11-06T01:46:39.482Z"
+        },
+        {
+          "id": 454,
+          "documentId": "uehuaesx7mj257g6mu665nhc",
+          "name": "3.jpg",
+          "alternativeText": null,
+          "caption": null,
+          "focalPoint": null,
+          "width": 1200,
+          "height": 1600,
+          "formats": {
+            "thumbnail": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793929601/thumbnail_3_c6f19457d2.jpg",
+              "hash": "thumbnail_3_c6f19457d2",
+              "mime": "image/jpeg",
+              "name": "thumbnail_3.jpg",
+              "path": null,
+              "size": 8.02,
+              "width": 117,
+              "height": 156,
+              "sizeInBytes": 8017,
+              "provider_metadata": {
+                "public_id": "thumbnail_3_c6f19457d2",
+                "resource_type": "image"
+              }
+            }
+          },
+          "hash": "3_c6f19457d2",
+          "ext": ".jpg",
+          "mime": "image/jpeg",
+          "size": 511.01,
+          "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793929601/3_c6f19457d2.jpg",
+          "previewUrl": null,
+          "provider": "cloudinary",
+          "provider_metadata": {
+            "public_id": "3_c6f19457d2",
+            "resource_type": "image"
+          },
+          "createdAt": "2026-11-06T01:46:41.826Z",
+          "updatedAt": "2026-11-06T01:46:41.826Z",
+          "publishedAt": "2026-11-06T01:46:41.827Z"
+        },
+        {
+          "id": 455,
+          "documentId": "y52ccp1egj88ofjv3wuufhmz",
+          "name": "4.jpg",
+          "alternativeText": null,
+          "caption": null,
+          "focalPoint": null,
+          "width": 1600,
+          "height": 1200,
+          "formats": {
+            "thumbnail": {
+              "ext": ".jpg",
+              "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793929603/thumbnail_4_9aea31a3ef.jpg",
+              "hash": "thumbnail_4_9aea31a3ef",
+              "mime": "image/jpeg",
+              "name": "thumbnail_4.jpg",
+              "path": null,
+              "size": 13.37,
+              "width": 208,
+              "height": 156,
+              "sizeInBytes": 13372,
+              "provider_metadata": {
+                "public_id": "thumbnail_4_9aea31a3ef",
+                "resource_type": "image"
+              }
+            }
+          },
+          "hash": "4_9aea31a3ef",
+          "ext": ".jpg",
+          "mime": "image/jpeg",
+          "size": 403.26,
+          "url": "https://res.cloudinary.com/zpylz0ih/image/upload/v1793929603/4_9aea31a3ef.jpg",
+          "previewUrl": null,
+          "provider": "cloudinary",
+          "provider_metadata": {
+            "public_id": "4_9aea31a3ef",
+            "resource_type": "image"
+          },
+          "createdAt": "2026-11-06T01:46:43.926Z",
+          "updatedAt": "2026-11-06T01:46:43.926Z",
+          "publishedAt": "2026-11-06T01:46:43.926Z"
+        }
+      ]
+    },
+    {
       "id": 69,
       "documentId": "udetazlxnrz9lzzljgarmaeq",
       "Tytul": "Dzień gier planszowych",
@@ -31313,7 +31492,7 @@
       "page": 1,
       "pageSize": 100,
       "pageCount": 1,
-      "total": 31
+      "total": 32
     }
   }
 }

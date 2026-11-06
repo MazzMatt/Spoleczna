@@ -861,22 +861,19 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Funkcja sortująca albumy: 'desc' (od najnowszych) lub 'asc' (od najstarszych)
+    // Funkcja sortująca albumy: 'desc' (od najnowszych - nowo dodane na samej górze!) lub 'asc' (od najstarszych)
     function getSortedAlbums(albums, sortMode = currentSortMode) {
       const copy = [...albums];
       if (sortMode === 'asc') {
         copy.sort((a, b) => {
-          if (a.timestamp && b.timestamp && a.timestamp !== b.timestamp) {
-            return a.timestamp - b.timestamp;
+          if (a.createdTimestamp && b.createdTimestamp && a.createdTimestamp !== b.createdTimestamp) {
+            return a.createdTimestamp - b.createdTimestamp;
           }
           return (a.idNum || 0) - (b.idNum || 0);
         });
       } else {
-        // 'desc' (od najnowszych)
+        // 'desc' (od najnowszych - cokolwiek dodano ostatnio w Strapi, pojawia się natychmiast na samej górze!)
         copy.sort((a, b) => {
-          if (a.timestamp && b.timestamp && a.timestamp !== b.timestamp) {
-            return b.timestamp - a.timestamp;
-          }
           if (b.createdTimestamp && a.createdTimestamp && b.createdTimestamp !== a.createdTimestamp) {
             return b.createdTimestamp - a.createdTimestamp;
           }
@@ -886,7 +883,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return copy;
     }
 
-    const CACHE_KEY = 'pssp_cached_albums_v6';
+    const CACHE_KEY = 'pssp_cached_albums_v7';
     // 1. Natychmiastowe wczytanie z pamięci podręcznej przeglądarki (0 ms)
     try {
       localStorage.removeItem('pssp_cached_albums');
@@ -894,6 +891,7 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.removeItem('pssp_cached_albums_v3');
       localStorage.removeItem('pssp_cached_albums_v4');
       localStorage.removeItem('pssp_cached_albums_v5');
+      localStorage.removeItem('pssp_cached_albums_v6');
       const cached = localStorage.getItem(CACHE_KEY);
       if (cached) {
         const parsed = JSON.parse(cached);
@@ -1017,7 +1015,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Błyskawiczny odczyt ze statycznego pliku data/galerie.json (zawsze działa natychmiast na GitHub Pages)
     async function loadStaticFallback(forceBust = false) {
-      const cacheBust = forceBust ? `?v=${Date.now()}` : `?v=20261106N`;
+      const cacheBust = forceBust ? `?v=${Date.now()}` : `?v=20261106O`;
       const candidates = [];
       try {
         candidates.push(new URL(`data/galerie.json${cacheBust}`, window.location.href).href);
@@ -1060,11 +1058,17 @@ document.addEventListener('DOMContentLoaded', () => {
       const endpoint = `${activeStrapiBase}/api/galerias?populate=*&pagination[pageSize]=100&sort=createdAt:desc,id:desc&_t=${Date.now()}`;
       const refreshBtn = document.getElementById('gallery-refresh-btn');
       const refreshIcon = refreshBtn ? refreshBtn.querySelector('i') : null;
-      if (refreshIcon && !isManual) {
-        refreshIcon.classList.add('fa-spin');
+      const syncStatus = document.getElementById('gallery-sync-status');
+
+      if (refreshIcon) refreshIcon.classList.add('fa-spin');
+      if (syncStatus && isManual) {
+        syncStatus.style.display = 'inline-flex';
+        syncStatus.innerHTML = '<i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i><span>Sprawdzanie bazy...</span>';
+        syncStatus.style.color = '#F8C830';
       }
+
       try {
-        const timeoutMs = isManual ? 45000 : 35000;
+        const timeoutMs = 75000; // Do 75s na wypadek wybudzania darmowego serwera Render
         const fetchOptions = typeof AbortSignal !== 'undefined' && AbortSignal.timeout
           ? { signal: AbortSignal.timeout(timeoutMs) }
           : {};
@@ -1088,14 +1092,21 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
               renderAlbums(allAlbums);
             }
+
+            if (syncStatus) {
+              syncStatus.style.display = 'inline-flex';
+              syncStatus.innerHTML = '<i class="fa-solid fa-check" aria-hidden="true"></i><span>Aktualne</span>';
+              syncStatus.style.color = '#4ADE80';
+              setTimeout(() => {
+                if (syncStatus) syncStatus.style.display = 'none';
+              }, 3000);
+            }
             return true;
           }
         }
       } catch (e) {
       } finally {
-        if (refreshIcon && !isManual) {
-          refreshIcon.classList.remove('fa-spin');
-        }
+        if (refreshIcon) refreshIcon.classList.remove('fa-spin');
       }
       return false;
     }
