@@ -1,16 +1,46 @@
-name: Keep Render Alive
+name: Keep Render Alive & Auto-Sync Gallery
 
 on:
   schedule:
-    # Wywołanie co 10 minut zapobiega uśpieniu darmowego serwera Render
+    # Wywołanie co 10 minut zapobiega uśpieniu darmowego serwera Render i automatycznie synchronizuje galerie
     - cron: '*/10 * * * *'
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
-  keep-alive:
+  keep-alive-and-sync:
     runs-on: ubuntu-latest
     steps:
-      - name: Ping Strapi Cloud API
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Ping Strapi and Fetch Latest Data
+        id: fetch-data
         run: |
-          echo "Pinging https://spoleczna.onrender.com..."
-          curl -s -f --max-time 30 "https://spoleczna.onrender.com/api/galerias?populate=*&pagination[pageSize]=100&sort=Data:desc,createdAt:desc" > /dev/null && echo "Render is awake and running!" || echo "Ping sent."
+          echo "Pobieranie najnowszych galerii z Render..."
+          HTTP_CODE=$(curl -s -o /tmp/latest_galerie.json -w "%{http_code}" --max-time 45 "https://spoleczna.onrender.com/api/galerias?populate=*&pagination[pageSize]=100&sort=data:desc,id:desc")
+          echo "HTTP Code: $HTTP_CODE"
+          if [ "$HTTP_CODE" -eq 200 ] && [ -s /tmp/latest_galerie.json ]; then
+            DATA_COUNT=$(jq '.data | length' /tmp/latest_galerie.json 2>/dev/null || echo 0)
+            echo "Pobrano $DATA_COUNT galerii."
+            if [ "$DATA_COUNT" -gt 0 ]; then
+              cp /tmp/latest_galerie.json data/galerie.json
+              echo "has_data=true" >> $GITHUB_OUTPUT
+            fi
+          fi
+
+      - name: Commit & Push if data changed
+        if: steps.fetch-data.outputs.has_data == 'true'
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          if [ -n "$(git status --porcelain data/galerie.json)" ]; then
+            echo "Wykryto zmiany w galeriach ze Strapi - zapisywanie na GitHub Pages..."
+            git add data/galerie.json
+            git commit -m "Auto-sync galerii ze Strapi Cloud [skip ci]"
+            git push
+          else
+            echo "Brak zmian w galeriach - plik jest w 100% aktualny."
+          fi
