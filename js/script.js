@@ -1155,22 +1155,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Przycisk odświeżania wewnątrz otwartego folderu
-    const detailRefreshBtn = document.getElementById('album-detail-refresh-btn');
-    if (detailRefreshBtn) {
-      detailRefreshBtn.addEventListener('click', async () => {
-        const originalHtml = detailRefreshBtn.innerHTML;
-        detailRefreshBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i> <span>Pobieranie...</span>';
-        detailRefreshBtn.disabled = true;
-        try {
-          localStorage.removeItem(CACHE_KEY);
-        } catch (e) {}
-        await syncFromCloudBackend(true);
-        detailRefreshBtn.innerHTML = originalHtml;
-        detailRefreshBtn.disabled = false;
-      });
-    }
-
     // Obsługa Lightboxa (pełnoekranowego podglądu zdjęć)
     function openLightbox(photoIndex) {
       if (!currentAlbum || !currentAlbum.photos[photoIndex]) return;
