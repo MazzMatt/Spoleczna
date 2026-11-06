@@ -1017,7 +1017,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Błyskawiczny odczyt ze statycznego pliku data/galerie.json (zawsze działa natychmiast na GitHub Pages)
     async function loadStaticFallback(forceBust = false) {
-      const cacheBust = forceBust ? `?v=${Date.now()}` : `?v=20261106M`;
+      const cacheBust = forceBust ? `?v=${Date.now()}` : `?v=20261106N`;
       const candidates = [];
       try {
         candidates.push(new URL(`data/galerie.json${cacheBust}`, window.location.href).href);
@@ -1141,7 +1141,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const sortedList = getSortedAlbums(albumsToRender, currentSortMode);
 
       sortedList.forEach(album => {
-        const isNew = album.createdTimestamp && (Date.now() - album.createdTimestamp < 7 * 24 * 3600 * 1000);
         const card = document.createElement('button');
         card.type = 'button';
         card.className = 'album-card';
@@ -1149,10 +1148,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         card.innerHTML = `
           <img src="${album.coverUrl}" alt="${album.title} – okładka folderu" class="album-cover-img" loading="lazy">
-          ${isNew ? `
-          <span style="position: absolute; top: 8px; left: 8px; background: #F8C830; color: #111827; font-size: 0.72rem; font-weight: 800; padding: 3px 8px; border-radius: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.35); z-index: 2; display: inline-flex; align-items: center; gap: 4px; text-transform: uppercase; letter-spacing: 0.5px;">
-            <i class="fa-solid fa-sparkles" aria-hidden="true"></i> Nowy
-          </span>` : ''}
           <span class="album-badge-folder">
             <i class="fa-solid fa-folder-open" aria-hidden="true"></i>
           </span>
