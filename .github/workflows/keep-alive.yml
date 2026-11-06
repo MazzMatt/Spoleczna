@@ -1,9 +1,9 @@
-name: Keep Render Alive & Auto-Sync Gallery
+name: Oracle VPS Auto-Sync Gallery
 
 on:
   schedule:
-    # Wywołanie co 10 minut zapobiega uśpieniu darmowego serwera Render i automatycznie synchronizuje galerie
-    - cron: '*/10 * * * *'
+    # Co godzinę synchronizuje galerie ze Strapi na VPS do statycznego jsona dla GitHub Pages
+    - cron: '0 * * * *'
   workflow_dispatch:
 
 permissions:
@@ -16,11 +16,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Ping Strapi and Fetch Latest Data
+      - name: Fetch Latest Data from Oracle Strapi
         id: fetch-data
         run: |
-          echo "Pobieranie najnowszych galerii z Render..."
-          HTTP_CODE=$(curl -g -s -o /tmp/latest_galerie.json -w "%{http_code}" --max-time 45 "https://spoleczna.onrender.com/api/galerias?populate=*&pagination[pageSize]=100&sort=createdAt:desc,id:desc")
+          echo "Pobieranie najnowszych galerii z Oracle Cloud VPS..."
+          HTTP_CODE=$(curl -g -s -o /tmp/latest_galerie.json -w "%{http_code}" --max-time 45 "https://strapi.138.2.186.108.sslip.io/api/galerias?populate=*&pagination[pageSize]=100&sort=Data:desc,createdAt:desc")
           echo "HTTP Code: $HTTP_CODE"
           if [ "$HTTP_CODE" -eq 200 ] && [ -s /tmp/latest_galerie.json ]; then
             DATA_COUNT=$(jq '.data | length' /tmp/latest_galerie.json 2>/dev/null || echo 0)
