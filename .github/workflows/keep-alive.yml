@@ -20,7 +20,7 @@ jobs:
         id: fetch-data
         run: |
           echo "Pobieranie najnowszych galerii z Oracle Cloud VPS..."
-          HTTP_CODE=$(curl -g -s -o /tmp/latest_galerie.json -w "%{http_code}" --max-time 45 "https://strapi.138.2.186.108.sslip.io/api/galerias?populate=*&pagination[pageSize]=100&sort=Data:desc,createdAt:desc")
+          HTTP_CODE=$(curl -g -s -o /tmp/latest_galerie.json -w "%{http_code}" --max-time 45 "https://spolecznachelm.duckdns.org/api/galerias?populate=*&pagination[pageSize]=100&sort=Data:desc,createdAt:desc")
           echo "HTTP Code: $HTTP_CODE"
           if [ "$HTTP_CODE" -eq 200 ] && [ -s /tmp/latest_galerie.json ]; then
             DATA_COUNT=$(jq '.data | length' /tmp/latest_galerie.json 2>/dev/null || echo 0)

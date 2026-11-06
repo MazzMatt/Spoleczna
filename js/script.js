@@ -921,7 +921,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (url.startsWith('http://') || url.startsWith('https://')) {
         return url;
       }
-      const cloudBase = 'https://strapi.138.2.186.108.sslip.io';
+      const cloudBase = 'https://spolecznachelm.duckdns.org';
       const isLocalhost = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
       const activeBase = (isLocalhost && baseStrapi) ? baseStrapi : cloudBase;
       return activeBase + (url.startsWith('/') ? url : '/' + url);
@@ -1017,7 +1017,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return mapped;
     }
 
-    const CLOUD_STRAPI_URL = 'https://strapi.138.2.186.108.sslip.io';
+    const CLOUD_STRAPI_URL = 'https://spolecznachelm.duckdns.org';
     const isLocalhost = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
     const activeStrapiBase = window.STRAPI_URL || (isLocalhost ? 'http://localhost:1337' : CLOUD_STRAPI_URL);
 
@@ -1168,7 +1168,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (emptyState) {
           emptyState.style.display = 'block';
           if (emptyTitle) emptyTitle.textContent = 'Brak folderów ze zdjęciami w bazie';
-          if (emptyDesc) emptyDesc.innerHTML = 'Wszystkie foldery i zdjęcia wczytywane są na podstawie tego, co wprowadzisz w Strapi. Zaloguj się do panelu pod adresem <strong>https://strapi.138.2.186.108.sslip.io/admin</strong>, przejdź do <em>Content Manager &rarr; Galeria</em>, utwórz folder, wgraj zdjęcia i kliknij <em>Publish</em>.';
+          if (emptyDesc) emptyDesc.innerHTML = 'Wszystkie foldery i zdjęcia wczytywane są na podstawie tego, co wprowadzisz w Strapi. Zaloguj się do panelu pod adresem <strong>https://spolecznachelm.duckdns.org/admin</strong>, przejdź do <em>Content Manager &rarr; Galeria</em>, utwórz folder, wgraj zdjęcia i kliknij <em>Publish</em>.';
         }
         return;
       }
