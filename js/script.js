@@ -840,12 +840,13 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentAlbum = null;
     let activePhotoIndex = 0;
 
-    const CACHE_KEY = 'pssp_cached_albums_v4';
+    const CACHE_KEY = 'pssp_cached_albums_v5';
     // 1. Natychmiastowe wczytanie z pamięci podręcznej przeglądarki (0 ms)
     try {
       localStorage.removeItem('pssp_cached_albums');
       localStorage.removeItem('pssp_cached_albums_v2');
       localStorage.removeItem('pssp_cached_albums_v3');
+      localStorage.removeItem('pssp_cached_albums_v4');
       const cached = localStorage.getItem(CACHE_KEY);
       if (cached) {
         const parsed = JSON.parse(cached);
@@ -931,8 +932,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const count = photosList.length;
         const countDisplay = `${count} ${count === 1 ? 'zdjęcie' : (count < 5 ? 'zdjęcia' : 'zdjęć')}`;
 
+        const docId = String(item.documentId || item.id || `strapi-${idx}`);
         return {
-          id: item.documentId || item.id || `strapi-${idx}`,
+          id: docId,
+          documentId: docId,
+          rawId: item.id ? String(item.id) : '',
           idNum: parseInt(item.id, 10) || (idx + 1),
           title: title,
           rawDate: rawDate,
@@ -963,7 +967,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Błyskawiczny odczyt ze statycznego pliku data/galerie.json (zawsze działa natychmiast na GitHub Pages)
     async function loadStaticFallback(forceBust = false) {
-      const cacheBust = forceBust ? `?v=${Date.now()}` : `?v=20261106h`;
+      const cacheBust = forceBust ? `?v=${Date.now()}` : `?v=20261106i`;
       const candidates = [];
       try {
         candidates.push(new URL(`data/galerie.json${cacheBust}`, window.location.href).href);
@@ -985,7 +989,7 @@ document.addEventListener('DOMContentLoaded', () => {
               } catch (err) {}
 
               if (currentAlbum) {
-                const freshAlbum = mapped.find(a => a.id === currentAlbum.id || a.title === currentAlbum.title);
+                const freshAlbum = mapped.find(a => (a.documentId && a.documentId === currentAlbum.documentId) || (a.id && a.id === currentAlbum.id));
                 if (freshAlbum) {
                   currentAlbum = freshAlbum;
                   renderAlbumPhotos(currentAlbum);
@@ -1021,7 +1025,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } catch (err) {}
 
             if (currentAlbum) {
-              const freshAlbum = mapped.find(a => a.id === currentAlbum.id || a.title === currentAlbum.title);
+              const freshAlbum = mapped.find(a => (a.documentId && a.documentId === currentAlbum.documentId) || (a.id && a.id === currentAlbum.id));
               if (freshAlbum) {
                 currentAlbum = freshAlbum;
                 renderAlbumPhotos(currentAlbum);
