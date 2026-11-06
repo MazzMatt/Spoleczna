@@ -1023,7 +1023,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Błyskawiczny odczyt ze statycznego pliku data/galerie.json (zawsze działa natychmiast na GitHub Pages)
     async function loadStaticFallback(forceBust = false) {
-      const cacheBust = forceBust ? `?v=${Date.now()}` : `?v=20261106Q`;
+      const cacheBust = forceBust ? `?v=${Date.now()}` : `?v=20261106R`;
       const candidates = [];
       try {
         candidates.push(new URL(`data/galerie.json${cacheBust}`, window.location.href).href);
@@ -1185,9 +1185,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         card.innerHTML = `
           <img src="${album.coverUrl}" alt="${album.title} – okładka folderu" class="album-cover-img" loading="lazy">
-          <span class="album-badge-folder">
-            <i class="fa-solid fa-folder-open" aria-hidden="true"></i>
-          </span>
           <div class="album-overlay">
             <h3 class="album-title">${album.title}</h3>
             <div class="album-meta">
