@@ -840,9 +840,11 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentAlbum = null;
     let activePhotoIndex = 0;
 
+    const CACHE_KEY = 'pssp_cached_albums_v3';
     // 1. Natychmiastowe wczytanie z pamięci podręcznej przeglądarki (0 ms)
     try {
-      const cached = localStorage.getItem('pssp_cached_albums');
+      localStorage.removeItem('pssp_cached_albums'); // Wyczyszczenie starej pamięci podręcznej
+      const cached = localStorage.getItem(CACHE_KEY);
       if (cached) {
         const parsed = JSON.parse(cached);
         if (Array.isArray(parsed) && parsed.length > 0) {
@@ -929,7 +931,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Błyskawiczny odczyt ze statycznego pliku data/galerie.json (zawsze działa natychmiast na GitHub Pages)
     async function loadStaticFallback(forceBust = false) {
-      const cacheBust = forceBust ? `?v=${Date.now()}` : `?v=20261106d`;
+      const cacheBust = forceBust ? `?v=${Date.now()}` : `?v=20261106e`;
       const candidates = [];
       try {
         candidates.push(new URL(`data/galerie.json${cacheBust}`, window.location.href).href);
@@ -950,7 +952,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 renderAlbums(allAlbums);
               }
               try {
-                localStorage.setItem('pssp_cached_albums', JSON.stringify(mapped));
+                localStorage.setItem(CACHE_KEY, JSON.stringify(mapped));
               } catch (err) {}
               return true;
             }
@@ -962,7 +964,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Odpytanie chmurowego API Strapi (w tle lub przy ręcznym kliknięciu Odśwież)
     async function syncFromCloudBackend(isManual = false) {
-      const endpoint = `${activeStrapiBase}/api/galerias?populate=*&pagination[pageSize]=100&sort=Data:desc,createdAt:desc&_t=${Date.now()}`;
+      const endpoint = `${activeStrapiBase}/api/galerias?populate=*&pagination[pageSize]=100&sort=createdAt:desc,id:desc&_t=${Date.now()}`;
       try {
         const timeoutMs = isManual ? 45000 : 35000;
         const fetchOptions = typeof AbortSignal !== 'undefined' && AbortSignal.timeout
@@ -979,7 +981,7 @@ document.addEventListener('DOMContentLoaded', () => {
               renderAlbums(allAlbums);
             }
             try {
-              localStorage.setItem('pssp_cached_albums', JSON.stringify(mapped));
+              localStorage.setItem(CACHE_KEY, JSON.stringify(mapped));
             } catch (err) {}
             return true;
           }
@@ -1002,6 +1004,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Renderowanie kafelków folderów w siatce
     function renderAlbums(albumsToRender) {
       container.innerHTML = '';
+
+      const countBadge = document.getElementById('gallery-count-badge');
+      if (countBadge) {
+        countBadge.textContent = albumsToRender.length;
+      }
 
       if (albumsToRender.length === 0) {
         if (emptyState) {
@@ -1152,6 +1159,7 @@ document.addEventListener('DOMContentLoaded', () => {
         refreshBtn.disabled = true;
         try {
           localStorage.removeItem('pssp_cached_albums');
+          localStorage.removeItem(CACHE_KEY);
         } catch (e) {}
         const cloudOk = await syncFromCloudBackend(true);
         if (!cloudOk) {
