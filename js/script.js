@@ -840,13 +840,14 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentAlbum = null;
     let activePhotoIndex = 0;
 
-    const CACHE_KEY = 'pssp_cached_albums_v5';
+    const CACHE_KEY = 'pssp_cached_albums_v6';
     // 1. Natychmiastowe wczytanie z pamięci podręcznej przeglądarki (0 ms)
     try {
       localStorage.removeItem('pssp_cached_albums');
       localStorage.removeItem('pssp_cached_albums_v2');
       localStorage.removeItem('pssp_cached_albums_v3');
       localStorage.removeItem('pssp_cached_albums_v4');
+      localStorage.removeItem('pssp_cached_albums_v5');
       const cached = localStorage.getItem(CACHE_KEY);
       if (cached) {
         const parsed = JSON.parse(cached);
@@ -967,7 +968,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Błyskawiczny odczyt ze statycznego pliku data/galerie.json (zawsze działa natychmiast na GitHub Pages)
     async function loadStaticFallback(forceBust = false) {
-      const cacheBust = forceBust ? `?v=${Date.now()}` : `?v=20261106i`;
+      const cacheBust = forceBust ? `?v=${Date.now()}` : `?v=20261106k`;
       const candidates = [];
       try {
         candidates.push(new URL(`data/galerie.json${cacheBust}`, window.location.href).href);
