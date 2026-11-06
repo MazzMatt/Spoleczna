@@ -840,6 +840,56 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentAlbum = null;
     let activePhotoIndex = 0;
 
+    // Obsługa wyboru sortowania albumów
+    let currentSortMode = 'event-date-desc';
+    try {
+      const savedSort = localStorage.getItem('pssp_gallery_sort');
+      if (savedSort) currentSortMode = savedSort;
+    } catch (e) {}
+
+    const sortSelect = document.getElementById('gallery-sort-select');
+    if (sortSelect) {
+      sortSelect.value = currentSortMode;
+      sortSelect.addEventListener('change', (e) => {
+        currentSortMode = e.target.value;
+        try {
+          localStorage.setItem('pssp_gallery_sort', currentSortMode);
+        } catch (err) {}
+        renderAlbums(allAlbums);
+      });
+    }
+
+    // Funkcja sortująca albumy wg wybranego trybu
+    function getSortedAlbums(albums, sortMode = currentSortMode) {
+      const copy = [...albums];
+      if (sortMode === 'created-desc') {
+        copy.sort((a, b) => {
+          if (b.createdTimestamp && a.createdTimestamp && b.createdTimestamp !== a.createdTimestamp) {
+            return b.createdTimestamp - a.createdTimestamp;
+          }
+          return (b.idNum || 0) - (a.idNum || 0);
+        });
+      } else if (sortMode === 'event-date-asc') {
+        copy.sort((a, b) => {
+          if (b.timestamp !== a.timestamp) {
+            return a.timestamp - b.timestamp;
+          }
+          return (a.idNum || 0) - (b.idNum || 0);
+        });
+      } else if (sortMode === 'title-asc') {
+        copy.sort((a, b) => (a.title || '').localeCompare(b.title || '', 'pl'));
+      } else {
+        // 'event-date-desc' (domyślnie: data wydarzenia, od najnowszych)
+        copy.sort((a, b) => {
+          if (b.timestamp !== a.timestamp) {
+            return b.timestamp - a.timestamp;
+          }
+          return (b.idNum || 0) - (a.idNum || 0);
+        });
+      }
+      return copy;
+    }
+
     const CACHE_KEY = 'pssp_cached_albums_v6';
     // 1. Natychmiastowe wczytanie z pamięci podręcznej przeglądarki (0 ms)
     try {
@@ -930,6 +980,15 @@ document.addEventListener('DOMContentLoaded', () => {
           });
         }
 
+        const createdAtRaw = attrs.createdAt || item.createdAt;
+        let createdTimestamp = 0;
+        if (createdAtRaw) {
+          try {
+            const cd = new Date(createdAtRaw);
+            if (!isNaN(cd.getTime())) createdTimestamp = cd.getTime();
+          } catch (e) {}
+        }
+
         const count = photosList.length;
         const countDisplay = `${count} ${count === 1 ? 'zdjęcie' : (count < 5 ? 'zdjęcia' : 'zdjęć')}`;
 
@@ -943,20 +1002,14 @@ document.addEventListener('DOMContentLoaded', () => {
           rawDate: rawDate,
           dateDisplay: dateDisplay,
           timestamp: timestamp,
+          createdAt: createdAtRaw,
+          createdTimestamp: createdTimestamp,
           count: count,
           countDisplay: countDisplay,
           coverUrl: photosList[0]?.thumbUrl || photosList[0]?.url || 'assets/images/school-building.jpg',
           photos: photosList,
           isFromStrapi: true
         };
-      });
-
-      // Sortowanie od najnowszych do najstarszych po dacie wydarzenia
-      mapped.sort((a, b) => {
-        if (b.timestamp !== a.timestamp) {
-          return b.timestamp - a.timestamp;
-        }
-        return b.idNum - a.idNum;
       });
 
       return mapped;
@@ -968,7 +1021,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Błyskawiczny odczyt ze statycznego pliku data/galerie.json (zawsze działa natychmiast na GitHub Pages)
     async function loadStaticFallback(forceBust = false) {
-      const cacheBust = forceBust ? `?v=${Date.now()}` : `?v=20261106k`;
+      const cacheBust = forceBust ? `?v=${Date.now()}` : `?v=20261106L`;
       const candidates = [];
       try {
         candidates.push(new URL(`data/galerie.json${cacheBust}`, window.location.href).href);
@@ -1009,6 +1062,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Odpytanie chmurowego API Strapi (w tle lub przy ręcznym kliknięciu Odśwież)
     async function syncFromCloudBackend(isManual = false) {
       const endpoint = `${activeStrapiBase}/api/galerias?populate=*&pagination[pageSize]=100&sort=createdAt:desc,id:desc&_t=${Date.now()}`;
+      const refreshBtn = document.getElementById('gallery-refresh-btn');
+      const refreshIcon = refreshBtn ? refreshBtn.querySelector('i') : null;
+      if (refreshIcon && !isManual) {
+        refreshIcon.classList.add('fa-spin');
+      }
       try {
         const timeoutMs = isManual ? 45000 : 35000;
         const fetchOptions = typeof AbortSignal !== 'undefined' && AbortSignal.timeout
@@ -1037,18 +1095,26 @@ document.addEventListener('DOMContentLoaded', () => {
             return true;
           }
         }
-      } catch (e) {}
+      } catch (e) {
+      } finally {
+        if (refreshIcon && !isManual) {
+          refreshIcon.classList.remove('fa-spin');
+        }
+      }
       return false;
     }
 
     // Główna funkcja orkiestrująca wczytywanie
     async function loadGalleriesFromBackend() {
-      // 1. Spróbuj natychmiast z pliku statycznego GitHub Pages
-      const hasStatic = await loadStaticFallback();
-      // 2. W tle zsynchronizuj z chmurą Strapi na wypadek nowo dodanych albumów
-      syncFromCloudBackend(false);
-      if (!hasStatic && allAlbums.length === 0) {
-        renderAlbums([]);
+      // 1. Równoległe odpytanie chmury Strapi (zawsze aktualna, bezpośrednio z bazy danych)
+      const cloudPromise = syncFromCloudBackend(false);
+
+      // 2. Jeśli nie mamy nic w pamięci podręcznej, wczytaj plik awaryjny z GitHub Pages, aby natychmiast coś pokazać
+      if (allAlbums.length === 0) {
+        const hasStatic = await loadStaticFallback();
+        if (!hasStatic && allAlbums.length === 0) {
+          await cloudPromise;
+        }
       }
     }
 
@@ -1057,22 +1123,29 @@ document.addEventListener('DOMContentLoaded', () => {
       container.innerHTML = '';
 
       const countNumber = document.getElementById('gallery-count-number');
+      const countBadge = document.getElementById('gallery-count-badge');
       if (countNumber) {
         countNumber.textContent = albumsToRender.length;
+      }
+      if (countBadge) {
+        countBadge.style.display = 'inline';
       }
 
       if (albumsToRender.length === 0) {
         if (emptyState) {
           emptyState.style.display = 'block';
           if (emptyTitle) emptyTitle.textContent = 'Brak folderów ze zdjęciami w bazie';
-          if (emptyDesc) emptyDesc.innerHTML = 'Wszystkie foldery i zdjęcia wczytywane są na podstawie tego, co wprowadzisz w Strapi. Zaloguj się do panelu pod adresem <strong>http://localhost:1337/admin</strong>, przejdź do <em>Content Manager &rarr; Galeria</em>, utwórz folder, wgraj zdjęcia i kliknij <em>Publish</em>.';
+          if (emptyDesc) emptyDesc.innerHTML = 'Wszystkie foldery i zdjęcia wczytywane są na podstawie tego, co wprowadzisz w Strapi. Zaloguj się do panelu pod adresem <strong>https://spoleczna.onrender.com/admin</strong>, przejdź do <em>Content Manager &rarr; Galeria</em>, utwórz folder, wgraj zdjęcia i kliknij <em>Publish</em>.';
         }
         return;
       }
 
       if (emptyState) emptyState.style.display = 'none';
 
-      albumsToRender.forEach(album => {
+      const sortedList = getSortedAlbums(albumsToRender, currentSortMode);
+
+      sortedList.forEach(album => {
+        const isNew = album.createdTimestamp && (Date.now() - album.createdTimestamp < 7 * 24 * 3600 * 1000);
         const card = document.createElement('button');
         card.type = 'button';
         card.className = 'album-card';
@@ -1080,6 +1153,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         card.innerHTML = `
           <img src="${album.coverUrl}" alt="${album.title} – okładka folderu" class="album-cover-img" loading="lazy">
+          ${isNew ? `
+          <span style="position: absolute; top: 8px; left: 8px; background: #F8C830; color: #111827; font-size: 0.72rem; font-weight: 800; padding: 3px 8px; border-radius: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.35); z-index: 2; display: inline-flex; align-items: center; gap: 4px; text-transform: uppercase; letter-spacing: 0.5px;">
+            <i class="fa-solid fa-sparkles" aria-hidden="true"></i> Nowy
+          </span>` : ''}
           <span class="album-badge-folder">
             <i class="fa-solid fa-folder-open" aria-hidden="true"></i>
           </span>
