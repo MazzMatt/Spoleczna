@@ -1481,6 +1481,12 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         }
 
+        // Inteligentny fallback okładki: jeśli nie wgrano osobnej okładki,
+        // wygeneruj automatyczną miniaturę pierwszej strony PDF z Cloudinary
+        if (!coverUrl && pdfUrl && pdfUrl.includes('res.cloudinary.com') && pdfUrl.endsWith('.pdf')) {
+          coverUrl = pdfUrl.replace(/\.pdf$/, '.jpg').replace('/image/upload/', '/image/upload/c_limit,w_750,q_auto:good,f_auto/');
+        }
+
         const createdAtRaw = attrs.createdAt || item.createdAt;
         let createdTimestamp = 0;
         if (createdAtRaw) {
