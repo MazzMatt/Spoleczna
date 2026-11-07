@@ -994,6 +994,34 @@ document.addEventListener('DOMContentLoaded', () => {
         const count = photosList.length;
         const countDisplay = `${count} ${count === 1 ? 'zdjęcie' : (count < 5 ? 'zdjęcia' : 'zdjęć')}`;
 
+        // Obsługa dedykowanej okładki albumu (jeśli została wybrana w Strapi)
+        let coverUrl = '';
+        const rawOkladka = attrs.Okladka || attrs.okladka;
+        if (rawOkladka) {
+          const okladkaMedia = Array.isArray(rawOkladka) 
+            ? rawOkladka[0] 
+            : (rawOkladka.data ? (Array.isArray(rawOkladka.data) ? rawOkladka.data[0] : rawOkladka.data) : rawOkladka);
+          if (okladkaMedia) {
+            const oAttrs = okladkaMedia.attributes || okladkaMedia;
+            if (oAttrs && oAttrs.url) {
+              const rawCoverUrl = resolveMediaUrl(oAttrs.url, baseStrapi);
+              if (rawCoverUrl && rawCoverUrl.includes('res.cloudinary.com') && rawCoverUrl.includes('/image/upload/')) {
+                coverUrl = rawCoverUrl.replace('/image/upload/', '/image/upload/c_limit,w_750,q_auto:good,f_auto/');
+              } else if (oAttrs.formats && (oAttrs.formats.large || oAttrs.formats.medium)) {
+                const bestFormat = oAttrs.formats.large || oAttrs.formats.medium;
+                coverUrl = resolveMediaUrl(bestFormat.url, baseStrapi);
+              } else {
+                coverUrl = rawCoverUrl;
+              }
+            }
+          }
+        }
+
+        // Fallback: jeśli nie wybrano dedykowanej okładki, użyj pierwszego zdjęcia z galerii
+        if (!coverUrl) {
+          coverUrl = photosList[0]?.thumbUrl || photosList[0]?.url || 'assets/images/school-building.jpg';
+        }
+
         const docId = String(item.documentId || item.id || `strapi-${idx}`);
         return {
           id: docId,
@@ -1008,7 +1036,7 @@ document.addEventListener('DOMContentLoaded', () => {
           createdTimestamp: createdTimestamp,
           count: count,
           countDisplay: countDisplay,
-          coverUrl: photosList[0]?.thumbUrl || photosList[0]?.url || 'assets/images/school-building.jpg',
+          coverUrl: coverUrl,
           photos: photosList,
           isFromStrapi: true
         };

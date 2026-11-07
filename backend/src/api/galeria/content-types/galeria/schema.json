@@ -20,6 +20,14 @@
       "type": "date",
       "required": false
     },
+    "Okladka": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
     "Zdjecia": {
       "type": "media",
       "multiple": true,
