@@ -42,7 +42,7 @@
    - [o-szkole.html](file:///Users/mateuszmazurek/Desktop/Społeczna/o-szkole.html) – O Szkole (historia od 1992 r., Dyrektor Barbara Mazurek, Chełmskie Towarzystwo Edukacyjne – Stowarzyszenie w Chełmie)
    - [kadra.html](file:///Users/mateuszmazurek/Desktop/Społeczna/kadra.html) – Kadra pedagogiczna (dyrekcja, nauczyciele przedmiotowi, edukacja wczesnoszkolna, specjaliści, administracja z wyszukiwarką i filtrami)
    - [aktualnosci.html](file:///Users/mateuszmazurek/Desktop/Społeczna/aktualnosci.html) – Aktualności i wydarzenia
-   - [oferta.html](file:///Users/mateuszmazurek/Desktop/Społeczna/oferta.html) – Oferta edukacyjna (Oddział Przedszkolny, Konwersacje z Brytyjczykiem, języki obce)
+   - [oferta.html](file:///Users/mateuszmazurek/Desktop/Społeczna/oferta.html) – Oferta edukacyjna (Edukacja wczesnoszkolna, Konwersacje z Brytyjczykiem, języki obce)
    - [dla-rodzicow.html](file:///Users/mateuszmazurek/Desktop/Społeczna/dla-rodzicow.html) – Strefa Rodzica (VULCAN UONET+, rozkład lekcji i dzwonków, kalendarz)
    - [regulaminy.html](file:///Users/mateuszmazurek/Desktop/Społeczna/regulaminy.html) – Statut i Regulaminy (pobieranie PDF)
    - [sukcesy.html](file:///Users/mateuszmazurek/Desktop/Społeczna/sukcesy.html) – Osiągnięcia i wyniki

@@ -105,7 +105,7 @@ const SCHOOL_CONFIG = {
       desc: "Organizacja pracy świetlicy (7:00 – 16:30) oraz zasady korzystania z obiadów."
     },
     {
-      title: "Karta Zgłoszenia Kandydata do Szkoły / Zerówki 2026/2027",
+      title: "Karta Zgłoszenia Kandydata do Szkoły 2026/2027",
       filename: "Karta_Zgloszenia_2026_2027.pdf",
       desc: "Oficjalny wniosek rekrutacyjny dla rodziców na nowy rok szkolny 2026/2027."
     }
