@@ -1430,11 +1430,29 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', checkScroll, { passive: true });
     checkScroll();
 
-    btn.addEventListener('click', () => {
+    const doScrollToTop = (e) => {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
       window.scrollTo({
         top: 0,
         behavior: 'smooth'
       });
+      btn.blur();
+    };
+
+    // Natychmiastowa reakcja na pierwsze dotknięcie na telefonie (bez pozorowania hover na iOS/Android)
+    let touchHandled = false;
+    btn.addEventListener('touchend', (e) => {
+      touchHandled = true;
+      doScrollToTop(e);
+      setTimeout(() => { touchHandled = false; }, 400);
+    }, { passive: false });
+
+    btn.addEventListener('click', (e) => {
+      if (touchHandled) return;
+      doScrollToTop(e);
     });
   }
 

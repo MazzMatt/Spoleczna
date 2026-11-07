@@ -3119,6 +3119,10 @@ html[data-contrast="yellow-black"] :focus-visible {
   pointer-events: none;
   transform: translateY(12px);
   transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease, background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .back-to-top-btn.visible {
@@ -3128,25 +3132,31 @@ html[data-contrast="yellow-black"] :focus-visible {
   transform: translateY(0);
 }
 
-.back-to-top-btn:hover {
-  background: var(--color-primary, #1E2B82);
-  color: var(--color-accent, #F8C830);
-  border-color: var(--color-accent, #F8C830);
-  transform: translateY(-4px) scale(1.08);
-  box-shadow: 0 8px 24px rgba(30, 43, 130, 0.45);
+/* Hover wyłącznie dla urządzeń ze wskaźnikiem myszy (desktop) */
+@media (hover: hover) and (pointer: fine) {
+  .back-to-top-btn:hover {
+    background: var(--color-primary, #1E2B82);
+    color: var(--color-accent, #F8C830);
+    border-color: var(--color-accent, #F8C830);
+    transform: translateY(-4px) scale(1.08);
+    box-shadow: 0 8px 24px rgba(30, 43, 130, 0.45);
+  }
 }
 
 .back-to-top-btn:active {
-  transform: translateY(0) scale(0.96);
+  transform: scale(0.92);
+  opacity: 0.85;
 }
 
 @media (max-width: 640px) {
   .back-to-top-btn {
     bottom: 20px;
     right: 20px;
-    width: 42px;
-    height: 42px;
-    font-size: 1.05rem;
+    width: 44px;
+    height: 44px;
+    font-size: 1.1rem;
+    background: rgba(30, 43, 130, 0.65) !important;
+    color: #FFFFFF !important;
   }
 }
 
