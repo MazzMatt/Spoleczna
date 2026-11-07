@@ -1195,8 +1195,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if (albumsToRender.length === 0) {
         if (emptyState) {
           emptyState.style.display = 'block';
-          if (emptyTitle) emptyTitle.textContent = 'Brak folderów ze zdjęciami w bazie';
-          if (emptyDesc) emptyDesc.innerHTML = 'Wszystkie foldery i zdjęcia wczytywane są na podstawie tego, co wprowadzisz w Strapi. Zaloguj się do panelu pod adresem <strong>https://spolecznachelm.duckdns.org/admin</strong>, przejdź do <em>Content Manager &rarr; Galeria</em>, utwórz folder, wgraj zdjęcia i kliknij <em>Publish</em>.';
+          if (emptyTitle) emptyTitle.textContent = 'Brak zdjęć w galerii';
+          if (emptyDesc) emptyDesc.innerHTML = 'Aktualnie brak opublikowanych fotorelacji. Zapraszamy wkrótce do obejrzenia zdjęć z życia szkoły.';
         }
         return;
       }
