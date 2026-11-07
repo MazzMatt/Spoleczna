@@ -511,6 +511,38 @@ export interface ApiGaleriaGaleria extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiGazetkaGazetka extends Struct.CollectionTypeSchema {
+  collectionName: 'gazetkas';
+  info: {
+    description: 'Szkolna gazetka i wydania gazetki w formacie PDF';
+    displayName: 'Gazetka';
+    pluralName: 'gazetkas';
+    singularName: 'gazetka';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Data: Schema.Attribute.Date;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::gazetka.gazetka'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    Tytul: Schema.Attribute.String & Schema.Attribute.Required;
+    Okladka: Schema.Attribute.Media<'images', false>;
+    Plik: Schema.Attribute.Media<'files' | 'images', false> & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface PluginContentReleasesRelease
   extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_releases';
@@ -1024,6 +1056,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::galeria.galeria': ApiGaleriaGaleria;
+      'api::gazetka.gazetka': ApiGazetkaGazetka;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

@@ -1,0 +1,41 @@
+{
+  "kind": "collectionType",
+  "collectionName": "gazetkas",
+  "info": {
+    "singularName": "gazetka",
+    "pluralName": "gazetkas",
+    "displayName": "Gazetka",
+    "description": "Szkolna gazetka i wydania gazetki w formacie PDF"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Tytul": {
+      "type": "string",
+      "required": true
+    },
+    "Data": {
+      "type": "date",
+      "required": false
+    },
+    "Okladka": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "Plik": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "files",
+        "images"
+      ]
+    }
+  }
+}

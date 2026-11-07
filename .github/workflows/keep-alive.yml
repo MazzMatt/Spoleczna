@@ -31,16 +31,24 @@ jobs:
             fi
           fi
 
+          echo "Pobieranie najnowszych wydań gazetki z Oracle Cloud VPS..."
+          G_HTTP_CODE=$(curl -g -s -o /tmp/latest_gazetka.json -w "%{http_code}" --max-time 30 "https://spolecznachelm.duckdns.org/api/gazetkas?populate=*&pagination[pageSize]=100&sort=Data:desc,createdAt:desc")
+          echo "Gazetka HTTP Code: $G_HTTP_CODE"
+          if [ "$G_HTTP_CODE" -eq 200 ] && [ -s /tmp/latest_gazetka.json ]; then
+            cp /tmp/latest_gazetka.json data/gazetka.json
+            echo "has_data=true" >> $GITHUB_OUTPUT
+          fi
+
       - name: Commit & Push if data changed
         if: steps.fetch-data.outputs.has_data == 'true'
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          if [ -n "$(git status --porcelain data/galerie.json)" ]; then
-            echo "Wykryto zmiany w galeriach ze Strapi - zapisywanie na GitHub Pages..."
-            git add data/galerie.json
-            git commit -m "Auto-sync galerii ze Strapi Cloud [skip ci]"
+          if [ -n "$(git status --porcelain data/)" ]; then
+            echo "Wykryto zmiany w danych ze Strapi - zapisywanie na GitHub Pages..."
+            git add data/
+            git commit -m "Auto-sync danych ze Strapi Cloud [skip ci]"
             git push
           else
-            echo "Brak zmian w galeriach - plik jest w 100% aktualny."
+            echo "Brak zmian w danych - pliki są w 100% aktualne."
           fi

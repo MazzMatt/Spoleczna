@@ -13,13 +13,18 @@ export default {
    */
   async bootstrap({ strapi }: { strapi: Core.Strapi }) {
     try {
-      // Automatyczne nadanie uprawnień odczytu publicznego dla kolekcji Galeria
+      // Automatyczne nadanie uprawnień odczytu publicznego dla kolekcji Galeria i Gazetka
       const publicRole = await strapi
         .query('plugin::users-permissions.role')
         .findOne({ where: { type: 'public' } });
 
       if (publicRole) {
-        const actions = ['api::galeria.galeria.find', 'api::galeria.galeria.findOne'];
+        const actions = [
+          'api::galeria.galeria.find',
+          'api::galeria.galeria.findOne',
+          'api::gazetka.gazetka.find',
+          'api::gazetka.gazetka.findOne'
+        ];
         for (const action of actions) {
           const existing = await strapi
             .query('plugin::users-permissions.permission')

@@ -1377,6 +1377,295 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // ------------------------------------------------------------------
+  // 8B. DYNAMICZNA GAZETKA SZKOLNA ZE STRAPI / NEON
+  // ------------------------------------------------------------------
+  function initSchoolGazetka() {
+    const container = document.getElementById('gazetka-container');
+    if (!container) return; // Uruchamiaj tylko na gazetka.html
+
+    const refreshBtn = document.getElementById('gazetka-refresh-btn');
+    const emptyState = document.getElementById('gazetka-empty-state');
+    const sortSelect = document.getElementById('gazetka-sort-select');
+    const syncStatus = document.getElementById('gazetka-sync-status');
+    const countNumber = document.getElementById('gazetka-count-number');
+    const countBadge = document.getElementById('gazetka-count-badge');
+
+    let allGazetkas = [];
+    let currentSortMode = 'desc';
+
+    try {
+      const savedSort = localStorage.getItem('pssp_gazetka_sort');
+      if (savedSort === 'asc' || savedSort === 'desc') {
+        currentSortMode = savedSort;
+      }
+    } catch (e) {}
+
+    if (sortSelect) {
+      sortSelect.value = currentSortMode;
+      sortSelect.addEventListener('change', () => {
+        currentSortMode = sortSelect.value;
+        try { localStorage.setItem('pssp_gazetka_sort', currentSortMode); } catch (e) {}
+        renderGazetkas(allGazetkas);
+      });
+    }
+
+    if (refreshBtn) {
+      refreshBtn.addEventListener('click', () => {
+        loadGazetkasFromBackend(true);
+      });
+    }
+
+    function resolveMediaUrl(url, baseStrapi) {
+      if (!url) return '';
+      if (url.startsWith('http://') || url.startsWith('https://')) return url;
+      const cloudBase = 'https://spolecznachelm.duckdns.org';
+      const isLocalhost = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+      const activeBase = (isLocalhost && baseStrapi) ? baseStrapi : cloudBase;
+      return activeBase + (url.startsWith('/') ? url : '/' + url);
+    }
+
+    function mapStrapiToGazetkas(items, baseStrapi) {
+      if (!Array.isArray(items)) return [];
+      return items.map((item, idx) => {
+        const attrs = item.attributes || item;
+        const title = attrs.Tytul || attrs.tytul || `Gazetka #${item.id || idx + 1}`;
+
+        const rawDate = attrs.Data || attrs.data;
+        let dateDisplay = '';
+        let timestamp = 0;
+        if (rawDate) {
+          try {
+            const d = new Date(rawDate);
+            if (!isNaN(d.getTime())) {
+              timestamp = d.getTime();
+              dateDisplay = d.toLocaleDateString('pl-PL', { day: '2-digit', month: '2-digit', year: 'numeric' });
+            }
+          } catch (e) {}
+        }
+
+        // Okładka
+        let coverUrl = '';
+        const rawOkladka = attrs.Okladka || attrs.okladka;
+        if (rawOkladka) {
+          const okladkaMedia = Array.isArray(rawOkladka) 
+            ? rawOkladka[0] 
+            : (rawOkladka.data ? (Array.isArray(rawOkladka.data) ? rawOkladka.data[0] : rawOkladka.data) : rawOkladka);
+          if (okladkaMedia) {
+            const oAttrs = okladkaMedia.attributes || okladkaMedia;
+            if (oAttrs && oAttrs.url) {
+              const rawCoverUrl = resolveMediaUrl(oAttrs.url, baseStrapi);
+              if (rawCoverUrl && rawCoverUrl.includes('res.cloudinary.com') && rawCoverUrl.includes('/image/upload/')) {
+                coverUrl = rawCoverUrl.replace('/image/upload/', '/image/upload/c_limit,w_750,q_auto:good,f_auto/');
+              } else if (oAttrs.formats && (oAttrs.formats.large || oAttrs.formats.medium)) {
+                const bestFormat = oAttrs.formats.large || oAttrs.formats.medium;
+                coverUrl = resolveMediaUrl(bestFormat.url, baseStrapi);
+              } else {
+                coverUrl = rawCoverUrl;
+              }
+            }
+          }
+        }
+
+        // Plik PDF
+        let pdfUrl = '';
+        const rawPlik = attrs.Plik || attrs.plik;
+        if (rawPlik) {
+          const plikMedia = Array.isArray(rawPlik)
+            ? rawPlik[0]
+            : (rawPlik.data ? (Array.isArray(rawPlik.data) ? rawPlik.data[0] : rawPlik.data) : rawPlik);
+          if (plikMedia) {
+            const pAttrs = plikMedia.attributes || plikMedia;
+            if (pAttrs && pAttrs.url) {
+              pdfUrl = resolveMediaUrl(pAttrs.url, baseStrapi);
+            }
+          }
+        }
+
+        const createdAtRaw = attrs.createdAt || item.createdAt;
+        let createdTimestamp = 0;
+        if (createdAtRaw) {
+          try {
+            const cd = new Date(createdAtRaw);
+            if (!isNaN(cd.getTime())) createdTimestamp = cd.getTime();
+          } catch (e) {}
+        }
+
+        return {
+          id: String(item.documentId || item.id || `gazetka-${idx}`),
+          idNum: parseInt(item.id, 10) || (idx + 1),
+          title: title,
+          rawDate: rawDate,
+          dateDisplay: dateDisplay,
+          timestamp: timestamp,
+          createdTimestamp: createdTimestamp,
+          coverUrl: coverUrl || 'assets/images/school-building.jpg',
+          pdfUrl: pdfUrl
+        };
+      });
+    }
+
+    function getSortedGazetkas(list, mode) {
+      return [...list].sort((a, b) => {
+        const timeA = a.timestamp || a.createdTimestamp || 0;
+        const timeB = b.timestamp || b.createdTimestamp || 0;
+        if (timeA !== timeB) {
+          return mode === 'asc' ? timeA - timeB : timeB - timeA;
+        }
+        return mode === 'asc' ? a.idNum - b.idNum : b.idNum - a.idNum;
+      });
+    }
+
+    function renderGazetkas(gazetkasToRender) {
+      container.innerHTML = '';
+
+      if (countNumber) countNumber.textContent = gazetkasToRender.length;
+      if (countBadge) countBadge.style.display = 'inline';
+
+      if (gazetkasToRender.length === 0) {
+        if (emptyState) emptyState.style.display = 'block';
+        return;
+      }
+
+      if (emptyState) emptyState.style.display = 'none';
+
+      const sortedList = getSortedGazetkas(gazetkasToRender, currentSortMode);
+
+      sortedList.forEach(item => {
+        const card = document.createElement('a');
+        card.className = 'gazetka-card';
+        card.setAttribute('aria-label', `Otwórz gazetkę: ${item.title}`);
+        
+        if (item.pdfUrl) {
+          card.href = item.pdfUrl;
+          card.target = '_blank';
+          card.rel = 'noopener';
+        } else {
+          card.href = '#';
+          card.onclick = (e) => {
+            e.preventDefault();
+            alert('Plik PDF dla tego wydania nie został jeszcze załączony w panelu Strapi.');
+          };
+        }
+
+        card.innerHTML = `
+          <img src="${item.coverUrl}" alt="${item.title} – okładka wydania" class="gazetka-cover-img" loading="lazy">
+          <span class="gazetka-badge-pdf">
+            <i class="fa-solid fa-file-pdf" aria-hidden="true"></i> PDF
+          </span>
+          <div class="gazetka-overlay">
+            <h3 class="gazetka-title">${item.title}</h3>
+            <div class="gazetka-meta">
+              <span>${item.dateDisplay ? `<i class="fa-regular fa-calendar" aria-hidden="true"></i> ${item.dateDisplay}` : 'Wydanie szkolne'}</span>
+              <span class="gazetka-action-cue">
+                <span>Czytaj</span> <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+              </span>
+            </div>
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+    }
+
+    const CLOUD_STRAPI_URL = 'https://spolecznachelm.duckdns.org';
+    const isLocalhost = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+    const activeStrapiBase = window.STRAPI_URL || (isLocalhost ? 'http://localhost:1337' : CLOUD_STRAPI_URL);
+
+    async function loadStaticFallback(forceBust = false) {
+      const cacheBust = forceBust ? `?bust=${Date.now()}` : '';
+      const candidates = [
+        `data/gazetka.json${cacheBust}`,
+        `./data/gazetka.json${cacheBust}`
+      ];
+
+      for (const url of candidates) {
+        try {
+          const res = await fetch(url);
+          if (!res.ok) continue;
+          const json = await res.json();
+          const items = Array.isArray(json) ? json : (json.data || []);
+          if (items.length > 0) {
+            allGazetkas = mapStrapiToGazetkas(items, '');
+            renderGazetkas(allGazetkas);
+            return true;
+          }
+        } catch (e) {}
+      }
+      return false;
+    }
+
+    async function loadGazetkasFromBackend(isManualRefresh = false) {
+      if (isManualRefresh && refreshBtn) {
+        const icon = refreshBtn.querySelector('i');
+        if (icon) icon.classList.add('fa-spin');
+      }
+
+      if (syncStatus) {
+        syncStatus.style.display = 'inline-flex';
+        syncStatus.style.color = '#F8C830';
+        syncStatus.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i><span>Sprawdzanie bazy...</span>';
+      }
+
+      const hasStatic = await loadStaticFallback(isManualRefresh);
+
+      try {
+        const endpoint = `${activeStrapiBase}/api/gazetkas?populate=*&pagination[pageSize]=100&sort=Data:desc,createdAt:desc`;
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 12000);
+
+        const res = await fetch(endpoint, {
+          signal: controller.signal,
+          headers: { 'Accept': 'application/json' }
+        });
+        clearTimeout(timeoutId);
+
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+        const json = await res.json();
+        const items = Array.isArray(json) ? json : (json.data || []);
+
+        allGazetkas = mapStrapiToGazetkas(items, activeStrapiBase);
+        renderGazetkas(allGazetkas);
+
+        if (syncStatus) {
+          syncStatus.style.color = '#38A169';
+          syncStatus.innerHTML = '<i class="fa-solid fa-check"></i><span>Baza aktywna</span>';
+          setTimeout(() => {
+            if (syncStatus) syncStatus.style.display = 'none';
+          }, 3500);
+        }
+      } catch (err) {
+        if (!hasStatic && allGazetkas.length === 0) {
+          renderGazetkas([]);
+        }
+        if (syncStatus) {
+          syncStatus.style.color = 'rgba(255, 255, 255, 0.7)';
+          syncStatus.innerHTML = '<i class="fa-solid fa-cloud"></i><span>Tryb statyczny</span>';
+          setTimeout(() => {
+            if (syncStatus) syncStatus.style.display = 'none';
+          }, 3500);
+        }
+      } finally {
+        if (isManualRefresh && refreshBtn) {
+          const icon = refreshBtn.querySelector('i');
+          if (icon) icon.classList.remove('fa-spin');
+        }
+      }
+    }
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') {
+        loadGazetkasFromBackend();
+      }
+    });
+
+    loadGazetkasFromBackend();
+  }
+
+  initSchoolGazetka();
+
+
+  // ------------------------------------------------------------------
   // 8. AUDYT DOSTĘPNOŚCI I WYMUSZENIE ATRYBUTÓW ALT (WCAG 1.1.1)
   // ------------------------------------------------------------------
   function enforceImageAltAttributes() {

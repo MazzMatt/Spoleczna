@@ -39,8 +39,21 @@ async function syncGallery() {
 
       const jsonPath = path.join(dataDir, 'galerie.json');
       fs.writeFileSync(jsonPath, JSON.stringify(data, null, 2), 'utf-8');
-      console.log(`2. Zapisano plik danych dla hostingu:`);
+      console.log(`2. Zapisano plik danych galerii dla hostingu:`);
       console.log(`   ✅ ${jsonPath}\n`);
+
+      // 2B. Zapis do data/gazetka.json
+      try {
+        const gazetkaEndpoint = `${strapiUrl}/api/gazetkas?populate=*&pagination[pageSize]=100&sort=Data:desc,createdAt:desc`;
+        const gRes = await fetch(gazetkaEndpoint, { signal: AbortSignal.timeout(10000) });
+        if (gRes.ok) {
+          const gData = await gRes.json();
+          const gJsonPath = path.join(dataDir, 'gazetka.json');
+          fs.writeFileSync(gJsonPath, JSON.stringify(gData, null, 2), 'utf-8');
+          console.log(`   ✅ Zapisano plik gazetka.json (${gData.data?.length || 0} wydań)\n`);
+        }
+      } catch (ge) {}
+
       success = true;
       break;
     } catch (e) {

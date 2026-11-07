@@ -4191,5 +4191,144 @@ html[data-contrast="yellow-black"] .album-slideshow-btn {
   border: 2px solid #000000 !important;
 }
 
+/* ======================================================================
+   KAFLE GAZETKI SZKOLNEJ (GAZETKA.HTML)
+   ====================================================================== */
+.gazetka-albums-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+@media (max-width: 1100px) {
+  .gazetka-albums-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  .gazetka-albums-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .gazetka-albums-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+.gazetka-card {
+  position: relative;
+  aspect-ratio: 1 / 1.35;
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  background: #1F2937;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: block;
+  text-decoration: none;
+  padding: 0;
+  width: 100%;
+  text-align: left;
+}
+
+.gazetka-card:hover,
+.gazetka-card:focus-visible {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.55), 0 0 0 2px #F8C830;
+  border-color: #F8C830;
+}
+
+.gazetka-card:focus-visible {
+  outline: 3px solid #F8C830;
+  outline-offset: 3px;
+}
+
+.gazetka-cover-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  display: block;
+}
+
+.gazetka-card:hover .gazetka-cover-img {
+  transform: scale(1.05);
+}
+
+.gazetka-badge-pdf {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: #E53E3E;
+  color: #FFFFFF;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  z-index: 3;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.gazetka-card:hover .gazetka-badge-pdf {
+  transform: scale(1.06);
+  background: #C53030;
+}
+
+.gazetka-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(15, 23, 42, 0.95) 0%,
+    rgba(15, 23, 42, 0.7) 45%,
+    rgba(15, 23, 42, 0.1) 100%
+  );
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 20px 18px;
+  pointer-events: none;
+}
+
+.gazetka-title {
+  color: #FFFFFF;
+  font-size: 1.15rem;
+  font-weight: 800;
+  line-height: 1.3;
+  margin: 0 0 6px 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.gazetka-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.gazetka-action-cue {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #F8C830;
+  font-weight: 700;
+  font-size: 0.82rem;
+}
+
 
 
