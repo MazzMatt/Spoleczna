@@ -572,20 +572,70 @@ html.stop-motion *::after {
 /* --------------------------------------------------------------------------
    GŁÓWNY BANER (HERO SLIDER)
    -------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------
+   GŁÓWNY BANER (HERO SLIDER) - NOWOCZESNY I ESTETYCZNY DESIGN
+   -------------------------------------------------------------------------- */
 .hero-slider-section {
   position: relative;
-  background: var(--hero-bg-primary);
+  background: linear-gradient(135deg, #0d1645 0%, #152266 40%, #1e2b82 75%, #283999 100%);
   overflow: hidden;
-  min-height: 480px;
-  max-height: 560px;
+  min-height: 520px;
+  max-height: 590px;
   display: flex;
   align-items: center;
+  padding: 30px 0 55px;
+}
+
+/* Subtelne, luksusowe poświaty świetlne (ambient lighting) */
+.hero-slider-section::before {
+  content: '';
+  position: absolute;
+  top: -120px;
+  right: -80px;
+  width: 520px;
+  height: 520px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(248, 200, 48, 0.22) 0%, rgba(248, 200, 48, 0.05) 50%, transparent 70%);
+  filter: blur(50px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero-slider-section::after {
+  content: '';
+  position: absolute;
+  bottom: -100px;
+  left: -80px;
+  width: 480px;
+  height: 480px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(67, 97, 238, 0.28) 0%, transparent 70%);
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero-bottom-curve {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 42px;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.hero-bottom-curve svg {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 .hero-slider-wrapper {
   position: relative;
   width: 100%;
-  height: 500px;
+  height: 450px;
+  z-index: 4;
 }
 
 .hero-slide {
@@ -593,7 +643,8 @@ html.stop-motion *::after {
   inset: 0;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.8s ease, visibility 0.8s ease;
+  transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: scale(0.98);
   display: flex;
   align-items: center;
 }
@@ -601,68 +652,8 @@ html.stop-motion *::after {
 .hero-slide.active {
   opacity: 1;
   visibility: visible;
+  transform: scale(1);
   z-index: 2;
-}
-
-.hero-shapes {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.hero-wave-cream {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 75%;
-  height: 100%;
-  fill: var(--bg-page);
-  opacity: 0.98;
-}
-
-.hero-wave-bottom {
-  position: absolute;
-  bottom: -2px;
-  right: -2px;
-  width: 60%;
-  height: 55%;
-  fill: var(--hero-wave-accent);
-}
-
-.hero-doodle {
-  position: absolute;
-  z-index: 3;
-  pointer-events: none;
-  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.12));
-}
-
-.hero-doodle-racket {
-  top: 25px;
-  right: 18%;
-  width: 160px;
-  height: 160px;
-  color: #FFFFFF;
-  opacity: 0.45;
-  animation: floatRacket 6s ease-in-out infinite alternate;
-}
-
-.hero-doodle-shuttlecock {
-  top: 40px;
-  left: 40px;
-  width: 60px;
-  height: 60px;
-  animation: floatBirdie 5s ease-in-out infinite alternate;
-}
-
-@keyframes floatRacket {
-  0% { transform: translateY(0px) rotate(0deg); }
-  100% { transform: translateY(-14px) rotate(8deg); }
-}
-
-@keyframes floatBirdie {
-  0% { transform: translateY(0px) rotate(-5deg); }
-  100% { transform: translateY(16px) rotate(18deg); }
 }
 
 .hero-slide-content {
@@ -673,10 +664,11 @@ html.stop-motion *::after {
   justify-content: space-between;
   width: 100%;
   height: 100%;
+  gap: 30px;
 }
 
 .hero-image-box {
-  width: 62%;
+  width: 64%;
   height: 100%;
   display: flex;
   align-items: center;
@@ -685,124 +677,159 @@ html.stop-motion *::after {
 }
 
 .hero-photo {
-  max-height: 440px;
+  max-height: 420px;
   width: 100%;
-  max-width: 620px;
-  height: 420px;
+  max-width: 650px;
+  height: 400px;
   object-fit: cover;
   object-position: center;
   border-radius: 24px;
-  box-shadow: 0 16px 38px rgba(0,0,0,0.18);
-  border: 4px solid #FFFFFF;
-  transition: transform 0.4s ease;
+  box-shadow: 0 24px 50px -10px rgba(0, 0, 0, 0.45), 0 0 35px rgba(248, 200, 48, 0.12);
+  border: 4px solid rgba(255, 255, 255, 0.95);
+  transition: transform 0.5s ease;
+}
+
+.hero-slide.active .hero-photo {
+  transform: scale(1.01);
 }
 
 .hero-text-box {
-  width: 38%;
+  width: 36%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   position: relative;
-  padding-right: 40px;
+  padding-right: 15px;
 }
 
+/* Nowoczesny, prestiżowy medalion / badge */
 .hero-sticker-badge {
-  width: 250px;
-  height: 250px;
+  width: 265px;
+  height: 265px;
   border-radius: 50%;
-  background: var(--hero-badge-bg);
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.22), inset 0 0 0 6px #FFFFFF;
+  background: linear-gradient(145deg, #FFDE6A 0%, #F8C830 50%, #E2A716 100%);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.8), inset 0 -4px 8px rgba(180, 130, 10, 0.25);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 20px;
+  padding: 24px 18px;
   position: relative;
-  transform: rotate(-3deg);
-  animation: pulseSticker 4s ease-in-out infinite alternate;
-  border: 4px dashed rgba(255, 255, 255, 0.7);
+  border: 4px solid #FFFFFF;
+  animation: floatHeroBadge 5s ease-in-out infinite alternate;
 }
 
-@keyframes pulseSticker {
-  0% { transform: rotate(-3deg) scale(1); }
-  100% { transform: rotate(1deg) scale(1.04); }
+@keyframes floatHeroBadge {
+  0% { transform: translateY(0px); }
+  100% { transform: translateY(-8px); }
+}
+
+.hero-badge-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(18, 26, 88, 0.12);
+  color: #121A58;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  padding: 3px 12px;
+  border-radius: 20px;
+  margin-bottom: 8px;
 }
 
 .badge-word {
   display: block;
-  text-transform: lowercase;
   line-height: 1.1;
 }
 
 .badge-word-1,
 .badge-word-2 {
-  font-size: 2.2rem;
+  font-size: 2.1rem;
   font-weight: 900;
-  color: var(--hero-badge-text);
-  letter-spacing: -0.5px;
+  color: #101642;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .badge-word-3 {
   font-family: 'Caveat', 'Dancing Script', cursive;
-  font-size: 3rem;
+  font-size: 2.7rem;
   font-weight: 700;
-  color: var(--hero-badge-script);
-  margin-top: -6px;
+  color: #121A58;
+  margin-top: -2px;
   white-space: nowrap;
 }
 
+/* Nowoczesne przyciski nawigacyjne (Glassmorphism) */
 .slider-arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   width: 48px;
   height: 48px;
-  background: rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.2);
   color: #FFFFFF;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   z-index: 10;
-  backdrop-filter: blur(4px);
-  transition: var(--transition);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  cursor: pointer;
 }
 
 .slider-arrow:hover {
   background: var(--color-accent);
   color: var(--color-primary);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+  border-color: var(--color-accent);
+  box-shadow: 0 8px 25px rgba(248, 200, 48, 0.45);
   transform: translateY(-50%) scale(1.1);
 }
 
-.slider-arrow.prev { left: 20px; }
-.slider-arrow.next { right: 20px; }
+.slider-arrow.prev { left: 16px; }
+.slider-arrow.next { right: 16px; }
 
+/* Nowoczesne wskaźniki slajdów (Pill dots) */
 .slider-dots {
   position: absolute;
-  bottom: 18px;
-  right: 40px;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
-  gap: 8px;
+  gap: 10px;
+  align-items: center;
+  background: rgba(14, 23, 66, 0.45);
+  padding: 8px 16px;
+  border-radius: 30px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   z-index: 10;
 }
 
 .dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.5);
-  transition: var(--transition);
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.4);
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
 }
 
 .dot.active {
   background: var(--color-accent);
-  width: 28px;
-  border-radius: var(--radius-full);
+  width: 32px;
+  border-radius: 6px;
+  box-shadow: 0 0 14px rgba(248, 200, 48, 0.8);
 }
 
 /* --------------------------------------------------------------------------
