@@ -4330,5 +4330,105 @@ html[data-contrast="yellow-black"] .album-slideshow-btn {
   font-size: 0.82rem;
 }
 
+/* ======================================================================
+   STYLIZACJA PODSTRONY GAZETKA ZE SPECJALNYM LOGO (GAZETKA.HTML)
+   ====================================================================== */
+.gazetka-hero-banner {
+  padding: 42px 0 38px;
+}
+
+.gazetka-banner-grid {
+  display: grid;
+  grid-template-columns: 1.45fr 1fr;
+  align-items: center;
+  gap: 40px;
+}
+
+.gazetka-banner-text {
+  max-width: 680px;
+}
+
+.gazetka-banner-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.gazetka-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: #FFFFFF;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.gazetka-pill i {
+  color: var(--color-accent);
+}
+
+.gazetka-banner-emblem-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.gazetka-banner-emblem {
+  max-width: 290px;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.28));
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.4s ease;
+  animation: floatEmblem 4s ease-in-out infinite alternate;
+}
+
+.gazetka-banner-emblem:hover {
+  transform: scale(1.05) rotate(-1deg);
+  filter: drop-shadow(0 20px 36px rgba(0, 0, 0, 0.38));
+}
+
+@keyframes floatEmblem {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-8px);
+  }
+}
+
+@media (max-width: 860px) {
+  .gazetka-banner-grid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+    text-align: center;
+  }
+  .gazetka-banner-text {
+    max-width: 100%;
+  }
+  .gazetka-hero-banner .breadcrumb-trail {
+    justify-content: center;
+  }
+  .gazetka-banner-badges {
+    justify-content: center;
+  }
+  .gazetka-banner-emblem-wrap {
+    order: -1;
+  }
+  .gazetka-banner-emblem {
+    max-width: 210px;
+  }
+}
+
 
 
