@@ -685,6 +685,10 @@ html.stop-motion *::after {
   z-index: 2;
 }
 
+.hero-image-box picture {
+  display: contents;
+}
+
 .hero-photo {
   max-height: 440px;
   width: 100%;
@@ -2223,6 +2227,10 @@ textarea.form-control {
   position: relative;
   border-radius: var(--radius-lg);
   overflow: visible;
+}
+
+.about-preview-image-box picture {
+  display: contents;
 }
 
 .about-preview-img {

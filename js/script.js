@@ -961,9 +961,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             let thumbUrl = rawUrl;
             if (rawUrl && rawUrl.includes('res.cloudinary.com') && rawUrl.includes('/image/upload/')) {
-              // Wysokiej jakości ostra miniatura HD (do 1000px, jakość wysoka q_auto:best, f_auto)
-              // Zapewnia idealną ostrość i wyrazistość twarzy na zdjęciach bez rozmycia i pikselozy
-              thumbUrl = rawUrl.replace('/image/upload/', '/image/upload/c_limit,w_1000,q_auto:best,f_auto/');
+              // Zoptymalizowana, ostra miniatura Retina HD (do 750px, q_auto:good, f_auto)
+              // Zapewnia błyskawiczne wczytywanie siatki galerii przy zachowaniu krystalicznej ostrości na ekranach Retina
+              thumbUrl = rawUrl.replace('/image/upload/', '/image/upload/c_limit,w_750,q_auto:good,f_auto/');
             } else if (mAttrs.formats && (mAttrs.formats.large || mAttrs.formats.medium)) {
               // Nigdy nie używamy małych mikrominiaturek thumbnail (117px) ze Strapi!
               const bestFormat = mAttrs.formats.large || mAttrs.formats.medium;

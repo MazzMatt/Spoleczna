@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Cinzel:wght@700;900&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="css/style.css?v=20261107top2">
+  <link rel="stylesheet" href="css/style.css?v=20261107perf">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
   <link rel="apple-touch-icon" sizes="192x192" href="assets/icons/favicon-192.png">
   <link rel="shortcut icon" href="favicon.ico">
@@ -141,7 +141,10 @@
 
         <div>
           <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md); margin-bottom: 30px;">
-            <img src="assets/images/school-building.jpg" alt="Budynek szkoły" style="width: 100%; height: 260px; object-fit: cover;">
+            <picture>
+              <source srcset="assets/images/school-building.webp" type="image/webp">
+              <img src="assets/images/school-building.jpg" alt="Budynek szkoły" style="width: 100%; height: 260px; object-fit: cover;" loading="lazy">
+            </picture>
             <div style="padding: 24px;">
               <h4 style="font-size: 1.1rem; font-weight: 800; color: var(--color-primary); margin-bottom: 12px;">Siedziba Szkoły</h4>
               <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 8px;">
@@ -239,6 +242,6 @@
   </footer>
 
   <script src="js/config.js"></script>
-  <script src="js/script.js?v=20261107top2"></script>
+  <script src="js/script.js?v=20261107perf"></script>
 </body>
 </html>

@@ -14,10 +14,13 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   
   <!-- Arkusz stylów CSS -->
-  <link rel="stylesheet" href="css/style.css?v=20261107top2">
+  <link rel="stylesheet" href="css/style.css?v=20261107perf">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
   <link rel="apple-touch-icon" sizes="192x192" href="assets/icons/favicon-192.png">
   <link rel="shortcut icon" href="favicon.ico">
+
+  <!-- Preload pierwszego zdjęcia banera dla natychmiastowego wyświetlenia bez opóźnienia -->
+  <link rel="preload" as="image" href="assets/images/banner-jesien-liscie.webp" type="image/webp" fetchpriority="high">
 </head>
 <body>
 
@@ -133,7 +136,10 @@
       <div class="hero-slide active" data-slide="1">
         <div class="hero-slide-content">
           <div class="hero-image-box">
-            <img src="assets/images/banner-jesien-liscie.jpg" alt="Radość nauki i zabawy – uczniowie Pierwszej Społecznej Szkoły Podstawowej w Chełmie" class="hero-photo">
+            <picture>
+              <source srcset="assets/images/banner-jesien-liscie.webp" type="image/webp">
+              <img src="assets/images/banner-jesien-liscie.jpg" alt="Radość nauki i zabawy – uczniowie Pierwszej Społecznej Szkoły Podstawowej w Chełmie" class="hero-photo" fetchpriority="high" width="620" height="420">
+            </picture>
           </div>
           <div class="hero-text-box">
             <div class="hero-sticker-badge">
@@ -149,7 +155,10 @@
       <div class="hero-slide" data-slide="2">
         <div class="hero-slide-content">
           <div class="hero-image-box">
-            <img src="assets/images/banner-slubowanie.jpg" alt="Uroczyste pasowanie na ucznia i ślubowanie pierwszoklasistów" class="hero-photo">
+            <picture>
+              <source srcset="assets/images/banner-slubowanie.webp" type="image/webp">
+              <img src="assets/images/banner-slubowanie.jpg" alt="Uroczyste pasowanie na ucznia i ślubowanie pierwszoklasistów" class="hero-photo" loading="lazy" width="620" height="420">
+            </picture>
           </div>
           <div class="hero-text-box">
             <div class="hero-sticker-badge">
@@ -165,7 +174,10 @@
       <div class="hero-slide" data-slide="3">
         <div class="hero-slide-content">
           <div class="hero-image-box">
-            <img src="assets/images/banner-szkola-uczniowie.jpg" alt="Uczniowie Pierwszej Społecznej Szkoły Podstawowej w Chełmie" class="hero-photo">
+            <picture>
+              <source srcset="assets/images/banner-szkola-uczniowie.webp" type="image/webp">
+              <img src="assets/images/banner-szkola-uczniowie.jpg" alt="Uczniowie Pierwszej Społecznej Szkoły Podstawowej w Chełmie" class="hero-photo" loading="lazy" width="620" height="420">
+            </picture>
           </div>
           <div class="hero-text-box">
             <div class="hero-sticker-badge">
@@ -181,7 +193,10 @@
       <div class="hero-slide" data-slide="4">
         <div class="hero-slide-content">
           <div class="hero-image-box">
-            <img src="assets/images/banner-teatr.jpg" alt="Przedstawienia teatralne i rozwijanie talentów artystycznych" class="hero-photo">
+            <picture>
+              <source srcset="assets/images/banner-teatr.webp" type="image/webp">
+              <img src="assets/images/banner-teatr.jpg" alt="Przedstawienia teatralne i rozwijanie talentów artystycznych" class="hero-photo" loading="lazy" width="620" height="420">
+            </picture>
           </div>
           <div class="hero-text-box">
             <div class="hero-sticker-badge">
@@ -197,7 +212,10 @@
       <div class="hero-slide" data-slide="5">
         <div class="hero-slide-content">
           <div class="hero-image-box">
-            <img src="assets/images/banner-wycieczka.jpg" alt="Wycieczki edukacyjne i integracja w terenie" class="hero-photo">
+            <picture>
+              <source srcset="assets/images/banner-wycieczka.webp" type="image/webp">
+              <img src="assets/images/banner-wycieczka.jpg" alt="Wycieczki edukacyjne i integracja w terenie" class="hero-photo" loading="lazy" width="620" height="420">
+            </picture>
           </div>
           <div class="hero-text-box">
             <div class="hero-sticker-badge">
@@ -289,7 +307,10 @@
       <div class="about-preview-grid">
         
         <div class="about-preview-image-box">
-          <img src="assets/images/school-building.jpg?v=20261107b" alt="Budynek szkoły przy ul. Hrubieszowskiej 102/2 w Chełmie" class="about-preview-img">
+          <picture>
+            <source srcset="assets/images/school-building.webp" type="image/webp">
+            <img src="assets/images/school-building.jpg" alt="Budynek szkoły przy ul. Hrubieszowskiej 102/2 w Chełmie" class="about-preview-img" loading="lazy" width="580" height="420">
+          </picture>
           <div class="about-badge-float">
             <img src="assets/icons/logo.png?v=20261107" alt="Godło Szkoły" class="about-badge-img">
           </div>
@@ -528,6 +549,6 @@
   </footer>
 
   <script src="js/config.js"></script>
-  <script src="js/script.js?v=20261107top2"></script>
+  <script src="js/script.js?v=20261107perf"></script>
 </body>
 </html>
