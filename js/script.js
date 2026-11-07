@@ -1402,5 +1402,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
   imgObserver.observe(document.body, { childList: true, subtree: true });
 
+
+  // ------------------------------------------------------------------
+  // 9. PŁYWAJĄCY PRZYCISK POWROTU NA GÓRĘ STRONY (SCROLL TO TOP)
+  // ------------------------------------------------------------------
+  function initBackToTop() {
+    let btn = document.getElementById('back-to-top-btn');
+    if (!btn) {
+      btn = document.createElement('button');
+      btn.id = 'back-to-top-btn';
+      btn.className = 'back-to-top-btn';
+      btn.setAttribute('type', 'button');
+      btn.setAttribute('aria-label', 'Przewiń na górę strony');
+      btn.setAttribute('title', 'Przewiń na górę strony');
+      btn.innerHTML = '<i class="fa-solid fa-arrow-up" aria-hidden="true"></i>';
+      document.body.appendChild(btn);
+    }
+
+    const checkScroll = () => {
+      if (window.scrollY > 280) {
+        btn.classList.add('visible');
+      } else {
+        btn.classList.remove('visible');
+      }
+    };
+
+    window.addEventListener('scroll', checkScroll, { passive: true });
+    checkScroll();
+
+    btn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  }
+
+  initBackToTop();
+
 });
 
