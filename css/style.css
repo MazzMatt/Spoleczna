@@ -57,6 +57,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  -webkit-tap-highlight-color: transparent;
 }
 
 html {
@@ -1941,7 +1942,7 @@ textarea.form-control {
     border-left: 3px solid var(--color-accent);
     flex-direction: column;
     align-items: flex-start;
-    padding: 80px 24px 40px;
+    padding: 125px 24px 40px;
     box-shadow: -5px 0 25px rgba(0, 0, 0, 0.2);
     transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 1000;
@@ -1955,26 +1956,34 @@ textarea.form-control {
     align-items: center;
     justify-content: center;
     position: absolute;
-    top: 18px;
-    right: 18px;
-    width: 44px;
-    height: 44px;
+    top: 60px;
+    right: 20px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
     background: var(--bg-card, #FFFFFF);
     color: var(--color-primary, #1B365D);
     border: 2px solid var(--color-accent, #F8C830);
-    font-size: 1.35rem;
+    font-size: 1.45rem;
     cursor: pointer;
     z-index: 1010;
-    transition: background 0.2s ease, transform 0.25s ease, color 0.2s ease;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: background 0.2s ease, transform 0.2s ease, color 0.2s ease;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.16);
+    -webkit-tap-highlight-color: transparent;
   }
-  .mobile-nav-close-btn:hover,
   .mobile-nav-close-btn:active {
     background: #E53E3E;
     color: #FFFFFF;
     border-color: #E53E3E;
-    transform: scale(1.08) rotate(90deg);
+    transform: scale(0.92);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .mobile-nav-close-btn:hover {
+      background: #E53E3E;
+      color: #FFFFFF;
+      border-color: #E53E3E;
+      transform: scale(1.08) rotate(90deg);
+    }
   }
   .nav-item {
     width: 100%;
@@ -4562,6 +4571,184 @@ html[data-contrast="yellow-black"] .album-slideshow-btn {
     max-width: 210px;
   }
 }
+
+/* ==========================================================================
+   ELIMINACJA "LEPKIEGO HOVERA" NA URZĄDZENIACH DOTYKOWYCH I MOBILNYCH
+   Na ekranach dotykowych stuknięcie nie powinno trwale unosić ani podświetlać
+   kart/przycisków po otwarciu i powrocie z dokumentu czy podstrony.
+   ========================================================================== */
+@media (hover: none), (pointer: coarse), (max-width: 860px) {
+  /* Neutralizacja uniesienia, obramowań i cieni po stuknięciu w karty */
+  .doc-card:hover,
+  .doc-card:focus,
+  .doc-card:focus-visible,
+  .album-card:hover,
+  .album-card:focus,
+  .album-card:focus-visible,
+  .gazetka-card:hover,
+  .gazetka-card:focus,
+  .gazetka-card:focus-visible,
+  .pillar-card:hover,
+  .pillar-card:focus,
+  .pillar-card:focus-visible,
+  .news-card:hover,
+  .news-card:focus,
+  .news-card:focus-visible,
+  .offer-card:hover,
+  .offer-card:focus,
+  .offer-card:focus-visible,
+  .zone-tile:hover,
+  .zone-tile:focus,
+  .zone-tile:focus-visible,
+  .management-card:hover,
+  .management-card:focus,
+  .management-card:focus-visible,
+  .staff-card:hover,
+  .staff-card:focus,
+  .staff-card:focus-visible,
+  .photo-thumb-card:hover,
+  .photo-thumb-card:focus,
+  .gazetka-banner-emblem:hover {
+    transform: none !important;
+  }
+
+  .doc-card:hover,
+  .doc-card:focus,
+  .doc-card:focus-visible {
+    border-color: var(--border-color) !important;
+    box-shadow: var(--shadow-sm) !important;
+  }
+
+  .album-card:hover,
+  .album-card:focus,
+  .album-card:focus-visible {
+    border-color: rgba(226, 232, 240, 0.9) !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25) !important;
+  }
+
+  .gazetka-card:hover,
+  .gazetka-card:focus,
+  .gazetka-card:focus-visible {
+    border-color: rgba(226, 232, 240, 0.95) !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
+  }
+
+  .pillar-card:hover,
+  .pillar-card:focus {
+    box-shadow: var(--shadow-md) !important;
+    border-bottom-color: var(--border-color) !important;
+  }
+
+  .news-card:hover,
+  .news-card:focus {
+    box-shadow: var(--shadow-md) !important;
+  }
+
+  .offer-card:hover,
+  .offer-card:focus {
+    box-shadow: var(--shadow-md) !important;
+  }
+
+  .zone-tile:hover,
+  .zone-tile:focus {
+    border-color: var(--border-color) !important;
+    box-shadow: var(--shadow-sm) !important;
+  }
+
+  .management-card:hover,
+  .management-card:focus {
+    box-shadow: var(--shadow-sm) !important;
+  }
+
+  .staff-card:hover,
+  .staff-card:focus {
+    border-color: var(--border-color) !important;
+    box-shadow: var(--shadow-sm) !important;
+  }
+
+  /* Neutralizacja powiększania zdjęć i przesunięć ikon na dotyku */
+  .album-card:hover .album-cover-img,
+  .album-card:focus .album-cover-img,
+  .gazetka-card:hover .gazetka-cover-img,
+  .gazetka-card:focus .gazetka-cover-img,
+  .news-card:hover .news-card-img,
+  .news-card:focus .news-card-img,
+  .photo-thumb-card:hover img,
+  .photo-thumb-card:focus img {
+    transform: none !important;
+  }
+
+  .pillar-card:hover .pillar-icon-box,
+  .offer-card:hover .offer-icon,
+  .zone-tile:hover .zone-tile-icon,
+  .doc-card:hover .doc-btn,
+  .doc-btn:hover {
+    transform: none !important;
+  }
+
+  /* Przyciski - brak unoszenia przy dotknięciu */
+  .btn-primary:hover,
+  .btn-primary:focus,
+  .btn-secondary:hover,
+  .btn-secondary:focus,
+  .btn-white:hover,
+  .btn-white:focus,
+  .btn-outline-white:hover,
+  .btn-outline-white:focus,
+  .social-btn:hover,
+  .social-btn:focus,
+  .vulcan-btn:hover,
+  .vulcan-btn:focus,
+  .header-phone-btn:hover,
+  .header-phone-btn:focus,
+  .nav-phone-btn:hover,
+  .nav-phone-btn:focus,
+  .staff-filter-btn:hover,
+  .staff-filter-btn:focus,
+  .album-slideshow-btn:hover,
+  .album-slideshow-btn:focus,
+  .album-back-btn:hover,
+  .album-back-btn:focus {
+    transform: none !important;
+  }
+
+  /* Haptyczne wciśnięcie wyłącznie w ułamku sekundy dotknięcia palcem (:active) */
+  .doc-card:active,
+  .album-card:active,
+  .gazetka-card:active,
+  .pillar-card:active,
+  .news-card:active,
+  .offer-card:active,
+  .zone-tile:active,
+  .management-card:active,
+  .staff-card:active {
+    transform: scale(0.98) !important;
+    opacity: 0.92;
+    transition: transform 0.08s ease, opacity 0.08s ease !important;
+  }
+
+  .btn:active,
+  .btn-primary:active,
+  .btn-secondary:active,
+  .btn-white:active,
+  .btn-outline-white:active,
+  .social-btn:active,
+  .vulcan-btn:active,
+  .header-phone-btn:active,
+  .nav-phone-btn:active,
+  .staff-filter-btn:active,
+  .album-slideshow-btn:active,
+  .album-back-btn:active,
+  .mobile-nav-close-btn:active,
+  .modal-close-btn:active,
+  .lightbox-btn:active,
+  .lightbox-nav-btn:active {
+    transform: scale(0.95) !important;
+    opacity: 0.88;
+    transition: transform 0.08s ease !important;
+  }
+}
+
 
 
 

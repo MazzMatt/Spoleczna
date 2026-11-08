@@ -150,11 +150,19 @@ document.addEventListener('DOMContentLoaded', () => {
       mainNav.prepend(closeBtn);
     }
 
-    closeBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
+    const handleCloseMenu = (e) => {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
       closeMenu();
-    });
+      if (closeBtn) closeBtn.blur();
+    };
+
+    closeBtn.addEventListener('click', handleCloseMenu);
+    closeBtn.addEventListener('touchend', (e) => {
+      handleCloseMenu(e);
+    }, { passive: false });
 
     if (mobileToggle) {
       mobileToggle.addEventListener('click', (e) => {
@@ -1776,6 +1784,36 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   initBackToTop();
+
+  // ------------------------------------------------------------------
+  // 10. ELIMINACJA "LEPKIEGO HOVERA" I ZAWIESZONEGO FOKUSU NA EKRANACH DOTYKOWYCH
+  // ------------------------------------------------------------------
+  function initTouchDeviceFixes() {
+    function blurCurrentElement() {
+      if (document.activeElement && 
+          document.activeElement !== document.body && 
+          document.activeElement.tagName !== 'INPUT' && 
+          document.activeElement.tagName !== 'TEXTAREA') {
+        document.activeElement.blur();
+      }
+    }
+
+    // Usunięcie stanu hover/focus po stuknięciu palcem
+    document.addEventListener('touchend', function() {
+      setTimeout(blurCurrentElement, 80);
+    }, { passive: true });
+
+    // Przywrócenie czystego stanu po powrocie do karty/okna (np. po zamknięciu PDF)
+    window.addEventListener('pageshow', blurCurrentElement);
+    window.addEventListener('focus', blurCurrentElement);
+    document.addEventListener('visibilitychange', function() {
+      if (!document.hidden) {
+        blurCurrentElement();
+      }
+    });
+  }
+
+  initTouchDeviceFixes();
 
 });
 
