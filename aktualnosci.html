@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Cinzel:wght@700;900&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="css/style.css?v=20261108v17">
+  <link rel="stylesheet" href="css/style.css?v=20261108v18">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
   <link rel="apple-touch-icon" sizes="192x192" href="assets/icons/favicon-192.png">
   <link rel="shortcut icon" href="favicon.ico">
@@ -100,18 +100,37 @@
   <section class="section-padding">
     <div class="container">
       
-      <div class="news-grid">
+      <!-- Pasek nagłówka i odświeżania -->
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; flex-wrap: wrap; gap: 14px;">
+        <div class="section-header" style="margin-bottom: 0;">
+          <span class="section-tag" style="margin-bottom: 6px;"><i class="fa-solid fa-bullhorn"></i> Kronika Szkolna</span>
+          <h2 class="section-title" style="margin-bottom: 0;">Wszystkie Aktualności</h2>
+        </div>
+
+        <button type="button" id="news-refresh-btn" class="btn-secondary" style="padding: 9px 18px; font-size: 0.85rem; border-radius: var(--radius-full); cursor: pointer;" title="Pobierz najnowsze wpisy z panelu szkolnego">
+          <i class="fa-solid fa-arrows-rotate"></i> <span>Odśwież wpisy</span>
+        </button>
+      </div>
+
+      <div class="news-grid" id="news-grid-container">
         
         <!-- Wpis 1 -->
         <article class="news-card">
           <div class="news-card-img-wrap">
-            <img src="assets/images/children-reading.jpg" alt="Święto Szkoły" class="news-card-img">
+            <img src="assets/images/children-reading.jpg" alt="Święto Szkoły" class="news-card-img" loading="lazy">
             <span class="news-tag">Wydarzenia</span>
           </div>
           <div class="news-card-body">
             <div class="news-date"><i class="fa-regular fa-calendar"></i> 28 Października 2026</div>
             <h3 class="news-card-title">Święto Szkoły i Pasowanie na Pierwszoklasistę</h3>
             <p class="news-excerpt">Uroczysta akademia z udziałem Dyrekcji, nauczycieli i rodziców. Uczniowie klasy pierwszej złożyli uroczyste ślubowanie i otrzymali pamiątkowe dyplomy.</p>
+            <div class="news-card-footer">
+              <a href="galeria.html?album=Pasowanie%20na%20pierwszoklasist%C4%99" class="btn-more-gallery">
+                <i class="fa-solid fa-images"></i>
+                <span>Zobacz fotorelację w galerii</span>
+                <i class="fa-solid fa-arrow-right"></i>
+              </a>
+            </div>
           </div>
         </article>
 
@@ -247,6 +266,6 @@
   </footer>
 
   <script src="js/config.js"></script>
-  <script src="js/script.js?v=20261108v17"></script>
+  <script src="js/script.js?v=20261108v18"></script>
 </body>
 </html>

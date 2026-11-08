@@ -1207,6 +1207,35 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
+    let hasHandledInitialUrlAlbum = false;
+    function checkUrlForDirectAlbum(albums) {
+      if (hasHandledInitialUrlAlbum || !Array.isArray(albums) || albums.length === 0) return;
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const target = (params.get('album') || params.get('folder') || params.get('id') || '').trim();
+        if (!target) return;
+
+        const clean = decodeURIComponent(target).toLowerCase();
+        const matched = albums.find(a => 
+          String(a.id || '').toLowerCase() === clean ||
+          String(a.documentId || '').toLowerCase() === clean ||
+          String(a.rawId || '').toLowerCase() === clean ||
+          String(a.title || '').trim().toLowerCase() === clean ||
+          String(a.title || '').trim().toLowerCase().includes(clean) ||
+          clean.includes(String(a.title || '').trim().toLowerCase())
+        );
+
+        if (matched) {
+          hasHandledInitialUrlAlbum = true;
+          setTimeout(() => {
+            openAlbumDetails(matched);
+          }, 80);
+        }
+      } catch (err) {
+        console.warn('Błąd otwierania albumu z adresu URL:', err);
+      }
+    }
+
     // Renderowanie kafelków folderów w siatce
     function renderAlbums(albumsToRender) {
       container.innerHTML = '';
@@ -1245,6 +1274,8 @@ document.addEventListener('DOMContentLoaded', () => {
         card.addEventListener('click', () => openAlbumDetails(album));
         container.appendChild(card);
       });
+
+      checkUrlForDirectAlbum(allAlbums);
     }
 
     // Wyświetlenie zdjęć wewnątrz otwartego folderu
@@ -1302,6 +1333,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (detailsView) detailsView.classList.remove('active');
         if (albumsView) albumsView.style.display = 'block';
         currentAlbum = null;
+        if (window.history && window.history.replaceState) {
+          const cleanUrl = window.location.pathname;
+          window.history.replaceState({}, document.title, cleanUrl);
+        }
         renderAlbums(allAlbums);
       });
     }
@@ -1714,6 +1749,232 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   initSchoolGazetka();
+
+
+  // ------------------------------------------------------------------
+  // 8C. DYNAMICZNE AKTUALNOŚCI ZE STRAPI / NEON (aktualnosci.html)
+  // ------------------------------------------------------------------
+  function initSchoolNews() {
+    const container = document.getElementById('news-grid-container');
+    if (!container) return; // Uruchamiaj tylko tam, gdzie jest siatka aktualności
+
+    const refreshBtn = document.getElementById('news-refresh-btn');
+    const CACHE_KEY = 'pssp_school_news_cache_v1';
+    let allNews = [];
+
+    const CLOUD_STRAPI_URL = 'https://spolecznachelm.duckdns.org';
+    const isLocalhost = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+    const activeStrapiBase = window.STRAPI_URL || (isLocalhost ? 'http://localhost:1337' : CLOUD_STRAPI_URL);
+
+    function formatPolishDate(dateStr) {
+      if (!dateStr) return '';
+      try {
+        const d = new Date(dateStr);
+        if (isNaN(d.getTime())) return String(dateStr);
+        const months = [
+          'stycznia', 'lutego', 'marca', 'kwietnia', 'maja', 'czerwca',
+          'lipca', 'sierpnia', 'września', 'października', 'listopada', 'grudnia'
+        ];
+        return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+      } catch (e) {
+        return String(dateStr);
+      }
+    }
+
+    function resolveMediaUrl(url, base) {
+      if (!url) return '';
+      if (url.startsWith('http://') || url.startsWith('https://')) return url;
+      return `${base.replace(/\/$/, '')}/${url.replace(/^\//, '')}`;
+    }
+
+    function mapStrapiToNews(items, baseStrapi) {
+      if (!Array.isArray(items)) return [];
+      return items.map((item, idx) => {
+        const attrs = item.attributes || item;
+        const title = (attrs.Tytul || attrs.tytul || 'Aktualność szkolna').trim();
+        const rawDate = attrs.Data || attrs.data || attrs.createdAt || '';
+        const dateDisplay = formatPolishDate(rawDate);
+        const category = (attrs.Kategoria || attrs.kategoria || 'Wydarzenia').trim();
+        const content = (attrs.Opis || attrs.opis || '').trim();
+
+        // Zdjęcie wpisu
+        let imageUrl = '';
+        const rawPhoto = attrs.Zdjecie || attrs.zdjecie || attrs.Okladka || attrs.okladka;
+        if (rawPhoto) {
+          const mediaObj = Array.isArray(rawPhoto) ? rawPhoto[0] : (rawPhoto.data ? (Array.isArray(rawPhoto.data) ? rawPhoto.data[0] : rawPhoto.data) : rawPhoto);
+          if (mediaObj) {
+            const mAttrs = mediaObj.attributes || mediaObj;
+            if (mAttrs && mAttrs.url) {
+              imageUrl = resolveMediaUrl(mAttrs.url, baseStrapi);
+            }
+          }
+        }
+        if (!imageUrl) {
+          imageUrl = 'assets/images/children-reading.jpg';
+        }
+
+        // Powiązana galeria (relacja lub pole tekstowe)
+        let galleryParam = '';
+        const rawGaleria = attrs.Galeria || attrs.galeria;
+        if (rawGaleria) {
+          const gObj = rawGaleria.data ? (Array.isArray(rawGaleria.data) ? rawGaleria.data[0] : rawGaleria.data) : (Array.isArray(rawGaleria) ? rawGaleria[0] : rawGaleria);
+          if (gObj) {
+            const gAttrs = gObj.attributes || gObj;
+            galleryParam = gAttrs.Tytul || gAttrs.tytul || gObj.documentId || gObj.id || '';
+          }
+        }
+        if (!galleryParam && (attrs.FolderGalerii || attrs.folder_galerii || attrs.folderGalerii)) {
+          galleryParam = (attrs.FolderGalerii || attrs.folder_galerii || attrs.folderGalerii).trim();
+        }
+
+        return {
+          id: String(item.documentId || item.id || `news-${idx}`),
+          title,
+          dateDisplay,
+          category,
+          content,
+          imageUrl,
+          galleryParam
+        };
+      });
+    }
+
+    function renderNews(newsList) {
+      if (!Array.isArray(newsList) || newsList.length === 0) return;
+      container.innerHTML = '';
+
+      newsList.forEach(news => {
+        const article = document.createElement('article');
+        article.className = 'news-card';
+
+        const galleryBtnHtml = news.galleryParam
+          ? `
+            <div class="news-card-footer">
+              <a href="galeria.html?album=${encodeURIComponent(news.galleryParam)}" class="btn-more-gallery" title="Przejdź do galerii i otwórz fotorelację">
+                <i class="fa-solid fa-images" aria-hidden="true"></i>
+                <span>Zobacz fotorelację w galerii</span>
+                <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+              </a>
+            </div>
+          `
+          : '';
+
+        article.innerHTML = `
+          <div class="news-card-img-wrap">
+            <img src="${news.imageUrl}" alt="${news.title}" class="news-card-img" loading="lazy">
+            <span class="news-tag">${news.category}</span>
+          </div>
+          <div class="news-card-body">
+            ${news.dateDisplay ? `<div class="news-date"><i class="fa-regular fa-calendar" aria-hidden="true"></i> ${news.dateDisplay}</div>` : ''}
+            <h3 class="news-card-title">${news.title}</h3>
+            <div class="news-excerpt">${news.content}</div>
+            ${galleryBtnHtml}
+          </div>
+        `;
+
+        container.appendChild(article);
+      });
+    }
+
+    // 1. Pamięć podręczna (0 ms)
+    try {
+      const cached = localStorage.getItem(CACHE_KEY);
+      if (cached) {
+        const parsed = JSON.parse(cached);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          allNews = parsed;
+          renderNews(allNews);
+        }
+      }
+    } catch (e) {}
+
+    // 2. Statyczny fallback z pliku JSON
+    async function loadStaticFallback(forceBust = false) {
+      const cacheBust = forceBust ? `?bust=${Date.now()}` : '';
+      const candidates = [`data/aktualnosci.json${cacheBust}`, `./data/aktualnosci.json${cacheBust}`];
+      for (const url of candidates) {
+        try {
+          const res = await fetch(url);
+          if (!res.ok) continue;
+          const json = await res.json();
+          const items = Array.isArray(json) ? json : (json.data || []);
+          if (items.length > 0) {
+            const mapped = mapStrapiToNews(items, '');
+            if (mapped.length > 0) {
+              allNews = mapped;
+              try { localStorage.setItem(CACHE_KEY, JSON.stringify(mapped)); } catch (e) {}
+              renderNews(allNews);
+              return true;
+            }
+          }
+        } catch (e) {}
+      }
+      return false;
+    }
+
+    // 3. Pobieranie na żywo z chmury Strapi
+    async function syncFromCloudBackend(isManual = false) {
+      if (allNews.length === 0) {
+        await loadStaticFallback(isManual);
+      }
+      try {
+        const endpoint = `${activeStrapiBase}/api/aktualnoscs?populate=*&pagination[pageSize]=100&sort=Data:desc,createdAt:desc`;
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 12000);
+
+        const res = await fetch(endpoint, {
+          signal: controller.signal,
+          headers: { 'Accept': 'application/json' }
+        });
+        clearTimeout(timeoutId);
+
+        if (!res.ok) {
+          throw new Error('HTTP ' + res.status);
+        }
+
+        const json = await res.json();
+        const items = Array.isArray(json) ? json : (json.data || []);
+        if (items.length > 0) {
+          const mapped = mapStrapiToNews(items, activeStrapiBase);
+          allNews = mapped;
+          try { localStorage.setItem(CACHE_KEY, JSON.stringify(mapped)); } catch (e) {}
+          renderNews(allNews);
+          return true;
+        } else {
+          if (allNews.length === 0) {
+            await loadStaticFallback();
+          }
+        }
+      } catch (err) {
+        if (allNews.length === 0) {
+          await loadStaticFallback();
+        }
+      }
+      return false;
+    }
+
+    if (refreshBtn) {
+      refreshBtn.addEventListener('click', async () => {
+        const orig = refreshBtn.innerHTML;
+        refreshBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i> <span>Pobieranie...</span>';
+        refreshBtn.disabled = true;
+        try { localStorage.removeItem(CACHE_KEY); } catch (e) {}
+        await syncFromCloudBackend(true);
+        refreshBtn.innerHTML = orig;
+        refreshBtn.disabled = false;
+      });
+    }
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') {
+        syncFromCloudBackend();
+      }
+    });
+
+    syncFromCloudBackend();
+  }
+
+  initSchoolNews();
 
 
   // ------------------------------------------------------------------

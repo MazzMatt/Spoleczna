@@ -1,0 +1,49 @@
+{
+  "kind": "collectionType",
+  "collectionName": "aktualnoscs",
+  "info": {
+    "singularName": "aktualnosc",
+    "pluralName": "aktualnoscs",
+    "displayName": "Aktualności",
+    "description": "Szkolne aktualności, wydarzenia i relacje"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Tytul": {
+      "type": "string",
+      "required": true
+    },
+    "Data": {
+      "type": "date",
+      "required": false
+    },
+    "Zdjecie": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "Opis": {
+      "type": "text",
+      "required": true
+    },
+    "Kategoria": {
+      "type": "string",
+      "required": false
+    },
+    "Galeria": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::galeria.galeria"
+    },
+    "FolderGalerii": {
+      "type": "string",
+      "required": false
+    }
+  }
+}

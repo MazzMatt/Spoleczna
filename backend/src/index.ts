@@ -23,7 +23,9 @@ export default {
           'api::galeria.galeria.find',
           'api::galeria.galeria.findOne',
           'api::gazetka.gazetka.find',
-          'api::gazetka.gazetka.findOne'
+          'api::gazetka.gazetka.findOne',
+          'api::aktualnosc.aktualnosc.find',
+          'api::aktualnosc.aktualnosc.findOne'
         ];
         for (const action of actions) {
           const existing = await strapi
