@@ -1759,6 +1759,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!container) return; // Uruchamiaj tylko tam, gdzie jest siatka aktualności
 
     const refreshBtn = document.getElementById('news-refresh-btn');
+    const paginationNav = document.getElementById('news-pagination-nav');
+    const paginationContainer = document.getElementById('news-pagination');
+    const ITEMS_PER_PAGE = 10;
+    let currentPage = 1;
     const CACHE_KEY = 'pssp_school_news_cache_v2';
     let allNews = [];
 
@@ -1900,9 +1904,111 @@ document.addEventListener('DOMContentLoaded', () => {
       container.style.height = `${totalHeight}px`;
     }
 
+    function renderPagination(totalItems, current) {
+      if (!paginationNav || !paginationContainer) return;
+      const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+
+      if (totalPages <= 1) {
+        paginationNav.style.display = 'none';
+        paginationContainer.innerHTML = '';
+        return;
+      }
+
+      paginationNav.style.display = 'flex';
+      paginationContainer.innerHTML = '';
+
+      // Przycisk: Pierwsza strona «
+      const firstBtn = document.createElement('button');
+      firstBtn.type = 'button';
+      firstBtn.className = 'pagination-btn';
+      firstBtn.setAttribute('aria-label', 'Przejdź do pierwszej strony');
+      firstBtn.innerHTML = '<i class="fa-solid fa-angles-left" aria-hidden="true"></i>';
+      firstBtn.disabled = (current === 1);
+      firstBtn.addEventListener('click', () => goToPage(1));
+      paginationContainer.appendChild(firstBtn);
+
+      // Przycisk: Poprzednia strona ‹
+      const prevBtn = document.createElement('button');
+      prevBtn.type = 'button';
+      prevBtn.className = 'pagination-btn';
+      prevBtn.setAttribute('aria-label', 'Przejdź do poprzedniej strony');
+      prevBtn.innerHTML = '<i class="fa-solid fa-angle-left" aria-hidden="true"></i>';
+      prevBtn.disabled = (current === 1);
+      prevBtn.addEventListener('click', () => goToPage(current - 1));
+      paginationContainer.appendChild(prevBtn);
+
+      // Generowanie numerów stron
+      let pages = [];
+      if (totalPages <= 7) {
+        for (let i = 1; i <= totalPages; i++) pages.push(i);
+      } else {
+        if (current <= 4) {
+          pages = [1, 2, 3, 4, 5, '...', totalPages];
+        } else if (current >= totalPages - 3) {
+          pages = [1, '...', totalPages - 4, totalPages - 3, totalPages - 2, totalPages - 1, totalPages];
+        } else {
+          pages = [1, '...', current - 1, current, current + 1, '...', totalPages];
+        }
+      }
+
+      pages.forEach(p => {
+        if (p === '...') {
+          const ellipsis = document.createElement('span');
+          ellipsis.className = 'pagination-ellipsis';
+          ellipsis.textContent = '...';
+          paginationContainer.appendChild(ellipsis);
+        } else {
+          const numBtn = document.createElement('button');
+          numBtn.type = 'button';
+          numBtn.className = `pagination-btn${p === current ? ' active' : ''}`;
+          numBtn.textContent = p;
+          numBtn.setAttribute('aria-label', `Strona ${p}`);
+          if (p === current) {
+            numBtn.setAttribute('aria-current', 'page');
+          } else {
+            numBtn.addEventListener('click', () => goToPage(p));
+          }
+          paginationContainer.appendChild(numBtn);
+        }
+      });
+
+      // Przycisk: Następna strona ›
+      const nextBtn = document.createElement('button');
+      nextBtn.type = 'button';
+      nextBtn.className = 'pagination-btn';
+      nextBtn.setAttribute('aria-label', 'Przejdź do następnej strony');
+      nextBtn.innerHTML = '<i class="fa-solid fa-angle-right" aria-hidden="true"></i>';
+      nextBtn.disabled = (current === totalPages);
+      nextBtn.addEventListener('click', () => goToPage(current + 1));
+      paginationContainer.appendChild(nextBtn);
+
+      // Przycisk: Ostatnia strona »
+      const lastBtn = document.createElement('button');
+      lastBtn.type = 'button';
+      lastBtn.className = 'pagination-btn';
+      lastBtn.setAttribute('aria-label', 'Przejdź do ostatniej strony');
+      lastBtn.innerHTML = '<i class="fa-solid fa-angles-right" aria-hidden="true"></i>';
+      lastBtn.disabled = (current === totalPages);
+      lastBtn.addEventListener('click', () => goToPage(totalPages));
+      paginationContainer.appendChild(lastBtn);
+    }
+
+    function goToPage(page) {
+      const totalPages = Math.ceil(allNews.length / ITEMS_PER_PAGE);
+      if (page < 1 || page > totalPages || page === currentPage) return;
+      currentPage = page;
+      renderNews(allNews);
+
+      const scrollTarget = container.closest('.section-padding') || container;
+      if (scrollTarget) {
+        scrollTarget.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
     function renderNews(newsList) {
       if (!Array.isArray(newsList) || newsList.length === 0) {
         container.style.height = '';
+        if (paginationNav) paginationNav.style.display = 'none';
         container.innerHTML = `
           <div id="news-empty-state" class="news-empty-state" style="width: 100%; text-align: center; padding: 60px 20px; background: #fff; border-radius: var(--radius-lg); border: 1px dashed var(--color-border); box-shadow: var(--shadow-sm);">
             <div style="width: 72px; height: 72px; margin: 0 auto 16px; border-radius: 50%; background: rgba(30, 77, 140, 0.08); display: flex; align-items: center; justify-content: center; font-size: 2rem; color: var(--color-primary);">
@@ -1914,9 +2020,18 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
         return;
       }
+
+      // Paginacja: do 10 wpisów na stronę (5 rzędów x 2 kolumny)
+      const totalPages = Math.ceil(newsList.length / ITEMS_PER_PAGE);
+      if (currentPage > totalPages) currentPage = Math.max(1, totalPages);
+
+      const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+      const endIndex = startIndex + ITEMS_PER_PAGE;
+      const pageItems = newsList.slice(startIndex, endIndex);
+
       container.innerHTML = '';
 
-      newsList.forEach(news => {
+      pageItems.forEach(news => {
         const article = document.createElement('article');
         article.className = 'news-card';
 
@@ -1950,6 +2065,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Ułożenie kafelków w układzie Pinterest oraz obsługa ładowania obrazków
       scheduleNewsMasonry();
+      renderPagination(newsList.length, currentPage);
+
       const imgs = container.querySelectorAll('.news-card-img');
       imgs.forEach(img => {
         if (!img.complete) {
