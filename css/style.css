@@ -1267,6 +1267,33 @@ html.stop-motion *::after {
   flex-wrap: wrap;
 }
 
+/* Pojedynczy wyróżniony plakat (np. na podstronie Oferta, Sukcesy) */
+.poster-showcase-wrapper {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.poster-card-featured .poster-img-wrap {
+  min-height: 460px;
+  max-height: 620px;
+  padding: 24px 20px;
+}
+
+.poster-card-featured .poster-img {
+  max-height: 570px;
+}
+
+@media (max-width: 768px) {
+  .poster-card-featured .poster-img-wrap {
+    min-height: 300px;
+    max-height: 460px;
+    padding: 14px;
+  }
+  .poster-card-featured .poster-img {
+    max-height: 430px;
+  }
+}
+
 /* Modal powiększenia plakatu */
 .poster-modal-window {
   position: relative;
