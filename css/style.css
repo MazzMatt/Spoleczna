@@ -447,6 +447,10 @@ html.stop-motion *::after {
   flex-shrink: 0;
 }
 
+.mobile-nav-close-btn {
+  display: none;
+}
+
 .header-phone-btn,
 .nav-phone-btn {
   display: inline-flex;
@@ -1946,6 +1950,32 @@ textarea.form-control {
   .nav-menu.open {
     right: 0;
   }
+  .mobile-nav-close-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--bg-card, #FFFFFF);
+    color: var(--color-primary, #1B365D);
+    border: 2px solid var(--color-accent, #F8C830);
+    font-size: 1.35rem;
+    cursor: pointer;
+    z-index: 1010;
+    transition: background 0.2s ease, transform 0.25s ease, color 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  .mobile-nav-close-btn:hover,
+  .mobile-nav-close-btn:active {
+    background: #E53E3E;
+    color: #FFFFFF;
+    border-color: #E53E3E;
+    transform: scale(1.08) rotate(90deg);
+  }
   .nav-item {
     width: 100%;
     border-bottom: 1px solid var(--border-color);
@@ -2054,11 +2084,41 @@ textarea.form-control {
 
 @media (max-width: 640px) {
   .pillars-grid,
-  .docs-grid,
   .news-grid,
   .offer-grid,
   .footer-grid {
     grid-template-columns: 1fr;
+  }
+  .docs-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px;
+  }
+  .doc-card {
+    padding: 16px 14px;
+    border-radius: 12px;
+  }
+  .doc-badge {
+    font-size: 0.65rem;
+    padding: 2px 8px;
+    margin-bottom: 8px;
+  }
+  .doc-icon {
+    font-size: 1.65rem;
+    margin-bottom: 8px;
+  }
+  .doc-title {
+    font-size: 0.88rem;
+    line-height: 1.25;
+    margin-bottom: 6px;
+  }
+  .doc-desc {
+    font-size: 0.78rem;
+    line-height: 1.4;
+    margin-bottom: 12px;
+  }
+  .doc-btn {
+    font-size: 0.76rem;
+    gap: 4px;
   }
   .zone-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -2413,6 +2473,26 @@ textarea.form-control {
   .container {
     padding-left: 15px !important;
     padding-right: 15px !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .docs-grid {
+    gap: 8px !important;
+  }
+  .doc-card {
+    padding: 12px 10px !important;
+  }
+  .doc-title {
+    font-size: 0.82rem !important;
+  }
+  .doc-desc {
+    font-size: 0.72rem !important;
+    line-height: 1.35 !important;
+    margin-bottom: 8px !important;
+  }
+  .doc-btn {
+    font-size: 0.72rem !important;
   }
 }
 

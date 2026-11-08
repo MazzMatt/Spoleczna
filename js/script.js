@@ -122,30 +122,61 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // ------------------------------------------------------------------
-  // 2. MENU MOBILNE (HAMBURGER)
+  // 2. MENU MOBILNE (HAMBURGER I PRZYCISK ZAMKNIĘCIA "X")
   // ------------------------------------------------------------------
   const mobileToggle = document.getElementById('mobile-toggle');
   const mainNav = document.getElementById('main-nav-menu');
 
-  if (mobileToggle && mainNav) {
-    mobileToggle.addEventListener('click', (e) => {
-      e.stopPropagation();
-      mainNav.classList.toggle('open');
-      const icon = mobileToggle.querySelector('i');
-      if (icon) {
-        icon.classList.toggle('fa-bars');
-        icon.classList.toggle('fa-xmark');
-      }
-    });
-
-    document.addEventListener('click', (e) => {
-      if (!mainNav.contains(e.target) && !mobileToggle.contains(e.target)) {
-        mainNav.classList.remove('open');
+  if (mainNav) {
+    const closeMenu = () => {
+      mainNav.classList.remove('open');
+      if (mobileToggle) {
         const icon = mobileToggle.querySelector('i');
         if (icon) {
           icon.classList.add('fa-bars');
           icon.classList.remove('fa-xmark');
         }
+      }
+    };
+
+    // Upewnij się, że w pasku bocznym znajduje się widoczny przycisk "X"
+    let closeBtn = mainNav.querySelector('.mobile-nav-close-btn');
+    if (!closeBtn) {
+      closeBtn = document.createElement('button');
+      closeBtn.type = 'button';
+      closeBtn.className = 'mobile-nav-close-btn';
+      closeBtn.setAttribute('aria-label', 'Zamknij menu');
+      closeBtn.innerHTML = '<i class="fa-solid fa-xmark" aria-hidden="true"></i>';
+      mainNav.prepend(closeBtn);
+    }
+
+    closeBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      closeMenu();
+    });
+
+    if (mobileToggle) {
+      mobileToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = mainNav.classList.toggle('open');
+        const icon = mobileToggle.querySelector('i');
+        if (icon) {
+          icon.classList.toggle('fa-bars', !isOpen);
+          icon.classList.toggle('fa-xmark', isOpen);
+        }
+      });
+    }
+
+    document.addEventListener('click', (e) => {
+      if (mainNav.classList.contains('open') && !mainNav.contains(e.target) && (!mobileToggle || !mobileToggle.contains(e.target))) {
+        closeMenu();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mainNav.classList.contains('open')) {
+        closeMenu();
       }
     });
   }
