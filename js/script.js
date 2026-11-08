@@ -1409,6 +1409,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const countNumber = document.getElementById('gazetka-count-number');
     const countBadge = document.getElementById('gazetka-count-badge');
 
+    const CACHE_KEY = 'pssp_school_gazetka_cache_v2';
     let allGazetkas = [];
     let currentSortMode = 'desc';
 
@@ -1425,6 +1426,18 @@ document.addEventListener('DOMContentLoaded', () => {
       const savedSort = localStorage.getItem('pssp_gazetka_sort');
       if (savedSort === 'asc' || savedSort === 'desc') {
         currentSortMode = savedSort;
+      }
+    } catch (e) {}
+
+    // Błyskawiczne wczytanie z pamięci przeglądarki (identycznie jak w galerii – brak skakania licznika)
+    try {
+      const cached = localStorage.getItem(CACHE_KEY);
+      if (cached) {
+        const parsed = JSON.parse(cached);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          allGazetkas = parsed;
+          renderGazetkas(allGazetkas);
+        }
       }
     } catch (e) {}
 
@@ -1598,6 +1611,17 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
+    function areGazetkaListsIdentical(a, b) {
+      if (!Array.isArray(a) || !Array.isArray(b)) return false;
+      if (a.length !== b.length) return false;
+      for (let i = 0; i < a.length; i++) {
+        if (a[i].id !== b[i].id || a[i].title !== b[i].title || a[i].pdfUrl !== b[i].pdfUrl || a[i].coverUrl !== b[i].coverUrl) {
+          return false;
+        }
+      }
+      return true;
+    }
+
     const CLOUD_STRAPI_URL = 'https://spolecznachelm.duckdns.org';
     const isLocalhost = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
     const activeStrapiBase = window.STRAPI_URL || (isLocalhost ? 'http://localhost:1337' : CLOUD_STRAPI_URL);
@@ -1616,9 +1640,16 @@ document.addEventListener('DOMContentLoaded', () => {
           const json = await res.json();
           const items = Array.isArray(json) ? json : (json.data || []);
           if (items.length > 0) {
-            allGazetkas = mapStrapiToGazetkas(items, '');
-            renderGazetkas(allGazetkas);
-            return true;
+            const mapped = mapStrapiToGazetkas(items, '');
+            if (mapped.length > 0) {
+              const changed = !areGazetkaListsIdentical(allGazetkas, mapped);
+              allGazetkas = mapped;
+              try { localStorage.setItem(CACHE_KEY, JSON.stringify(mapped)); } catch (e) {}
+              if (changed || container.children.length === 0) {
+                renderGazetkas(allGazetkas);
+              }
+              return true;
+            }
           }
         } catch (e) {}
       }
@@ -1631,7 +1662,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (icon) icon.classList.add('fa-spin');
       }
 
-      const hasStatic = await loadStaticFallback(isManualRefresh);
+      // Jeśli jeszcze nic nie wyrenderowaliśmy (np. pierwsze wejście na stronę bez cache), wczytaj natychmiast static fallback
+      if (allGazetkas.length === 0) {
+        await loadStaticFallback(isManualRefresh);
+      }
 
       try {
         const endpoint = `${activeStrapiBase}/api/gazetkas?populate=*&pagination[pageSize]=100&sort=Data:desc,createdAt:desc`;
@@ -1649,11 +1683,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const json = await res.json();
         const items = Array.isArray(json) ? json : (json.data || []);
 
-        allGazetkas = mapStrapiToGazetkas(items, activeStrapiBase);
-        renderGazetkas(allGazetkas);
+        if (items.length > 0) {
+          const mapped = mapStrapiToGazetkas(items, activeStrapiBase);
+          const changed = !areGazetkaListsIdentical(allGazetkas, mapped);
+          allGazetkas = mapped;
+          try { localStorage.setItem(CACHE_KEY, JSON.stringify(mapped)); } catch (e) {}
+          if (changed || container.children.length === 0) {
+            renderGazetkas(allGazetkas);
+          }
+        }
       } catch (err) {
-        if (!hasStatic && allGazetkas.length === 0) {
-          renderGazetkas([]);
+        if (allGazetkas.length === 0) {
+          await loadStaticFallback(false);
         }
       } finally {
         if (isManualRefresh && refreshBtn) {
