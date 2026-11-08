@@ -1095,14 +1095,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const endpoint = `${activeStrapiBase}/api/galerias?populate=*&pagination[pageSize]=100&sort=createdAt:desc,id:desc`;
       const refreshBtn = document.getElementById('gallery-refresh-btn');
       const refreshIcon = refreshBtn ? refreshBtn.querySelector('i') : null;
-      const syncStatus = document.getElementById('gallery-sync-status');
 
       if (refreshIcon) refreshIcon.classList.add('fa-spin');
-      if (syncStatus) {
-        syncStatus.style.display = 'inline-flex';
-        syncStatus.innerHTML = '<i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i><span>Sprawdzanie bazy...</span>';
-        syncStatus.style.color = '#F8C830';
-      }
 
       try {
         const timeoutMs = 75000; // Do 75s na wypadek wybudzania darmowego serwera Render
@@ -1137,28 +1131,11 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
               renderAlbums(allAlbums);
             }
-
-            if (syncStatus) {
-              syncStatus.style.display = 'inline-flex';
-              syncStatus.innerHTML = '<i class="fa-solid fa-check" aria-hidden="true"></i><span>Aktualne</span>';
-              syncStatus.style.color = '#4ADE80';
-              setTimeout(() => {
-                if (syncStatus) syncStatus.style.display = 'none';
-              }, 3000);
-            }
             return true;
           }
         }
       } catch (e) {
         console.warn('Sync from cloud notice:', e);
-        if (syncStatus) {
-          syncStatus.style.display = 'inline-flex';
-          syncStatus.innerHTML = '<i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i><span>Błąd serwera</span>';
-          syncStatus.style.color = '#F87171';
-          setTimeout(() => {
-            if (syncStatus) syncStatus.style.display = 'none';
-          }, 3500);
-        }
       } finally {
         if (refreshIcon) refreshIcon.classList.remove('fa-spin');
       }
@@ -1386,7 +1363,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const refreshBtn = document.getElementById('gazetka-refresh-btn');
     const emptyState = document.getElementById('gazetka-empty-state');
     const sortSelect = document.getElementById('gazetka-sort-select');
-    const syncStatus = document.getElementById('gazetka-sync-status');
     const countNumber = document.getElementById('gazetka-count-number');
     const countBadge = document.getElementById('gazetka-count-badge');
 
@@ -1561,9 +1537,8 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="gazetka-overlay">
             <h3 class="gazetka-title">${item.title}</h3>
             <div class="gazetka-meta">
-              <span>${item.dateDisplay ? `<i class="fa-regular fa-calendar" aria-hidden="true"></i> ${item.dateDisplay}` : 'Wydanie szkolne'}</span>
               <span class="gazetka-action-cue">
-                <span>Czytaj</span> <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                <span>Czytaj gazetkę</span> <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
               </span>
             </div>
           </div>
@@ -1606,12 +1581,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (icon) icon.classList.add('fa-spin');
       }
 
-      if (syncStatus) {
-        syncStatus.style.display = 'inline-flex';
-        syncStatus.style.color = '#F8C830';
-        syncStatus.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i><span>Sprawdzanie bazy...</span>';
-      }
-
       const hasStatic = await loadStaticFallback(isManualRefresh);
 
       try {
@@ -1632,24 +1601,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         allGazetkas = mapStrapiToGazetkas(items, activeStrapiBase);
         renderGazetkas(allGazetkas);
-
-        if (syncStatus) {
-          syncStatus.style.color = '#38A169';
-          syncStatus.innerHTML = '<i class="fa-solid fa-check"></i><span>Baza aktywna</span>';
-          setTimeout(() => {
-            if (syncStatus) syncStatus.style.display = 'none';
-          }, 3500);
-        }
       } catch (err) {
         if (!hasStatic && allGazetkas.length === 0) {
           renderGazetkas([]);
-        }
-        if (syncStatus) {
-          syncStatus.style.color = 'rgba(255, 255, 255, 0.7)';
-          syncStatus.innerHTML = '<i class="fa-solid fa-cloud"></i><span>Tryb statyczny</span>';
-          setTimeout(() => {
-            if (syncStatus) syncStatus.style.display = 'none';
-          }, 3500);
         }
       } finally {
         if (isManualRefresh && refreshBtn) {

@@ -4132,10 +4132,12 @@ html[data-contrast="black-yellow"] .gallery-dark-wrap {
   border: 2px solid #FFFF00 !important;
 }
 html[data-contrast="black-yellow"] .album-card,
+html[data-contrast="black-yellow"] .gazetka-card,
 html[data-contrast="black-yellow"] .photo-thumb-card {
   border: 2px solid #FFFF00 !important;
 }
 html[data-contrast="black-yellow"] .album-title,
+html[data-contrast="black-yellow"] .gazetka-title,
 html[data-contrast="black-yellow"] .album-meta,
 html[data-contrast="black-yellow"] .gallery-section-heading {
   color: #FFFF00 !important;
@@ -4153,10 +4155,12 @@ html[data-contrast="black-white"] .gallery-dark-wrap {
   border: 2px solid #FFFFFF !important;
 }
 html[data-contrast="black-white"] .album-card,
+html[data-contrast="black-white"] .gazetka-card,
 html[data-contrast="black-white"] .photo-thumb-card {
   border: 2px solid #FFFFFF !important;
 }
 html[data-contrast="black-white"] .album-title,
+html[data-contrast="black-white"] .gazetka-title,
 html[data-contrast="black-white"] .album-meta,
 html[data-contrast="black-white"] .gallery-section-heading {
   color: #FFFFFF !important;
@@ -4175,10 +4179,12 @@ html[data-contrast="yellow-black"] .gallery-dark-wrap {
   border: 2px solid #000000 !important;
 }
 html[data-contrast="yellow-black"] .album-card,
+html[data-contrast="yellow-black"] .gazetka-card,
 html[data-contrast="yellow-black"] .photo-thumb-card {
   border: 2px solid #000000 !important;
 }
 html[data-contrast="yellow-black"] .album-title,
+html[data-contrast="yellow-black"] .gazetka-title,
 html[data-contrast="yellow-black"] .album-meta,
 html[data-contrast="yellow-black"] .gallery-section-heading {
   color: #000000 !important;
@@ -4216,22 +4222,47 @@ html[data-contrast="yellow-black"] .album-slideshow-btn {
 
 @media (max-width: 480px) {
   .gazetka-albums-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .gazetka-overlay {
+    padding: 8px 6px;
+    background: linear-gradient(
+      to top,
+      rgba(15, 23, 42, 0.94) 0%,
+      rgba(15, 23, 42, 0.5) 22%,
+      transparent 40%
+    );
+  }
+  .gazetka-title {
+    font-size: 0.8rem;
+    line-height: 1.2;
+    margin-bottom: 2px;
+  }
+  .gazetka-action-cue {
+    font-size: 0.68rem;
+  }
+  .gazetka-badge-pdf {
+    top: 6px;
+    right: 6px;
+    padding: 2px 6px;
+    font-size: 0.65rem;
   }
 }
 
 .gazetka-card {
   position: relative;
-  aspect-ratio: 1 / 1.35;
+  aspect-ratio: 1 / 1.414;
   border-radius: 14px;
   overflow: hidden;
   cursor: pointer;
-  background: #1F2937;
+  background: #0f172a;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
   transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  display: block;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-decoration: none;
   padding: 0;
   width: 100%;
@@ -4253,13 +4284,14 @@ html[data-contrast="yellow-black"] .album-slideshow-btn {
 .gazetka-cover-img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  object-fit: contain;
+  object-position: center;
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
   display: block;
 }
 
 .gazetka-card:hover .gazetka-cover-img {
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
 .gazetka-badge-pdf {
@@ -4291,14 +4323,14 @@ html[data-contrast="yellow-black"] .album-slideshow-btn {
   inset: 0;
   background: linear-gradient(
     to top,
-    rgba(15, 23, 42, 0.95) 0%,
-    rgba(15, 23, 42, 0.7) 45%,
-    rgba(15, 23, 42, 0.1) 100%
+    rgba(15, 23, 42, 0.92) 0%,
+    rgba(15, 23, 42, 0.45) 20%,
+    transparent 38%
   );
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 20px 18px;
+  padding: 14px 12px;
   pointer-events: none;
 }
 
@@ -4314,7 +4346,7 @@ html[data-contrast="yellow-black"] .album-slideshow-btn {
 .gazetka-meta {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 8px;
   color: rgba(255, 255, 255, 0.85);
   font-size: 0.82rem;
