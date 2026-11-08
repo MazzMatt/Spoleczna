@@ -1841,10 +1841,70 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
+    let masonryRaf = null;
+    function scheduleNewsMasonry() {
+      if (masonryRaf) cancelAnimationFrame(masonryRaf);
+      masonryRaf = requestAnimationFrame(() => {
+        applyNewsMasonry();
+      });
+    }
+
+    function applyNewsMasonry() {
+      if (!container) return;
+      const cards = Array.from(container.querySelectorAll('.news-card'));
+      if (cards.length === 0) {
+        container.style.height = '';
+        return;
+      }
+
+      const containerWidth = container.clientWidth;
+      const isMobile = window.innerWidth <= 768 || containerWidth < 680;
+
+      if (isMobile) {
+        // Na telefonach: 1 naturalna kolumna pionowa w porządku chronologicznym
+        container.style.height = '';
+        cards.forEach(card => {
+          card.style.position = '';
+          card.style.top = '';
+          card.style.left = '';
+          card.style.width = '100%';
+          card.style.marginBottom = '28px';
+        });
+        return;
+      }
+
+      // Układ 2 kolumn w stylu Pinterest / Masonry:
+      // Kafelki mają wysokość dopasowaną do tekstu i zapełniają krótszą kolumnę
+      const gap = 36;
+      const colWidth = Math.floor((containerWidth - gap) / 2);
+      const colHeights = [0, 0];
+
+      cards.forEach(card => {
+        card.style.position = 'absolute';
+        card.style.width = `${colWidth}px`;
+        card.style.marginBottom = '0px';
+
+        // Wybór kolumny o mniejszej bieżącej wysokości (Pinterest)
+        const targetCol = colHeights[0] <= colHeights[1] ? 0 : 1;
+        const left = targetCol === 0 ? 0 : (colWidth + gap);
+        const top = colHeights[targetCol];
+
+        card.style.left = `${left}px`;
+        card.style.top = `${top}px`;
+
+        const cardHeight = card.offsetHeight;
+        colHeights[targetCol] += cardHeight + gap;
+      });
+
+      const totalHeight = Math.max(colHeights[0], colHeights[1]);
+      container.style.height = `${totalHeight}px`;
+    }
+
     function renderNews(newsList) {
       if (!Array.isArray(newsList) || newsList.length === 0) {
+        container.style.height = '';
         container.innerHTML = `
-          <div id="news-empty-state" class="news-empty-state" style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; background: #fff; border-radius: var(--radius-lg); border: 1px dashed var(--color-border); box-shadow: var(--shadow-sm);">
+          <div id="news-empty-state" class="news-empty-state" style="width: 100%; text-align: center; padding: 60px 20px; background: #fff; border-radius: var(--radius-lg); border: 1px dashed var(--color-border); box-shadow: var(--shadow-sm);">
             <div style="width: 72px; height: 72px; margin: 0 auto 16px; border-radius: 50%; background: rgba(30, 77, 140, 0.08); display: flex; align-items: center; justify-content: center; font-size: 2rem; color: var(--color-primary);">
               <i class="fa-regular fa-newspaper"></i>
             </div>
@@ -1887,7 +1947,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
         container.appendChild(article);
       });
+
+      // Ułożenie kafelków w układzie Pinterest oraz obsługa ładowania obrazków
+      scheduleNewsMasonry();
+      const imgs = container.querySelectorAll('.news-card-img');
+      imgs.forEach(img => {
+        if (!img.complete) {
+          img.addEventListener('load', scheduleNewsMasonry, { once: true });
+          img.addEventListener('error', scheduleNewsMasonry, { once: true });
+        }
+      });
     }
+
+    window.addEventListener('resize', scheduleNewsMasonry);
 
     // 1. Pamięć podręczna (0 ms)
     try {

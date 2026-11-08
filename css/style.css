@@ -1133,12 +1133,12 @@ html.stop-motion *::after {
 }
 
 /* --------------------------------------------------------------------------
-   AKTUALNOŚCI I KARTY
+   AKTUALNOŚCI I KARTY (UKŁAD PINTEREST / MASONRY)
    -------------------------------------------------------------------------- */
 .news-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 36px;
+  position: relative;
+  width: 100%;
+  display: block;
 }
 
 .news-card {
@@ -1147,9 +1147,11 @@ html.stop-motion *::after {
   overflow: hidden;
   box-shadow: var(--shadow-sm);
   border: 1px solid var(--border-color);
-  transition: var(--transition);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, top 0.25s ease, left 0.25s ease;
   display: flex;
   flex-direction: column;
+  height: auto;
+  box-sizing: border-box;
 }
 
 .news-card:hover {
@@ -1466,7 +1468,8 @@ html.stop-motion *::after {
   padding: 30px 34px;
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
+  flex-grow: 0;
+  justify-content: flex-start;
 }
 
 .news-date {
@@ -1495,8 +1498,8 @@ html.stop-motion *::after {
   font-size: 1rem;
   color: #334155;
   line-height: 1.72;
-  margin-bottom: 22px;
-  flex-grow: 1;
+  margin-bottom: 18px;
+  flex-grow: 0;
   text-align: justify;
   text-justify: inter-word;
   hyphens: auto;
@@ -1513,7 +1516,7 @@ html.stop-motion *::after {
 }
 
 .news-card-footer {
-  margin-top: auto;
+  margin-top: 6px;
   padding-top: 14px;
   border-top: 1px dashed var(--border-color);
 }
@@ -2166,7 +2169,6 @@ textarea.form-control {
 @media (max-width: 1100px) {
   .pillars-grid,
   .docs-grid,
-  .news-grid,
   .offer-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -2447,7 +2449,6 @@ textarea.form-control {
 
 @media (max-width: 640px) {
   .pillars-grid,
-  .news-grid,
   .footer-grid {
     grid-template-columns: 1fr;
   }
