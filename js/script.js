@@ -1780,13 +1780,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const paginationContainer = document.getElementById('news-pagination');
     const ITEMS_PER_PAGE = 10;
     let currentPage = 1;
-    const CACHE_KEY = 'pssp_school_news_cache_v3';
+    const CACHE_KEY = 'pssp_school_news_cache_v4';
     let allNews = [];
 
     // Czyszczenie starej pamięci podręcznej
     try {
       localStorage.removeItem('pssp_school_news_cache_v1');
       localStorage.removeItem('pssp_school_news_cache_v2');
+      localStorage.removeItem('pssp_school_news_cache_v3');
     } catch (e) {}
 
     const CLOUD_STRAPI_URL = 'https://spolecznachelm.duckdns.org';
@@ -1824,8 +1825,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const category = (attrs.Kategoria || attrs.kategoria || '').trim();
         const content = (attrs.Opis || attrs.opis || '').trim();
 
-        // Zdjęcie wpisu
+        // Zdjęcie wpisu (z zachowaniem naturalnych proporcji pionowych i poziomych)
         let imageUrl = '';
+        let aspectRatio = '';
         const rawPhoto = attrs.Zdjecie || attrs.zdjecie || attrs.Okladka || attrs.okladka;
         if (rawPhoto) {
           const mediaObj = Array.isArray(rawPhoto) ? rawPhoto[0] : (rawPhoto.data ? (Array.isArray(rawPhoto.data) ? rawPhoto.data[0] : rawPhoto.data) : rawPhoto);
@@ -1833,6 +1835,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const mAttrs = mediaObj.attributes || mediaObj;
             if (mAttrs && mAttrs.url) {
               imageUrl = resolveMediaUrl(mAttrs.url, baseStrapi);
+              if (mAttrs.width && mAttrs.height) {
+                aspectRatio = `${mAttrs.width} / ${mAttrs.height}`;
+              }
             }
           }
         }
@@ -1861,6 +1866,7 @@ document.addEventListener('DOMContentLoaded', () => {
           category,
           content,
           imageUrl,
+          aspectRatio,
           galleryParam
         };
       });
@@ -2070,7 +2076,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         article.innerHTML = `
           <div class="news-card-img-wrap">
-            <img src="${news.imageUrl}" alt="${news.title}" class="news-card-img" loading="lazy">
+            <img src="${news.imageUrl}" alt="${news.title}" class="news-card-img" ${news.aspectRatio ? `style="aspect-ratio: ${news.aspectRatio};"` : ''} loading="lazy">
             ${news.category ? `<span class="news-tag">${news.category}</span>` : ''}
           </div>
           <div class="news-card-body">
