@@ -1284,6 +1284,9 @@ html.stop-motion *::after {
 .poster-showcase-wrapper {
   width: 100%;
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
 }
 
 .poster-card-featured {
