@@ -1985,27 +1985,6 @@ document.addEventListener('DOMContentLoaded', () => {
     syncFromCloudBackend();
   }
 
-    if (refreshBtn) {
-      refreshBtn.addEventListener('click', async () => {
-        const orig = refreshBtn.innerHTML;
-        refreshBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i> <span>Pobieranie...</span>';
-        refreshBtn.disabled = true;
-        try { localStorage.removeItem(CACHE_KEY); } catch (e) {}
-        await syncFromCloudBackend(true);
-        refreshBtn.innerHTML = orig;
-        refreshBtn.disabled = false;
-      });
-    }
-
-    document.addEventListener('visibilitychange', () => {
-      if (document.visibilityState === 'visible') {
-        syncFromCloudBackend();
-      }
-    });
-
-    syncFromCloudBackend();
-  }
-
   initSchoolNews();
 
 
