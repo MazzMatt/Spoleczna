@@ -839,6 +839,43 @@ document.addEventListener('DOMContentLoaded', () => {
     let allAlbums = [];
     let currentAlbum = null;
     let activePhotoIndex = 0;
+    let dbTotalAlbums = null;
+
+    const countNumber = document.getElementById('gallery-count-number');
+    const countBadge = document.getElementById('gallery-count-badge');
+
+    function updateGalleryCountBadge(count) {
+      if (countNumber && typeof count === 'number' && !isNaN(count)) {
+        countNumber.textContent = count;
+      }
+      if (countBadge) {
+        countBadge.style.display = 'inline-flex';
+      }
+    }
+
+    try {
+      const cachedDbTotal = localStorage.getItem('pssp_galeria_db_total');
+      if (cachedDbTotal !== null) {
+        dbTotalAlbums = parseInt(cachedDbTotal, 10);
+        updateGalleryCountBadge(dbTotalAlbums);
+      }
+    } catch (e) {}
+
+    async function fetchGaleriaDbCount() {
+      try {
+        const res = await fetch(`${activeStrapiBase}/api/galerias?fields[0]=id&pagination[pageSize]=1`, {
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          const json = await res.json();
+          if (json.meta && json.meta.pagination && typeof json.meta.pagination.total === 'number') {
+            dbTotalAlbums = json.meta.pagination.total;
+            try { localStorage.setItem('pssp_galeria_db_total', String(dbTotalAlbums)); } catch (err) {}
+            updateGalleryCountBadge(dbTotalAlbums);
+          }
+        }
+      } catch (e) {}
+    }
 
     // Obsługa wyboru sortowania albumów ("Od najnowszych" / "Od najstarszych")
     let currentSortMode = 'desc';
@@ -1114,6 +1151,12 @@ document.addEventListener('DOMContentLoaded', () => {
           throw new Error('HTTP ' + res.status);
         }
         const json = await res.json();
+        if (json.meta && json.meta.pagination && typeof json.meta.pagination.total === 'number') {
+          dbTotalAlbums = json.meta.pagination.total;
+          try { localStorage.setItem('pssp_galeria_db_total', String(dbTotalAlbums)); } catch (err) {}
+          updateGalleryCountBadge(dbTotalAlbums);
+        }
+
         if (Array.isArray(json.data) && json.data.length > 0) {
           const mapped = mapStrapiToAlbums(json.data, activeStrapiBase);
           if (mapped.length > 0) {
@@ -1144,10 +1187,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Główna funkcja orkiestrująca wczytywanie
     async function loadGalleriesFromBackend() {
-      // 1. Równoległe odpytanie chmury Strapi (zawsze aktualna, bezpośrednio z bazy danych)
+      // 1. Szybkie bezpośrednie pobranie łącznej liczby z bazy danych
+      fetchGaleriaDbCount();
+
+      // 2. Równoległe odpytanie chmury Strapi (zawsze aktualna, bezpośrednio z bazy danych)
       const cloudPromise = syncFromCloudBackend(false);
 
-      // 2. Jeśli nie mamy nic w pamięci podręcznej, wczytaj plik awaryjny z GitHub Pages, aby natychmiast coś pokazać
+      // 3. Jeśli nie mamy nic w pamięci podręcznej, wczytaj plik awaryjny z GitHub Pages, aby natychmiast coś pokazać
       if (allAlbums.length === 0) {
         const hasStatic = await loadStaticFallback();
         if (!hasStatic && allAlbums.length === 0) {
@@ -1160,13 +1206,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderAlbums(albumsToRender) {
       container.innerHTML = '';
 
-      const countNumber = document.getElementById('gallery-count-number');
-      const countBadge = document.getElementById('gallery-count-badge');
-      if (countNumber) {
-        countNumber.textContent = albumsToRender.length;
-      }
-      if (countBadge) {
-        countBadge.style.display = 'inline';
+      if (dbTotalAlbums !== null) {
+        updateGalleryCountBadge(dbTotalAlbums);
+      } else {
+        updateGalleryCountBadge(albumsToRender.length);
       }
 
       if (albumsToRender.length === 0) {
@@ -1368,6 +1411,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let allGazetkas = [];
     let currentSortMode = 'desc';
+    let dbTotalGazetkas = null;
+
+    function updateGazetkaCountBadge(count) {
+      if (countNumber && typeof count === 'number' && !isNaN(count)) {
+        countNumber.textContent = count;
+      }
+      if (countBadge) {
+        countBadge.style.display = 'inline-flex';
+      }
+    }
+
+    try {
+      const cachedDbTotal = localStorage.getItem('pssp_gazetka_db_total');
+      if (cachedDbTotal !== null) {
+        dbTotalGazetkas = parseInt(cachedDbTotal, 10);
+        updateGazetkaCountBadge(dbTotalGazetkas);
+      }
+    } catch (e) {}
+
+    async function fetchGazetkaDbCount() {
+      try {
+        const res = await fetch(`${activeStrapiBase}/api/gazetkas?fields[0]=id&pagination[pageSize]=1`, {
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          const json = await res.json();
+          if (json.meta && json.meta.pagination && typeof json.meta.pagination.total === 'number') {
+            dbTotalGazetkas = json.meta.pagination.total;
+            try { localStorage.setItem('pssp_gazetka_db_total', String(dbTotalGazetkas)); } catch (err) {}
+            updateGazetkaCountBadge(dbTotalGazetkas);
+          }
+        }
+      } catch (e) {}
+    }
 
     try {
       const savedSort = localStorage.getItem('pssp_gazetka_sort');
@@ -1500,8 +1577,11 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderGazetkas(gazetkasToRender) {
       container.innerHTML = '';
 
-      if (countNumber) countNumber.textContent = gazetkasToRender.length;
-      if (countBadge) countBadge.style.display = 'inline';
+      if (dbTotalGazetkas !== null) {
+        updateGazetkaCountBadge(dbTotalGazetkas);
+      } else {
+        updateGazetkaCountBadge(gazetkasToRender.length);
+      }
 
       if (gazetkasToRender.length === 0) {
         if (emptyState) emptyState.style.display = 'block';
@@ -1581,6 +1661,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (icon) icon.classList.add('fa-spin');
       }
 
+      // Szybkie pobranie łącznej liczby z bazy danych
+      fetchGazetkaDbCount();
+
       const hasStatic = await loadStaticFallback(isManualRefresh);
 
       try {
@@ -1597,6 +1680,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
         const json = await res.json();
+        if (json.meta && json.meta.pagination && typeof json.meta.pagination.total === 'number') {
+          dbTotalGazetkas = json.meta.pagination.total;
+          try { localStorage.setItem('pssp_gazetka_db_total', String(dbTotalGazetkas)); } catch (err) {}
+          updateGazetkaCountBadge(dbTotalGazetkas);
+        }
+
         const items = Array.isArray(json) ? json : (json.data || []);
 
         allGazetkas = mapStrapiToGazetkas(items, activeStrapiBase);

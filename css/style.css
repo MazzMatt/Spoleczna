@@ -3704,10 +3704,28 @@ html[data-contrast="yellow-black"] .back-to-top-btn {
   display: flex;
   align-items: center;
   gap: 12px;
+  line-height: 1.2;
 }
 
 .gallery-section-heading i {
   color: #F8C830;
+}
+
+.gallery-heading-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  line-height: 1;
+}
+
+.heading-count-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #F8C830;
+  font-weight: 800;
+  line-height: 1;
+  transform: translateY(-0.08em);
 }
 
 /* Siatka folderów / albumów (4 kolumny jak na zdjęciu wzorcowym) */
@@ -4139,6 +4157,7 @@ html[data-contrast="black-yellow"] .photo-thumb-card {
 html[data-contrast="black-yellow"] .album-title,
 html[data-contrast="black-yellow"] .gazetka-title,
 html[data-contrast="black-yellow"] .album-meta,
+html[data-contrast="black-yellow"] .heading-count-badge,
 html[data-contrast="black-yellow"] .gallery-section-heading {
   color: #FFFF00 !important;
 }
@@ -4162,6 +4181,7 @@ html[data-contrast="black-white"] .photo-thumb-card {
 html[data-contrast="black-white"] .album-title,
 html[data-contrast="black-white"] .gazetka-title,
 html[data-contrast="black-white"] .album-meta,
+html[data-contrast="black-white"] .heading-count-badge,
 html[data-contrast="black-white"] .gallery-section-heading {
   color: #FFFFFF !important;
 }
@@ -4186,6 +4206,7 @@ html[data-contrast="yellow-black"] .photo-thumb-card {
 html[data-contrast="yellow-black"] .album-title,
 html[data-contrast="yellow-black"] .gazetka-title,
 html[data-contrast="yellow-black"] .album-meta,
+html[data-contrast="yellow-black"] .heading-count-badge,
 html[data-contrast="yellow-black"] .gallery-section-heading {
   color: #000000 !important;
 }
