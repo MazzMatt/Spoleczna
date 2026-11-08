@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gazetka Szkolna „Społeczna Times” | Pierwsza Społeczna Szkoła Podstawowa w Chełmie</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="assets/icons/favicon-192.png">
+  <link rel="shortcut icon" href="favicon.ico">
+
+  <style>
+    :root {
+      --color-primary: #1E2B82;
+      --color-primary-dark: #121A58;
+      --color-accent: #F8C830;
+      --color-accent-dark: #D4A312;
+      --bg-header: #FFFEEA;
+      --text-primary: #141A46;
+      --border-color: #EBDFA8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Montserrat', sans-serif;
+      background: #1A202C;
+      color: #FFFFFF;
+    }
+
+    /* Pasek górny czytnika */
+    .viewer-header {
+      height: 60px;
+      background: var(--bg-header);
+      border-bottom: 2px solid var(--color-accent);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+      position: relative;
+      z-index: 100;
+    }
+
+    .viewer-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .viewer-logo {
+      width: 38px;
+      height: 38px;
+      object-fit: contain;
+    }
+
+    .viewer-titles {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .viewer-issue-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--color-primary);
+      line-height: 1.2;
+    }
+
+    .viewer-sub-title {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #64748B;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .viewer-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .viewer-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 16px;
+      border-radius: 9999px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      border: 1px solid transparent;
+    }
+
+    .viewer-btn-back {
+      background: #FFFFFF;
+      color: var(--color-primary);
+      border-color: var(--border-color);
+    }
+
+    .viewer-btn-back:hover {
+      background: var(--color-primary);
+      color: #FFFFFF;
+      border-color: var(--color-primary);
+    }
+
+    .viewer-btn-download {
+      background: var(--color-accent);
+      color: var(--color-primary);
+    }
+
+    .viewer-btn-download:hover {
+      background: var(--color-accent-dark);
+      color: #FFFFFF;
+    }
+
+    /* Kontener ramki PDF */
+    .viewer-frame-container {
+      width: 100%;
+      height: calc(100% - 60px);
+      position: relative;
+      background: #2D3748;
+    }
+
+    .viewer-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    .viewer-fallback {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: #FFFFFF;
+      padding: 24px;
+      display: none;
+      background: rgba(18, 26, 88, 0.95);
+      border-radius: 14px;
+      border: 2px solid var(--color-accent);
+      max-width: 90%;
+    }
+
+    .viewer-fallback p {
+      margin-bottom: 16px;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 680px) {
+      .viewer-header {
+        height: auto;
+        padding: 10px 14px;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .viewer-frame-container {
+        height: calc(100% - 66px);
+      }
+      .viewer-sub-title {
+        display: none;
+      }
+      .viewer-issue-title {
+        font-size: 0.92rem;
+      }
+      .viewer-btn {
+        padding: 6px 12px;
+        font-size: 0.78rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="viewer-header">
+    <a href="gazetka.html" class="viewer-brand" title="Wróć do listy wydań gazetki">
+      <img src="assets/icons/logo.png" alt="Godło Szkoły" class="viewer-logo">
+      <div class="viewer-titles">
+        <span class="viewer-issue-title" id="viewer-title">Gazetka Szkolna</span>
+        <span class="viewer-sub-title">Pierwsza Społeczna Szkoła Podstawowa w Chełmie</span>
+      </div>
+    </a>
+
+    <div class="viewer-actions">
+      <a href="gazetka.html" class="viewer-btn viewer-btn-back">
+        <i class="fa-solid fa-arrow-left"></i> <span>Wróć</span>
+      </a>
+      <a href="#" id="viewer-download-link" class="viewer-btn viewer-btn-download" download target="_blank" rel="noopener">
+        <i class="fa-solid fa-download"></i> <span>Pobierz PDF</span>
+      </a>
+    </div>
+  </header>
+
+  <main class="viewer-frame-container">
+    <iframe id="pdf-frame" class="viewer-iframe" title="Podgląd gazetki szkolnej w formacie PDF"></iframe>
+    <div id="viewer-fallback" class="viewer-fallback">
+      <p>Jeśli podgląd pliku PDF nie wyświetla się bezpośrednio w oknie, możesz go otworzyć w pełnej karcie:</p>
+      <a href="#" id="viewer-fallback-btn" class="viewer-btn viewer-btn-download" target="_blank" rel="noopener">
+        <i class="fa-solid fa-arrow-up-right-from-square"></i> Otwórz plik PDF
+      </a>
+    </div>
+  </main>
+
+  <script>
+    (function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const pdfUrl = urlParams.get('pdf');
+      const title = urlParams.get('title') || 'Wydanie Gazetki';
+
+      const titleEl = document.getElementById('viewer-title');
+      const downloadLink = document.getElementById('viewer-download-link');
+      const fallbackBtn = document.getElementById('viewer-fallback-btn');
+      const pdfFrame = document.getElementById('pdf-frame');
+      const fallbackDiv = document.getElementById('viewer-fallback');
+
+      // 1. Zmiana tytułu karty w przeglądarce
+      document.title = `${title} | Gazetka Szkolna „Społeczna Times”`;
+
+      // 2. Tytuł w nagłówku
+      if (titleEl) {
+        titleEl.textContent = title;
+      }
+
+      // 3. Linki do pobierania i ramka
+      if (pdfUrl) {
+        if (downloadLink) {
+          downloadLink.href = pdfUrl;
+          downloadLink.setAttribute('download', `${title}.pdf`);
+        }
+        if (fallbackBtn) {
+          fallbackBtn.href = pdfUrl;
+        }
+
+        // Pasek narzędzi PDF wbudowany w przeglądarkę
+        const frameSrc = pdfUrl.includes('#') ? pdfUrl : `${pdfUrl}#toolbar=1&navpanes=0`;
+        pdfFrame.src = frameSrc;
+
+        // Awaryjny komunikat w razie braku obsługi w starszych mobilnych przeglądarkach
+        setTimeout(() => {
+          try {
+            if (!pdfFrame.contentDocument && /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+              // Na części telefonów wbudowane przeglądarki mogą wymagać bezpośredniego linku
+              if (fallbackDiv) fallbackDiv.style.display = 'block';
+            }
+          } catch (e) {}
+        }, 1200);
+      } else {
+        alert('Nie podano adresu pliku PDF gazetki.');
+        window.location.href = 'gazetka.html';
+      }
+    })();
+  </script>
+</body>
+</html>

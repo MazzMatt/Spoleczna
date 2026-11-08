@@ -1568,7 +1568,7 @@ document.addEventListener('DOMContentLoaded', () => {
         card.setAttribute('aria-label', `Otwórz gazetkę: ${item.title}`);
         
         if (item.pdfUrl) {
-          card.href = item.pdfUrl;
+          card.href = `czytaj-gazetke.html?title=${encodeURIComponent(item.title)}&pdf=${encodeURIComponent(item.pdfUrl)}`;
           card.target = '_blank';
           card.rel = 'noopener';
         } else {
