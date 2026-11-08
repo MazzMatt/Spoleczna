@@ -1,11 +1,1 @@
-{
-  "data": [],
-  "meta": {
-    "pagination": {
-      "page": 1,
-      "pageSize": 100,
-      "pageCount": 0,
-      "total": 0
-    }
-  }
-}
+{"data":[{"id":2,"documentId":"dh3epkax5akkqj6zaahfjswc","Tytul":"Lato 2024/2025","Data":"2024-07-01","createdAt":"2026-11-07T23:33:25.533Z","updatedAt":"2026-11-07T23:33:25.533Z","publishedAt":"2026-11-07T23:33:25.590Z","Okladka":{"id":1568,"documentId":"tf6ueqzb6jkavwgmca3dn2vd","name":"SPOLECZNA_TIMES_bez_tla.png","alternativeText":null,"caption":null,"focalPoint":null,"width":918,"height":804,"formats":{"thumbnail":{"ext":".png","url":"https://res.cloudinary.com/zpylz0ih/image/upload/v1794094400/thumbnail_SPOLECZNA_TIMES_bez_tla_c588bc53e2.png","hash":"thumbnail_SPOLECZNA_TIMES_bez_tla_c588bc53e2","mime":"image/png","name":"thumbnail_SPOLECZNA_TIMES_bez_tla.png","path":null,"size":56.1,"width":178,"height":156,"sizeInBytes":56100,"provider_metadata":{"public_id":"thumbnail_SPOLECZNA_TIMES_bez_tla_c588bc53e2","resource_type":"image"}}},"hash":"SPOLECZNA_TIMES_bez_tla_c588bc53e2","ext":".png","mime":"image/png","size":801.41,"url":"https://res.cloudinary.com/zpylz0ih/image/upload/v1794094400/SPOLECZNA_TIMES_bez_tla_c588bc53e2.png","previewUrl":null,"provider":"cloudinary","provider_metadata":{"public_id":"SPOLECZNA_TIMES_bez_tla_c588bc53e2","resource_type":"image"},"createdAt":"2026-11-07T23:33:21.106Z","updatedAt":"2026-11-07T23:33:21.106Z","publishedAt":"2026-11-07T23:33:21.106Z"},"Plik":{"id":1567,"documentId":"n30fvrnctx839djfekiwxocp","name":"GAZETKA_SZKOLNA_NR_3_ LATO_2024_2025.pdf","alternativeText":null,"caption":null,"focalPoint":null,"width":null,"height":null,"formats":null,"hash":"GAZETKA_SZKOLNA_NR_3_LATO_2024_2025_6bd20be70b","ext":".pdf","mime":"application/pdf","size":3094.1,"url":"https://res.cloudinary.com/zpylz0ih/image/upload/v1794094386/GAZETKA_SZKOLNA_NR_3_LATO_2024_2025_6bd20be70b.pdf","previewUrl":null,"provider":"cloudinary","provider_metadata":{"public_id":"GAZETKA_SZKOLNA_NR_3_LATO_2024_2025_6bd20be70b","resource_type":"image"},"createdAt":"2026-11-07T23:33:07.486Z","updatedAt":"2026-11-07T23:33:07.486Z","publishedAt":"2026-11-07T23:33:07.486Z"}}],"meta":{"pagination":{"page":1,"pageSize":100,"pageCount":1,"total":1}}}
