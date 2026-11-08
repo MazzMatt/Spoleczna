@@ -1216,14 +1216,31 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!target) return;
 
         const clean = decodeURIComponent(target).toLowerCase();
-        const matched = albums.find(a => 
-          String(a.id || '').toLowerCase() === clean ||
+
+        // 1. Szukamy precyzyjnie po unikalnym ID (documentId, id lub rawId ze Strapi)
+        // Dzięki temu foldery o tej samej nazwie (np. "Moje podróże" 2026 i 2025) są bezbłędnie rozróżniane!
+        let matched = albums.find(a => 
           String(a.documentId || '').toLowerCase() === clean ||
-          String(a.rawId || '').toLowerCase() === clean ||
-          String(a.title || '').trim().toLowerCase() === clean ||
-          String(a.title || '').trim().toLowerCase().includes(clean) ||
-          clean.includes(String(a.title || '').trim().toLowerCase())
+          String(a.id || '').toLowerCase() === clean ||
+          String(a.rawId || '').toLowerCase() === clean
         );
+
+        // 2. Jeśli nie dopasowano po ID, szukamy po dokładnym tytule (wybierając najnowszy w razie duplikatów nazw)
+        if (!matched) {
+          const titleMatches = albums.filter(a => String(a.title || '').trim().toLowerCase() === clean);
+          if (titleMatches.length > 0) {
+            titleMatches.sort((a, b) => (b.timestamp || b.createdTimestamp || 0) - (a.timestamp || a.createdTimestamp || 0));
+            matched = titleMatches[0];
+          }
+        }
+
+        // 3. Fallback: częściowe dopasowanie tytułu
+        if (!matched) {
+          matched = albums.find(a => 
+            String(a.title || '').trim().toLowerCase().includes(clean) ||
+            clean.includes(String(a.title || '').trim().toLowerCase())
+          );
+        }
 
         if (matched) {
           hasHandledInitialUrlAlbum = true;
@@ -1763,12 +1780,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const paginationContainer = document.getElementById('news-pagination');
     const ITEMS_PER_PAGE = 10;
     let currentPage = 1;
-    const CACHE_KEY = 'pssp_school_news_cache_v2';
+    const CACHE_KEY = 'pssp_school_news_cache_v3';
     let allNews = [];
 
-    // Czyszczenie starej pamięci podręcznej z przykładowymi wpisami
+    // Czyszczenie starej pamięci podręcznej
     try {
       localStorage.removeItem('pssp_school_news_cache_v1');
+      localStorage.removeItem('pssp_school_news_cache_v2');
     } catch (e) {}
 
     const CLOUD_STRAPI_URL = 'https://spolecznachelm.duckdns.org';
@@ -1829,7 +1847,10 @@ document.addEventListener('DOMContentLoaded', () => {
           const gObj = rawGaleria.data ? (Array.isArray(rawGaleria.data) ? rawGaleria.data[0] : rawGaleria.data) : (Array.isArray(rawGaleria) ? rawGaleria[0] : rawGaleria);
           if (gObj) {
             const gAttrs = gObj.attributes || gObj;
-            galleryParam = gAttrs.Tytul || gAttrs.tytul || gObj.documentId || gObj.id || '';
+            // ZAWSZE preferujemy unikalny identyfikator (documentId lub id),
+            // aby foldery o tej samej nazwie (np. "Moje podróże" z różnych lat)
+            // były bezbłędnie i precyzyjnie rozróżniane!
+            galleryParam = gObj.documentId || (gAttrs && gAttrs.documentId) || gObj.id || (gAttrs && gAttrs.id) || gAttrs.Tytul || gAttrs.tytul || '';
           }
         }
 
