@@ -1759,8 +1759,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!container) return; // Uruchamiaj tylko tam, gdzie jest siatka aktualności
 
     const refreshBtn = document.getElementById('news-refresh-btn');
-    const CACHE_KEY = 'pssp_school_news_cache_v1';
+    const CACHE_KEY = 'pssp_school_news_cache_v2';
     let allNews = [];
+
+    // Czyszczenie starej pamięci podręcznej z przykładowymi wpisami
+    try {
+      localStorage.removeItem('pssp_school_news_cache_v1');
+    } catch (e) {}
 
     const CLOUD_STRAPI_URL = 'https://spolecznachelm.duckdns.org';
     const isLocalhost = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
@@ -1810,7 +1815,7 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         }
         if (!imageUrl) {
-          imageUrl = 'assets/images/children-reading.jpg';
+          imageUrl = 'assets/images/school-building.jpg';
         }
 
         // Powiązana galeria (relacja lub pole tekstowe)
@@ -1840,7 +1845,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function renderNews(newsList) {
-      if (!Array.isArray(newsList) || newsList.length === 0) return;
+      if (!Array.isArray(newsList) || newsList.length === 0) {
+        container.innerHTML = `
+          <div id="news-empty-state" class="news-empty-state" style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; background: #fff; border-radius: var(--radius-lg); border: 1px dashed var(--color-border); box-shadow: var(--shadow-sm);">
+            <div style="width: 72px; height: 72px; margin: 0 auto 16px; border-radius: 50%; background: rgba(30, 77, 140, 0.08); display: flex; align-items: center; justify-content: center; font-size: 2rem; color: var(--color-primary);">
+              <i class="fa-regular fa-newspaper"></i>
+            </div>
+            <h3 style="font-size: 1.3rem; margin-bottom: 8px; color: var(--color-primary); font-weight: 700;">Aktualności pojawią się wkrótce</h3>
+            <p style="color: var(--color-text-muted); max-width: 520px; margin: 0 auto; font-size: 0.95rem; line-height: 1.6;">W tej chwili nie ma jeszcze opublikowanych artykułów. Po dodaniu wpisów w panelu szkolnym pojawią się one automatycznie w tym miejscu.</p>
+          </div>
+        `;
+        return;
+      }
       container.innerHTML = '';
 
       newsList.forEach(news => {
@@ -1888,7 +1904,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     } catch (e) {}
 
-    // 2. Statyczny fallback z pliku JSON
+    // 2. Statyczny fallback z pliku JSON (jeśli istnieje)
     async function loadStaticFallback(forceBust = false) {
       const cacheBust = forceBust ? `?bust=${Date.now()}` : '';
       const candidates = [`data/aktualnosci.json${cacheBust}`, `./data/aktualnosci.json${cacheBust}`];
@@ -1914,9 +1930,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 3. Pobieranie na żywo z chmury Strapi
     async function syncFromCloudBackend(isManual = false) {
-      if (allNews.length === 0) {
-        await loadStaticFallback(isManual);
-      }
       try {
         const endpoint = `${activeStrapiBase}/api/aktualnoscs?populate=*&pagination[pageSize]=100&sort=Data:desc,createdAt:desc`;
         const controller = new AbortController();
@@ -1941,17 +1954,39 @@ document.addEventListener('DOMContentLoaded', () => {
           renderNews(allNews);
           return true;
         } else {
-          if (allNews.length === 0) {
-            await loadStaticFallback();
-          }
+          allNews = [];
+          try { localStorage.setItem(CACHE_KEY, JSON.stringify([])); } catch (e) {}
+          renderNews([]);
+          return true;
         }
       } catch (err) {
         if (allNews.length === 0) {
-          await loadStaticFallback();
+          await loadStaticFallback(isManual);
         }
       }
       return false;
     }
+
+    if (refreshBtn) {
+      refreshBtn.addEventListener('click', async () => {
+        const orig = refreshBtn.innerHTML;
+        refreshBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i> <span>Pobieranie...</span>';
+        refreshBtn.disabled = true;
+        try { localStorage.removeItem(CACHE_KEY); } catch (e) {}
+        await syncFromCloudBackend(true);
+        refreshBtn.innerHTML = orig;
+        refreshBtn.disabled = false;
+      });
+    }
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') {
+        syncFromCloudBackend();
+      }
+    });
+
+    syncFromCloudBackend();
+  }
 
     if (refreshBtn) {
       refreshBtn.addEventListener('click', async () => {

@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Cinzel:wght@700;900&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="css/style.css?v=20261108v18">
+  <link rel="stylesheet" href="css/style.css?v=20261108v19">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
   <link rel="apple-touch-icon" sizes="192x192" href="assets/icons/favicon-192.png">
   <link rel="shortcut icon" href="favicon.ico">
@@ -113,92 +113,14 @@
       </div>
 
       <div class="news-grid" id="news-grid-container">
-        
-        <!-- Wpis 1 -->
-        <article class="news-card">
-          <div class="news-card-img-wrap">
-            <img src="assets/images/children-reading.jpg" alt="Święto Szkoły" class="news-card-img" loading="lazy">
-            <span class="news-tag">Wydarzenia</span>
+        <!-- Stan początkowy / wczytywanie lub brak wpisów -->
+        <div id="news-empty-state" class="news-empty-state" style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; background: #fff; border-radius: var(--radius-lg); border: 1px dashed var(--color-border); box-shadow: var(--shadow-sm);">
+          <div style="width: 72px; height: 72px; margin: 0 auto 16px; border-radius: 50%; background: rgba(30, 77, 140, 0.08); display: flex; align-items: center; justify-content: center; font-size: 2rem; color: var(--color-primary);">
+            <i class="fa-regular fa-newspaper"></i>
           </div>
-          <div class="news-card-body">
-            <div class="news-date"><i class="fa-regular fa-calendar"></i> 28 Października 2026</div>
-            <h3 class="news-card-title">Święto Szkoły i Pasowanie na Pierwszoklasistę</h3>
-            <p class="news-excerpt">Uroczysta akademia z udziałem Dyrekcji, nauczycieli i rodziców. Uczniowie klasy pierwszej złożyli uroczyste ślubowanie i otrzymali pamiątkowe dyplomy.</p>
-            <div class="news-card-footer">
-              <a href="galeria.html?album=Pasowanie%20na%20pierwszoklasist%C4%99" class="btn-more-gallery">
-                <i class="fa-solid fa-images"></i>
-                <span>Zobacz fotorelację w galerii</span>
-                <i class="fa-solid fa-arrow-right"></i>
-              </a>
-            </div>
-          </div>
-        </article>
-
-        <!-- Wpis 2 -->
-        <article class="news-card">
-          <div class="news-card-img-wrap">
-            <img src="assets/images/school-building.jpg" alt="Gazetka szkolna" class="news-card-img">
-            <span class="news-tag">Społeczna Times</span>
-          </div>
-          <div class="news-card-body">
-            <div class="news-date"><i class="fa-regular fa-calendar"></i> 22 Października 2026</div>
-            <h3 class="news-card-title">Nowy numer gazetki szkolnej „Społeczna Times”</h3>
-            <p class="news-excerpt">Zapraszamy do lektury najnowszego wydania redagowanego przez uczniów. W numerze m.in. wywiad z nauczycielami, kącik poetycki i relacje z wycieczek.</p>
-          </div>
-        </article>
-
-        <!-- Wpis 3 -->
-        <article class="news-card">
-          <div class="news-card-img-wrap">
-            <img src="assets/images/hero-original-kozyszkola.jpg" alt="Warsztaty profilaktyczne" class="news-card-img">
-            <span class="news-tag">Profilaktyka</span>
-          </div>
-          <div class="news-card-body">
-            <div class="news-date"><i class="fa-regular fa-calendar"></i> 16 Października 2026</div>
-            <h3 class="news-card-title">Warsztaty prawne i profilaktyczne przeciw hejtowi</h3>
-            <p class="news-excerpt">Spotkanie poświęcone bezpieczeństwu w sieci, odpowiedzialności prawnej nieletnich oraz budowaniu relacji rówieśniczych opartych na życzliwości i szacunku.</p>
-          </div>
-        </article>
-
-        <!-- Wpis 4 -->
-        <article class="news-card">
-          <div class="news-card-img-wrap">
-            <img src="assets/images/children-reading.jpg" alt="Konwersacje z Brytyjczykiem" class="news-card-img">
-            <span class="news-tag">Języki Obce</span>
-          </div>
-          <div class="news-card-body">
-            <div class="news-date"><i class="fa-regular fa-calendar"></i> 10 Października 2026</div>
-            <h3 class="news-card-title">Konwersacje z Brytyjczykiem – żywy angielski w praktyce</h3>
-            <p class="news-excerpt">Nasi uczniowie regularnie doskonalą biegłość językową podczas autorskich warsztatów konwersacyjnych z native speakerem z Wielkiej Brytanii.</p>
-          </div>
-        </article>
-
-        <!-- Wpis 5 -->
-        <article class="news-card">
-          <div class="news-card-img-wrap">
-            <img src="assets/images/school-building.jpg" alt="Kiermasz charytatywny" class="news-card-img">
-            <span class="news-tag">Wolontariat</span>
-          </div>
-          <div class="news-card-body">
-            <div class="news-date"><i class="fa-regular fa-calendar"></i> 4 Października 2026</div>
-            <h3 class="news-card-title">Szkolny kiermasz charytatywny i zbiórka darów</h3>
-            <p class="news-excerpt">Wspólnie z Chełmskim Towarzystwem Edukacyjnym zorganizowaliśmy jesienną akcję pomocy potrzebującym. Dziękujemy całej społeczności szkolnej za wielkie serca.</p>
-          </div>
-        </article>
-
-        <!-- Wpis 6 -->
-        <article class="news-card">
-          <div class="news-card-img-wrap">
-            <img src="assets/images/hero-original-kozyszkola.jpg" alt="Turniej sportowy" class="news-card-img">
-            <span class="news-tag">Sport</span>
-          </div>
-          <div class="news-card-body">
-            <div class="news-date"><i class="fa-regular fa-calendar"></i> 27 Września 2026</div>
-            <h3 class="news-card-title">Turniej tenisa stołowego i szachów o puchar szkoły</h3>
-            <p class="news-excerpt">Sportowa rywalizacja w przyjaznej atmosferze. Gratulujemy wszystkim uczestnikom zaciętej walki i pięknych partii szachowych.</p>
-          </div>
-        </article>
-
+          <h3 style="font-size: 1.3rem; margin-bottom: 8px; color: var(--color-primary); font-weight: 700;">Aktualności pojawią się wkrótce</h3>
+          <p style="color: var(--color-text-muted); max-width: 520px; margin: 0 auto; font-size: 0.95rem; line-height: 1.6;">W tej chwili nie ma jeszcze opublikowanych artykułów. Po dodaniu wpisów w panelu szkolnym pojawią się one automatycznie w tym miejscu.</p>
+        </div>
       </div>
 
     </div>
@@ -266,6 +188,6 @@
   </footer>
 
   <script src="js/config.js"></script>
-  <script src="js/script.js?v=20261108v18"></script>
+  <script src="js/script.js?v=20261108v19"></script>
 </body>
 </html>
