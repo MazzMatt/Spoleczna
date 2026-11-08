@@ -1942,7 +1942,7 @@ textarea.form-control {
     border-left: 3px solid var(--color-accent);
     flex-direction: column;
     align-items: flex-start;
-    padding: 125px 24px 40px;
+    padding: max(20px, env(safe-area-inset-top, 20px)) 20px max(30px, env(safe-area-inset-bottom, 30px));
     box-shadow: -5px 0 25px rgba(0, 0, 0, 0.2);
     transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 1000;
@@ -1951,24 +1951,30 @@ textarea.form-control {
   .nav-menu.open {
     right: 0;
   }
+  .nav-home-btn {
+    display: none;
+  }
   .mobile-nav-close-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    position: absolute;
-    top: 60px;
-    right: 20px;
-    width: 48px;
-    height: 48px;
+    align-self: flex-end;
+    position: relative;
+    top: auto;
+    right: auto;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     background: var(--bg-card, #FFFFFF);
     color: var(--color-primary, #1B365D);
     border: 2px solid var(--color-accent, #F8C830);
-    font-size: 1.45rem;
+    font-size: 1.35rem;
     cursor: pointer;
     z-index: 1010;
+    margin-bottom: 12px;
+    flex-shrink: 0;
     transition: background 0.2s ease, transform 0.2s ease, color 0.2s ease;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.16);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.14);
     -webkit-tap-highlight-color: transparent;
   }
   .mobile-nav-close-btn:active {
