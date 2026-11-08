@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   
   <!-- Arkusz stylów CSS -->
-  <link rel="stylesheet" href="css/style.css?v=20261108v10">
+  <link rel="stylesheet" href="css/style.css?v=20261108v11">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
   <link rel="apple-touch-icon" sizes="192x192" href="assets/icons/favicon-192.png">
   <link rel="shortcut icon" href="favicon.ico">
@@ -384,59 +384,67 @@
 
 
   <!-- ======================================================================
-       AKTUALNOŚCI (ZAJAWKA)
+       TABLICA OGŁOSZEŃ I PLAKATY SZKOLNE
        ====================================================================== -->
   <section class="section-padding">
     <div class="container">
       
       <div style="display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 35px; flex-wrap: wrap; gap: 15px;">
         <div>
-          <span class="section-tag">Wydarzenia i Kronika</span>
-          <h2 class="section-title">Co nowego w szkole?</h2>
+          <span class="section-tag">Ważne Informacje</span>
+          <h2 class="section-title">Ogłoszenia i Plakaty</h2>
         </div>
-        <a href="aktualnosci.html" class="btn-secondary" style="padding: 9px 20px; font-size: 0.85rem;">
-          Wszystkie aktualności <i class="fa-solid fa-arrow-right"></i>
-        </a>
       </div>
 
-      <div class="news-grid">
+      <div class="posters-grid">
         
-        <article class="news-card">
-          <div class="news-card-img-wrap">
-            <img src="assets/images/children-reading.jpg" alt="Życie szkoły" class="news-card-img">
-            <span class="news-tag">Wydarzenia</span>
+        <!-- Plakat 1: Rekrutacja -->
+        <article class="poster-card">
+          <div class="poster-img-wrap" data-src="assets/images/plakat-rekrutacja.jpg" data-caption="Plakat Rekrutacyjny – Pierwsza Społeczna Szkoła Podstawowa w Chełmie" title="Kliknij, aby powiększyć plakat">
+            <span class="poster-badge"><i class="fa-solid fa-graduation-cap"></i> Rekrutacja 2026/2027</span>
+            <img src="assets/images/plakat-rekrutacja.jpg" alt="Plakat rekrutacyjny do klas I-VIII Pierwszej Społecznej Szkoły Podstawowej w Chełmie" class="poster-img" loading="lazy">
+            <span class="poster-zoom-cue"><i class="fa-solid fa-magnifying-glass-plus"></i> Powiększ</span>
           </div>
-          <div class="news-card-body">
-            <div class="news-date"><i class="fa-regular fa-calendar"></i> 28 Października 2026</div>
-            <h3 class="news-card-title">Święto Szkoły i uroczyste ślubowanie pierwszoklasistów</h3>
-            <p class="news-excerpt">Nasi najmłodsi uczniowie uroczyście dołączyli do społeczności Pierwszej Społecznej Szkoły Podstawowej w Chełmie.</p>
-            <a href="aktualnosci.html" style="color: var(--color-primary); font-weight: 800; font-size: 0.88rem;">Czytaj więcej <i class="fa-solid fa-arrow-right"></i></a>
+          <div class="poster-body">
+            <div>
+              <h3 class="poster-title">Zapraszamy Uczniów do Klas I–VIII</h3>
+              <p class="poster-desc">
+                Trwa nabór do Pierwszej Społecznej Szkoły Podstawowej w Chełmie. Szkoła z tradycjami, wysokie wyniki egzaminów, przyjazna rodzinna atmosfera oraz bogata oferta zajęć dodatkowych.
+              </p>
+            </div>
+            <div class="poster-actions">
+              <button type="button" class="btn-primary btn-poster-zoom" data-src="assets/images/plakat-rekrutacja.jpg" data-caption="Plakat Rekrutacyjny – Pierwsza Społeczna Szkoła Podstawowa w Chełmie">
+                <i class="fa-solid fa-magnifying-glass-plus"></i> Powiększ plakat
+              </button>
+              <a href="rekrutacja.html" class="btn-secondary">
+                <i class="fa-solid fa-file-signature"></i> Szczegóły naboru
+              </a>
+            </div>
           </div>
         </article>
 
-        <article class="news-card">
-          <div class="news-card-img-wrap">
-            <img src="assets/images/school-building.jpg" alt="Gazetka szkolna" class="news-card-img">
-            <span class="news-tag">Społeczna Times</span>
+        <!-- Plakat 2: Zbiórka elektrośmieci -->
+        <article class="poster-card">
+          <div class="poster-img-wrap" data-src="assets/images/plakat-elektrosmieci.png" data-caption="Plakat Zbiórki Elektrośmieci – Eco Harpoon Recycling" title="Kliknij, aby powiększyć plakat">
+            <span class="poster-badge eco"><i class="fa-solid fa-recycle"></i> Akcja Ekologiczna</span>
+            <img src="assets/images/plakat-elektrosmieci.png" alt="Plakat zbiórki elektrośmieci Eco Harpoon przy budynku szkoły" class="poster-img" loading="lazy">
+            <span class="poster-zoom-cue"><i class="fa-solid fa-magnifying-glass-plus"></i> Powiększ</span>
           </div>
-          <div class="news-card-body">
-            <div class="news-date"><i class="fa-regular fa-calendar"></i> 22 Października 2026</div>
-            <h3 class="news-card-title">Nowy numer gazetki szkolnej „Społeczna Times”</h3>
-            <p class="news-excerpt">Młodzi dziennikarze zredagowali kolejny numer z wywiadami, relacjami z wycieczek oraz twórczością literacką uczniów.</p>
-            <a href="aktualnosci.html" style="color: var(--color-primary); font-weight: 800; font-size: 0.88rem;">Czytaj więcej <i class="fa-solid fa-arrow-right"></i></a>
-          </div>
-        </article>
-
-        <article class="news-card">
-          <div class="news-card-img-wrap">
-            <img src="assets/images/hero-original-kozyszkola.jpg" alt="Turniej sportowy" class="news-card-img">
-            <span class="news-tag">Języki Obce</span>
-          </div>
-          <div class="news-card-body">
-            <div class="news-date"><i class="fa-regular fa-calendar"></i> 15 Października 2026</div>
-            <h3 class="news-card-title">Konwersacje z Brytyjczykiem w praktyce</h3>
-            <p class="news-excerpt">Uczniowie szlifowali praktyczną mowę i brytyjską wymowę podczas angażujących warsztatów językowych z Native Speakerem.</p>
-            <a href="aktualnosci.html" style="color: var(--color-primary); font-weight: 800; font-size: 0.88rem;">Czytaj więcej <i class="fa-solid fa-arrow-right"></i></a>
+          <div class="poster-body">
+            <div>
+              <h3 class="poster-title">Zbiórka Elektrośmieci – Eco Harpoon</h3>
+              <p class="poster-desc">
+                Twoje elektrośmieci – nasza misja! Specjalny kontener na zużyty sprzęt AGD i RTV znajduje się z tyłu budynku szkoły. Oddaj stary sprzęt bezpłatnie i chroń środowisko.
+              </p>
+            </div>
+            <div class="poster-actions">
+              <button type="button" class="btn-primary btn-poster-zoom" data-src="assets/images/plakat-elektrosmieci.png" data-caption="Plakat Zbiórki Elektrośmieci – Eco Harpoon Recycling">
+                <i class="fa-solid fa-magnifying-glass-plus"></i> Powiększ plakat
+              </button>
+              <a href="assets/images/plakat-elektrosmieci.png" target="_blank" rel="noopener" class="btn-secondary">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i> Otwórz plik
+              </a>
+            </div>
           </div>
         </article>
 
@@ -472,6 +480,19 @@
     </div>
   </section>
 
+
+  <!-- ======================================================================
+       MODAL POWIĘKSZENIA PLAKATU
+       ====================================================================== -->
+  <div class="modal-overlay" id="poster-modal" aria-hidden="true" role="dialog" aria-label="Powiększenie plakatu">
+    <div class="poster-modal-window">
+      <button type="button" class="modal-close-btn" id="poster-modal-close" aria-label="Zamknij podgląd">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <img src="" alt="Powiększony plakat" id="poster-modal-img" class="poster-modal-img">
+      <div id="poster-modal-caption" class="poster-modal-caption"></div>
+    </div>
+  </div>
 
   <!-- ======================================================================
        STOPKA STRONY (FOOTER)
@@ -549,6 +570,6 @@
   </footer>
 
   <script src="js/config.js"></script>
-  <script src="js/script.js?v=20261108v10"></script>
+  <script src="js/script.js?v=20261108v11"></script>
 </body>
 </html>

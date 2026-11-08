@@ -1856,5 +1856,64 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initTouchDeviceFixes();
 
+  // ------------------------------------------------------------------
+  // 11. MODAL POWIĘKSZENIA PLAKATÓW (index.html)
+  // ------------------------------------------------------------------
+  function initPosterModal() {
+    const modal = document.getElementById('poster-modal');
+    if (!modal) return;
+
+    const modalImg = document.getElementById('poster-modal-img');
+    const modalCaption = document.getElementById('poster-modal-caption');
+    const closeBtn = document.getElementById('poster-modal-close');
+
+    const openModal = (src, caption) => {
+      if (!modalImg || !src) return;
+      modalImg.src = src;
+      modalImg.alt = caption || 'Powiększony plakat';
+      if (modalCaption) modalCaption.textContent = caption || '';
+      modal.classList.add('active');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    };
+
+    const closeModal = () => {
+      modal.classList.remove('active');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      if (modalImg) modalImg.src = '';
+    };
+
+    document.querySelectorAll('.btn-poster-zoom, .poster-img-wrap').forEach(el => {
+      el.addEventListener('click', (e) => {
+        // Jeśli kliknięto bezpośrednio w link wewnątrz, nie przechwytuj
+        if (e.target.closest('a') && !e.target.closest('.btn-poster-zoom')) return;
+        e.preventDefault();
+        const src = el.getAttribute('data-src') || el.querySelector('img')?.getAttribute('src');
+        const caption = el.getAttribute('data-caption') || el.querySelector('img')?.getAttribute('alt');
+        if (src) openModal(src, caption);
+      });
+    });
+
+    if (closeBtn) {
+      closeBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        closeModal();
+      });
+    }
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        closeModal();
+      }
+    });
+  }
+
+  initPosterModal();
+
 });
 
