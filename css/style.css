@@ -108,6 +108,15 @@ button {
   padding-right: 20px;
 }
 
+.container-wide {
+  width: calc(100% - clamp(20px, 3.5vw, 56px));
+  max-width: 1720px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 0;
+  padding-right: 0;
+}
+
 /* ==========================================================================
    DOSTĘPNOŚĆ CYFROWA (WCAG 2.1 AA) - BAZOWE STYLE I KLAWISZ TAB
    ========================================================================== */
@@ -1129,12 +1138,12 @@ html.stop-motion *::after {
 .news-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 32px;
+  gap: 36px;
 }
 
 .news-card {
   background: var(--bg-card);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-sm);
   border: 1px solid var(--border-color);
@@ -1424,7 +1433,7 @@ html.stop-motion *::after {
 
 .news-card-img-wrap {
   position: relative;
-  height: 280px;
+  height: 340px;
   overflow: hidden;
 }
 
@@ -1454,7 +1463,7 @@ html.stop-motion *::after {
 }
 
 .news-card-body {
-  padding: 26px;
+  padding: 30px 34px;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -1466,15 +1475,15 @@ html.stop-motion *::after {
   display: flex;
   align-items: center;
   gap: 6px;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .news-card-title {
-  font-size: 1.25rem;
+  font-size: 1.35rem;
   font-weight: 800;
   color: var(--color-primary);
   line-height: 1.35;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
   transition: color 0.25s ease;
 }
 
@@ -1483,11 +1492,24 @@ html.stop-motion *::after {
 }
 
 .news-excerpt {
-  font-size: 0.95rem;
-  color: var(--text-muted);
-  line-height: 1.6;
-  margin-bottom: 20px;
+  font-size: 1rem;
+  color: #334155;
+  line-height: 1.72;
+  margin-bottom: 22px;
   flex-grow: 1;
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  white-space: pre-line;
+}
+
+.news-excerpt p {
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  margin-bottom: 12px;
 }
 
 .news-card-footer {
@@ -2431,6 +2453,12 @@ textarea.form-control {
   }
   .news-card-img-wrap {
     height: 220px;
+  }
+  .news-card-body {
+    padding: 20px 18px;
+  }
+  .news-card-title {
+    font-size: 1.18rem;
   }
   .offer-grid {
     grid-template-columns: repeat(2, 1fr) !important;
