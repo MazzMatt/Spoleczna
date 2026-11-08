@@ -32,18 +32,10 @@
       "type": "text",
       "required": true
     },
-    "Kategoria": {
-      "type": "string",
-      "required": false
-    },
     "Galeria": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::galeria.galeria"
-    },
-    "FolderGalerii": {
-      "type": "string",
-      "required": false
     }
   }
 }

@@ -1799,7 +1799,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const title = (attrs.Tytul || attrs.tytul || 'Aktualność szkolna').trim();
         const rawDate = attrs.Data || attrs.data || attrs.createdAt || '';
         const dateDisplay = formatPolishDate(rawDate);
-        const category = (attrs.Kategoria || attrs.kategoria || 'Wydarzenia').trim();
+        const category = (attrs.Kategoria || attrs.kategoria || '').trim();
         const content = (attrs.Opis || attrs.opis || '').trim();
 
         // Zdjęcie wpisu
@@ -1818,7 +1818,7 @@ document.addEventListener('DOMContentLoaded', () => {
           imageUrl = 'assets/images/school-building.jpg';
         }
 
-        // Powiązana galeria (relacja lub pole tekstowe)
+        // Powiązana galeria (relacja do folderu z galerii)
         let galleryParam = '';
         const rawGaleria = attrs.Galeria || attrs.galeria;
         if (rawGaleria) {
@@ -1827,9 +1827,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const gAttrs = gObj.attributes || gObj;
             galleryParam = gAttrs.Tytul || gAttrs.tytul || gObj.documentId || gObj.id || '';
           }
-        }
-        if (!galleryParam && (attrs.FolderGalerii || attrs.folder_galerii || attrs.folderGalerii)) {
-          galleryParam = (attrs.FolderGalerii || attrs.folder_galerii || attrs.folderGalerii).trim();
         }
 
         return {
@@ -1878,7 +1875,7 @@ document.addEventListener('DOMContentLoaded', () => {
         article.innerHTML = `
           <div class="news-card-img-wrap">
             <img src="${news.imageUrl}" alt="${news.title}" class="news-card-img" loading="lazy">
-            <span class="news-tag">${news.category}</span>
+            ${news.category ? `<span class="news-tag">${news.category}</span>` : ''}
           </div>
           <div class="news-card-body">
             ${news.dateDisplay ? `<div class="news-date"><i class="fa-regular fa-calendar" aria-hidden="true"></i> ${news.dateDisplay}</div>` : ''}
