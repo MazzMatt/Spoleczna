@@ -1312,16 +1312,16 @@ html.stop-motion *::after {
   }
 
   .poster-card-featured .poster-img-wrap {
-    flex: 0 0 520px;
-    max-width: 520px;
-    min-height: 660px;
-    max-height: 740px;
+    flex: 0 0 460px;
+    max-width: 460px;
+    min-height: 560px;
+    max-height: 620px;
     border-bottom: none;
     border-right: 1px solid var(--border-color);
   }
 
   .poster-card-featured .poster-img {
-    max-height: 700px;
+    max-height: 570px;
   }
 
   .poster-card-featured .poster-body {
