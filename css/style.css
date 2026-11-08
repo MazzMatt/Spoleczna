@@ -1128,8 +1128,8 @@ html.stop-motion *::after {
    -------------------------------------------------------------------------- */
 .news-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
 }
 
 .news-card {
@@ -1424,7 +1424,7 @@ html.stop-motion *::after {
 
 .news-card-img-wrap {
   position: relative;
-  height: 210px;
+  height: 280px;
   overflow: hidden;
 }
 
@@ -1454,27 +1454,27 @@ html.stop-motion *::after {
 }
 
 .news-card-body {
-  padding: 22px;
+  padding: 26px;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
 }
 
 .news-date {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   color: var(--text-light);
   display: flex;
   align-items: center;
   gap: 6px;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .news-card-title {
-  font-size: 1.1rem;
+  font-size: 1.25rem;
   font-weight: 800;
   color: var(--color-primary);
   line-height: 1.35;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   transition: color 0.25s ease;
 }
 
@@ -1483,10 +1483,10 @@ html.stop-motion *::after {
 }
 
 .news-excerpt {
-  font-size: 0.88rem;
+  font-size: 0.95rem;
   color: var(--text-muted);
-  line-height: 1.5;
-  margin-bottom: 18px;
+  line-height: 1.6;
+  margin-bottom: 20px;
   flex-grow: 1;
 }
 
@@ -2428,6 +2428,9 @@ textarea.form-control {
   .news-grid,
   .footer-grid {
     grid-template-columns: 1fr;
+  }
+  .news-card-img-wrap {
+    height: 220px;
   }
   .offer-grid {
     grid-template-columns: repeat(2, 1fr) !important;
