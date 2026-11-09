@@ -286,13 +286,22 @@ document.addEventListener('DOMContentLoaded', () => {
   if (modalDownload) {
     modalDownload.addEventListener('click', () => {
       modalDownload.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Pobieranie...';
+      
+      const link = document.createElement('a');
+      link.href = 'assets/docs/karta-zgloszenia-kandydata.pdf';
+      link.download = 'Karta_Zgloszenia_Kandydata_PSSP_Chelm.pdf';
+      link.target = '_blank';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
       setTimeout(() => {
         modalDownload.innerHTML = '<i class="fa-solid fa-check"></i> Pobrano pomyślnie!';
         setTimeout(() => {
           modalDownload.innerHTML = '<i class="fa-solid fa-download"></i> Pobierz plik PDF';
           closeModal();
         }, 1200);
-      }, 700);
+      }, 500);
     });
   }
 
