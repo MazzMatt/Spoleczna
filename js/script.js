@@ -1943,10 +1943,10 @@ document.addEventListener('DOMContentLoaded', () => {
       if (totalPages <= 1) {
         paginationNav.style.display = 'none';
         paginationContainer.innerHTML = '';
-        if (paginationInfo) paginationInfo.textContent = '';
+        if (paginationInfo) paginationInfo.innerHTML = '';
         if (topPageInfo) {
           topPageInfo.style.display = 'none';
-          topPageInfo.textContent = '';
+          topPageInfo.innerHTML = '';
         }
         return;
       }
@@ -1954,14 +1954,14 @@ document.addEventListener('DOMContentLoaded', () => {
       paginationNav.style.display = 'flex';
       paginationContainer.innerHTML = '';
 
-      // Dyskretna informacja o bieżącej stronie z liczby wszystkich stron ("Strona X z Y")
-      const pageInfoText = `Strona ${current} z ${totalPages}`;
+      // Prosta, czytelna informacja o bieżącej stronie z liczby wszystkich stron ("Strona X z Y")
+      const pageInfoHtml = `Strona <strong>${current}</strong> z <strong>${totalPages}</strong>`;
       if (paginationInfo) {
-        paginationInfo.textContent = pageInfoText;
+        paginationInfo.innerHTML = pageInfoHtml;
       }
       if (topPageInfo) {
-        topPageInfo.textContent = pageInfoText;
-        topPageInfo.style.display = 'inline-block';
+        topPageInfo.innerHTML = pageInfoHtml;
+        topPageInfo.style.display = 'block';
       }
 
       // Przycisk: Pierwsza strona «
@@ -2105,10 +2105,10 @@ document.addEventListener('DOMContentLoaded', () => {
         container.style.minHeight = '';
         container.style.height = '';
         if (paginationNav) paginationNav.style.display = 'none';
-        if (paginationInfo) paginationInfo.textContent = '';
+        if (paginationInfo) paginationInfo.innerHTML = '';
         if (topPageInfo) {
           topPageInfo.style.display = 'none';
-          topPageInfo.textContent = '';
+          topPageInfo.innerHTML = '';
         }
         container.innerHTML = `
           <div id="news-empty-state" class="news-empty-state" style="width: 100%; text-align: center; padding: 60px 20px; background: #fff; border-radius: var(--radius-lg); border: 1px dashed var(--color-border); box-shadow: var(--shadow-sm);">

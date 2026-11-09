@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Cinzel:wght@700;900&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="css/style.css?v=20261108v29">
+  <link rel="stylesheet" href="css/style.css?v=20261108v30">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
   <link rel="apple-touch-icon" sizes="192x192" href="assets/icons/favicon-192.png">
   <link rel="shortcut icon" href="favicon.ico">
@@ -100,19 +100,14 @@
   <section class="section-padding">
     <div class="container container-wide">
       
-      <!-- Pasek nagłówka i odświeżania -->
-      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; flex-wrap: wrap; gap: 14px;">
+      <!-- Pasek nagłówka i informacja o stronie -->
+      <div style="display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 32px; flex-wrap: wrap; gap: 16px;">
         <div class="section-header" style="margin-bottom: 0;">
           <span class="section-tag" style="margin-bottom: 6px;"><i class="fa-solid fa-bullhorn"></i> Kronika Szkolna</span>
-          <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
-            <h2 class="section-title" style="margin-bottom: 0;">Wszystkie Aktualności</h2>
-            <span id="news-top-page-info" class="news-top-page-info" style="display: none;"></span>
-          </div>
+          <h2 class="section-title" style="margin-bottom: 0;">Wszystkie Aktualności</h2>
         </div>
 
-        <button type="button" id="news-refresh-btn" class="btn-secondary" style="padding: 9px 18px; font-size: 0.85rem; border-radius: var(--radius-full); cursor: pointer;" title="Pobierz najnowsze wpisy z panelu szkolnego">
-          <i class="fa-solid fa-arrows-rotate"></i> <span>Odśwież wpisy</span>
-        </button>
+        <div id="news-top-page-info" class="news-top-page-info" style="display: none;" aria-live="polite"></div>
       </div>
 
       <div class="news-grid" id="news-grid-container">
@@ -197,6 +192,6 @@
   </footer>
 
   <script src="js/config.js"></script>
-  <script src="js/script.js?v=20261108v29"></script>
+  <script src="js/script.js?v=20261108v30"></script>
 </body>
 </html>
