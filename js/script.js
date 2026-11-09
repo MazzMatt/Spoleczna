@@ -1778,6 +1778,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const refreshBtn = document.getElementById('news-refresh-btn');
     const paginationNav = document.getElementById('news-pagination-nav');
     const paginationContainer = document.getElementById('news-pagination');
+    const paginationInfo = document.getElementById('news-pagination-info');
+    const topPageInfo = document.getElementById('news-top-page-info');
     const ITEMS_PER_PAGE = 10;
     let currentPage = 1;
     const CACHE_KEY = 'pssp_school_news_cache_v4';
@@ -1941,11 +1943,26 @@ document.addEventListener('DOMContentLoaded', () => {
       if (totalPages <= 1) {
         paginationNav.style.display = 'none';
         paginationContainer.innerHTML = '';
+        if (paginationInfo) paginationInfo.textContent = '';
+        if (topPageInfo) {
+          topPageInfo.style.display = 'none';
+          topPageInfo.textContent = '';
+        }
         return;
       }
 
       paginationNav.style.display = 'flex';
       paginationContainer.innerHTML = '';
+
+      // Dyskretna informacja o bieżącej stronie z liczby wszystkich stron ("Strona X z Y")
+      const pageInfoText = `Strona ${current} z ${totalPages}`;
+      if (paginationInfo) {
+        paginationInfo.textContent = pageInfoText;
+      }
+      if (topPageInfo) {
+        topPageInfo.textContent = pageInfoText;
+        topPageInfo.style.display = 'inline-block';
+      }
 
       // Przycisk: Pierwsza strona «
       const firstBtn = document.createElement('button');
@@ -2088,6 +2105,11 @@ document.addEventListener('DOMContentLoaded', () => {
         container.style.minHeight = '';
         container.style.height = '';
         if (paginationNav) paginationNav.style.display = 'none';
+        if (paginationInfo) paginationInfo.textContent = '';
+        if (topPageInfo) {
+          topPageInfo.style.display = 'none';
+          topPageInfo.textContent = '';
+        }
         container.innerHTML = `
           <div id="news-empty-state" class="news-empty-state" style="width: 100%; text-align: center; padding: 60px 20px; background: #fff; border-radius: var(--radius-lg); border: 1px dashed var(--color-border); box-shadow: var(--shadow-sm);">
             <div style="width: 72px; height: 72px; margin: 0 auto 16px; border-radius: 50%; background: rgba(30, 77, 140, 0.08); display: flex; align-items: center; justify-content: center; font-size: 2rem; color: var(--color-primary);">

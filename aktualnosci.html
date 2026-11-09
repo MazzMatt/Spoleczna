@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Cinzel:wght@700;900&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="css/style.css?v=20261108v28">
+  <link rel="stylesheet" href="css/style.css?v=20261108v29">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
   <link rel="apple-touch-icon" sizes="192x192" href="assets/icons/favicon-192.png">
   <link rel="shortcut icon" href="favicon.ico">
@@ -104,7 +104,10 @@
       <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; flex-wrap: wrap; gap: 14px;">
         <div class="section-header" style="margin-bottom: 0;">
           <span class="section-tag" style="margin-bottom: 6px;"><i class="fa-solid fa-bullhorn"></i> Kronika Szkolna</span>
-          <h2 class="section-title" style="margin-bottom: 0;">Wszystkie Aktualności</h2>
+          <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+            <h2 class="section-title" style="margin-bottom: 0;">Wszystkie Aktualności</h2>
+            <span id="news-top-page-info" class="news-top-page-info" style="display: none;"></span>
+          </div>
         </div>
 
         <button type="button" id="news-refresh-btn" class="btn-secondary" style="padding: 9px 18px; font-size: 0.85rem; border-radius: var(--radius-full); cursor: pointer;" title="Pobierz najnowsze wpisy z panelu szkolnego">
@@ -124,8 +127,9 @@
       </div>
 
       <!-- Paginacja stron aktualności (10 wpisów na stronę - 5 rzędów po 2 kolumny) -->
-      <nav id="news-pagination-nav" aria-label="Nawigacja po stronach kroniki" style="display: none; justify-content: center; margin-top: 48px; margin-bottom: 24px;">
+      <nav id="news-pagination-nav" class="news-pagination-nav" aria-label="Nawigacja po stronach kroniki" style="display: none;">
         <div class="custom-pagination" id="news-pagination"></div>
+        <div class="news-pagination-info" id="news-pagination-info" aria-live="polite"></div>
       </nav>
 
     </div>
@@ -193,6 +197,6 @@
   </footer>
 
   <script src="js/config.js"></script>
-  <script src="js/script.js?v=20261108v28"></script>
+  <script src="js/script.js?v=20261108v29"></script>
 </body>
 </html>
