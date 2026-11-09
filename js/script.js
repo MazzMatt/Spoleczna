@@ -30,21 +30,44 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   // ------------------------------------------------------------------
-  // 1. GŁÓWNY BANER (HERO SLIDER)
+  // 1. GŁÓWNY BANER (HERO SLIDER) – PŁYNNA I NIEZAWODNA ROTACJA
   // ------------------------------------------------------------------
   const slides = document.querySelectorAll('.hero-slide');
   const dots = document.querySelectorAll('.slider-dots .dot');
   const prevBtn = document.getElementById('slider-prev');
   const nextBtn = document.getElementById('slider-next');
+  const sliderSection = document.getElementById('glowna');
   let currentSlide = 0;
   let slideInterval = null;
+  let isTransitioning = false;
+  let isHovered = false;
+  let isSectionInView = true;
+
+  // Wstępny załadunek wszystkich zdjęć w pamięci podręcznej przeglądarki
+  const bannerImages = [
+    'assets/images/banner-jesien-liscie.webp',
+    'assets/images/banner-slubowanie.webp',
+    'assets/images/banner-szkola-uczniowie.webp',
+    'assets/images/banner-teatr.webp',
+    'assets/images/banner-wycieczka.webp'
+  ];
+  bannerImages.forEach(src => {
+    const img = new Image();
+    img.src = src;
+  });
 
   function showSlide(index) {
     if (!slides.length) return;
-    
-    if (index >= slides.length) currentSlide = 0;
-    else if (index < 0) currentSlide = slides.length - 1;
-    else currentSlide = index;
+    if (isTransitioning) return;
+
+    let target = index;
+    if (target >= slides.length) target = 0;
+    else if (target < 0) target = slides.length - 1;
+
+    if (target === currentSlide) return;
+
+    isTransitioning = true;
+    currentSlide = target;
 
     slides.forEach((slide, i) => {
       slide.classList.toggle('active', i === currentSlide);
@@ -53,6 +76,10 @@ document.addEventListener('DOMContentLoaded', () => {
     dots.forEach((dot, i) => {
       dot.classList.toggle('active', i === currentSlide);
     });
+
+    setTimeout(() => {
+      isTransitioning = false;
+    }, 650);
   }
 
   function nextSlide() {
@@ -63,37 +90,106 @@ document.addEventListener('DOMContentLoaded', () => {
     showSlide(currentSlide - 1);
   }
 
-  if (nextBtn) nextBtn.addEventListener('click', () => { nextSlide(); resetAutoplay(); });
-  if (prevBtn) prevBtn.addEventListener('click', () => { prevSlide(); resetAutoplay(); });
+  if (nextBtn) {
+    nextBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      nextSlide();
+      resetAutoplay();
+    });
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      prevSlide();
+      resetAutoplay();
+    });
+  }
 
   dots.forEach((dot, idx) => {
-    dot.addEventListener('click', () => {
+    dot.addEventListener('click', (e) => {
+      e.stopPropagation();
       showSlide(idx);
       resetAutoplay();
     });
   });
 
+  function canAutoplay() {
+    if (slides.length <= 1) return false;
+    if (document.documentElement.classList.contains('stop-motion')) return false;
+    if (document.hidden) return false;
+    if (!isSectionInView) return false;
+    if (isHovered) return false;
+    return true;
+  }
+
   function startAutoplay() {
-    if (slides.length > 1) {
-      if (document.documentElement.classList.contains('stop-motion')) return;
-      clearInterval(slideInterval);
-      slideInterval = setInterval(nextSlide, 7000);
-    }
+    clearInterval(slideInterval);
+    if (!canAutoplay()) return;
+    slideInterval = setInterval(() => {
+      if (canAutoplay()) {
+        nextSlide();
+      }
+    }, 5000);
+  }
+
+  function stopAutoplay() {
+    clearInterval(slideInterval);
   }
 
   function resetAutoplay() {
-    clearInterval(slideInterval);
+    stopAutoplay();
     startAutoplay();
   }
 
+  // Rozpoczęcie automatycznej zmiany zdjęć
   startAutoplay();
 
-  const sliderSection = document.getElementById('glowna');
-  if (sliderSection) {
-    sliderSection.addEventListener('mouseenter', () => clearInterval(slideInterval));
-    sliderSection.addEventListener('mouseleave', () => startAutoplay());
+  // Pauza przy najechaniu myszką TYLKO na urządzeniach z prawdziwym kursorem (desktop)
+  const isDesktopPointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (sliderSection && isDesktopPointer) {
+    sliderSection.addEventListener('mouseenter', () => {
+      isHovered = true;
+      stopAutoplay();
+    });
+    sliderSection.addEventListener('mouseleave', () => {
+      isHovered = false;
+      startAutoplay();
+    });
+  }
 
-    // Obsługa gestów swipe na smartfonach i tabletach
+  // Obsługa zmiany karty w przeglądarce i powrotu do okna
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      stopAutoplay();
+    } else {
+      isHovered = false;
+      startAutoplay();
+    }
+  });
+
+  window.addEventListener('focus', () => {
+    isHovered = false;
+    startAutoplay();
+  });
+
+  // Inteligentne zatrzymywanie rotacji, gdy użytkownik przewinie stronę poniżej banera
+  if ('IntersectionObserver' in window && sliderSection) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        isSectionInView = entry.isIntersecting;
+        if (isSectionInView) {
+          startAutoplay();
+        } else {
+          stopAutoplay();
+        }
+      });
+    }, { threshold: 0.15 });
+    observer.observe(sliderSection);
+  }
+
+  // Obsługa gestów swipe na smartfonach i tabletach (bez blokowania autoplay)
+  if (sliderSection) {
     let touchStartX = 0;
     let touchStartY = 0;
 

@@ -594,6 +594,7 @@ html.stop-motion *::after {
   max-height: 560px;
   display: flex;
   align-items: center;
+  contain: layout paint;
 }
 
 .hero-slider-wrapper {
@@ -607,15 +608,21 @@ html.stop-motion *::after {
   inset: 0;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.8s ease, visibility 0.8s ease;
+  pointer-events: none;
+  transition: opacity 0.65s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.65s step-end;
   display: flex;
   align-items: center;
+  will-change: opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .hero-slide.active {
   opacity: 1;
   visibility: visible;
+  pointer-events: auto;
   z-index: 2;
+  transition: opacity 0.65s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s;
 }
 
 .hero-shapes {
@@ -713,11 +720,12 @@ html.stop-motion *::after {
   border-radius: 22px;
   border: none;
   box-shadow: 0 16px 36px rgba(0, 0, 0, 0.18);
-  transition: transform 0.4s ease;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .hero-slide.active .hero-photo {
-  transform: scale(1.005);
+  transform: translateZ(0);
 }
 
 .hero-text-box {
@@ -744,9 +752,17 @@ html.stop-motion *::after {
   text-align: center;
   padding: 20px;
   position: relative;
-  transform: rotate(-3deg);
-  animation: pulseSticker 4s ease-in-out infinite alternate;
+  transform: rotate(-3deg) translateZ(0);
   border: 4px dashed rgba(255, 255, 255, 0.7);
+  backface-visibility: hidden;
+}
+
+.hero-slide .hero-sticker-badge {
+  animation: none;
+}
+
+.hero-slide.active .hero-sticker-badge {
+  animation: pulseSticker 4s ease-in-out infinite alternate;
 }
 
 @keyframes pulseSticker {
