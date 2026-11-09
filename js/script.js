@@ -1782,7 +1782,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const topPageInfo = document.getElementById('news-top-page-info');
     const ITEMS_PER_PAGE = 10;
     let currentPage = 1;
-    const CACHE_KEY = 'pssp_school_news_cache_v4';
+    const CACHE_KEY = 'pssp_school_news_cache_v5';
     let allNews = [];
 
     // Czyszczenie starej pamięci podręcznej
@@ -1790,6 +1790,7 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.removeItem('pssp_school_news_cache_v1');
       localStorage.removeItem('pssp_school_news_cache_v2');
       localStorage.removeItem('pssp_school_news_cache_v3');
+      localStorage.removeItem('pssp_school_news_cache_v4');
     } catch (e) {}
 
     const CLOUD_STRAPI_URL = 'https://spolecznachelm.duckdns.org';
@@ -1827,7 +1828,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const category = (attrs.Kategoria || attrs.kategoria || '').trim();
         const content = (attrs.Opis || attrs.opis || '').trim();
 
-        // Zdjęcie wpisu (z zachowaniem naturalnych proporcji pionowych i poziomych)
+        // Zdjęcie wpisu (zoptymalizowane pod WebP/AVIF, CDN oraz zachowujące proporcje)
         let imageUrl = '';
         let aspectRatio = '';
         const rawPhoto = attrs.Zdjecie || attrs.zdjecie || attrs.Okladka || attrs.okladka;
@@ -1836,7 +1837,19 @@ document.addEventListener('DOMContentLoaded', () => {
           if (mediaObj) {
             const mAttrs = mediaObj.attributes || mediaObj;
             if (mAttrs && mAttrs.url) {
-              imageUrl = resolveMediaUrl(mAttrs.url, baseStrapi);
+              const rawUrl = resolveMediaUrl(mAttrs.url, baseStrapi);
+              let optimizedUrl = rawUrl;
+              if (rawUrl && rawUrl.includes('res.cloudinary.com') && rawUrl.includes('/image/upload/')) {
+                // Cloudinary CDN: automatyczny nowoczesny format (AVIF/WebP), inteligentna kompresja (q_auto:good)
+                // i optymalna szerokość do 900px dla kafelków Retina (zamiast pobierania surowego pliku 10 MB)
+                optimizedUrl = rawUrl.replace('/image/upload/', '/image/upload/c_limit,w_900,q_auto:good,f_auto/');
+              } else if (mAttrs.formats && (mAttrs.formats.large || mAttrs.formats.medium)) {
+                const bestFormat = mAttrs.formats.large || mAttrs.formats.medium;
+                if (bestFormat && bestFormat.url) {
+                  optimizedUrl = resolveMediaUrl(bestFormat.url, baseStrapi);
+                }
+              }
+              imageUrl = optimizedUrl;
               if (mAttrs.width && mAttrs.height) {
                 aspectRatio = `${mAttrs.width} / ${mAttrs.height}`;
               }
@@ -2155,7 +2168,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         article.innerHTML = `
           <div class="news-card-img-wrap">
-            <img src="${news.imageUrl}" alt="${news.title}" class="news-card-img" ${news.aspectRatio ? `style="aspect-ratio: ${news.aspectRatio};"` : ''} loading="lazy">
+            <img src="${news.imageUrl}" alt="${news.title}" class="news-card-img" ${news.aspectRatio ? `style="aspect-ratio: ${news.aspectRatio};"` : ''} loading="lazy" decoding="async">
             ${news.category ? `<span class="news-tag">${news.category}</span>` : ''}
           </div>
           <div class="news-card-body">
