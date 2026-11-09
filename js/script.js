@@ -1884,6 +1884,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!container) return;
       const cards = Array.from(container.querySelectorAll('.news-card'));
       if (cards.length === 0) {
+        container.style.minHeight = '';
         container.style.height = '';
         return;
       }
@@ -1893,6 +1894,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (isMobile) {
         // Na telefonach: 1 naturalna kolumna pionowa w porządku chronologicznym
+        container.style.minHeight = '';
         container.style.height = '';
         cards.forEach(card => {
           card.style.position = '';
@@ -1928,6 +1930,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       const totalHeight = Math.max(colHeights[0], colHeights[1]);
+      container.style.minHeight = '';
       container.style.height = `${totalHeight}px`;
     }
 
@@ -1951,7 +1954,10 @@ document.addEventListener('DOMContentLoaded', () => {
       firstBtn.setAttribute('aria-label', 'Przejdź do pierwszej strony');
       firstBtn.innerHTML = '<i class="fa-solid fa-angles-left" aria-hidden="true"></i>';
       firstBtn.disabled = (current === 1);
-      firstBtn.addEventListener('click', () => goToPage(1));
+      firstBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        goToPage(1);
+      });
       paginationContainer.appendChild(firstBtn);
 
       // Przycisk: Poprzednia strona ‹
@@ -1961,7 +1967,10 @@ document.addEventListener('DOMContentLoaded', () => {
       prevBtn.setAttribute('aria-label', 'Przejdź do poprzedniej strony');
       prevBtn.innerHTML = '<i class="fa-solid fa-angle-left" aria-hidden="true"></i>';
       prevBtn.disabled = (current === 1);
-      prevBtn.addEventListener('click', () => goToPage(current - 1));
+      prevBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        goToPage(current - 1);
+      });
       paginationContainer.appendChild(prevBtn);
 
       // Generowanie numerów stron
@@ -1993,7 +2002,10 @@ document.addEventListener('DOMContentLoaded', () => {
           if (p === current) {
             numBtn.setAttribute('aria-current', 'page');
           } else {
-            numBtn.addEventListener('click', () => goToPage(p));
+            numBtn.addEventListener('click', (e) => {
+              e.preventDefault();
+              goToPage(p);
+            });
           }
           paginationContainer.appendChild(numBtn);
         }
@@ -2006,7 +2018,10 @@ document.addEventListener('DOMContentLoaded', () => {
       nextBtn.setAttribute('aria-label', 'Przejdź do następnej strony');
       nextBtn.innerHTML = '<i class="fa-solid fa-angle-right" aria-hidden="true"></i>';
       nextBtn.disabled = (current === totalPages);
-      nextBtn.addEventListener('click', () => goToPage(current + 1));
+      nextBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        goToPage(current + 1);
+      });
       paginationContainer.appendChild(nextBtn);
 
       // Przycisk: Ostatnia strona »
@@ -2016,24 +2031,61 @@ document.addEventListener('DOMContentLoaded', () => {
       lastBtn.setAttribute('aria-label', 'Przejdź do ostatniej strony');
       lastBtn.innerHTML = '<i class="fa-solid fa-angles-right" aria-hidden="true"></i>';
       lastBtn.disabled = (current === totalPages);
-      lastBtn.addEventListener('click', () => goToPage(totalPages));
+      lastBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        goToPage(totalPages);
+      });
       paginationContainer.appendChild(lastBtn);
+    }
+
+    function scrollToTop() {
+      // 1. Płynne przewijanie do samej góry strony (top: 0)
+      try {
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: 'smooth'
+        });
+      } catch (err) {
+        window.scrollTo(0, 0);
+      }
+
+      // 2. W kolejnej klatce upewniamy się, że scroll nie został przerwany przez silnik przeglądarki
+      requestAnimationFrame(() => {
+        if (window.scrollY > 0) {
+          window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+        }
+      });
+
+      // 3. Dodatkowy strażnik na wypadek przerwania animacji przez doładowanie miniaturek
+      setTimeout(() => {
+        if (window.scrollY > 40) {
+          window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+        }
+      }, 120);
+
+      // 4. Bezpiecznik: ostateczne potwierdzenie po 350 ms
+      setTimeout(() => {
+        if (window.scrollY > 15) {
+          window.scrollTo(0, 0);
+        }
+      }, 350);
     }
 
     function goToPage(page) {
       const totalPages = Math.ceil(allNews.length / ITEMS_PER_PAGE);
       if (page < 1 || page > totalPages || page === currentPage) return;
       currentPage = page;
-      renderNews(allNews);
 
-      const scrollTarget = container.closest('.section-padding') || container;
-      if (scrollTarget) {
-        scrollTarget.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
+      // Zawsze przewijaj na samą górę strony przy przejściu na nową stronę
+      scrollToTop();
+
+      renderNews(allNews);
     }
 
     function renderNews(newsList) {
       if (!Array.isArray(newsList) || newsList.length === 0) {
+        container.style.minHeight = '';
         container.style.height = '';
         if (paginationNav) paginationNav.style.display = 'none';
         container.innerHTML = `
@@ -2055,6 +2107,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
       const endIndex = startIndex + ITEMS_PER_PAGE;
       const pageItems = newsList.slice(startIndex, endIndex);
+
+      // Zapobiegamy nagłemu zapadnięciu się wysokości kontenera w trakcie podmiany elementów
+      if (container.offsetHeight > 0) {
+        container.style.minHeight = `${container.offsetHeight}px`;
+      }
 
       container.innerHTML = '';
 
