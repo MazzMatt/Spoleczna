@@ -173,16 +173,13 @@
           <!-- KAFEL POBIERANIA KARTY ZGŁOSZENIOWEJ -->
           <div style="background: var(--color-primary-soft); border: 2px dashed var(--color-primary); padding: 26px; border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;">
             <div>
-              <span class="section-tag" style="margin-bottom: 6px;"><i class="fa-solid fa-file-pdf"></i> Oficjalny Dokument</span>
-              <h4 style="font-size: 1.15rem; font-weight: 800; color: var(--color-primary); margin-bottom: 5px;">Karta Zgłoszenia Kandydata (PDF)</h4>
-              <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0; line-height: 1.5;">Wniosek o przyjęcie do szkoły wraz z klauzulą RODO. Gotowy do druku format A4.</p>
+              <span class="section-tag" style="margin-bottom: 6px;"><i class="fa-solid fa-file-word"></i> Oficjalny Dokument</span>
+              <h4 style="font-size: 1.15rem; font-weight: 800; color: var(--color-primary); margin-bottom: 5px;">Karta Zgłoszenia Kandydata (Word)</h4>
+              <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0; line-height: 1.5;">Wniosek o przyjęcie do szkoły wraz z klauzulą RODO. Formularz do edycji i wypełnienia (plik DOCX).</p>
             </div>
-            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-              <a href="assets/docs/karta-zgloszenia-kandydata.pdf" target="_blank" rel="noopener" class="btn-primary" style="flex-shrink: 0;" title="Otwórz i wydrukuj formularz w formacie PDF">
-                <i class="fa-solid fa-arrow-up-right-from-square"></i> Otwórz / Drukuj (PDF)
-              </a>
-              <a href="assets/docs/karta-zgloszenia-kandydata.pdf" download="Karta_Zgloszenia_Kandydata_PSSP_Chelm.pdf" class="btn-secondary" style="flex-shrink: 0;" title="Pobierz plik PDF na komputer lub telefon">
-                <i class="fa-solid fa-download"></i> Pobierz plik
+            <div>
+              <a href="assets/docs/karta-zgloszenia-kandydata.docx" download="Karta_Zgloszenia_Kandydata_PSSP_Chelm.docx" class="btn-primary" style="flex-shrink: 0;" title="Pobierz formularz rekrutacyjny w formacie Word">
+                <i class="fa-solid fa-download"></i> Pobierz formularz (Word)
               </a>
             </div>
           </div>
@@ -218,151 +215,8 @@
 
       </div>
 
-      <!-- PODGLĄD WZORU DOKUMENTU I KLAUZULA RODO -->
-      <div style="margin-top: 50px; background: #FFFFFF; border: 1.5px solid var(--border-color); border-radius: var(--radius-lg); padding: 36px 32px; box-shadow: var(--shadow-sm);">
-        
-        <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid var(--color-primary); padding-bottom: 20px; margin-bottom: 28px; flex-wrap: wrap; gap: 16px;">
-          <div style="display: flex; align-items: center; gap: 16px;">
-            <div style="width: 52px; height: 52px; border-radius: 12px; background: rgba(30, 77, 140, 0.08); display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: var(--color-primary); flex-shrink: 0;">
-              <i class="fa-solid fa-file-signature"></i>
-            </div>
-            <div>
-              <span class="section-tag" style="margin-bottom: 4px;">Wzór Dokumentu</span>
-              <h3 style="font-size: 1.35rem; font-weight: 800; color: var(--color-primary); margin: 0;">
-                Karta Zgłoszenia Kandydata i Klauzula RODO
-              </h3>
-            </div>
-          </div>
-
-          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-            <a href="assets/docs/karta-zgloszenia-kandydata.pdf" target="_blank" rel="noopener" class="btn-primary" style="font-size: 0.88rem; padding: 10px 18px;">
-              <i class="fa-solid fa-print"></i> Drukuj / Otwórz PDF
-            </a>
-            <a href="assets/docs/karta-zgloszenia-kandydata.pdf" download="Karta_Zgloszenia_Kandydata_PSSP_Chelm.pdf" class="btn-secondary" style="font-size: 0.88rem; padding: 10px 18px;">
-              <i class="fa-solid fa-download"></i> Pobierz plik
-            </a>
-          </div>
-        </div>
-
-        <!-- Treść formularza w stylizowanym szablonie pisma urzędowego -->
-        <div style="background: var(--bg-warm); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 28px; margin-bottom: 28px; font-family: inherit; line-height: 1.75;">
-          
-          <div style="display: flex; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 20px;">
-            <div style="font-size: 0.92rem; color: var(--text-primary);">
-              <strong>Dane rodziców / opiekunów prawnych:</strong><br>
-              Pani / Pan: ............................................................................................<br>
-              Adres zamieszkania: ...........................................................................<br>
-              Numer telefonu: .................................................................................<br>
-              Adres e-mail: .....................................................................................
-            </div>
-            <div style="text-align: right; font-size: 0.92rem; color: var(--text-primary);">
-              <div>Chełm, dnia .............................. r.</div>
-              <div style="margin-top: 18px; font-weight: 700; color: var(--color-primary);">
-                Dyrektor<br>
-                Pierwszej Społecznej Szkoły Podstawowej<br>
-                w Chełmie
-              </div>
-            </div>
-          </div>
-
-          <div style="text-align: center; margin: 30px 0 24px; padding: 14px; background: #FFFFFF; border-radius: 8px; border: 1px solid var(--border-color);">
-            <h4 style="font-size: 1.15rem; font-weight: 800; color: var(--color-primary); margin: 0 0 6px 0;">
-              WNIOSEK / KARTA ZGŁOSZENIA DZIECKA DO SZKOŁY
-            </h4>
-            <div style="font-size: 0.9rem; color: var(--text-muted); font-weight: 600;">
-              do Pierwszej Społecznej Szkoły Podstawowej w Chełmie na rok szkolny 20.... / 20....
-            </div>
-          </div>
-
-          <p style="font-size: 0.98rem; color: var(--text-primary); margin-bottom: 16px;">
-            Zwracam się z uprzejmą prośbą o przyjęcie syna / córki:
-          </p>
-
-          <div style="background: #FFFFFF; padding: 16px 20px; border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 22px; font-size: 0.94rem;">
-            <div style="margin-bottom: 10px;">
-              <strong>Imię i nazwisko kandydata:</strong> ....................................................................................................................................
-            </div>
-            <div style="margin-bottom: 10px;">
-              <strong>Data i miejsce urodzenia:</strong> ................................................................... w: ............................................................
-            </div>
-            <div style="margin-bottom: 10px;">
-              <strong>Numer PESEL:</strong> .............................................................................................................................................................
-            </div>
-            <div>
-              <strong>Do klasy:</strong> ............................. Pierwszej Społecznej Szkoły Podstawowej w Chełmie.
-            </div>
-          </div>
-
-          <div style="text-align: right; margin-top: 28px;">
-            <div style="display: inline-block; text-align: center;">
-              <div style="color: var(--border-color); font-weight: 600;">..........................................................................................................</div>
-              <div style="font-size: 0.8rem; color: var(--text-muted); font-style: italic; margin-top: 4px;">(czytelne podpisy rodziców / prawnych opiekunów dziecka)</div>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Sekcja RODO -->
-        <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: var(--radius-md); padding: 24px; font-size: 0.85rem; color: #475569; line-height: 1.65;">
-          <h4 style="font-size: 0.95rem; font-weight: 800; color: var(--color-primary); margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.5px;">
-            <i class="fa-solid fa-shield-halved" style="color: var(--color-primary); margin-right: 6px;"></i> Klauzula informacyjna o przetwarzaniu danych osobowych (RODO)
-          </h4>
-
-          <p style="margin-bottom: 10px;">
-            <strong>1. Administrator danych:</strong> Administratorem danych przetwarzanych w ramach procesu rekrutacji jest <strong>Chełmskie Towarzystwo Edukacyjne – Stowarzyszenie w Chełmie</strong> – organ prowadzący Pierwszą Społeczną Szkołę Podstawową w Chełmie, 22-100 Chełm, ul. Hrubieszowska 102/2.
-          </p>
-          <p style="margin-bottom: 10px;">
-            <strong>2. Cel i podstawa prawna:</strong> Dane – w zakresie zawartym w karcie ucznia – będą przetwarzane w celu przeprowadzenia procesu rekrutacji do szkoły. Podstawą prawną przetwarzania danych jest art. 6 ust. 1 lit. c) Rozporządzenia Parlamentu Europejskiego i Rady (UE) 2016/679 z dnia 27 kwietnia 2016 r. (RODO) w związku z art. 149 ust. 4 ustawy z dnia 14 grudnia 2016 r. Przepisy wprowadzające ustawę – Prawo oświatowe (Dz.U. z 2017 r. poz. 60 ze zm.).
-          </p>
-          <p style="margin-bottom: 10px;">
-            <strong>3. Odbiorcy danych:</strong> W ramach prowadzenia procesu rekrutacji dane nie będą udostępniane żadnym podmiotom trzecim. Dane mogą być udostępnione jedynie w sytuacji, gdy zwróci się o to uprawniony organ w ramach prowadzonego przez siebie postępowania (np. policja, prokuratura, sąd). Dane nie będą przekazywane do państwa trzeciego ani organizacji międzynarodowych.
-          </p>
-          <p style="margin-bottom: 10px;">
-            <strong>4. Okres przechowywania:</strong> Dane zgromadzone w procesie rekrutacji będą przechowywane przez szkołę, do której kandydat zostanie przyjęty, nie dłużej niż do końca okresu, w którym uczeń uczęszcza do tej szkoły (zgodnie z art. 160 ust. 1 ustawy Prawo oświatowe).
-          </p>
-          <p style="margin-bottom: 10px;">
-            <strong>5. Prawa osób, których dane dotyczą:</strong> Prawnym opiekunom kandydata przysługuje prawo dostępu do danych osobowych dziecka (kandydata), żądania ich sprostowania lub usunięcia. Wniesienie żądania usunięcia danych jest równoznaczne z rezygnacją z udziału w procesie rekrutacji. Ponadto przysługuje im prawo do żądania ograniczenia przetwarzania w przypadkach określonych w art. 18 RODO. Prawo do wniesienia sprzeciwu (art. 21 RODO) oraz prawo do przenoszenia danych (art. 20 RODO) nie przysługują ze względu na podstawę prawną przetwarzania (art. 6 ust. 1 lit. c RODO).
-          </p>
-          <p style="margin-bottom: 10px;">
-            <strong>6. Zautomatyzowane podejmowanie decyzji:</strong> W trakcie przetwarzania danych na potrzeby procesu rekrutacji nie dochodzi do zautomatyzowanego podejmowania decyzji ani do profilowania, o których mowa w art. 22 ust. 1 i 4 RODO.
-          </p>
-          <p style="margin-bottom: 10px;">
-            <strong>7. Prawo do skargi:</strong> Opiekunom prawnym kandydata przysługuje prawo wniesienia skargi do organu nadzorczego – Prezesa Urzędu Ochrony Danych Osobowych (PUODO), jeżeli uznają, że przetwarzanie narusza obowiązujące przepisy prawa.
-          </p>
-          <p style="margin-bottom: 14px;">
-            <strong>8. Dobrowolność podania danych:</strong> Podanie danych zawartych w niniejszym formularzu i dołączonych dokumentach nie jest obowiązkowe, jednak jest warunkiem umożliwiającym ubieganie się o przyjęcie do szkoły.
-          </p>
-
-          <div style="border-top: 1px dashed #CBD5E1; padding-top: 14px; text-align: right;">
-            <div style="display: inline-block; text-align: center;">
-              <div style="color: #94A3B8; font-size: 0.85rem;">..........................................................................................................</div>
-              <div style="font-size: 0.78rem; color: #64748B; font-style: italic; margin-top: 4px;">
-                (czytelne podpisy rodziców / prawnych opiekunów dziecka)
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
     </div>
   </section>
-
-  <!-- MODAL -->
-  <div class="modal-overlay" id="doc-modal">
-    <div class="modal-window">
-      <button class="modal-close-btn" id="modal-close" aria-label="Zamknij"><i class="fa-solid fa-xmark"></i></button>
-      <div style="font-size: 2.8rem; color: #DC2626; margin-bottom: 12px;"><i class="fa-solid fa-file-pdf"></i></div>
-      <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--color-primary); margin-bottom: 10px;" id="modal-doc-title">Pobieranie formularza</h3>
-      <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 22px;">
-        Karta zgłoszenia kandydata do Pierwszej Społecznej Szkoły Podstawowej w Chełmie jest przygotowana do pobrania w formacie PDF.
-      </p>
-      <div style="display: flex; gap: 12px;">
-        <button class="btn-primary" id="modal-download-btn"><i class="fa-solid fa-download"></i> Pobierz plik PDF</button>
-        <button class="btn-secondary" id="modal-cancel-btn">Zamknij</button>
-      </div>
-    </div>
-  </div>
 
   <!-- FOOTER -->
   </main>
