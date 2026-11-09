@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mazzmatt.github.io/Spoleczna/sitemap.xml
