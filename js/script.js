@@ -1078,7 +1078,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (url.startsWith('http://') || url.startsWith('https://')) {
         return url;
       }
-      const cloudBase = 'https://spolecznachelm.duckdns.org';
+      const cloudBase = 'https://spoleczna-strapi.onrender.com';
       const isLocalhost = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
       const activeBase = (isLocalhost && baseStrapi) ? baseStrapi : cloudBase;
       return activeBase + (url.startsWith('/') ? url : '/' + url);
@@ -1202,7 +1202,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return mapped;
     }
 
-    const CLOUD_STRAPI_URL = 'https://spolecznachelm.duckdns.org';
+    const CLOUD_STRAPI_URL = 'https://spoleczna-strapi.onrender.com';
     const isLocalhost = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
     const activeStrapiBase = window.STRAPI_URL || (isLocalhost ? 'http://localhost:1337' : CLOUD_STRAPI_URL);
 
@@ -1614,7 +1614,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function resolveMediaUrl(url, baseStrapi) {
       if (!url) return '';
       if (url.startsWith('http://') || url.startsWith('https://')) return url;
-      const cloudBase = 'https://spolecznachelm.duckdns.org';
+      const cloudBase = 'https://spoleczna-strapi.onrender.com';
       const isLocalhost = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
       const activeBase = (isLocalhost && baseStrapi) ? baseStrapi : cloudBase;
       return activeBase + (url.startsWith('/') ? url : '/' + url);
@@ -1777,7 +1777,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return true;
     }
 
-    const CLOUD_STRAPI_URL = 'https://spolecznachelm.duckdns.org';
+    const CLOUD_STRAPI_URL = 'https://spoleczna-strapi.onrender.com';
     const isLocalhost = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
     const activeStrapiBase = window.STRAPI_URL || (isLocalhost ? 'http://localhost:1337' : CLOUD_STRAPI_URL);
 
@@ -1897,7 +1897,7 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.removeItem('pssp_school_news_cache_v5');
     } catch (e) {}
 
-    const CLOUD_STRAPI_URL = 'https://spolecznachelm.duckdns.org';
+    const CLOUD_STRAPI_URL = 'https://spoleczna-strapi.onrender.com';
     const isLocalhost = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
     const activeStrapiBase = window.STRAPI_URL || (isLocalhost ? 'http://localhost:1337' : CLOUD_STRAPI_URL);
 

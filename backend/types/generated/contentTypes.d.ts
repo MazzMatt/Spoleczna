@@ -480,6 +480,39 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiAktualnoscAktualnosc extends Struct.CollectionTypeSchema {
+  collectionName: 'aktualnoscs';
+  info: {
+    description: 'Szkolne aktualno\u015Bci, wydarzenia i relacje';
+    displayName: 'Aktualno\u015Bci';
+    pluralName: 'aktualnoscs';
+    singularName: 'aktualnosc';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Data: Schema.Attribute.Date;
+    Galeria: Schema.Attribute.Relation<'oneToOne', 'api::galeria.galeria'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::aktualnosc.aktualnosc'
+    > &
+      Schema.Attribute.Private;
+    Opis: Schema.Attribute.Text & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    Tytul: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Zdjecie: Schema.Attribute.Media<'images'>;
+  };
+}
+
 export interface ApiGaleriaGaleria extends Struct.CollectionTypeSchema {
   collectionName: 'galerias';
   info: {
@@ -502,6 +535,7 @@ export interface ApiGaleriaGaleria extends Struct.CollectionTypeSchema {
       'api::galeria.galeria'
     > &
       Schema.Attribute.Private;
+    Okladka: Schema.Attribute.Media<'images'>;
     publishedAt: Schema.Attribute.DateTime;
     Tytul: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
@@ -533,10 +567,11 @@ export interface ApiGazetkaGazetka extends Struct.CollectionTypeSchema {
       'api::gazetka.gazetka'
     > &
       Schema.Attribute.Private;
+    Okladka: Schema.Attribute.Media<'images'>;
+    Plik: Schema.Attribute.Media<'files' | 'images'> &
+      Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
     Tytul: Schema.Attribute.String & Schema.Attribute.Required;
-    Okladka: Schema.Attribute.Media<'images', false>;
-    Plik: Schema.Attribute.Media<'files' | 'images', false> & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1055,6 +1090,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::aktualnosc.aktualnosc': ApiAktualnoscAktualnosc;
       'api::galeria.galeria': ApiGaleriaGaleria;
       'api::gazetka.gazetka': ApiGazetkaGazetka;
       'plugin::content-releases.release': PluginContentReleasesRelease;

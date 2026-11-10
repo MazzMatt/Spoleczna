@@ -1,9 +1,9 @@
-name: Oracle VPS Auto-Sync Gallery
+name: Render Cloud Auto-Sync & Keep-Alive
 
 on:
   schedule:
-    # Co godzinę synchronizuje galerie ze Strapi na VPS do statycznego jsona dla GitHub Pages
-    - cron: '0 * * * *'
+    # Co 10 minut pinguje Render (nigdy nie zasypia) i automatycznie synchronizuje galerie/aktualnosci na GitHub Pages
+    - cron: '*/10 * * * *'
   workflow_dispatch:
 
 permissions:
@@ -16,12 +16,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Fetch Latest Data from Oracle Strapi
+      - name: Fetch Latest Data from Render Strapi
         id: fetch-data
         run: |
-          echo "Pobieranie najnowszych galerii z Oracle Cloud VPS..."
-          HTTP_CODE=$(curl -g -s -o /tmp/latest_galerie.json -w "%{http_code}" --max-time 45 "https://spolecznachelm.duckdns.org/api/galerias?populate=*&pagination[pageSize]=100&sort=Data:desc,createdAt:desc")
-          echo "HTTP Code: $HTTP_CODE"
+          echo "Pobieranie najnowszych galerii ze Strapi na Render..."
+          HTTP_CODE=$(curl -g -s -o /tmp/latest_galerie.json -w "%{http_code}" --max-time 45 "https://spoleczna-strapi.onrender.com/api/galerias?populate=*&pagination[pageSize]=100&sort=Data:desc,createdAt:desc")
+          echo "Galerie HTTP Code: $HTTP_CODE"
           if [ "$HTTP_CODE" -eq 200 ] && [ -s /tmp/latest_galerie.json ]; then
             DATA_COUNT=$(jq '.data | length' /tmp/latest_galerie.json 2>/dev/null || echo 0)
             echo "Pobrano $DATA_COUNT galerii."
@@ -31,12 +31,26 @@ jobs:
             fi
           fi
 
-          echo "Pobieranie najnowszych wydań gazetki z Oracle Cloud VPS..."
-          G_HTTP_CODE=$(curl -g -s -o /tmp/latest_gazetka.json -w "%{http_code}" --max-time 30 "https://spolecznachelm.duckdns.org/api/gazetkas?populate=*&pagination[pageSize]=100&sort=Data:desc,createdAt:desc")
+          echo "Pobieranie najnowszych aktualności ze Strapi..."
+          A_HTTP_CODE=$(curl -g -s -o /tmp/latest_aktualnosci.json -w "%{http_code}" --max-time 30 "https://spoleczna-strapi.onrender.com/api/aktualnoscs?populate=*&pagination[pageSize]=100&sort=Data:desc,createdAt:desc")
+          echo "Aktualnosci HTTP Code: $A_HTTP_CODE"
+          if [ "$A_HTTP_CODE" -eq 200 ] && [ -s /tmp/latest_aktualnosci.json ]; then
+            A_COUNT=$(jq '.data | length' /tmp/latest_aktualnosci.json 2>/dev/null || echo 0)
+            if [ "$A_COUNT" -gt 0 ]; then
+              cp /tmp/latest_aktualnosci.json data/aktualnosci.json
+              echo "has_data=true" >> $GITHUB_OUTPUT
+            fi
+          fi
+
+          echo "Pobieranie najnowszych wydań gazetki ze Strapi..."
+          G_HTTP_CODE=$(curl -g -s -o /tmp/latest_gazetka.json -w "%{http_code}" --max-time 30 "https://spoleczna-strapi.onrender.com/api/gazetkas?populate=*&pagination[pageSize]=100&sort=Data:desc,createdAt:desc")
           echo "Gazetka HTTP Code: $G_HTTP_CODE"
           if [ "$G_HTTP_CODE" -eq 200 ] && [ -s /tmp/latest_gazetka.json ]; then
-            cp /tmp/latest_gazetka.json data/gazetka.json
-            echo "has_data=true" >> $GITHUB_OUTPUT
+            G_COUNT=$(jq '.data | length' /tmp/latest_gazetka.json 2>/dev/null || echo 0)
+            if [ "$G_COUNT" -gt 0 ]; then
+              cp /tmp/latest_gazetka.json data/gazetka.json
+              echo "has_data=true" >> $GITHUB_OUTPUT
+            fi
           fi
 
       - name: Commit & Push if data changed

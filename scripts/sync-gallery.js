@@ -13,8 +13,8 @@ async function syncGallery() {
   console.log('============================================================\n');
 
   const localUrl = 'http://localhost:1337';
-  const cloudUrl = 'https://spolecznachelm.duckdns.org';
-  const urlsToTry = [process.env.STRAPI_URL, localUrl, cloudUrl].filter(Boolean);
+  const cloudUrl = 'https://spoleczna-strapi.onrender.com';
+  const urlsToTry = [process.env.STRAPI_URL, cloudUrl, localUrl].filter(Boolean);
 
   let success = false;
 
