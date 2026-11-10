@@ -997,6 +997,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Obsługa wyboru sortowania albumów ("Od najnowszych" / "Od najstarszych")
+    // Obsługa wyboru sortowania albumów ("Od najnowszych" / "Od najstarszych")
     let currentSortMode = 'desc';
     try {
       const savedSort = localStorage.getItem('pssp_gallery_sort');
@@ -1006,20 +1007,65 @@ document.addEventListener('DOMContentLoaded', () => {
     } catch (e) {}
 
     const sortSelect = document.getElementById('gallery-sort-select');
+    const sortDropdown = document.getElementById('gallery-sort-dropdown');
+    const sortTrigger = document.getElementById('gallery-sort-trigger');
+    const sortCurrentText = document.getElementById('gallery-sort-current-text');
+    const sortOptions = sortDropdown ? sortDropdown.querySelectorAll('.custom-sort-option') : [];
+
+    function updateGallerySortUI(mode) {
+      if (sortSelect) sortSelect.value = mode;
+      if (sortCurrentText) {
+        sortCurrentText.textContent = mode === 'asc' ? 'Od najstarszych' : 'Od najnowszych';
+      }
+      sortOptions.forEach(opt => {
+        const val = opt.getAttribute('data-value');
+        const isActive = (val === mode);
+        opt.classList.toggle('active', isActive);
+        opt.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      });
+    }
+
+    function applyGallerySort(newMode) {
+      if (newMode !== 'asc' && newMode !== 'desc') return;
+      currentSortMode = newMode;
+      try {
+        localStorage.setItem('pssp_gallery_sort', currentSortMode);
+      } catch (err) {}
+      updateGallerySortUI(currentSortMode);
+      renderAlbums(allAlbums);
+    }
+
+    updateGallerySortUI(currentSortMode);
+
+    if (sortTrigger && sortDropdown) {
+      sortTrigger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = sortDropdown.classList.contains('open');
+        sortDropdown.classList.toggle('open', !isOpen);
+        sortTrigger.setAttribute('aria-expanded', !isOpen ? 'true' : 'false');
+      });
+
+      sortOptions.forEach(opt => {
+        opt.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const val = opt.getAttribute('data-value');
+          applyGallerySort(val);
+          sortDropdown.classList.remove('open');
+          sortTrigger.setAttribute('aria-expanded', 'false');
+        });
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!sortDropdown.contains(e.target)) {
+          sortDropdown.classList.remove('open');
+          sortTrigger.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+
     if (sortSelect) {
-      sortSelect.value = currentSortMode;
-      const onGallerySortChange = () => {
-        const val = sortSelect.value;
-        if (val !== 'asc' && val !== 'desc') return;
-        currentSortMode = val;
-        try {
-          localStorage.setItem('pssp_gallery_sort', currentSortMode);
-        } catch (err) {}
-        renderAlbums(allAlbums);
-      };
-      // Zarówno change jak i input dla natychmiastowej reakcji na mobilnym iOS Safari i Android
-      sortSelect.addEventListener('change', onGallerySortChange);
-      sortSelect.addEventListener('input', onGallerySortChange);
+      sortSelect.addEventListener('change', () => applyGallerySort(sortSelect.value));
+      sortSelect.addEventListener('input', () => applyGallerySort(sortSelect.value));
     }
 
     // Funkcja sortująca albumy po dacie wydarzenia wpisanej w Strapi (pole Data) lub dacie utworzenia
@@ -1631,18 +1677,65 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     } catch (e) {}
 
+    const sortDropdown = document.getElementById('gazetka-sort-dropdown');
+    const sortTrigger = document.getElementById('gazetka-sort-trigger');
+    const sortCurrentText = document.getElementById('gazetka-sort-current-text');
+    const sortOptions = sortDropdown ? sortDropdown.querySelectorAll('.custom-sort-option') : [];
+
+    function updateGazetkaSortUI(mode) {
+      if (sortSelect) sortSelect.value = mode;
+      if (sortCurrentText) {
+        sortCurrentText.textContent = mode === 'asc' ? 'Od najstarszych' : 'Od najnowszych';
+      }
+      sortOptions.forEach(opt => {
+        const val = opt.getAttribute('data-value');
+        const isActive = (val === mode);
+        opt.classList.toggle('active', isActive);
+        opt.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      });
+    }
+
+    function applyGazetkaSort(newMode) {
+      if (newMode !== 'asc' && newMode !== 'desc') return;
+      currentSortMode = newMode;
+      try {
+        localStorage.setItem('pssp_gazetka_sort', currentSortMode);
+      } catch (err) {}
+      updateGazetkaSortUI(currentSortMode);
+      renderGazetkas(allGazetkas);
+    }
+
+    updateGazetkaSortUI(currentSortMode);
+
+    if (sortTrigger && sortDropdown) {
+      sortTrigger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = sortDropdown.classList.contains('open');
+        sortDropdown.classList.toggle('open', !isOpen);
+        sortTrigger.setAttribute('aria-expanded', !isOpen ? 'true' : 'false');
+      });
+
+      sortOptions.forEach(opt => {
+        opt.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const val = opt.getAttribute('data-value');
+          applyGazetkaSort(val);
+          sortDropdown.classList.remove('open');
+          sortTrigger.setAttribute('aria-expanded', 'false');
+        });
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!sortDropdown.contains(e.target)) {
+          sortDropdown.classList.remove('open');
+          sortTrigger.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+
     if (sortSelect) {
-      sortSelect.value = currentSortMode;
-      const onGazetkaSortChange = () => {
-        const val = sortSelect.value;
-        if (val !== 'asc' && val !== 'desc') return;
-        currentSortMode = val;
-        try { localStorage.setItem('pssp_gazetka_sort', currentSortMode); } catch (e) {}
-        renderGazetkas(allGazetkas);
-      };
-      // Obsługa obu zdarzeń dla bezbłędnego działania na Safari iOS oraz mobilnym Chrome
-      sortSelect.addEventListener('change', onGazetkaSortChange);
-      sortSelect.addEventListener('input', onGazetkaSortChange);
+      sortSelect.addEventListener('change', () => applyGazetkaSort(sortSelect.value));
+      sortSelect.addEventListener('input', () => applyGazetkaSort(sortSelect.value));
     }
 
     if (refreshBtn) {

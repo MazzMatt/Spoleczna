@@ -4583,55 +4583,142 @@ html[data-contrast="yellow-black"] .back-to-top-btn {
   flex-wrap: wrap;
 }
 
-.gallery-sort-select {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background-color: rgba(255, 255, 255, 0.12);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23FFFFFF' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 14px center;
-  background-size: 14px 14px;
+/* Ukryty semantyczny select dla asystentów i czytników */
+.gallery-sort-native-hidden {
+  position: absolute !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  clip: rect(0, 0, 0, 0) !important;
+  overflow: hidden !important;
+}
+
+.gallery-sort-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+/* Niezawodny, w pełni klikalny selektor sortowania na każdy telefon i komputer */
+.custom-sort-dropdown {
+  position: relative;
+  display: inline-block;
+  min-width: 175px;
+}
+
+.custom-sort-trigger {
+  width: 100%;
+  min-height: 42px;
+  height: 42px;
+  background: rgba(255, 255, 255, 0.12);
   border: 1px solid rgba(255, 255, 255, 0.25);
   color: #FFFFFF;
-  height: 42px;
-  min-height: 42px;
-  padding: 0 38px 0 14px;
+  padding: 0 14px;
   border-radius: 8px;
   font-weight: 600;
   font-size: 15px;
   font-family: inherit;
   cursor: pointer;
   outline: none;
-  display: inline-block;
-  line-height: 40px;
-  vertical-align: middle;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
   transition: all 0.2s ease;
 }
 
-.gallery-sort-select:hover,
-.gallery-sort-select:focus-visible {
+.custom-sort-trigger:hover,
+.custom-sort-trigger:focus-visible,
+.custom-sort-dropdown.open .custom-sort-trigger {
   border-color: #F8C830;
-  background-color: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.18);
 }
 
-.gallery-sort-select option {
-  background: #111827;
+.custom-sort-arrow {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.8);
+  transition: transform 0.2s ease;
+}
+
+.custom-sort-dropdown.open .custom-sort-arrow {
+  transform: rotate(180deg);
+  color: #F8C830;
+}
+
+.custom-sort-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  width: 100%;
+  min-width: 180px;
+  background: #1E293B;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  padding: 6px;
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 100;
+  animation: fadeInMenu 0.15s ease-out;
+}
+
+.custom-sort-dropdown.open .custom-sort-menu {
+  display: flex;
+}
+
+@keyframes fadeInMenu {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.custom-sort-option {
+  width: 100%;
+  min-height: 40px;
+  height: 40px;
+  background: transparent;
+  border: none;
+  color: #E2E8F0;
+  padding: 0 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: all 0.15s ease;
+}
+
+.custom-sort-option i {
+  font-size: 0.85rem;
+  color: transparent;
+  width: 16px;
+  text-align: center;
+}
+
+.custom-sort-option:hover,
+.custom-sort-option:focus-visible {
+  background: rgba(255, 255, 255, 0.12);
   color: #FFFFFF;
-  padding: 10px;
-  font-size: 15px;
 }
 
-@media (max-width: 768px) {
-  .gallery-sort-select {
-    font-size: 16px; /* Zapobiega automatycznemu powiększaniu na Safari iOS */
-    min-height: 44px;
-    height: 44px;
-    line-height: 42px;
-    padding: 0 36px 0 12px;
-  }
+.custom-sort-option.active {
+  background: rgba(248, 200, 48, 0.15);
+  color: #F8C830;
+}
+
+.custom-sort-option.active i {
+  color: #F8C830;
 }
 
 @media (max-width: 600px) {
@@ -4648,9 +4735,20 @@ html[data-contrast="yellow-black"] .back-to-top-btn {
     justify-content: flex-start;
     gap: 10px;
   }
-  .gallery-sort-select {
+  .gallery-sort-wrap,
+  .custom-sort-dropdown {
     flex: 1;
     min-width: 150px;
+  }
+  .custom-sort-trigger {
+    min-height: 44px;
+    height: 44px;
+    font-size: 15px;
+  }
+  .custom-sort-option {
+    min-height: 44px;
+    height: 44px;
+    font-size: 15px;
   }
   .gallery-top-actions .album-back-btn {
     height: 44px !important;
@@ -4892,6 +4990,25 @@ html[data-contrast="black-yellow"] .gallery-sort-select {
   border: 2px solid #FFFF00 !important;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23FFFF00' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
 }
+html[data-contrast="black-yellow"] .custom-sort-trigger,
+html[data-contrast="black-yellow"] .custom-sort-menu {
+  background: #000000 !important;
+  color: #FFFF00 !important;
+  border: 2px solid #FFFF00 !important;
+}
+html[data-contrast="black-yellow"] .custom-sort-arrow {
+  color: #FFFF00 !important;
+}
+html[data-contrast="black-yellow"] .custom-sort-option {
+  color: #FFFF00 !important;
+}
+html[data-contrast="black-yellow"] .custom-sort-option.active {
+  background: #FFFF00 !important;
+  color: #000000 !important;
+}
+html[data-contrast="black-yellow"] .custom-sort-option.active i {
+  color: #000000 !important;
+}
 
 html[data-contrast="black-white"] .gallery-dark-wrap {
   background: #000000 !important;
@@ -4920,6 +5037,25 @@ html[data-contrast="black-white"] .gallery-sort-select {
   color: #FFFFFF !important;
   border: 2px solid #FFFFFF !important;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23FFFFFF' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
+}
+html[data-contrast="black-white"] .custom-sort-trigger,
+html[data-contrast="black-white"] .custom-sort-menu {
+  background: #000000 !important;
+  color: #FFFFFF !important;
+  border: 2px solid #FFFFFF !important;
+}
+html[data-contrast="black-white"] .custom-sort-arrow {
+  color: #FFFFFF !important;
+}
+html[data-contrast="black-white"] .custom-sort-option {
+  color: #FFFFFF !important;
+}
+html[data-contrast="black-white"] .custom-sort-option.active {
+  background: #FFFFFF !important;
+  color: #000000 !important;
+}
+html[data-contrast="black-white"] .custom-sort-option.active i {
+  color: #000000 !important;
 }
 
 html[data-contrast="yellow-black"] .gallery-dark-wrap {
@@ -4950,6 +5086,25 @@ html[data-contrast="yellow-black"] .gallery-sort-select {
   color: #000000 !important;
   border: 2px solid #000000 !important;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23000000' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
+}
+html[data-contrast="yellow-black"] .custom-sort-trigger,
+html[data-contrast="yellow-black"] .custom-sort-menu {
+  background: #FFFF00 !important;
+  color: #000000 !important;
+  border: 2px solid #000000 !important;
+}
+html[data-contrast="yellow-black"] .custom-sort-arrow {
+  color: #000000 !important;
+}
+html[data-contrast="yellow-black"] .custom-sort-option {
+  color: #000000 !important;
+}
+html[data-contrast="yellow-black"] .custom-sort-option.active {
+  background: #000000 !important;
+  color: #FFFF00 !important;
+}
+html[data-contrast="yellow-black"] .custom-sort-option.active i {
+  color: #FFFF00 !important;
 }
 
 /* ======================================================================
