@@ -1040,7 +1040,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return copy;
     }
 
-    const CACHE_KEY = 'pssp_cached_albums_v9';
+    const CACHE_KEY = 'pssp_cached_albums_v10';
     // 1. Natychmiastowe wczytanie z pamięci podręcznej przeglądarki (0 ms)
     try {
       localStorage.removeItem('pssp_cached_albums');
@@ -1051,6 +1051,7 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.removeItem('pssp_cached_albums_v6');
       localStorage.removeItem('pssp_cached_albums_v7');
       localStorage.removeItem('pssp_cached_albums_v8');
+      localStorage.removeItem('pssp_cached_albums_v9');
       const cached = localStorage.getItem(CACHE_KEY);
       if (cached) {
         const parsed = JSON.parse(cached);
@@ -1255,7 +1256,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (refreshIcon) refreshIcon.classList.add('fa-spin');
 
       try {
-        const timeoutMs = 75000; // Do 75s na wypadek wybudzania darmowego serwera Render
+        const timeoutMs = 4000; // Szybki timeout 4s - jeśli chmura jest niedostępna, natychmiast przełącz na GitHub Pages
         const fetchOptions = {
           cache: 'no-store',
           headers: {
@@ -1300,16 +1301,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Główna funkcja orkiestrująca wczytywanie
     async function loadGalleriesFromBackend() {
-      // 1. Równoległe odpytanie chmury Strapi (zawsze aktualna, bezpośrednio z bazy danych)
-      const cloudPromise = syncFromCloudBackend(false);
-
-      // 2. Jeśli nie mamy nic w pamięci podręcznej, wczytaj plik awaryjny z GitHub Pages, aby natychmiast coś pokazać
+      // 1. ZAWSZE natychmiast wczytaj z pliku statycznego GitHub Pages (0 ms czekania dla odwiedzających)
       if (allAlbums.length === 0) {
-        const hasStatic = await loadStaticFallback();
-        if (!hasStatic && allAlbums.length === 0) {
-          await cloudPromise;
-        }
+        await loadStaticFallback(true);
       }
+
+      // 2. W tle z krótkim 4s timeoutem sprawdź czy chmura ma nowsze dane
+      syncFromCloudBackend(false);
     }
 
     let hasHandledInitialUrlAlbum = false;
@@ -1887,7 +1885,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const topPageInfo = document.getElementById('news-top-page-info');
     const ITEMS_PER_PAGE = 10;
     let currentPage = 1;
-    const CACHE_KEY = 'pssp_school_news_cache_v5';
+    const CACHE_KEY = 'pssp_school_news_cache_v10';
     let allNews = [];
 
     // Czyszczenie starej pamięci podręcznej
@@ -1896,6 +1894,7 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.removeItem('pssp_school_news_cache_v2');
       localStorage.removeItem('pssp_school_news_cache_v3');
       localStorage.removeItem('pssp_school_news_cache_v4');
+      localStorage.removeItem('pssp_school_news_cache_v5');
     } catch (e) {}
 
     const CLOUD_STRAPI_URL = 'https://spolecznachelm.duckdns.org';
@@ -2314,13 +2313,18 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     } catch (e) {}
 
-    // 2. Statyczny fallback z pliku JSON (jeśli istnieje)
+    // 2. Statyczny fallback z pliku JSON (zawsze natychmiastowy na GitHub Pages)
     async function loadStaticFallback(forceBust = false) {
-      const cacheBust = forceBust ? `?bust=${Date.now()}` : '';
-      const candidates = [`data/aktualnosci.json${cacheBust}`, `./data/aktualnosci.json${cacheBust}`];
+      const cacheBust = `?bust=${Date.now()}`;
+      const candidates = [];
+      try {
+        candidates.push(new URL(`data/aktualnosci.json${cacheBust}`, window.location.href).href);
+      } catch (e) {}
+      candidates.push(`data/aktualnosci.json${cacheBust}`);
+      candidates.push(`./data/aktualnosci.json${cacheBust}`);
       for (const url of candidates) {
         try {
-          const res = await fetch(url);
+          const res = await fetch(url, { cache: 'no-store' });
           if (!res.ok) continue;
           const json = await res.json();
           const items = Array.isArray(json) ? json : (json.data || []);
@@ -2343,7 +2347,7 @@ document.addEventListener('DOMContentLoaded', () => {
       try {
         const endpoint = `${activeStrapiBase}/api/aktualnoscs?populate=*&pagination[pageSize]=100&sort=Data:desc,createdAt:desc`;
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 12000);
+        const timeoutId = setTimeout(() => controller.abort(), 4000);
 
         const res = await fetch(endpoint, {
           signal: controller.signal,
@@ -2371,7 +2375,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       } catch (err) {
         if (allNews.length === 0) {
-          await loadStaticFallback(isManual);
+          await loadStaticFallback(true);
         }
       }
       return false;
@@ -2383,7 +2387,10 @@ document.addEventListener('DOMContentLoaded', () => {
         refreshBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i> <span>Pobieranie...</span>';
         refreshBtn.disabled = true;
         try { localStorage.removeItem(CACHE_KEY); } catch (e) {}
-        await syncFromCloudBackend(true);
+        const cloudOk = await syncFromCloudBackend(true);
+        if (!cloudOk) {
+          await loadStaticFallback(true);
+        }
         refreshBtn.innerHTML = orig;
         refreshBtn.disabled = false;
       });
@@ -2394,6 +2401,11 @@ document.addEventListener('DOMContentLoaded', () => {
         syncFromCloudBackend();
       }
     });
+
+    // ZAWSZE natychmiast wczytaj z GitHub Pages
+    if (allNews.length === 0) {
+      loadStaticFallback(true);
+    }
 
     syncFromCloudBackend();
   }
