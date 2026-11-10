@@ -11,16 +11,36 @@ services:
       - key: NODE_VERSION
         value: 20.18.0
       - key: NODE_OPTIONS
-        value: --max-old-space-size=300
+        value: --max-old-space-size=400
       - key: NODE_ENV
         value: production
+      - key: HOST
+        value: 0.0.0.0
+      - key: PORT
+        value: 1337
       - key: DATABASE_CLIENT
         value: postgres
+      - key: DATABASE_URL
+        value: postgresql://Spo%C5%82eczna_owner:npg_znYCX74LjaeJ@ep-steep-haze-ba4rc365.c-8.eu-central-1.aws.neon.tech/Spo%C5%82eczna?sslmode=require
       - key: DATABASE_SSL
         value: "true"
       - key: IS_PROXIED
         value: "true"
+      - key: APP_KEYS
+        value: IfW8YX0PHHmM/02gg4KXTg==,bwxT0GmmWpogxfxeBw/oMw==,rxGDUTc7XsSEbkwwp7na8g==,UptnAfltutf5KUETO/Za9A==
+      - key: API_TOKEN_SALT
+        value: WxRlM2xXrbAq+IuxzbliqQ==
+      - key: ADMIN_JWT_SECRET
+        value: g8rlTAVKbcTTDkH+UW5wIA==
+      - key: JWT_SECRET
+        value: XbnIYcb2VP50uqTj7w4B8Q==
+      - key: TRANSFER_TOKEN_SALT
+        value: NHTF56S+Kh1ZVtXDU2KyrQ==
+      - key: ENCRYPTION_KEY
+        value: 0HdoAdKtSKc7RaKb65tIyQ==
       - key: CLOUDINARY_NAME
         value: zpylz0ih
       - key: CLOUDINARY_KEY
         value: "286117754568249"
+      - key: CLOUDINARY_SECRET
+        value: kHU56bceO01To5-NxsArdp5dEuo
