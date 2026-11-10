@@ -11,7 +11,7 @@ services:
       - key: NODE_VERSION
         value: 22.11.0
       - key: NODE_OPTIONS
-        value: --max-old-space-size=400
+        value: --max-old-space-size=1536
       - key: NODE_ENV
         value: production
       - key: HOST
