@@ -12,9 +12,9 @@ async function syncGallery() {
   console.log('🔄 SYNCHRONIZACJA GALERII DLA GITHUB PAGES / HOSTINGU');
   console.log('============================================================\n');
 
-  const cloudUrl = 'https://spolecznachelm.duckdns.org';
   const localUrl = 'http://localhost:1337';
-  const urlsToTry = [process.env.STRAPI_URL, cloudUrl, localUrl].filter(Boolean);
+  const cloudUrl = 'https://spolecznachelm.duckdns.org';
+  const urlsToTry = [process.env.STRAPI_URL, localUrl, cloudUrl].filter(Boolean);
 
   let success = false;
 
