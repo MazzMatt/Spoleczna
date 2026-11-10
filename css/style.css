@@ -1576,52 +1576,6 @@ html.stop-motion *::after {
   transform: translateX(4px);
 }
 
-.news-card.has-gallery {
-  cursor: pointer;
-}
-
-.news-card.has-gallery:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 28px -6px rgba(0, 0, 0, 0.15);
-}
-
-.news-title-link {
-  color: inherit;
-  text-decoration: none;
-  display: inline-block;
-  transition: color 0.2s ease;
-}
-
-.news-card.has-gallery:hover .news-title-link {
-  color: var(--color-accent-dark, #D69E2E);
-}
-
-.news-gallery-indicator {
-  position: absolute;
-  bottom: 12px;
-  right: 12px;
-  background: rgba(17, 24, 39, 0.88);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  color: #F8C830;
-  font-size: 0.78rem;
-  font-weight: 700;
-  padding: 6px 12px;
-  border-radius: 20px;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-  pointer-events: none;
-  transition: all 0.25s ease;
-  z-index: 2;
-}
-
-.news-card.has-gallery:hover .news-gallery-indicator {
-  background: #1E4D8C;
-  color: #FFFFFF;
-}
-
 /* --------------------------------------------------------------------------
    PAGINACJA AKTUALNOŚCI (STYL PINTEREST / NOWOCZESNY)
    -------------------------------------------------------------------------- */

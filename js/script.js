@@ -2302,16 +2302,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
       pageItems.forEach(news => {
         const article = document.createElement('article');
-        article.className = 'news-card' + (news.galleryParam ? ' has-gallery' : '');
+        article.className = 'news-card';
 
-        const targetUrl = news.galleryParam
-          ? `galeria.html?album=${encodeURIComponent(news.galleryParam)}`
-          : null;
-
-        const galleryBtnHtml = targetUrl
+        const galleryBtnHtml = news.galleryParam
           ? `
             <div class="news-card-footer">
-              <a href="${targetUrl}" class="btn-more-gallery" title="Przejdź do galerii i otwórz fotorelację">
+              <a href="galeria.html?album=${encodeURIComponent(news.galleryParam)}" class="btn-more-gallery" title="Przejdź do galerii i otwórz fotorelację">
                 <i class="fa-solid fa-images" aria-hidden="true"></i>
                 <span>Zobacz fotorelację w galerii</span>
                 <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
@@ -2320,44 +2316,18 @@ document.addEventListener('DOMContentLoaded', () => {
           `
           : '';
 
-        const imgWrapHtml = targetUrl
-          ? `
-            <a href="${targetUrl}" class="news-card-img-wrap" title="Otwórz fotorelację: ${news.title}">
-              <img src="${news.imageUrl}" alt="${news.title}" class="news-card-img" ${news.aspectRatio ? `style="aspect-ratio: ${news.aspectRatio};"` : ''} loading="lazy" decoding="async">
-              ${news.category ? `<span class="news-tag">${news.category}</span>` : ''}
-              <span class="news-gallery-indicator" title="Fotorelacja dostępna"><i class="fa-solid fa-images"></i> Zobacz zdjęcia</span>
-            </a>
-          `
-          : `
-            <div class="news-card-img-wrap">
-              <img src="${news.imageUrl}" alt="${news.title}" class="news-card-img" ${news.aspectRatio ? `style="aspect-ratio: ${news.aspectRatio};"` : ''} loading="lazy" decoding="async">
-              ${news.category ? `<span class="news-tag">${news.category}</span>` : ''}
-            </div>
-          `;
-
-        const titleHtml = targetUrl
-          ? `<h3 class="news-card-title"><a href="${targetUrl}" class="news-title-link" title="Otwórz fotorelację: ${news.title}">${news.title}</a></h3>`
-          : `<h3 class="news-card-title">${news.title}</h3>`;
-
         article.innerHTML = `
-          ${imgWrapHtml}
+          <div class="news-card-img-wrap">
+            <img src="${news.imageUrl}" alt="${news.title}" class="news-card-img" ${news.aspectRatio ? `style="aspect-ratio: ${news.aspectRatio};"` : ''} loading="lazy" decoding="async">
+            ${news.category ? `<span class="news-tag">${news.category}</span>` : ''}
+          </div>
           <div class="news-card-body">
             ${news.dateDisplay ? `<div class="news-date"><i class="fa-regular fa-calendar" aria-hidden="true"></i> ${news.dateDisplay}</div>` : ''}
-            ${titleHtml}
+            <h3 class="news-card-title">${news.title}</h3>
             <div class="news-excerpt">${news.content}</div>
             ${galleryBtnHtml}
           </div>
         `;
-
-        if (targetUrl) {
-          // Kliknięcie w dowolne miejsce kafelka przenosi do właściwego folderu galerii
-          article.addEventListener('click', (e) => {
-            if (e.target.closest('a') || e.target.closest('button')) return;
-            const selection = window.getSelection ? window.getSelection().toString() : '';
-            if (selection && selection.length > 0) return;
-            window.location.href = targetUrl;
-          });
-        }
 
         container.appendChild(article);
       });
