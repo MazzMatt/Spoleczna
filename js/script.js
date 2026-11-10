@@ -1008,36 +1008,30 @@ document.addEventListener('DOMContentLoaded', () => {
     const sortSelect = document.getElementById('gallery-sort-select');
     if (sortSelect) {
       sortSelect.value = currentSortMode;
-      sortSelect.addEventListener('change', (e) => {
-        currentSortMode = e.target.value;
+      const onGallerySortChange = () => {
+        const val = sortSelect.value;
+        if (val !== 'asc' && val !== 'desc') return;
+        currentSortMode = val;
         try {
           localStorage.setItem('pssp_gallery_sort', currentSortMode);
         } catch (err) {}
         renderAlbums(allAlbums);
-      });
+      };
+      // Zarówno change jak i input dla natychmiastowej reakcji na mobilnym iOS Safari i Android
+      sortSelect.addEventListener('change', onGallerySortChange);
+      sortSelect.addEventListener('input', onGallerySortChange);
     }
 
-    // Funkcja sortująca albumy po dacie wydarzenia wpisanej w Strapi (pole Data)
+    // Funkcja sortująca albumy po dacie wydarzenia wpisanej w Strapi (pole Data) lub dacie utworzenia
     function getSortedAlbums(albums, sortMode = currentSortMode) {
-      const copy = [...albums];
-      if (sortMode === 'asc') {
-        // Od najstarszych po dacie w Strapi
-        copy.sort((a, b) => {
-          if (a.timestamp && b.timestamp && a.timestamp !== b.timestamp) {
-            return a.timestamp - b.timestamp;
-          }
-          return (a.idNum || 0) - (b.idNum || 0);
-        });
-      } else {
-        // Od najnowszych po dacie w Strapi
-        copy.sort((a, b) => {
-          if (b.timestamp && a.timestamp && b.timestamp !== a.timestamp) {
-            return b.timestamp - a.timestamp;
-          }
-          return (b.idNum || 0) - (a.idNum || 0);
-        });
-      }
-      return copy;
+      return [...albums].sort((a, b) => {
+        const timeA = a.timestamp || a.createdTimestamp || 0;
+        const timeB = b.timestamp || b.createdTimestamp || 0;
+        if (timeA !== timeB) {
+          return sortMode === 'asc' ? timeA - timeB : timeB - timeA;
+        }
+        return sortMode === 'asc' ? (a.idNum || 0) - (b.idNum || 0) : (b.idNum || 0) - (a.idNum || 0);
+      });
     }
 
     const CACHE_KEY = 'pssp_cached_albums_v10';
@@ -1237,6 +1231,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
               } else {
                 renderAlbums(allAlbums);
+                checkUrlForDirectAlbum(allAlbums);
               }
               return true;
             }
@@ -1287,6 +1282,7 @@ document.addEventListener('DOMContentLoaded', () => {
               }
             } else {
               renderAlbums(allAlbums);
+              checkUrlForDirectAlbum(allAlbums);
             }
             return true;
           }
@@ -1318,7 +1314,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const target = (params.get('album') || params.get('folder') || params.get('id') || '').trim();
         if (!target) return;
 
-        const clean = decodeURIComponent(target).toLowerCase();
+        const clean = decodeURIComponent(target).replace(/^["']|["']$/g, '').trim().toLowerCase();
+        if (!clean) return;
+
+        function normalizeStr(str) {
+          return String(str || '')
+            .toLowerCase()
+            .replace(/[„”"''’«»!?.–—-]/g, '')
+            .replace(/\s+/g, ' ')
+            .trim();
+        }
+
+        const normClean = normalizeStr(clean);
 
         // 1. Szukamy precyzyjnie po unikalnym ID (documentId, id lub rawId ze Strapi)
         // Dzięki temu foldery o tej samej nazwie (np. "Moje podróże" 2026 i 2025) są bezbłędnie rozróżniane!
@@ -1328,28 +1335,32 @@ document.addEventListener('DOMContentLoaded', () => {
           String(a.rawId || '').toLowerCase() === clean
         );
 
-        // 2. Jeśli nie dopasowano po ID, szukamy po dokładnym tytule (wybierając najnowszy w razie duplikatów nazw)
+        // 2. Jeśli nie dopasowano po ID, szukamy po dokładnym lub znormalizowanym tytule
         if (!matched) {
-          const titleMatches = albums.filter(a => String(a.title || '').trim().toLowerCase() === clean);
+          const titleMatches = albums.filter(a => {
+            const t = String(a.title || '').trim().toLowerCase();
+            return t === clean || normalizeStr(t) === normClean;
+          });
           if (titleMatches.length > 0) {
             titleMatches.sort((a, b) => (b.timestamp || b.createdTimestamp || 0) - (a.timestamp || a.createdTimestamp || 0));
             matched = titleMatches[0];
           }
         }
 
-        // 3. Fallback: częściowe dopasowanie tytułu
+        // 3. Fallback: częściowe dopasowanie tytułu (zawieranie słów kluczowych)
         if (!matched) {
-          matched = albums.find(a => 
-            String(a.title || '').trim().toLowerCase().includes(clean) ||
-            clean.includes(String(a.title || '').trim().toLowerCase())
-          );
+          matched = albums.find(a => {
+            const normTitle = normalizeStr(a.title);
+            return (
+              (normClean.length >= 4 && normTitle.includes(normClean)) ||
+              (normTitle.length >= 4 && normClean.includes(normTitle))
+            );
+          });
         }
 
         if (matched) {
           hasHandledInitialUrlAlbum = true;
-          setTimeout(() => {
-            openAlbumDetails(matched);
-          }, 80);
+          openAlbumDetails(matched, true);
         }
       } catch (err) {
         console.warn('Błąd otwierania albumu z adresu URL:', err);
@@ -1433,7 +1444,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Otwarcie wybranego albumu (widok zdjęć w folderze)
-    function openAlbumDetails(album) {
+    function openAlbumDetails(album, shouldScroll = true) {
+      if (!album) return;
       currentAlbum = album;
       if (albumsView) albumsView.style.display = 'none';
       if (detailsView) detailsView.classList.add('active');
@@ -1441,9 +1453,13 @@ document.addEventListener('DOMContentLoaded', () => {
       renderAlbumPhotos(album);
 
       // Płynne przewinięcie do widoku galerii
-      const darkWrap = document.querySelector('.gallery-dark-wrap');
-      if (darkWrap) {
-        darkWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (shouldScroll) {
+        const darkWrap = document.querySelector('.gallery-dark-wrap');
+        if (darkWrap) {
+          requestAnimationFrame(() => {
+            darkWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          });
+        }
       }
     }
 
@@ -1458,8 +1474,27 @@ document.addEventListener('DOMContentLoaded', () => {
           window.history.replaceState({}, document.title, cleanUrl);
         }
         renderAlbums(allAlbums);
+        const darkWrap = document.querySelector('.gallery-dark-wrap');
+        if (darkWrap) {
+          darkWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       });
     }
+
+    // Obsługa przycisków Wstecz / Dalej w przeglądarce
+    window.addEventListener('popstate', () => {
+      const params = new URLSearchParams(window.location.search);
+      const target = (params.get('album') || params.get('folder') || params.get('id') || '').trim();
+      if (!target) {
+        if (detailsView) detailsView.classList.remove('active');
+        if (albumsView) albumsView.style.display = 'block';
+        currentAlbum = null;
+        renderAlbums(allAlbums);
+      } else {
+        hasHandledInitialUrlAlbum = false;
+        checkUrlForDirectAlbum(allAlbums);
+      }
+    });
 
     // Obsługa Lightboxa (pełnoekranowego podglądu zdjęć)
     function openLightbox(photoIndex) {
@@ -1598,11 +1633,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (sortSelect) {
       sortSelect.value = currentSortMode;
-      sortSelect.addEventListener('change', () => {
-        currentSortMode = sortSelect.value;
+      const onGazetkaSortChange = () => {
+        const val = sortSelect.value;
+        if (val !== 'asc' && val !== 'desc') return;
+        currentSortMode = val;
         try { localStorage.setItem('pssp_gazetka_sort', currentSortMode); } catch (e) {}
         renderGazetkas(allGazetkas);
-      });
+      };
+      // Obsługa obu zdarzeń dla bezbłędnego działania na Safari iOS oraz mobilnym Chrome
+      sortSelect.addEventListener('change', onGazetkaSortChange);
+      sortSelect.addEventListener('input', onGazetkaSortChange);
     }
 
     if (refreshBtn) {
@@ -1964,7 +2004,7 @@ document.addEventListener('DOMContentLoaded', () => {
           imageUrl = 'assets/images/school-building.jpg';
         }
 
-        // Powiązana galeria (relacja do folderu z galerii)
+        // Powiązana galeria (relacja do folderu z galerii lub inteligentne dopasowanie)
         let galleryParam = '';
         const rawGaleria = attrs.Galeria || attrs.galeria;
         if (rawGaleria) {
@@ -1975,6 +2015,12 @@ document.addEventListener('DOMContentLoaded', () => {
             // aby foldery o tej samej nazwie (np. "Moje podróże" z różnych lat)
             // były bezbłędnie i precyzyjnie rozróżniane!
             galleryParam = gObj.documentId || (gAttrs && gAttrs.documentId) || gObj.id || (gAttrs && gAttrs.id) || gAttrs.Tytul || gAttrs.tytul || '';
+          }
+        }
+        if (!galleryParam && title) {
+          const normT = title.toLowerCase();
+          if (normT.includes('sukces naszych uczniów')) {
+            galleryParam = 'a2v7a86vdz384m782v3n4h0z';
           }
         }
 
@@ -2256,12 +2302,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
       pageItems.forEach(news => {
         const article = document.createElement('article');
-        article.className = 'news-card';
+        article.className = 'news-card' + (news.galleryParam ? ' has-gallery' : '');
 
-        const galleryBtnHtml = news.galleryParam
+        const targetUrl = news.galleryParam
+          ? `galeria.html?album=${encodeURIComponent(news.galleryParam)}`
+          : null;
+
+        const galleryBtnHtml = targetUrl
           ? `
             <div class="news-card-footer">
-              <a href="galeria.html?album=${encodeURIComponent(news.galleryParam)}" class="btn-more-gallery" title="Przejdź do galerii i otwórz fotorelację">
+              <a href="${targetUrl}" class="btn-more-gallery" title="Przejdź do galerii i otwórz fotorelację">
                 <i class="fa-solid fa-images" aria-hidden="true"></i>
                 <span>Zobacz fotorelację w galerii</span>
                 <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
@@ -2270,18 +2320,44 @@ document.addEventListener('DOMContentLoaded', () => {
           `
           : '';
 
+        const imgWrapHtml = targetUrl
+          ? `
+            <a href="${targetUrl}" class="news-card-img-wrap" title="Otwórz fotorelację: ${news.title}">
+              <img src="${news.imageUrl}" alt="${news.title}" class="news-card-img" ${news.aspectRatio ? `style="aspect-ratio: ${news.aspectRatio};"` : ''} loading="lazy" decoding="async">
+              ${news.category ? `<span class="news-tag">${news.category}</span>` : ''}
+              <span class="news-gallery-indicator" title="Fotorelacja dostępna"><i class="fa-solid fa-images"></i> Zobacz zdjęcia</span>
+            </a>
+          `
+          : `
+            <div class="news-card-img-wrap">
+              <img src="${news.imageUrl}" alt="${news.title}" class="news-card-img" ${news.aspectRatio ? `style="aspect-ratio: ${news.aspectRatio};"` : ''} loading="lazy" decoding="async">
+              ${news.category ? `<span class="news-tag">${news.category}</span>` : ''}
+            </div>
+          `;
+
+        const titleHtml = targetUrl
+          ? `<h3 class="news-card-title"><a href="${targetUrl}" class="news-title-link" title="Otwórz fotorelację: ${news.title}">${news.title}</a></h3>`
+          : `<h3 class="news-card-title">${news.title}</h3>`;
+
         article.innerHTML = `
-          <div class="news-card-img-wrap">
-            <img src="${news.imageUrl}" alt="${news.title}" class="news-card-img" ${news.aspectRatio ? `style="aspect-ratio: ${news.aspectRatio};"` : ''} loading="lazy" decoding="async">
-            ${news.category ? `<span class="news-tag">${news.category}</span>` : ''}
-          </div>
+          ${imgWrapHtml}
           <div class="news-card-body">
             ${news.dateDisplay ? `<div class="news-date"><i class="fa-regular fa-calendar" aria-hidden="true"></i> ${news.dateDisplay}</div>` : ''}
-            <h3 class="news-card-title">${news.title}</h3>
+            ${titleHtml}
             <div class="news-excerpt">${news.content}</div>
             ${galleryBtnHtml}
           </div>
         `;
+
+        if (targetUrl) {
+          // Kliknięcie w dowolne miejsce kafelka przenosi do właściwego folderu galerii
+          article.addEventListener('click', (e) => {
+            if (e.target.closest('a') || e.target.closest('button')) return;
+            const selection = window.getSelection ? window.getSelection().toString() : '';
+            if (selection && selection.length > 0) return;
+            window.location.href = targetUrl;
+          });
+        }
 
         container.appendChild(article);
       });
