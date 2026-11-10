@@ -54,6 +54,18 @@ async function syncGallery() {
         }
       } catch (ge) {}
 
+      // 2C. Zapis do data/aktualnosci.json
+      try {
+        const aktualnosciEndpoint = `${strapiUrl}/api/aktualnoscs?populate=*&pagination[pageSize]=100&sort=Data:desc,createdAt:desc`;
+        const aRes = await fetch(aktualnosciEndpoint, { signal: AbortSignal.timeout(10000) });
+        if (aRes.ok) {
+          const aData = await aRes.json();
+          const aJsonPath = path.join(dataDir, 'aktualnosci.json');
+          fs.writeFileSync(aJsonPath, JSON.stringify(aData, null, 2), 'utf-8');
+          console.log(`   ✅ Zapisano plik aktualnosci.json (${aData.data?.length || 0} artykułów)\n`);
+        }
+      } catch (ae) {}
+
       success = true;
       break;
     } catch (e) {
