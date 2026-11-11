@@ -166,35 +166,517 @@ html.font-scale-200 {
   font-size: 32px !important;   /* 200% */
 }
 
-/* Zabezpieczenie elastyczności layoutu przy powiększeniu do 200% */
+/* ==========================================================================
+   KONTROLA ROZMIARU IKON PRZY SKALOWANIU TEKSTU (WCAG 1.4.4)
+   Powiększa się treść tekstowa, a nie ikony graficzne
+   ========================================================================== */
+html.font-scale-120 i[class*="fa-"],
+html.font-scale-150 i[class*="fa-"],
+html.font-scale-200 i[class*="fa-"],
+html.font-scale-120 span[class*="fa-"],
+html.font-scale-150 span[class*="fa-"],
+html.font-scale-200 span[class*="fa-"],
+html.font-scale-120 svg.svg-inline--fa,
+html.font-scale-150 svg.svg-inline--fa,
+html.font-scale-200 svg.svg-inline--fa {
+  font-size: 16px !important;
+  line-height: 1 !important;
+  vertical-align: -0.125em;
+}
+
+/* Zachowanie zbalansowanych proporcji specyficznych ikon */
+html.font-scale-120 .social-btn,
+html.font-scale-150 .social-btn,
+html.font-scale-200 .social-btn {
+  width: 38px !important;
+  height: 38px !important;
+  font-size: 16px !important;
+}
+
+html.font-scale-120 .social-btn i,
+html.font-scale-150 .social-btn i,
+html.font-scale-200 .social-btn i {
+  font-size: 16px !important;
+}
+
+@media (max-width: 400px) {
+  html.font-scale-120 .social-btn,
+  html.font-scale-150 .social-btn,
+  html.font-scale-200 .social-btn {
+    width: 33px !important;
+    height: 33px !important;
+  }
+}
+
+html.font-scale-120 .header-phone-btn i,
+html.font-scale-150 .header-phone-btn i,
+html.font-scale-200 .header-phone-btn i {
+  font-size: 16px !important;
+}
+
+html.font-scale-120 .nav-home-btn,
+html.font-scale-150 .nav-home-btn,
+html.font-scale-200 .nav-home-btn,
+html.font-scale-120 .nav-home-btn i,
+html.font-scale-150 .nav-home-btn i,
+html.font-scale-200 .nav-home-btn i {
+  font-size: 18px !important;
+}
+
+html.font-scale-120 .breadcrumb-trail i,
+html.font-scale-150 .breadcrumb-trail i,
+html.font-scale-200 .breadcrumb-trail i {
+  font-size: 12px !important;
+}
+
+html.font-scale-120 .gallery-section-heading i,
+html.font-scale-150 .gallery-section-heading i,
+html.font-scale-200 .gallery-section-heading i {
+  font-size: 22px !important;
+}
+
+html.font-scale-120 .section-tag i,
+html.font-scale-150 .section-tag i,
+html.font-scale-200 .section-tag i,
+html.font-scale-120 .poster-badge i,
+html.font-scale-150 .poster-badge i,
+html.font-scale-200 .poster-badge i {
+  font-size: 14px !important;
+}
+
+html.font-scale-120 .pillar-icon-box i,
+html.font-scale-150 .pillar-icon-box i,
+html.font-scale-200 .pillar-icon-box i,
+html.font-scale-120 .offer-icon i,
+html.font-scale-150 .offer-icon i,
+html.font-scale-200 .offer-icon i {
+  font-size: 32px !important;
+}
+
+html.font-scale-120 .modal-close-btn i,
+html.font-scale-150 .modal-close-btn i,
+html.font-scale-200 .modal-close-btn i,
+html.font-scale-120 .lightbox-btn i,
+html.font-scale-150 .lightbox-btn i,
+html.font-scale-200 .lightbox-btn i {
+  font-size: 20px !important;
+}
+
+html.font-scale-120 .custom-sort-arrow,
+html.font-scale-150 .custom-sort-arrow,
+html.font-scale-200 .custom-sort-arrow {
+  font-size: 13px !important;
+}
+
+/* ==========================================================================
+   IZOLACJA PANELU DOSTĘPNOŚCI (WCAG WIDGET) PRZED SKALOWANIEM
+   Panel i jego przycisk zachowują stały, optymalny rozmiar i czytelność
+   ========================================================================== */
+html.font-scale-120 #a11y-trigger,
+html.font-scale-150 #a11y-trigger,
+html.font-scale-200 #a11y-trigger,
+html.font-scale-120 .a11y-widget-trigger,
+html.font-scale-150 .a11y-widget-trigger,
+html.font-scale-200 .a11y-widget-trigger {
+  font-size: 14px !important;
+  padding: 10px 18px !important;
+  border-radius: 50px !important;
+  gap: 8px !important;
+  height: auto !important;
+  width: auto !important;
+  line-height: 1.2 !important;
+}
+
+@media (max-width: 768px) {
+  html.font-scale-120 #a11y-trigger,
+  html.font-scale-150 #a11y-trigger,
+  html.font-scale-200 #a11y-trigger,
+  html.font-scale-120 .a11y-widget-trigger,
+  html.font-scale-150 .a11y-widget-trigger,
+  html.font-scale-200 .a11y-widget-trigger {
+    padding: 0 !important;
+    width: 46px !important;
+    height: 46px !important;
+    border-radius: 50% !important;
+  }
+}
+
+html.font-scale-120 #a11y-trigger i,
+html.font-scale-150 #a11y-trigger i,
+html.font-scale-200 #a11y-trigger i,
+html.font-scale-120 .a11y-widget-trigger i,
+html.font-scale-150 .a11y-widget-trigger i,
+html.font-scale-200 .a11y-widget-trigger i {
+  font-size: 18px !important;
+}
+
+html.font-scale-120 #a11y-modal,
+html.font-scale-150 #a11y-modal,
+html.font-scale-200 #a11y-modal,
+html.font-scale-120 .a11y-modal-backdrop,
+html.font-scale-150 .a11y-modal-backdrop,
+html.font-scale-200 .a11y-modal-backdrop {
+  font-size: 15px !important;
+}
+
+html.font-scale-120 .a11y-modal-container,
+html.font-scale-150 .a11y-modal-container,
+html.font-scale-200 .a11y-modal-container {
+  font-size: 15px !important;
+  line-height: 1.4 !important;
+  max-width: 520px !important;
+  width: 100% !important;
+  max-height: 90vh !important;
+}
+
+html.font-scale-120 .a11y-modal-header,
+html.font-scale-150 .a11y-modal-header,
+html.font-scale-200 .a11y-modal-header {
+  padding: 14px 20px !important;
+}
+
+html.font-scale-120 .a11y-header-icon,
+html.font-scale-150 .a11y-header-icon,
+html.font-scale-200 .a11y-header-icon {
+  font-size: 20px !important;
+}
+
+html.font-scale-120 .a11y-modal-title,
+html.font-scale-150 .a11y-modal-title,
+html.font-scale-200 .a11y-modal-title {
+  font-size: 18px !important;
+  line-height: 1.3 !important;
+}
+
+html.font-scale-120 .a11y-close-btn,
+html.font-scale-150 .a11y-close-btn,
+html.font-scale-200 .a11y-close-btn {
+  width: 34px !important;
+  height: 34px !important;
+  font-size: 16px !important;
+}
+
+html.font-scale-120 .a11y-close-btn i,
+html.font-scale-150 .a11y-close-btn i,
+html.font-scale-200 .a11y-close-btn i {
+  font-size: 16px !important;
+}
+
+html.font-scale-120 .a11y-modal-body,
+html.font-scale-150 .a11y-modal-body,
+html.font-scale-200 .a11y-modal-body {
+  padding: 16px 20px !important;
+  gap: 14px !important;
+}
+
+html.font-scale-120 .a11y-section,
+html.font-scale-150 .a11y-section,
+html.font-scale-200 .a11y-section {
+  padding: 12px 14px !important;
+  border-radius: 12px !important;
+}
+
+html.font-scale-120 .a11y-section-title,
+html.font-scale-150 .a11y-section-title,
+html.font-scale-200 .a11y-section-title {
+  font-size: 13px !important;
+  margin-bottom: 10px !important;
+  gap: 8px !important;
+}
+
+html.font-scale-120 .a11y-section-title i,
+html.font-scale-150 .a11y-section-title i,
+html.font-scale-200 .a11y-section-title i {
+  font-size: 14px !important;
+}
+
+html.font-scale-120 .a11y-font-badge,
+html.font-scale-150 .a11y-font-badge,
+html.font-scale-200 .a11y-font-badge {
+  font-size: 12px !important;
+  padding: 3px 8px !important;
+}
+
+html.font-scale-120 .a11y-contrast-grid,
+html.font-scale-150 .a11y-contrast-grid,
+html.font-scale-200 .a11y-contrast-grid {
+  gap: 8px !important;
+}
+
+html.font-scale-120 .a11y-contrast-btn,
+html.font-scale-150 .a11y-contrast-btn,
+html.font-scale-200 .a11y-contrast-btn {
+  padding: 8px 10px !important;
+  font-size: 13px !important;
+  gap: 8px !important;
+  border-radius: 8px !important;
+}
+
+html.font-scale-120 .a11y-preview-circle,
+html.font-scale-150 .a11y-preview-circle,
+html.font-scale-200 .a11y-preview-circle {
+  width: 24px !important;
+  height: 24px !important;
+  font-size: 12px !important;
+}
+
+html.font-scale-120 .a11y-font-grid,
+html.font-scale-150 .a11y-font-grid,
+html.font-scale-200 .a11y-font-grid {
+  gap: 5px !important;
+}
+
+html.font-scale-120 .a11y-font-btn,
+html.font-scale-120 .a11y-font-step-btn,
+html.font-scale-120 .a11y-font-size-btn,
+html.font-scale-150 .a11y-font-btn,
+html.font-scale-150 .a11y-font-step-btn,
+html.font-scale-150 .a11y-font-size-btn,
+html.font-scale-200 .a11y-font-btn,
+html.font-scale-200 .a11y-font-step-btn,
+html.font-scale-200 .a11y-font-size-btn {
+  padding: 8px 4px !important;
+  font-size: 13px !important;
+  border-radius: 6px !important;
+}
+
+html.font-scale-120 .a11y-font-step-btn i,
+html.font-scale-150 .a11y-font-step-btn i,
+html.font-scale-200 .a11y-font-step-btn i {
+  font-size: 12px !important;
+}
+
+html.font-scale-120 .a11y-toggle-item,
+html.font-scale-150 .a11y-toggle-item,
+html.font-scale-200 .a11y-toggle-item {
+  gap: 12px !important;
+}
+
+html.font-scale-120 .a11y-toggle-label strong,
+html.font-scale-150 .a11y-toggle-label strong,
+html.font-scale-200 .a11y-toggle-label strong {
+  font-size: 14px !important;
+}
+
+html.font-scale-120 .a11y-toggle-label small,
+html.font-scale-150 .a11y-toggle-label small,
+html.font-scale-200 .a11y-toggle-label small {
+  font-size: 12px !important;
+}
+
+html.font-scale-120 .a11y-switch-slider,
+html.font-scale-150 .a11y-switch-slider,
+html.font-scale-200 .a11y-switch-slider {
+  width: 44px !important;
+  height: 24px !important;
+}
+
+html.font-scale-120 .a11y-switch-slider::after,
+html.font-scale-150 .a11y-switch-slider::after,
+html.font-scale-200 .a11y-switch-slider::after {
+  width: 18px !important;
+  height: 18px !important;
+}
+
+html.font-scale-120 .a11y-checkbox:checked + .a11y-switch-slider::after,
+html.font-scale-150 .a11y-checkbox:checked + .a11y-switch-slider::after,
+html.font-scale-200 .a11y-checkbox:checked + .a11y-switch-slider::after {
+  transform: translateX(20px) !important;
+}
+
+html.font-scale-120 .a11y-modal-footer,
+html.font-scale-150 .a11y-modal-footer,
+html.font-scale-200 .a11y-modal-footer {
+  gap: 10px !important;
+  padding-top: 4px !important;
+}
+
+html.font-scale-120 .a11y-reset-btn,
+html.font-scale-120 .a11y-decl-link,
+html.font-scale-150 .a11y-reset-btn,
+html.font-scale-150 .a11y-decl-link,
+html.font-scale-200 .a11y-reset-btn,
+html.font-scale-200 .a11y-decl-link {
+  padding: 8px 14px !important;
+  font-size: 13px !important;
+  border-radius: 8px !important;
+}
+
+html.font-scale-120 .a11y-reset-btn i,
+html.font-scale-120 .a11y-decl-link i,
+html.font-scale-150 .a11y-reset-btn i,
+html.font-scale-150 .a11y-decl-link i,
+html.font-scale-200 .a11y-reset-btn i,
+html.font-scale-200 .a11y-decl-link i {
+  font-size: 14px !important;
+}
+
+/* ==========================================================================
+   DOPASOWANIE UKŁADU NAGŁÓWKA, E-DZIENNIKA I NAWIGACJI PODSTRON (WCAG 1.4.10)
+   Zapobiega ucinaniu napisów i poziomemu przewijaniu strony
+   ========================================================================== */
+html.font-scale-120 .header-top,
 html.font-scale-150 .header-top,
 html.font-scale-200 .header-top {
-  flex-wrap: wrap;
-  gap: 16px;
+  flex-wrap: wrap !important;
+  gap: 16px !important;
+  padding: 12px 0 !important;
 }
+
+html.font-scale-120 .brand-titles,
 html.font-scale-150 .brand-titles,
 html.font-scale-200 .brand-titles {
-  max-width: 100%;
+  max-width: 100% !important;
 }
+
+html.font-scale-120 .header-actions,
+html.font-scale-150 .header-actions,
+html.font-scale-200 .header-actions {
+  flex-wrap: wrap !important;
+  gap: 10px !important;
+}
+
+/* Pełne dopasowanie przycisku E-DZIENNIK do powiększonego tekstu */
+html.font-scale-120 .vulcan-btn,
+html.font-scale-150 .vulcan-btn,
+html.font-scale-200 .vulcan-btn {
+  min-width: max-content !important;
+  width: auto !important;
+  height: auto !important;
+  min-height: 40px !important;
+  padding: 8px 16px !important;
+  overflow: hidden !important;
+}
+
+html.font-scale-120 .vulcan-label,
+html.font-scale-150 .vulcan-label,
+html.font-scale-200 .vulcan-label {
+  font-size: 0.82rem !important;
+  white-space: nowrap !important;
+  line-height: 1.2 !important;
+}
+
+html.font-scale-120 .header-phone-btn,
+html.font-scale-150 .header-phone-btn,
+html.font-scale-200 .header-phone-btn {
+  height: auto !important;
+  min-height: 40px !important;
+  padding: 8px 16px !important;
+  white-space: nowrap !important;
+  font-size: 0.82rem !important;
+}
+
+/* Elastyczne zawijanie paska nawigacji podstron (zapobiega obcinaniu menu) */
+@media (min-width: 861px) {
+  html.font-scale-120 .navbar-container,
+  html.font-scale-150 .navbar-container,
+  html.font-scale-200 .navbar-container {
+    height: auto !important;
+    padding: 8px 16px !important;
+    max-width: 100% !important;
+  }
+
+  html.font-scale-120 .nav-menu,
+  html.font-scale-150 .nav-menu,
+  html.font-scale-200 .nav-menu {
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 6px 8px !important;
+    width: 100% !important;
+    height: auto !important;
+    position: static !important;
+  }
+
+  html.font-scale-120 .nav-item,
+  html.font-scale-150 .nav-item,
+  html.font-scale-200 .nav-item {
+    flex-shrink: 0 !important;
+  }
+
+  html.font-scale-120 .nav-link,
+  html.font-scale-150 .nav-link,
+  html.font-scale-200 .nav-link {
+    padding: 8px 12px !important;
+    white-space: nowrap !important;
+    border-radius: 6px !important;
+    font-size: 0.76rem !important;
+    line-height: 1.3 !important;
+    background: rgba(30, 43, 130, 0.05) !important;
+    border: 1px solid rgba(30, 43, 130, 0.12) !important;
+  }
+
+  html.font-scale-120 .nav-item.active .nav-link,
+  html.font-scale-150 .nav-item.active .nav-link,
+  html.font-scale-200 .nav-item.active .nav-link {
+    background: var(--color-primary) !important;
+    color: #FFFFFF !important;
+    border-color: var(--color-primary) !important;
+  }
+}
+
+@media (max-width: 860px) {
+  html.font-scale-120 .nav-menu,
+  html.font-scale-150 .nav-menu,
+  html.font-scale-200 .nav-menu {
+    width: 320px !important;
+    max-width: 90vw !important;
+  }
+}
+
+/* Skalowanie banera podstron i sekcji galerii */
+html.font-scale-120 .subpage-banner,
+html.font-scale-150 .subpage-banner,
+html.font-scale-200 .subpage-banner {
+  padding: 32px 0 26px !important;
+  overflow: visible !important;
+}
+
+html.font-scale-120 .subpage-title,
+html.font-scale-150 .subpage-title,
+html.font-scale-200 .subpage-title {
+  font-size: 1.55rem !important;
+  word-break: break-word !important;
+  line-height: 1.25 !important;
+}
+
+html.font-scale-120 .subpage-desc,
+html.font-scale-150 .subpage-desc,
+html.font-scale-200 .subpage-desc {
+  font-size: 0.95rem !important;
+  line-height: 1.5 !important;
+  max-width: 100% !important;
+}
+
+html.font-scale-120 .gallery-top-bar,
+html.font-scale-150 .gallery-top-bar,
+html.font-scale-200 .gallery-top-bar {
+  flex-wrap: wrap !important;
+  gap: 14px !important;
+}
+
 html.font-scale-150 .stat-number,
 html.font-scale-200 .stat-number {
   height: auto !important;
   min-height: auto !important;
 }
+
 html.font-scale-150 .hero-slider-section,
 html.font-scale-200 .hero-slider-section {
   min-height: 480px !important;
   max-height: none !important;
 }
+
 html.font-scale-150 .hero-slider-wrapper,
 html.font-scale-200 .hero-slider-wrapper {
   height: 460px !important;
 }
+
 html.font-scale-150 .hero-content,
 html.font-scale-200 .hero-content {
   padding-top: 30px;
   padding-bottom: 30px;
 }
+
 html.font-scale-150 .btn,
 html.font-scale-200 .btn {
   white-space: normal;
@@ -372,8 +854,9 @@ html.stop-motion *::after {
   position: relative;
   overflow: hidden;
   height: 38px;
-  min-width: 104px;
-  padding: 0 12px;
+  min-width: max-content;
+  width: auto;
+  padding: 0 14px;
   border-radius: 8px;
   border: 1.5px solid var(--border-color);
   background: #FFFFFF;
@@ -387,11 +870,9 @@ html.stop-motion *::after {
   box-sizing: border-box;
 }
 
-/* Domyślnie: napis E-DZIENNIK wycentrowany w przycisku */
+/* Domyślnie: napis E-DZIENNIK w normalnym przepływie (auto-dopasowanie szerokości przycisku) */
 .vulcan-label {
-  position: absolute;
-  inset: 0;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   font-family: 'Montserrat', sans-serif;
