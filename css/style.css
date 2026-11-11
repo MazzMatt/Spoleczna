@@ -157,13 +157,138 @@ button {
 
 /* 3. Skalowanie rozmiaru czcionki (do 200% bez psucia layoutu na jednostkach rem) */
 html.font-scale-120 {
-  font-size: 19.2px !important; /* 120% */
+  font-size: 19.2px !important; /* 120% na desktopie */
 }
 html.font-scale-150 {
-  font-size: 24px !important;   /* 150% */
+  font-size: 24px !important;   /* 150% na desktopie */
 }
 html.font-scale-200 {
-  font-size: 32px !important;   /* 200% */
+  font-size: 32px !important;   /* 200% na desktopie */
+}
+
+/* Responsywne dopasowanie skalowania na tabletach i telefonach (WCAG 1.4.4 & 1.4.10 Reflow) */
+@media (max-width: 768px) {
+  html.font-scale-120 {
+    font-size: 17.5px !important;
+  }
+  html.font-scale-150 {
+    font-size: 20px !important;
+  }
+  html.font-scale-200 {
+    font-size: 24px !important;
+  }
+}
+
+@media (max-width: 430px) {
+  html.font-scale-120 {
+    font-size: 16.5px !important;
+  }
+  html.font-scale-150 {
+    font-size: 18.5px !important;
+  }
+  html.font-scale-200 {
+    font-size: 21.5px !important;
+  }
+}
+
+/* Globalne zabezpieczenie przed poziomym wychodzeniem treści poza ekran na telefonach */
+html.font-scale-120,
+html.font-scale-150,
+html.font-scale-200 {
+  overflow-x: hidden !important;
+}
+
+html.font-scale-120 body,
+html.font-scale-150 body,
+html.font-scale-200 body {
+  overflow-x: hidden !important;
+  max-width: 100vw !important;
+}
+
+/* Automatyczne bezpieczne łamanie długich słów, linków, nagłówków i adresów e-mail */
+html.font-scale-120 h1, html.font-scale-150 h1, html.font-scale-200 h1,
+html.font-scale-120 h2, html.font-scale-150 h2, html.font-scale-200 h2,
+html.font-scale-120 h3, html.font-scale-150 h3, html.font-scale-200 h3,
+html.font-scale-120 h4, html.font-scale-150 h4, html.font-scale-200 h4,
+html.font-scale-120 h5, html.font-scale-150 h5, html.font-scale-200 h5,
+html.font-scale-120 h6, html.font-scale-150 h6, html.font-scale-200 h6,
+html.font-scale-120 p, html.font-scale-150 p, html.font-scale-200 p,
+html.font-scale-120 a, html.font-scale-150 a, html.font-scale-200 a,
+html.font-scale-120 span, html.font-scale-150 span, html.font-scale-200 span,
+html.font-scale-120 .subpage-title, html.font-scale-150 .subpage-title, html.font-scale-200 .subpage-title,
+html.font-scale-120 .subpage-desc, html.font-scale-150 .subpage-desc, html.font-scale-200 .subpage-desc,
+html.font-scale-120 .contact-val, html.font-scale-150 .contact-val, html.font-scale-200 .contact-val,
+html.font-scale-120 .contact-label, html.font-scale-150 .contact-label, html.font-scale-200 .contact-label {
+  word-break: break-word !important;
+  overflow-wrap: anywhere !important;
+}
+
+/* Zabezpieczenie kontenerów flexowych na kartach kontaktu przed rozpychaniem */
+html.font-scale-120 .contact-item,
+html.font-scale-150 .contact-item,
+html.font-scale-200 .contact-item {
+  min-width: 0 !important;
+  max-width: 100% !important;
+}
+
+html.font-scale-120 .contact-item > div:not(.contact-icon),
+html.font-scale-150 .contact-item > div:not(.contact-icon),
+html.font-scale-200 .contact-item > div:not(.contact-icon) {
+  min-width: 0 !important;
+  flex: 1 1 auto !important;
+}
+
+html.font-scale-120 .contact-val,
+html.font-scale-150 .contact-val,
+html.font-scale-200 .contact-val {
+  font-size: 0.95rem !important;
+  line-height: 1.35 !important;
+}
+
+html.font-scale-120 .contact-info-card,
+html.font-scale-150 .contact-info-card,
+html.font-scale-200 .contact-info-card,
+html.font-scale-120 .contact-form-card,
+html.font-scale-150 .contact-form-card,
+html.font-scale-200 .contact-form-card,
+html.font-scale-120 .container,
+html.font-scale-150 .container,
+html.font-scale-200 .container {
+  box-sizing: border-box !important;
+  max-width: 100% !important;
+}
+
+@media (max-width: 600px) {
+  html.font-scale-120 .contact-info-card,
+  html.font-scale-150 .contact-info-card,
+  html.font-scale-200 .contact-info-card,
+  html.font-scale-120 .contact-form-card,
+  html.font-scale-150 .contact-form-card,
+  html.font-scale-200 .contact-form-card {
+    padding: 20px 14px !important;
+  }
+
+  html.font-scale-120 .contact-item,
+  html.font-scale-150 .contact-item,
+  html.font-scale-200 .contact-item {
+    gap: 12px !important;
+    margin-bottom: 18px !important;
+  }
+
+  html.font-scale-120 .contact-icon,
+  html.font-scale-150 .contact-icon,
+  html.font-scale-200 .contact-icon {
+    width: 38px !important;
+    height: 38px !important;
+    font-size: 15px !important;
+  }
+
+  html.font-scale-120 .container,
+  html.font-scale-150 .container,
+  html.font-scale-200 .container {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
 }
 
 /* ==========================================================================
@@ -625,6 +750,20 @@ html.font-scale-200 .header-phone-btn {
   html.font-scale-200 .nav-menu {
     width: 320px !important;
     max-width: 90vw !important;
+  }
+  html.font-scale-120 .header-phone-btn,
+  html.font-scale-150 .header-phone-btn,
+  html.font-scale-200 .header-phone-btn {
+    width: 38px !important;
+    height: 38px !important;
+    min-width: 38px !important;
+    padding: 0 !important;
+    border-radius: 50% !important;
+  }
+  html.font-scale-120 .header-phone-btn span,
+  html.font-scale-150 .header-phone-btn span,
+  html.font-scale-200 .header-phone-btn span {
+    display: none !important;
   }
 }
 
