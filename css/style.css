@@ -572,7 +572,7 @@ html.font-scale-200 .header-phone-btn {
   html.font-scale-150 .navbar-container,
   html.font-scale-200 .navbar-container {
     height: auto !important;
-    padding: 8px 16px !important;
+    padding: 4px 0 !important;
     max-width: 100% !important;
   }
 
@@ -581,7 +581,7 @@ html.font-scale-200 .header-phone-btn {
   html.font-scale-200 .nav-menu {
     flex-wrap: wrap !important;
     justify-content: center !important;
-    gap: 6px 8px !important;
+    gap: 4px 8px !important;
     width: 100% !important;
     height: auto !important;
     position: static !important;
@@ -596,21 +596,26 @@ html.font-scale-200 .header-phone-btn {
   html.font-scale-120 .nav-link,
   html.font-scale-150 .nav-link,
   html.font-scale-200 .nav-link {
-    padding: 8px 12px !important;
+    padding: 10px 10px !important;
     white-space: nowrap !important;
-    border-radius: 6px !important;
-    font-size: 0.76rem !important;
+    border-radius: 0 !important;
+    font-size: 0.78rem !important;
     line-height: 1.3 !important;
-    background: rgba(30, 43, 130, 0.05) !important;
-    border: 1px solid rgba(30, 43, 130, 0.12) !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    color: var(--text-primary) !important;
   }
 
+  html.font-scale-120 .nav-link:hover,
+  html.font-scale-150 .nav-link:hover,
+  html.font-scale-200 .nav-link:hover,
   html.font-scale-120 .nav-item.active .nav-link,
   html.font-scale-150 .nav-item.active .nav-link,
   html.font-scale-200 .nav-item.active .nav-link {
-    background: var(--color-primary) !important;
-    color: #FFFFFF !important;
-    border-color: var(--color-primary) !important;
+    background: transparent !important;
+    color: var(--color-primary) !important;
+    border: none !important;
   }
 }
 
