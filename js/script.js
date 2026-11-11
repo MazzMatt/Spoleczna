@@ -1093,6 +1093,20 @@ document.addEventListener('DOMContentLoaded', () => {
       hasHandledInitialUrlAlbum = true;
       currentAlbum = window.__PRELOADED_DIRECT_ALBUM__;
       openAlbumDetails(currentAlbum, true, true);
+    } else if (targetDirectParam) {
+      // Dla pierwszorazowych odwiedzających: natychmiast uzupełnij nagłówek albumu informacją z sesji
+      try {
+        const savedInfo = sessionStorage.getItem('pssp_active_direct_album_info');
+        if (savedInfo) {
+          const info = JSON.parse(savedInfo);
+          if (info && info.title && detailTitle) {
+            detailTitle.textContent = info.title;
+            if (detailMeta && info.dateDisplay) {
+              detailMeta.textContent = `Fotorelacja szkolna • ${info.dateDisplay}`;
+            }
+          }
+        }
+      } catch (e) {}
     }
 
     // B. Natychmiastowe wczytanie z pamięci podręcznej przeglądarki (0 ms)
@@ -1266,7 +1280,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Błyskawiczny odczyt ze statycznego pliku data/galerie.json (zawsze działa natychmiast na GitHub Pages)
     async function loadStaticFallback(forceBust = false) {
-      const cacheBust = forceBust ? `?v=${Date.now()}` : `?v=20261106R`;
+      const cacheBust = forceBust ? `?v=${Date.now()}` : `?v=20261110v9`;
       const candidates = [];
       try {
         candidates.push(new URL(`data/galerie.json${cacheBust}`, window.location.href).href);
@@ -1377,7 +1391,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function loadGalleriesFromBackend() {
       // 1. ZAWSZE natychmiast wczytaj z pliku statycznego GitHub Pages (0 ms czekania dla odwiedzających)
       if (allAlbums.length === 0) {
-        await loadStaticFallback(true);
+        await loadStaticFallback(false);
       }
 
       // 2. W tle z krótkim 4s timeoutem sprawdź czy chmura ma nowsze dane
@@ -1510,8 +1524,9 @@ document.addEventListener('DOMContentLoaded', () => {
             thumb.className = 'photo-thumb-card';
             thumb.setAttribute('aria-label', `Powiększ zdjęcie ${idx + 1} z folderu ${album.title}`);
 
+            const isPriority = idx < 4;
             thumb.innerHTML = `
-              <img src="${photo.thumbUrl || photo.url}" alt="${photo.caption}" loading="lazy">
+              <img src="${photo.thumbUrl || photo.url}" alt="${photo.caption}" loading="${isPriority ? 'eager' : 'lazy'}" ${isPriority ? 'fetchpriority="high"' : 'decoding="async"'}>
               <div class="photo-thumb-overlay" aria-hidden="true">
                 <i class="fa-solid fa-magnifying-glass-plus"></i>
               </div>
@@ -2446,7 +2461,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const galleryBtnHtml = news.galleryParam
           ? `
             <div class="news-card-footer">
-              <a href="galeria.html?album=${encodeURIComponent(news.galleryParam)}" class="btn-more-gallery" title="Przejdź do galerii i otwórz fotorelację">
+              <a href="galeria.html?album=${encodeURIComponent(news.galleryParam)}" class="btn-more-gallery" data-gallery-target="${news.galleryParam}" data-gallery-title="${(news.title || '').replace(/"/g, '&quot;')}" data-gallery-date="${news.dateDisplay || ''}" title="Przejdź do galerii i otwórz fotorelację">
                 <i class="fa-solid fa-images" aria-hidden="true"></i>
                 <span>Zobacz fotorelację w galerii</span>
                 <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
@@ -2593,7 +2608,37 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     syncFromCloudBackend();
+
+    // Prefetching danych galerii w tle podczas czytania aktualności (0 ms opóźnienia dla rodziców)
+    function prefetchGalleryData() {
+      if (window.__galleryDataPrefetched) return;
+      window.__galleryDataPrefetched = true;
+      fetch('data/galerie.json?v=20261110v9', { priority: 'low' }).catch(() => {});
+    }
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(prefetchGalleryData, { timeout: 3000 });
+    } else {
+      setTimeout(prefetchGalleryData, 1500);
+    }
   }
+
+  // Delegacja kliknięcia przycisku galerii z aktualności: przekazuje metadane folderu w sesji
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.btn-more-gallery');
+    if (!btn) return;
+    const target = btn.getAttribute('data-gallery-target');
+    const title = btn.getAttribute('data-gallery-title');
+    const date = btn.getAttribute('data-gallery-date');
+    if (target) {
+      try {
+        sessionStorage.setItem('pssp_active_direct_album_info', JSON.stringify({
+          target: target,
+          title: title || '',
+          dateDisplay: date || ''
+        }));
+      } catch (err) {}
+    }
+  });
 
   initSchoolNews();
 
