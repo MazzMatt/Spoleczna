@@ -2693,7 +2693,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initTouchDeviceFixes();
 
   // ------------------------------------------------------------------
-  // 11. MODAL POWIĘKSZENIA PLAKATÓW (index.html)
+  // 11. MODAL POWIĘKSZENIA PLAKATÓW / ZDJĘĆ
   // ------------------------------------------------------------------
   function initPosterModal() {
     const modal = document.getElementById('poster-modal');
@@ -2703,11 +2703,59 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalCaption = document.getElementById('poster-modal-caption');
     const closeBtn = document.getElementById('poster-modal-close');
 
+    function formatShortCaption(raw) {
+      if (!raw) return '';
+      let text = String(raw).trim();
+
+      // Odcięcie długich podtytułów i zdań po separatorach (–, —, |, " - ", ":")
+      if (text.includes('–')) text = text.split('–')[0].trim();
+      else if (text.includes('—')) text = text.split('—')[0].trim();
+      else if (text.includes('|')) text = text.split('|')[0].trim();
+      else if (text.includes(' - ')) text = text.split(' - ')[0].trim();
+      else if (text.includes(':') && text.length > 20) text = text.split(':')[0].trim();
+
+      // Jeśli tekst zawiera zdania z kropką, bierzemy tylko pierwszy zwięzły człon
+      if (text.includes('.')) {
+        const sentence = text.split('.')[0].trim();
+        if (sentence.length > 0) text = sentence;
+      }
+
+      // Usunięcie zbędnych przedrostków technicznych z atrybutów alt
+      text = text.replace(/^(Plakat\s+(infografika\s+)?|Zdjęcie\s+|Fotografia\s+)/i, '').trim();
+
+      // Krótkie podstawowe informacje dla kluczowych sekcji
+      if (/^oferta(\s+edukacyjna)?/i.test(text)) {
+        return 'Oferta edukacyjna';
+      }
+      if (/^teatr(\s+szkolny)?/i.test(text)) {
+        return 'Teatr Szkolny „Arabeska”';
+      }
+      if (/^rekrutacj/i.test(text)) {
+        return 'Rekrutacja';
+      }
+      if (/zbiórk[a-ę]\s*elektrośmieci/i.test(text)) {
+        return 'Zbiórka elektrośmieci';
+      }
+
+      // Zabezpieczenie przed zbyt długimi zdaniami dla nowych zdjęć
+      if (text.length > 60) {
+        text = text.slice(0, 60).trim() + '...';
+      }
+
+      // Upewnienie się o wielkiej pierwszej literze
+      if (text.length > 0) {
+        text = text.charAt(0).toUpperCase() + text.slice(1);
+      }
+
+      return text;
+    }
+
     const openModal = (src, caption) => {
       if (!modalImg || !src) return;
+      const cleanCaption = formatShortCaption(caption);
       modalImg.src = src;
-      modalImg.alt = caption || 'Powiększony plakat';
-      if (modalCaption) modalCaption.textContent = caption || '';
+      modalImg.alt = cleanCaption || 'Powiększone zdjęcie';
+      if (modalCaption) modalCaption.textContent = cleanCaption;
       modal.classList.add('active');
       modal.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
@@ -2720,15 +2768,16 @@ document.addEventListener('DOMContentLoaded', () => {
       if (modalImg) modalImg.src = '';
     };
 
-    document.querySelectorAll('.btn-poster-zoom, .poster-img-wrap').forEach(el => {
-      el.addEventListener('click', (e) => {
-        // Jeśli kliknięto bezpośrednio w link wewnątrz, nie przechwytuj
-        if (e.target.closest('a') && !e.target.closest('.btn-poster-zoom')) return;
-        e.preventDefault();
-        const src = el.getAttribute('data-src') || el.querySelector('img')?.getAttribute('src');
-        const caption = el.getAttribute('data-caption') || el.querySelector('img')?.getAttribute('alt');
-        if (src) openModal(src, caption);
-      });
+    // Delegacja zdarzeń: działa dla elementów istniejących oraz dodawanych dynamicznie
+    document.addEventListener('click', (e) => {
+      const trigger = e.target.closest('.btn-poster-zoom, .poster-img-wrap');
+      if (!trigger) return;
+      // Jeśli kliknięto wewnątrz linku innego niż sam przycisk zoomu
+      if (e.target.closest('a') && !e.target.closest('.btn-poster-zoom')) return;
+      e.preventDefault();
+      const src = trigger.getAttribute('data-src') || trigger.querySelector('img')?.getAttribute('src');
+      const caption = trigger.getAttribute('data-caption') || trigger.querySelector('img')?.getAttribute('alt');
+      if (src) openModal(src, caption);
     });
 
     if (closeBtn) {
