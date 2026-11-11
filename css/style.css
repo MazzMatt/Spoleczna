@@ -214,13 +214,113 @@ html.font-scale-120 h5, html.font-scale-150 h5, html.font-scale-200 h5,
 html.font-scale-120 h6, html.font-scale-150 h6, html.font-scale-200 h6,
 html.font-scale-120 p, html.font-scale-150 p, html.font-scale-200 p,
 html.font-scale-120 a, html.font-scale-150 a, html.font-scale-200 a,
-html.font-scale-120 span, html.font-scale-150 span, html.font-scale-200 span,
 html.font-scale-120 .subpage-title, html.font-scale-150 .subpage-title, html.font-scale-200 .subpage-title,
 html.font-scale-120 .subpage-desc, html.font-scale-150 .subpage-desc, html.font-scale-200 .subpage-desc,
 html.font-scale-120 .contact-val, html.font-scale-150 .contact-val, html.font-scale-200 .contact-val,
 html.font-scale-120 .contact-label, html.font-scale-150 .contact-label, html.font-scale-200 .contact-label {
   word-break: break-word !important;
   overflow-wrap: anywhere !important;
+}
+
+/* ==========================================================================
+   OCHRONA NAKLEJKI BANERA (HERO STICKER BADGE) PRZED ROZPADANIEM NAPISÓW
+   Napisy na okrągłym stemplu ("wiedza pasja sukces") zachowują spójność
+   ========================================================================== */
+html.font-scale-120 .hero-sticker-badge,
+html.font-scale-150 .hero-sticker-badge,
+html.font-scale-200 .hero-sticker-badge {
+  overflow: visible !important;
+}
+
+html.font-scale-120 .hero-sticker-badge .badge-word,
+html.font-scale-150 .hero-sticker-badge .badge-word,
+html.font-scale-200 .hero-sticker-badge .badge-word {
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+  overflow-wrap: normal !important;
+  hyphens: none !important;
+}
+
+html.font-scale-120 .hero-sticker-badge .badge-word-1,
+html.font-scale-120 .hero-sticker-badge .badge-word-2,
+html.font-scale-150 .hero-sticker-badge .badge-word-1,
+html.font-scale-150 .hero-sticker-badge .badge-word-2,
+html.font-scale-200 .hero-sticker-badge .badge-word-1,
+html.font-scale-200 .hero-sticker-badge .badge-word-2 {
+  font-size: 34px !important;
+  line-height: 1.1 !important;
+}
+
+html.font-scale-120 .hero-sticker-badge .badge-word-3,
+html.font-scale-150 .hero-sticker-badge .badge-word-3,
+html.font-scale-200 .hero-sticker-badge .badge-word-3 {
+  font-size: 46px !important;
+  line-height: 0.9 !important;
+  margin-top: -4px !important;
+}
+
+@media (max-width: 992px) {
+  html.font-scale-120 .hero-sticker-badge .badge-word-1,
+  html.font-scale-120 .hero-sticker-badge .badge-word-2,
+  html.font-scale-150 .hero-sticker-badge .badge-word-1,
+  html.font-scale-150 .hero-sticker-badge .badge-word-2,
+  html.font-scale-200 .hero-sticker-badge .badge-word-1,
+  html.font-scale-200 .hero-sticker-badge .badge-word-2 {
+    font-size: 29px !important;
+  }
+  html.font-scale-120 .hero-sticker-badge .badge-word-3,
+  html.font-scale-150 .hero-sticker-badge .badge-word-3,
+  html.font-scale-200 .hero-sticker-badge .badge-word-3 {
+    font-size: 39px !important;
+  }
+}
+
+@media (max-width: 860px) {
+  html.font-scale-120 .hero-sticker-badge .badge-word-1,
+  html.font-scale-120 .hero-sticker-badge .badge-word-2,
+  html.font-scale-150 .hero-sticker-badge .badge-word-1,
+  html.font-scale-150 .hero-sticker-badge .badge-word-2,
+  html.font-scale-200 .hero-sticker-badge .badge-word-1,
+  html.font-scale-200 .hero-sticker-badge .badge-word-2 {
+    font-size: 26px !important;
+  }
+  html.font-scale-120 .hero-sticker-badge .badge-word-3,
+  html.font-scale-150 .hero-sticker-badge .badge-word-3,
+  html.font-scale-200 .hero-sticker-badge .badge-word-3 {
+    font-size: 35px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  html.font-scale-120 .hero-sticker-badge .badge-word-1,
+  html.font-scale-120 .hero-sticker-badge .badge-word-2,
+  html.font-scale-150 .hero-sticker-badge .badge-word-1,
+  html.font-scale-150 .hero-sticker-badge .badge-word-2,
+  html.font-scale-200 .hero-sticker-badge .badge-word-1,
+  html.font-scale-200 .hero-sticker-badge .badge-word-2 {
+    font-size: 16px !important;
+  }
+  html.font-scale-120 .hero-sticker-badge .badge-word-3,
+  html.font-scale-150 .hero-sticker-badge .badge-word-3,
+  html.font-scale-200 .hero-sticker-badge .badge-word-3 {
+    font-size: 24px !important;
+  }
+}
+
+@media (max-width: 420px) {
+  html.font-scale-120 .hero-sticker-badge .badge-word-1,
+  html.font-scale-120 .hero-sticker-badge .badge-word-2,
+  html.font-scale-150 .hero-sticker-badge .badge-word-1,
+  html.font-scale-150 .hero-sticker-badge .badge-word-2,
+  html.font-scale-200 .hero-sticker-badge .badge-word-1,
+  html.font-scale-200 .hero-sticker-badge .badge-word-2 {
+    font-size: 14px !important;
+  }
+  html.font-scale-120 .hero-sticker-badge .badge-word-3,
+  html.font-scale-150 .hero-sticker-badge .badge-word-3,
+  html.font-scale-200 .hero-sticker-badge .badge-word-3 {
+    font-size: 20px !important;
+  }
 }
 
 /* Zabezpieczenie kontenerów flexowych na kartach kontaktu przed rozpychaniem */
@@ -1399,6 +1499,9 @@ html.stop-motion *::after {
   display: block;
   text-transform: lowercase;
   line-height: 1.1;
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+  overflow-wrap: normal !important;
 }
 
 .badge-word-1,
