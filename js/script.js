@@ -218,45 +218,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // ------------------------------------------------------------------
-  // 2. MENU MOBILNE (HAMBURGER, PRZYCISK ZAMKNIĘCIA "X" I TŁO BACKDROP)
+  // 2. MENU MOBILNE (HAMBURGER I PRZYCISK ZAMKNIĘCIA "X")
   // ------------------------------------------------------------------
   const mobileToggle = document.getElementById('mobile-toggle');
   const mainNav = document.getElementById('main-nav-menu');
 
   if (mainNav) {
-    // Utwórz lub znajdź element tła (backdrop)
-    let navBackdrop = document.querySelector('.mobile-nav-backdrop');
-    if (!navBackdrop) {
-      navBackdrop = document.createElement('div');
-      navBackdrop.className = 'mobile-nav-backdrop';
-      navBackdrop.setAttribute('aria-hidden', 'true');
-      document.body.appendChild(navBackdrop);
-    }
-
-    const openMenu = () => {
-      mainNav.classList.add('open');
-      document.body.classList.add('mobile-nav-open');
-      if (navBackdrop) navBackdrop.classList.add('active');
-      if (mobileToggle) {
-        mobileToggle.setAttribute('aria-expanded', 'true');
-        const icon = mobileToggle.querySelector('i');
-        if (icon) {
-          icon.classList.remove('fa-bars');
-          icon.classList.add('fa-xmark');
-        }
-      }
-    };
-
     const closeMenu = () => {
       mainNav.classList.remove('open');
-      document.body.classList.remove('mobile-nav-open');
-      if (navBackdrop) navBackdrop.classList.remove('active');
       if (mobileToggle) {
         mobileToggle.setAttribute('aria-expanded', 'false');
         const icon = mobileToggle.querySelector('i');
         if (icon) {
           icon.classList.add('fa-bars');
           icon.classList.remove('fa-xmark');
+        }
+      }
+    };
+
+    const openMenu = () => {
+      mainNav.classList.add('open');
+      if (mobileToggle) {
+        mobileToggle.setAttribute('aria-expanded', 'true');
+        const icon = mobileToggle.querySelector('i');
+        if (icon) {
+          icon.classList.remove('fa-bars');
+          icon.classList.add('fa-xmark');
         }
       }
     };
@@ -285,14 +272,6 @@ document.addEventListener('DOMContentLoaded', () => {
     closeBtn.addEventListener('touchend', (e) => {
       handleCloseMenu(e);
     }, { passive: false });
-
-    if (navBackdrop) {
-      navBackdrop.addEventListener('click', closeMenu);
-      navBackdrop.addEventListener('touchend', (e) => {
-        e.preventDefault();
-        closeMenu();
-      }, { passive: false });
-    }
 
     if (mobileToggle) {
       mobileToggle.addEventListener('click', (e) => {
@@ -325,7 +304,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Zabezpieczenie przed zablokowanym body przy obrocie urządzenia lub zmianie rozmiaru okna
+    // Zabezpieczenie przy obrocie urządzenia lub zmianie rozmiaru okna
     window.addEventListener('resize', () => {
       if (window.innerWidth > 860 && mainNav.classList.contains('open')) {
         closeMenu();

@@ -3195,35 +3195,6 @@ textarea.form-control {
     flex-shrink: 0;
   }
 
-  /* Blokada przewijania tła i przyciemniony backdrop pod otwarte menu mobilne */
-  body.mobile-nav-open {
-    overflow: hidden !important;
-    touch-action: none !important;
-  }
-
-  .mobile-nav-backdrop {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    height: 100dvh;
-    background: rgba(10, 25, 47, 0.55);
-    backdrop-filter: blur(3px);
-    -webkit-backdrop-filter: blur(3px);
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.3s ease;
-    z-index: 999;
-    pointer-events: none;
-  }
-
-  .mobile-nav-backdrop.active {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-  }
-
   .nav-menu {
     position: fixed;
     top: 0;
