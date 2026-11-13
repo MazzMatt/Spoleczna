@@ -218,15 +218,41 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // ------------------------------------------------------------------
-  // 2. MENU MOBILNE (HAMBURGER I PRZYCISK ZAMKNIĘCIA "X")
+  // 2. MENU MOBILNE (HAMBURGER, PRZYCISK ZAMKNIĘCIA "X" I TŁO BACKDROP)
   // ------------------------------------------------------------------
   const mobileToggle = document.getElementById('mobile-toggle');
   const mainNav = document.getElementById('main-nav-menu');
 
   if (mainNav) {
+    // Utwórz lub znajdź element tła (backdrop)
+    let navBackdrop = document.querySelector('.mobile-nav-backdrop');
+    if (!navBackdrop) {
+      navBackdrop = document.createElement('div');
+      navBackdrop.className = 'mobile-nav-backdrop';
+      navBackdrop.setAttribute('aria-hidden', 'true');
+      document.body.appendChild(navBackdrop);
+    }
+
+    const openMenu = () => {
+      mainNav.classList.add('open');
+      document.body.classList.add('mobile-nav-open');
+      if (navBackdrop) navBackdrop.classList.add('active');
+      if (mobileToggle) {
+        mobileToggle.setAttribute('aria-expanded', 'true');
+        const icon = mobileToggle.querySelector('i');
+        if (icon) {
+          icon.classList.remove('fa-bars');
+          icon.classList.add('fa-xmark');
+        }
+      }
+    };
+
     const closeMenu = () => {
       mainNav.classList.remove('open');
+      document.body.classList.remove('mobile-nav-open');
+      if (navBackdrop) navBackdrop.classList.remove('active');
       if (mobileToggle) {
+        mobileToggle.setAttribute('aria-expanded', 'false');
         const icon = mobileToggle.querySelector('i');
         if (icon) {
           icon.classList.add('fa-bars');
@@ -260,17 +286,32 @@ document.addEventListener('DOMContentLoaded', () => {
       handleCloseMenu(e);
     }, { passive: false });
 
+    if (navBackdrop) {
+      navBackdrop.addEventListener('click', closeMenu);
+      navBackdrop.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        closeMenu();
+      }, { passive: false });
+    }
+
     if (mobileToggle) {
       mobileToggle.addEventListener('click', (e) => {
         e.stopPropagation();
-        const isOpen = mainNav.classList.toggle('open');
-        const icon = mobileToggle.querySelector('i');
-        if (icon) {
-          icon.classList.toggle('fa-bars', !isOpen);
-          icon.classList.toggle('fa-xmark', isOpen);
+        if (mainNav.classList.contains('open')) {
+          closeMenu();
+        } else {
+          openMenu();
         }
       });
     }
+
+    // Zamknij menu po kliknięciu w dowolny link nawigacyjny
+    const navLinks = mainNav.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        closeMenu();
+      });
+    });
 
     document.addEventListener('click', (e) => {
       if (mainNav.classList.contains('open') && !mainNav.contains(e.target) && (!mobileToggle || !mobileToggle.contains(e.target))) {
@@ -283,6 +324,13 @@ document.addEventListener('DOMContentLoaded', () => {
         closeMenu();
       }
     });
+
+    // Zabezpieczenie przed zablokowanym body przy obrocie urządzenia lub zmianie rozmiaru okna
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 860 && mainNav.classList.contains('open')) {
+        closeMenu();
+      }
+    }, { passive: true });
   }
 
 

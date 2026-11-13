@@ -3194,22 +3194,72 @@ textarea.form-control {
     border-radius: 8px;
     flex-shrink: 0;
   }
+
+  /* Blokada przewijania tła i przyciemniony backdrop pod otwarte menu mobilne */
+  body.mobile-nav-open {
+    overflow: hidden !important;
+    touch-action: none !important;
+  }
+
+  .mobile-nav-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    background: rgba(10, 25, 47, 0.55);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.3s ease;
+    z-index: 999;
+    pointer-events: none;
+  }
+
+  .mobile-nav-backdrop.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
   .nav-menu {
     position: fixed;
     top: 0;
     right: -100%;
-    width: 290px;
-    max-width: 85vw;
+    width: 300px;
+    max-width: 86vw;
     height: 100vh;
+    height: 100dvh;
+    max-height: 100dvh;
     background: var(--bg-header);
     border-left: 3px solid var(--color-accent);
+    display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    padding: max(20px, env(safe-area-inset-top, 20px)) 20px max(30px, env(safe-area-inset-bottom, 30px));
-    box-shadow: -5px 0 25px rgba(0, 0, 0, 0.2);
+    justify-content: flex-start;
+    align-items: stretch;
+    padding: max(16px, env(safe-area-inset-top, 16px)) 18px max(80px, env(safe-area-inset-bottom, 80px));
+    box-shadow: -5px 0 25px rgba(0, 0, 0, 0.25);
     transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 1000;
     overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+    touch-action: pan-y;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-accent) transparent;
+  }
+  .nav-menu::-webkit-scrollbar {
+    width: 4px;
+  }
+  .nav-menu::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .nav-menu::-webkit-scrollbar-thumb {
+    background: var(--color-accent);
+    border-radius: 4px;
   }
   .nav-menu.open {
     right: 0;
@@ -3222,19 +3272,18 @@ textarea.form-control {
     align-items: center;
     justify-content: center;
     align-self: flex-end;
-    position: relative;
-    top: auto;
-    right: auto;
-    width: 44px;
-    height: 44px;
+    position: sticky;
+    top: 0;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     background: var(--bg-card, #FFFFFF);
     color: var(--color-primary, #1B365D);
     border: 2px solid var(--color-accent, #F8C830);
-    font-size: 1.35rem;
+    font-size: 1.25rem;
     cursor: pointer;
     z-index: 1010;
-    margin-bottom: 12px;
+    margin-bottom: 6px;
     flex-shrink: 0;
     transition: background 0.2s ease, transform 0.2s ease, color 0.2s ease;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.14);
@@ -3257,14 +3306,42 @@ textarea.form-control {
   .nav-item {
     width: 100%;
     border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0;
+  }
+  .nav-item:last-of-type {
+    border-bottom: none;
+    margin-bottom: 24px;
   }
   .nav-link {
-    padding: 14px 0;
-    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    padding: clamp(8px, 1.2vh, 11px) 0;
+    font-size: 0.88rem;
+    font-weight: 700;
     width: 100%;
+    line-height: 1.35;
+    -webkit-tap-highlight-color: rgba(248, 200, 48, 0.2);
   }
   .nav-phone-btn {
     display: none;
+  }
+
+  /* Kompaktowe dopasowanie paska nawigacji na niskich ekranach i w poziomie (landscape) */
+  @media (max-height: 650px) {
+    .nav-menu {
+      padding-top: max(10px, env(safe-area-inset-top, 10px));
+      padding-bottom: max(60px, env(safe-area-inset-bottom, 60px));
+    }
+    .mobile-nav-close-btn {
+      width: 36px;
+      height: 36px;
+      font-size: 1.1rem;
+      margin-bottom: 4px;
+    }
+    .nav-link {
+      padding: 6px 0;
+      font-size: 0.82rem;
+    }
   }
   
   /* Hero Slider na tabletach i smartfonach - zachowanie płynnego slajdera jak na komputerze */
