@@ -284,11 +284,16 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Zamknij menu po kliknięciu w dowolny link nawigacyjny
+    // Jeśli użytkownik kliknie w link do bieżącej strony lub kotwicę (#), zamknij menu płynnie
     const navLinks = mainNav.querySelectorAll('.nav-link');
+    const currentPath = window.location.pathname.split('/').pop() || 'index.html';
     navLinks.forEach(link => {
       link.addEventListener('click', () => {
-        closeMenu();
+        const href = link.getAttribute('href');
+        if (!href) return;
+        if (href.startsWith('#') || href === currentPath || (currentPath === '' && href === 'index.html')) {
+          closeMenu();
+        }
       });
     });
 

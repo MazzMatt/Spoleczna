@@ -3198,9 +3198,9 @@ textarea.form-control {
   .nav-menu {
     position: fixed;
     top: 0;
-    right: -100%;
-    width: 300px;
-    max-width: 86vw;
+    right: 0;
+    width: 255px;
+    max-width: 74vw;
     height: 100vh;
     height: 100dvh;
     max-height: 100dvh;
@@ -3210,9 +3210,11 @@ textarea.form-control {
     flex-direction: column;
     justify-content: flex-start;
     align-items: stretch;
-    padding: max(16px, env(safe-area-inset-top, 16px)) 18px max(80px, env(safe-area-inset-bottom, 80px));
-    box-shadow: -5px 0 25px rgba(0, 0, 0, 0.25);
-    transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: max(16px, env(safe-area-inset-top, 16px)) 16px max(70px, env(safe-area-inset-bottom, 70px));
+    box-shadow: -5px 0 25px rgba(0, 0, 0, 0.22);
+    transform: translateX(100%);
+    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
     z-index: 1000;
     overflow-y: auto;
     overflow-x: hidden;
@@ -3233,7 +3235,7 @@ textarea.form-control {
     border-radius: 4px;
   }
   .nav-menu.open {
-    right: 0;
+    transform: translateX(0);
   }
   .nav-home-btn {
     display: none;
@@ -3245,13 +3247,13 @@ textarea.form-control {
     align-self: flex-end;
     position: sticky;
     top: 0;
-    width: 40px;
-    height: 40px;
+    width: 38px;
+    height: 38px;
     border-radius: 50%;
     background: var(--bg-card, #FFFFFF);
     color: var(--color-primary, #1B365D);
     border: 2px solid var(--color-accent, #F8C830);
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     cursor: pointer;
     z-index: 1010;
     margin-bottom: 6px;
@@ -3286,9 +3288,11 @@ textarea.form-control {
   .nav-link {
     display: flex;
     align-items: center;
-    padding: clamp(8px, 1.2vh, 11px) 0;
-    font-size: 0.88rem;
-    font-weight: 700;
+    padding: clamp(9px, 1.25vh, 12px) 0;
+    font-size: 0.95rem;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+    color: var(--text-primary);
     width: 100%;
     line-height: 1.35;
     -webkit-tap-highlight-color: rgba(248, 200, 48, 0.2);
