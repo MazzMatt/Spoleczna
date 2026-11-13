@@ -2111,6 +2111,48 @@ html.stop-motion *::after {
   }
 }
 
+/* Lista laureatów konkursów przedmiotowych */
+.laureates-list {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.laureates-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.90rem;
+  line-height: 1.45;
+  color: var(--text-primary);
+}
+
+.laureates-list li i {
+  color: var(--color-primary);
+  margin-top: 3px;
+  flex-shrink: 0;
+  font-size: 0.95rem;
+}
+
+.laureates-list li strong {
+  color: var(--color-primary-dark);
+}
+
+.badge-tag {
+  display: inline-block;
+  background: rgba(248, 200, 48, 0.25);
+  color: #854D0E;
+  border: 1px solid rgba(248, 200, 48, 0.6);
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  margin-left: 4px;
+}
+
 /* Modal powiększenia plakatu */
 .poster-modal-window {
   position: relative;
