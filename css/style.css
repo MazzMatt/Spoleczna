@@ -6391,22 +6391,43 @@ html[data-contrast="yellow-black"] .custom-sort-option.active i {
     transform: none !important;
   }
 
-  /* Haptyczne wciśnięcie wyłącznie w ułamku sekundy dotknięcia palcem (:active) */
-  .doc-card:active,
-  .album-card:active,
-  .gazetka-card:active,
-  .pillar-card:active,
-  .news-card:active,
-  .offer-card:active,
-  .zone-tile:active,
-  .management-card:active,
-  .staff-card:active,
-  .poster-card:active {
-    transform: scale(0.98) !important;
-    opacity: 0.92;
-    transition: transform 0.08s ease, opacity 0.08s ease !important;
+  /* Całkowite wyłączenie efektów podświetlenia hover na kartach dla ekranów dotykowych */
+  .doc-card:hover,
+  .album-card:hover,
+  .gazetka-card:hover,
+  .pillar-card:hover,
+  .news-card:hover,
+  .offer-card:hover,
+  .zone-tile:hover,
+  .management-card:hover,
+  .staff-card:hover,
+  .poster-card:hover,
+  .photo-thumb-card:hover {
+    box-shadow: var(--shadow-sm) !important;
+    border-color: var(--border-color) !important;
   }
 
+  .pillar-card:hover {
+    border-bottom-color: var(--color-primary) !important;
+    box-shadow: var(--shadow-md) !important;
+  }
+
+  .pillar-card:hover .pillar-icon-box {
+    background: var(--bg-warm) !important;
+    color: var(--color-primary) !important;
+  }
+
+  .news-card:hover .news-card-title {
+    color: var(--color-primary) !important;
+  }
+
+  .offer-card:hover .offer-icon,
+  .zone-tile:hover .zone-tile-icon {
+    background: var(--bg-warm) !important;
+    color: var(--color-primary) !important;
+  }
+
+  /* Przyciski akcji - subtelna reakcja wyłącznie w momencie celowego stuknięcia (:active) */
   .btn:active,
   .btn-primary:active,
   .btn-secondary:active,
@@ -6423,10 +6444,20 @@ html[data-contrast="yellow-black"] .custom-sort-option.active i {
   .modal-close-btn:active,
   .lightbox-btn:active,
   .lightbox-nav-btn:active {
-    transform: scale(0.95) !important;
-    opacity: 0.88;
-    transition: transform 0.08s ease !important;
+    transform: scale(0.96) !important;
+    opacity: 0.9 !important;
+    transition: transform 0.08s ease, opacity 0.08s ease !important;
   }
+}
+
+/* ==========================================================================
+   BLOKOWANIE EFEKTÓW HOVER I PODŚWIETLANIA PODCZAS PRZEWIJANIA
+   Podczas ruchu palcem po ekranie (scroll / touchmove) wskaźnik jest wyłączony,
+   co w 100% eliminuje przypadkowe podświetlanie się elementów pod palcem.
+   ========================================================================== */
+body.is-scrolling,
+body.is-scrolling * {
+  pointer-events: none !important;
 }
 
 

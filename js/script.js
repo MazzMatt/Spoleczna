@@ -2957,5 +2957,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initPosterModal();
 
+  // ------------------------------------------------------------------
+  // 12. BLOKOWANIE EFEKTU HOVER / PODŚWIETLANIA PODCZAS PRZEWIJANIA (MOBILE)
+  // ------------------------------------------------------------------
+  function initScrollHoverGuard() {
+    let scrollTimer = null;
+
+    const enableScrollGuard = () => {
+      if (!document.body.classList.contains('is-scrolling')) {
+        document.body.classList.add('is-scrolling');
+      }
+      if (scrollTimer) clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(() => {
+        document.body.classList.remove('is-scrolling');
+      }, 120);
+    };
+
+    window.addEventListener('scroll', enableScrollGuard, { passive: true });
+    window.addEventListener('touchmove', enableScrollGuard, { passive: true });
+
+    window.addEventListener('touchend', () => {
+      if (document.body.classList.contains('is-scrolling')) {
+        if (scrollTimer) clearTimeout(scrollTimer);
+        scrollTimer = setTimeout(() => {
+          document.body.classList.remove('is-scrolling');
+        }, 80);
+      }
+    }, { passive: true });
+  }
+
+  initScrollHoverGuard();
+
 });
 
