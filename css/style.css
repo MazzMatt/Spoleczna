@@ -2916,6 +2916,28 @@ textarea.form-control {
   min-height: 110px;
 }
 
+select.form-control {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: #FFFFFF;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231B365D' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 16px;
+  padding-right: 44px;
+  cursor: pointer;
+  min-height: 48px;
+  line-height: 1.4;
+  color: var(--text-primary);
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(248, 200, 48, 0.2);
+}
+
+select.form-control::-ms-expand {
+  display: none;
+}
+
 .table-responsive {
   width: 100%;
   overflow-x: auto;
@@ -3299,6 +3321,15 @@ textarea.form-control {
   }
   .nav-phone-btn {
     display: none;
+  }
+
+  /* Mobilne pola formularzy i select - min. 16px zapobiega auto-zoomowi i zacinaniu się na iOS/Safari */
+  .form-control,
+  select.form-control,
+  input.form-control,
+  textarea.form-control {
+    font-size: 16px !important;
+    min-height: 48px;
   }
 
   /* Kompaktowe dopasowanie paska nawigacji na niskich ekranach i w poziomie (landscape) */
@@ -5486,7 +5517,7 @@ html[data-contrast="yellow-black"] .back-to-top-btn {
   display: none;
   flex-direction: column;
   gap: 4px;
-  z-index: 100;
+  z-index: 1000;
   animation: fadeInMenu 0.15s ease-out;
 }
 

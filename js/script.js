@@ -1076,21 +1076,30 @@ document.addEventListener('DOMContentLoaded', () => {
     updateGallerySortUI(currentSortMode);
 
     if (sortTrigger && sortDropdown) {
-      sortTrigger.addEventListener('click', (e) => {
-        e.stopPropagation();
+      const toggleDropdown = (e) => {
+        if (e) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
         const isOpen = sortDropdown.classList.contains('open');
         sortDropdown.classList.toggle('open', !isOpen);
         sortTrigger.setAttribute('aria-expanded', !isOpen ? 'true' : 'false');
-      });
+      };
+
+      sortTrigger.addEventListener('click', toggleDropdown);
 
       sortOptions.forEach(opt => {
-        opt.addEventListener('click', (e) => {
-          e.stopPropagation();
+        const handleSelect = (e) => {
+          if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
           const val = opt.getAttribute('data-value');
           applyGallerySort(val);
           sortDropdown.classList.remove('open');
           sortTrigger.setAttribute('aria-expanded', 'false');
-        });
+        };
+        opt.addEventListener('click', handleSelect);
       });
 
       document.addEventListener('click', (e) => {
@@ -1099,6 +1108,13 @@ document.addEventListener('DOMContentLoaded', () => {
           sortTrigger.setAttribute('aria-expanded', 'false');
         }
       });
+
+      document.addEventListener('touchend', (e) => {
+        if (!sortDropdown.contains(e.target)) {
+          sortDropdown.classList.remove('open');
+          sortTrigger.setAttribute('aria-expanded', 'false');
+        }
+      }, { passive: true });
     }
 
     if (sortSelect) {
@@ -1801,21 +1817,30 @@ document.addEventListener('DOMContentLoaded', () => {
     updateGazetkaSortUI(currentSortMode);
 
     if (sortTrigger && sortDropdown) {
-      sortTrigger.addEventListener('click', (e) => {
-        e.stopPropagation();
+      const toggleDropdown = (e) => {
+        if (e) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
         const isOpen = sortDropdown.classList.contains('open');
         sortDropdown.classList.toggle('open', !isOpen);
         sortTrigger.setAttribute('aria-expanded', !isOpen ? 'true' : 'false');
-      });
+      };
+
+      sortTrigger.addEventListener('click', toggleDropdown);
 
       sortOptions.forEach(opt => {
-        opt.addEventListener('click', (e) => {
-          e.stopPropagation();
+        const handleSelect = (e) => {
+          if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
           const val = opt.getAttribute('data-value');
           applyGazetkaSort(val);
           sortDropdown.classList.remove('open');
           sortTrigger.setAttribute('aria-expanded', 'false');
-        });
+        };
+        opt.addEventListener('click', handleSelect);
       });
 
       document.addEventListener('click', (e) => {
@@ -1824,6 +1849,13 @@ document.addEventListener('DOMContentLoaded', () => {
           sortTrigger.setAttribute('aria-expanded', 'false');
         }
       });
+
+      document.addEventListener('touchend', (e) => {
+        if (!sortDropdown.contains(e.target)) {
+          sortDropdown.classList.remove('open');
+          sortTrigger.setAttribute('aria-expanded', 'false');
+        }
+      }, { passive: true });
     }
 
     if (sortSelect) {
@@ -2789,26 +2821,28 @@ document.addEventListener('DOMContentLoaded', () => {
   // 10. ELIMINACJA "LEPKIEGO HOVERA" I ZAWIESZONEGO FOKUSU NA EKRANACH DOTYKOWYCH
   // ------------------------------------------------------------------
   function initTouchDeviceFixes() {
-    function blurCurrentElement() {
+    function blurLinkOnly() {
       if (document.activeElement && 
           document.activeElement !== document.body && 
-          document.activeElement.tagName !== 'INPUT' && 
-          document.activeElement.tagName !== 'TEXTAREA') {
+          document.activeElement.tagName === 'A') {
         document.activeElement.blur();
       }
     }
 
-    // Usunięcie stanu hover/focus po stuknięciu palcem
-    document.addEventListener('touchend', function() {
-      setTimeout(blurCurrentElement, 80);
+    // Usunięcie stanu hover/focus po stuknięciu palcem WYŁĄCZNIE dla linków (nie dotykamy pól formularzy ani przycisków/selectów)
+    document.addEventListener('touchend', function(e) {
+      if (e.target && e.target.closest && e.target.closest('select, option, input, textarea, button, form, label, .custom-sort-dropdown, .custom-sort-trigger, .custom-sort-menu, .custom-sort-option')) {
+        return;
+      }
+      setTimeout(blurLinkOnly, 80);
     }, { passive: true });
 
     // Przywrócenie czystego stanu po powrocie do karty/okna (np. po zamknięciu PDF)
-    window.addEventListener('pageshow', blurCurrentElement);
-    window.addEventListener('focus', blurCurrentElement);
+    window.addEventListener('pageshow', blurLinkOnly);
+    window.addEventListener('focus', blurLinkOnly);
     document.addEventListener('visibilitychange', function() {
       if (!document.hidden) {
-        blurCurrentElement();
+        blurLinkOnly();
       }
     });
   }
