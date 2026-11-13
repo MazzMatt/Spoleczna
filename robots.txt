@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://mazzmatt.github.io/Spoleczna/sitemap.xml
+Sitemap: https://spolecznachelm.pl/sitemap.xml
