@@ -19,39 +19,49 @@ jobs:
       - name: Fetch Latest Data from Render Strapi
         id: fetch-data
         run: |
+          set +e # Zapobiega przerywaniu zadania przy wybudzaniu serwera
+
           echo "Pobieranie najnowszych galerii ze Strapi na Render..."
-          HTTP_CODE=$(curl -g -s -o /tmp/latest_galerie.json -w "%{http_code}" --max-time 45 "https://spoleczna-strapi.onrender.com/api/galerias?populate=*&pagination[pageSize]=100&sort=Data:desc,createdAt:desc")
+          HTTP_CODE=$(curl -g -s -o /tmp/latest_galerie.json -w "%{http_code}" --connect-timeout 30 --max-time 90 "https://spoleczna-strapi.onrender.com/api/galerias?populate=*&pagination[pageSize]=100&sort=Data:desc,createdAt:desc" || echo "000")
           echo "Galerie HTTP Code: $HTTP_CODE"
-          if [ "$HTTP_CODE" -eq 200 ] && [ -s /tmp/latest_galerie.json ]; then
+          if [ "$HTTP_CODE" = "200" ] && [ -s /tmp/latest_galerie.json ]; then
             DATA_COUNT=$(jq '.data | length' /tmp/latest_galerie.json 2>/dev/null || echo 0)
             echo "Pobrano $DATA_COUNT galerii."
             if [ "$DATA_COUNT" -gt 0 ]; then
               cp /tmp/latest_galerie.json data/galerie.json
               echo "has_data=true" >> $GITHUB_OUTPUT
             fi
+          else
+            echo "Serwer Render w trakcie wybudzania lub brak odpowiedzi galerii (kod: $HTTP_CODE)."
           fi
 
           echo "Pobieranie najnowszych aktualności ze Strapi..."
-          A_HTTP_CODE=$(curl -g -s -o /tmp/latest_aktualnosci.json -w "%{http_code}" --max-time 30 "https://spoleczna-strapi.onrender.com/api/aktualnoscs?populate=*&pagination[pageSize]=100&sort=Data:desc,createdAt:desc")
+          A_HTTP_CODE=$(curl -g -s -o /tmp/latest_aktualnosci.json -w "%{http_code}" --connect-timeout 20 --max-time 60 "https://spoleczna-strapi.onrender.com/api/aktualnoscs?populate=*&pagination[pageSize]=100&sort=Data:desc,createdAt:desc" || echo "000")
           echo "Aktualnosci HTTP Code: $A_HTTP_CODE"
-          if [ "$A_HTTP_CODE" -eq 200 ] && [ -s /tmp/latest_aktualnosci.json ]; then
+          if [ "$A_HTTP_CODE" = "200" ] && [ -s /tmp/latest_aktualnosci.json ]; then
             A_COUNT=$(jq '.data | length' /tmp/latest_aktualnosci.json 2>/dev/null || echo 0)
             if [ "$A_COUNT" -gt 0 ]; then
               cp /tmp/latest_aktualnosci.json data/aktualnosci.json
               echo "has_data=true" >> $GITHUB_OUTPUT
             fi
+          else
+            echo "Aktualności: odpowiedź $A_HTTP_CODE."
           fi
 
           echo "Pobieranie najnowszych wydań gazetki ze Strapi..."
-          G_HTTP_CODE=$(curl -g -s -o /tmp/latest_gazetka.json -w "%{http_code}" --max-time 30 "https://spoleczna-strapi.onrender.com/api/gazetkas?populate=*&pagination[pageSize]=100&sort=Data:desc,createdAt:desc")
+          G_HTTP_CODE=$(curl -g -s -o /tmp/latest_gazetka.json -w "%{http_code}" --connect-timeout 20 --max-time 60 "https://spoleczna-strapi.onrender.com/api/gazetkas?populate=*&pagination[pageSize]=100&sort=Data:desc,createdAt:desc" || echo "000")
           echo "Gazetka HTTP Code: $G_HTTP_CODE"
-          if [ "$G_HTTP_CODE" -eq 200 ] && [ -s /tmp/latest_gazetka.json ]; then
+          if [ "$G_HTTP_CODE" = "200" ] && [ -s /tmp/latest_gazetka.json ]; then
             G_COUNT=$(jq '.data | length' /tmp/latest_gazetka.json 2>/dev/null || echo 0)
             if [ "$G_COUNT" -gt 0 ]; then
               cp /tmp/latest_gazetka.json data/gazetka.json
               echo "has_data=true" >> $GITHUB_OUTPUT
             fi
+          else
+            echo "Gazetka: odpowiedź $G_HTTP_CODE."
           fi
+
+          exit 0
 
       - name: Commit & Push if data changed
         if: steps.fetch-data.outputs.has_data == 'true'
@@ -60,9 +70,10 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           if [ -n "$(git status --porcelain data/)" ]; then
             echo "Wykryto zmiany w danych ze Strapi - zapisywanie na GitHub Pages..."
+            git pull --rebase origin main || true
             git add data/
-            git commit -m "Auto-sync danych ze Strapi Cloud [skip ci]"
-            git push
+            git commit -m "Auto-sync danych ze Strapi Cloud [skip ci]" || true
+            git push origin main || echo "Push pominięty lub brak nowych zmian"
           else
             echo "Brak zmian w danych - pliki są w 100% aktualne."
           fi
