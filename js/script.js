@@ -29,6 +29,11 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+  // Zachowanie nazwy karty w przeglądarce dla strony głównej
+  if (location.pathname === '/' || location.pathname.endsWith('/index.html') || location.pathname === '') {
+    document.title = 'PSSP Chełm | Strona Główna – Pierwsza Społeczna Szkoła Podstawowa';
+  }
+
   // ------------------------------------------------------------------
   // 1. GŁÓWNY BANER (HERO SLIDER) – PŁYNNA I NIEZAWODNA ROTACJA
   // ------------------------------------------------------------------
