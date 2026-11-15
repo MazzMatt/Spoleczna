@@ -1019,6 +1019,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Tablica albumów pobierana w 100% z bazy Strapi
     let allAlbums = [];
     let currentAlbum = null;
+    let lastOpenedAlbumId = null;
+    let lastScrollPosition = 0;
     let activePhotoIndex = 0;
     let hasHandledInitialUrlAlbum = false;
     let targetDirectParam = '';
@@ -1535,6 +1537,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const card = document.createElement('button');
         card.type = 'button';
         card.className = 'album-card';
+        const albumIdStr = String(album.documentId || album.id || album.rawId || '');
+        if (albumIdStr) {
+          card.setAttribute('data-album-id', albumIdStr);
+          card.id = `album-card-${albumIdStr}`;
+        }
         card.setAttribute('aria-label', `Otwórz folder: ${album.title} (${album.count} zdjęć)`);
 
         card.innerHTML = `
@@ -1595,6 +1602,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Otwarcie wybranego albumu (widok zdjęć w folderze)
     function openAlbumDetails(album, shouldScroll = true, isDirectNav = false) {
       if (!album) return;
+      lastOpenedAlbumId = String(album.documentId || album.id || album.rawId || '');
+      if (!isDirectNav && window.scrollY > 0) {
+        lastScrollPosition = window.scrollY;
+      }
       currentAlbum = album;
       document.documentElement.classList.remove('direct-album-mode');
       if (albumsView) albumsView.style.display = 'none';
@@ -1618,24 +1629,60 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
+    // Powrót do listy folderów (z zachowaniem pozycji przewijania i wycentrowaniem na opuszczanym folderze)
+    function returnToAlbumsList() {
+      document.documentElement.classList.remove('direct-album-mode');
+      if (detailsView) detailsView.classList.remove('active');
+      if (albumsView) {
+        albumsView.style.display = 'block';
+        void albumsView.offsetHeight; // Wymuszenie ponownego przeliczenia układu (reflow)
+      }
+
+      const prevAlbumId = currentAlbum ? String(currentAlbum.documentId || currentAlbum.id || currentAlbum.rawId || '') : lastOpenedAlbumId;
+      currentAlbum = null;
+      targetDirectParam = '';
+      hasHandledInitialUrlAlbum = false;
+      if (window.history && window.history.replaceState) {
+        const cleanUrl = window.location.pathname;
+        window.history.replaceState({}, document.title, cleanUrl);
+      }
+
+      // Jeśli siatka kafelków nie była jeszcze wyrenderowana, wyrenderuj ją
+      if (!container || !container.children || container.children.length === 0) {
+        renderAlbums(allAlbums);
+      }
+
+      const restoreScrollPosition = () => {
+        let targetCard = null;
+        if (prevAlbumId && container) {
+          targetCard = container.querySelector(`[data-album-id="${prevAlbumId}"]`) ||
+                       document.getElementById(`album-card-${prevAlbumId}`);
+        }
+
+        if (targetCard) {
+          targetCard.scrollIntoView({ behavior: 'auto', block: 'center' });
+          targetCard.classList.remove('album-card-returned');
+          void targetCard.offsetWidth;
+          targetCard.classList.add('album-card-returned');
+          setTimeout(() => {
+            targetCard.classList.remove('album-card-returned');
+          }, 1800);
+        } else if (lastScrollPosition > 0) {
+          window.scrollTo({ top: lastScrollPosition, behavior: 'auto' });
+        }
+      };
+
+      // Wywołanie w requestAnimationFrame + setTimeout dla pełnej niezawodności
+      requestAnimationFrame(() => {
+        restoreScrollPosition();
+        setTimeout(restoreScrollPosition, 40);
+      });
+    }
+
     // Powrót do listy folderów
     if (backBtn) {
       backBtn.addEventListener('click', () => {
-        document.documentElement.classList.remove('direct-album-mode');
-        if (detailsView) detailsView.classList.remove('active');
-        if (albumsView) albumsView.style.display = 'block';
-        currentAlbum = null;
-        targetDirectParam = '';
-        hasHandledInitialUrlAlbum = false;
-        if (window.history && window.history.replaceState) {
-          const cleanUrl = window.location.pathname;
-          window.history.replaceState({}, document.title, cleanUrl);
-        }
-        renderAlbums(allAlbums);
-        const darkWrap = document.querySelector('.gallery-dark-wrap');
-        if (darkWrap) {
-          darkWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+        returnToAlbumsList();
       });
     }
 
@@ -1645,11 +1692,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const target = (params.get('album') || params.get('folder') || params.get('id') || '').trim();
       targetDirectParam = target;
       if (!target) {
-        document.documentElement.classList.remove('direct-album-mode');
-        if (detailsView) detailsView.classList.remove('active');
-        if (albumsView) albumsView.style.display = 'block';
-        currentAlbum = null;
-        renderAlbums(allAlbums);
+        returnToAlbumsList();
       } else {
         hasHandledInitialUrlAlbum = false;
         checkUrlForDirectAlbum(allAlbums, true);

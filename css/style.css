@@ -5324,6 +5324,29 @@ html[data-contrast="yellow-black"] .back-to-top-btn {
   outline-offset: 3px;
 }
 
+/* Wyróżnienie kafelka po powrocie z folderu do widoku wszystkich galerii */
+.album-card.album-card-returned {
+  outline: 3px solid #F8C830 !important;
+  outline-offset: 3px;
+  box-shadow: 0 0 25px rgba(248, 200, 48, 0.5) !important;
+  animation: pulseReturnedAlbum 1.6s ease-out forwards;
+}
+
+@keyframes pulseReturnedAlbum {
+  0% {
+    outline-color: #F8C830;
+    box-shadow: 0 0 30px rgba(248, 200, 48, 0.7);
+  }
+  70% {
+    outline-color: #F8C830;
+    box-shadow: 0 0 18px rgba(248, 200, 48, 0.4);
+  }
+  100% {
+    outline-color: transparent;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+  }
+}
+
 .album-cover-img {
   width: 100%;
   height: 100%;
