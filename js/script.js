@@ -2115,12 +2115,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const normClean = normalizeStr(clean);
 
+        let matched = null;
+        if (clean === 'latest' || clean === 'najnowsza' || clean === 'nowa') {
+          matched = gazetkas[0];
+        }
+
         // 1. Szukamy po unikalnym ID (documentId, id lub rawId ze Strapi)
-        let matched = gazetkas.find(g =>
-          String(g.documentId || '').toLowerCase() === clean ||
-          String(g.id || '').toLowerCase() === clean ||
-          String(g.rawId || '').toLowerCase() === clean
-        );
+        if (!matched) {
+          matched = gazetkas.find(g =>
+            String(g.documentId || '').toLowerCase() === clean ||
+            String(g.id || '').toLowerCase() === clean ||
+            String(g.rawId || '').toLowerCase() === clean
+          );
+        }
 
         // 2. Szukamy po tytule
         if (!matched) {
@@ -2299,7 +2306,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const topPageInfo = document.getElementById('news-top-page-info');
     const ITEMS_PER_PAGE = 10;
     let currentPage = 1;
-    const CACHE_KEY = 'pssp_school_news_cache_v10';
+    const CACHE_KEY = 'pssp_school_news_cache_v12';
     let allNews = [];
 
     // Czyszczenie starej pamięci podręcznej
@@ -2309,6 +2316,8 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.removeItem('pssp_school_news_cache_v3');
       localStorage.removeItem('pssp_school_news_cache_v4');
       localStorage.removeItem('pssp_school_news_cache_v5');
+      localStorage.removeItem('pssp_school_news_cache_v10');
+      localStorage.removeItem('pssp_school_news_cache_v11');
     } catch (e) {}
 
     const CLOUD_STRAPI_URL = 'https://spoleczna-strapi.onrender.com';
@@ -2410,6 +2419,13 @@ document.addEventListener('DOMContentLoaded', () => {
             gazetkaTitle = gazAttrs.Tytul || gazAttrs.tytul || '';
           } else if (typeof rawGazetka === 'string' || typeof rawGazetka === 'number') {
             gazetkaParam = String(rawGazetka).trim();
+          }
+        }
+        if (!gazetkaParam && (title || content)) {
+          const text = `${title} ${content}`.toLowerCase();
+          if (text.includes('społeczna times') || text.includes('spoleczna times') || text.includes('gazetk')) {
+            gazetkaParam = 'latest';
+            gazetkaTitle = 'Społeczna Times';
           }
         }
 
