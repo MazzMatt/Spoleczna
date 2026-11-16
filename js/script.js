@@ -1830,6 +1830,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (Array.isArray(parsed) && parsed.length > 0) {
           allGazetkas = parsed;
           renderGazetkas(allGazetkas);
+          checkUrlForDirectGazetka(allGazetkas);
         }
       }
     } catch (e) {}
@@ -2000,6 +2001,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         return {
           id: String(item.documentId || item.id || `gazetka-${idx}`),
+          documentId: String(item.documentId || ''),
+          rawId: String(item.id || ''),
           idNum: parseInt(item.id, 10) || (idx + 1),
           title: title,
           rawDate: rawDate,
@@ -2039,6 +2042,11 @@ document.addEventListener('DOMContentLoaded', () => {
       sortedList.forEach(item => {
         const card = document.createElement('a');
         card.className = 'gazetka-card';
+        const gazetkaIdStr = String(item.documentId || item.id || item.rawId || '');
+        if (gazetkaIdStr) {
+          card.setAttribute('data-gazetka-id', gazetkaIdStr);
+          card.id = `gazetka-card-${gazetkaIdStr}`;
+        }
         card.setAttribute('aria-label', `Otwórz gazetkę: ${item.title}`);
         
         if (item.pdfUrl) {
@@ -2070,6 +2078,104 @@ document.addEventListener('DOMContentLoaded', () => {
 
         container.appendChild(card);
       });
+    }
+
+    let hasHandledDirectGazetka = false;
+
+    function checkUrlForDirectGazetka(gazetkas) {
+      if (hasHandledDirectGazetka || !Array.isArray(gazetkas) || gazetkas.length === 0) return null;
+      try {
+        const params = new URLSearchParams(window.location.search);
+        let target = (params.get('wydanie') || params.get('gazetka') || params.get('numer') || params.get('id') || '').trim();
+
+        if (!target) {
+          try {
+            const saved = sessionStorage.getItem('pssp_active_direct_gazetka_info');
+            if (saved) {
+              const parsed = JSON.parse(saved);
+              if (parsed && parsed.target) {
+                target = parsed.target;
+              }
+            }
+          } catch (e) {}
+        }
+
+        if (!target) return null;
+
+        const clean = decodeURIComponent(target).replace(/^["']|["']$/g, '').trim().toLowerCase();
+        if (!clean) return null;
+
+        function normalizeStr(str) {
+          return String(str || '')
+            .toLowerCase()
+            .replace(/[„”"''’«»!?.–—-]/g, '')
+            .replace(/\s+/g, ' ')
+            .trim();
+        }
+
+        const normClean = normalizeStr(clean);
+
+        // 1. Szukamy po unikalnym ID (documentId, id lub rawId ze Strapi)
+        let matched = gazetkas.find(g =>
+          String(g.documentId || '').toLowerCase() === clean ||
+          String(g.id || '').toLowerCase() === clean ||
+          String(g.rawId || '').toLowerCase() === clean
+        );
+
+        // 2. Szukamy po tytule
+        if (!matched) {
+          matched = gazetkas.find(g => {
+            const t = String(g.title || '').trim().toLowerCase();
+            return t === clean || normalizeStr(t) === normClean;
+          });
+        }
+
+        // 3. Fallback częściowy
+        if (!matched) {
+          matched = gazetkas.find(g => {
+            const normTitle = normalizeStr(g.title);
+            return (
+              (normClean.length >= 4 && normTitle.includes(normClean)) ||
+              (normTitle.length >= 4 && normClean.includes(normTitle))
+            );
+          });
+        }
+
+        if (matched) {
+          hasHandledDirectGazetka = true;
+          try {
+            sessionStorage.removeItem('pssp_active_direct_gazetka_info');
+          } catch (e) {}
+
+          const targetId = String(matched.documentId || matched.id || matched.rawId || '');
+          const scrollToCard = () => {
+            const targetCard = container.querySelector(`[data-gazetka-id="${targetId}"]`) ||
+                               document.getElementById(`gazetka-card-${targetId}`);
+            if (targetCard) {
+              targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              targetCard.classList.remove('gazetka-card-highlighted');
+              void targetCard.offsetWidth;
+              targetCard.classList.add('gazetka-card-highlighted');
+              try {
+                targetCard.focus({ preventScroll: true });
+              } catch (e) {}
+              setTimeout(() => {
+                targetCard.classList.remove('gazetka-card-highlighted');
+              }, 3500);
+            }
+          };
+
+          requestAnimationFrame(() => {
+            scrollToCard();
+            setTimeout(scrollToCard, 100);
+          });
+
+          return matched;
+        }
+      } catch (err) {
+        console.warn('Błąd otwierania wydania gazetki z adresu URL:', err);
+      }
+      return null;
     }
 
     function areGazetkaListsIdentical(a, b) {
@@ -2109,6 +2215,7 @@ document.addEventListener('DOMContentLoaded', () => {
               if (changed || container.children.length === 0) {
                 renderGazetkas(allGazetkas);
               }
+              checkUrlForDirectGazetka(allGazetkas);
               return true;
             }
           }
@@ -2152,6 +2259,7 @@ document.addEventListener('DOMContentLoaded', () => {
           if (changed || container.children.length === 0) {
             renderGazetkas(allGazetkas);
           }
+          checkUrlForDirectGazetka(allGazetkas);
         }
       } catch (err) {
         if (allGazetkas.length === 0) {
@@ -2290,6 +2398,21 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         }
 
+        // Powiązana gazetka (relacja do wydania gazetki lub inteligentne dopasowanie)
+        let gazetkaParam = '';
+        let gazetkaTitle = '';
+        const rawGazetka = attrs.Gazetka || attrs.gazetka;
+        if (rawGazetka) {
+          const gazObj = rawGazetka.data ? (Array.isArray(rawGazetka.data) ? rawGazetka.data[0] : rawGazetka.data) : (Array.isArray(rawGazetka) ? rawGazetka[0] : rawGazetka);
+          if (gazObj) {
+            const gazAttrs = gazObj.attributes || gazObj;
+            gazetkaParam = gazObj.documentId || (gazAttrs && gazAttrs.documentId) || gazObj.id || (gazAttrs && gazAttrs.id) || gazAttrs.Tytul || gazAttrs.tytul || '';
+            gazetkaTitle = gazAttrs.Tytul || gazAttrs.tytul || '';
+          } else if (typeof rawGazetka === 'string' || typeof rawGazetka === 'number') {
+            gazetkaParam = String(rawGazetka).trim();
+          }
+        }
+
         return {
           id: String(item.documentId || item.id || `news-${idx}`),
           title,
@@ -2298,7 +2421,9 @@ document.addEventListener('DOMContentLoaded', () => {
           content,
           imageUrl,
           aspectRatio,
-          galleryParam
+          galleryParam,
+          gazetkaParam,
+          gazetkaTitle
         };
       });
     }
@@ -2570,17 +2695,27 @@ document.addEventListener('DOMContentLoaded', () => {
         const article = document.createElement('article');
         article.className = 'news-card';
 
-        const galleryBtnHtml = news.galleryParam
-          ? `
-            <div class="news-card-footer">
-              <a href="galeria.html?album=${encodeURIComponent(news.galleryParam)}" class="btn-more-gallery" data-gallery-target="${news.galleryParam}" data-gallery-title="${(news.title || '').replace(/"/g, '&quot;')}" data-gallery-date="${news.dateDisplay || ''}" title="Przejdź do galerii i otwórz fotorelację">
-                <i class="fa-solid fa-images" aria-hidden="true"></i>
-                <span>Zobacz fotorelację w galerii</span>
-                <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
-              </a>
-            </div>
-          `
-          : '';
+        let buttonsHtml = '';
+        if (news.galleryParam) {
+          buttonsHtml += `
+            <a href="galeria.html?album=${encodeURIComponent(news.galleryParam)}" class="btn-more-gallery" data-gallery-target="${news.galleryParam}" data-gallery-title="${(news.title || '').replace(/"/g, '&quot;')}" data-gallery-date="${news.dateDisplay || ''}" title="Przejdź do galerii i otwórz fotorelację">
+              <i class="fa-solid fa-images" aria-hidden="true"></i>
+              <span>Zobacz fotorelację w galerii</span>
+              <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+            </a>
+          `;
+        }
+        if (news.gazetkaParam) {
+          buttonsHtml += `
+            <a href="gazetka.html?wydanie=${encodeURIComponent(news.gazetkaParam)}" class="btn-more-gazetka" data-gazetka-target="${news.gazetkaParam}" data-gazetka-title="${(news.gazetkaTitle || news.title || '').replace(/"/g, '&quot;')}" title="Przejdź do gazetki i otwórz to wydanie">
+              <i class="fa-solid fa-newspaper" aria-hidden="true"></i>
+              <span>Przeczytaj to wydanie w gazetce</span>
+              <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+            </a>
+          `;
+        }
+
+        const footerHtml = buttonsHtml ? `<div class="news-card-footer">${buttonsHtml}</div>` : '';
 
         article.innerHTML = `
           <div class="news-card-img-wrap">
@@ -2591,7 +2726,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ${news.dateDisplay ? `<div class="news-date"><i class="fa-regular fa-calendar" aria-hidden="true"></i> ${news.dateDisplay}</div>` : ''}
             <h3 class="news-card-title">${news.title}</h3>
             <div class="news-excerpt">${news.content}</div>
-            ${galleryBtnHtml}
+            ${footerHtml}
           </div>
         `;
 
@@ -2747,6 +2882,22 @@ document.addEventListener('DOMContentLoaded', () => {
           target: target,
           title: title || '',
           dateDisplay: date || ''
+        }));
+      } catch (err) {}
+    }
+  });
+
+  // Delegacja kliknięcia przycisku gazetki z aktualności: przekazuje metadane wydania w sesji
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.btn-more-gazetka');
+    if (!btn) return;
+    const target = btn.getAttribute('data-gazetka-target');
+    const title = btn.getAttribute('data-gazetka-title');
+    if (target) {
+      try {
+        sessionStorage.setItem('pssp_active_direct_gazetka_info', JSON.stringify({
+          target: target,
+          title: title || ''
         }));
       } catch (err) {}
     }

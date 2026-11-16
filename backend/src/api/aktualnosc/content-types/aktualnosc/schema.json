@@ -36,6 +36,11 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::galeria.galeria"
+    },
+    "Gazetka": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::gazetka.gazetka"
     }
   }
 }
