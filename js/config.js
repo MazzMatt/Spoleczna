@@ -32,7 +32,7 @@ const SCHOOL_CONFIG = {
     phone: "82 565 45 54",
     phoneDisplay: "tel. 82 565 45 54",
     email: "spoleczna_chelm@wp.pl",
-    openingHours: "Poniedziałek – Piątek: 7:30 – 15:00",
+    openingHours: "Poniedziałek – Piątek: 7:00 – 15:00",
     
     // Oficjalne nowe logo szkoły
     logoUrl: "assets/icons/logo.png"
