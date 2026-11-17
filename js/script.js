@@ -1802,9 +1802,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const countNumber = document.getElementById('gazetka-count-number');
     const countBadge = document.getElementById('gazetka-count-badge');
 
-    const CACHE_KEY = 'pssp_school_gazetka_cache_v2';
+    const CACHE_KEY = 'pssp_school_gazetka_cache_v3';
     let allGazetkas = [];
     let currentSortMode = 'desc';
+
+    // Czyszczenie starej pamięci podręcznej wydań gazetki
+    try {
+      localStorage.removeItem('pssp_school_gazetka_cache_v1');
+      localStorage.removeItem('pssp_school_gazetka_cache_v2');
+    } catch (e) {}
 
     function updateGazetkaCountBadge(count) {
       if (countNumber && typeof count === 'number' && !isNaN(count)) {
@@ -2047,6 +2053,10 @@ document.addEventListener('DOMContentLoaded', () => {
           card.setAttribute('data-gazetka-id', gazetkaIdStr);
           card.id = `gazetka-card-${gazetkaIdStr}`;
         }
+        if (item.documentId) card.setAttribute('data-gazetka-docid', String(item.documentId));
+        if (item.rawId) card.setAttribute('data-gazetka-rawid', String(item.rawId));
+        if (item.id) card.setAttribute('data-gazetka-itemid', String(item.id));
+        card.setAttribute('data-gazetka-title', (item.title || '').trim().toLowerCase());
         card.setAttribute('aria-label', `Otwórz gazetkę: ${item.title}`);
         
         if (item.pdfUrl) {
@@ -2080,30 +2090,31 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    let hasHandledDirectGazetka = false;
+    let hasExactDirectGazetkaHandled = false;
 
     function checkUrlForDirectGazetka(gazetkas) {
-      if (hasHandledDirectGazetka || !Array.isArray(gazetkas) || gazetkas.length === 0) return null;
+      if (hasExactDirectGazetkaHandled || !Array.isArray(gazetkas) || gazetkas.length === 0) return null;
       try {
         const params = new URLSearchParams(window.location.search);
         let target = (params.get('wydanie') || params.get('gazetka') || params.get('numer') || params.get('id') || '').trim();
+        let targetTitle = (params.get('tytul') || params.get('title') || '').trim();
 
-        if (!target) {
-          try {
-            const saved = sessionStorage.getItem('pssp_active_direct_gazetka_info');
-            if (saved) {
-              const parsed = JSON.parse(saved);
-              if (parsed && parsed.target) {
-                target = parsed.target;
-              }
+        // Jeśli brakuje parametru lub tytułu w URL, sprawdź dane przekazane z kliknięcia w sesji
+        try {
+          const saved = sessionStorage.getItem('pssp_active_direct_gazetka_info');
+          if (saved) {
+            const parsed = JSON.parse(saved);
+            if (parsed) {
+              if (!target && parsed.target) target = parsed.target;
+              if (!targetTitle && parsed.title) targetTitle = parsed.title;
             }
-          } catch (e) {}
-        }
+          }
+        } catch (e) {}
 
-        if (!target) return null;
+        if (!target && !targetTitle) return null;
 
-        const clean = decodeURIComponent(target).replace(/^["']|["']$/g, '').trim().toLowerCase();
-        if (!clean) return null;
+        const cleanTarget = decodeURIComponent(target).replace(/^["']|["']$/g, '').trim().toLowerCase();
+        const cleanTitle = decodeURIComponent(targetTitle).replace(/^["']|["']$/g, '').trim().toLowerCase();
 
         function normalizeStr(str) {
           return String(str || '')
@@ -2113,53 +2124,113 @@ document.addEventListener('DOMContentLoaded', () => {
             .trim();
         }
 
-        const normClean = normalizeStr(clean);
+        const normTarget = normalizeStr(cleanTarget);
+        const normTitle = normalizeStr(cleanTitle);
 
         let matched = null;
-        if (clean === 'latest' || clean === 'najnowsza' || clean === 'nowa') {
+        let isExact = false;
+
+        // 0. Słowo kluczowe "latest" / "najnowsza"
+        if (cleanTarget === 'latest' || cleanTarget === 'najnowsza' || cleanTarget === 'nowa') {
           matched = gazetkas[0];
+          isExact = true;
         }
 
         // 1. Szukamy po unikalnym ID (documentId, id lub rawId ze Strapi)
-        if (!matched) {
+        if (!matched && cleanTarget) {
           matched = gazetkas.find(g =>
-            String(g.documentId || '').toLowerCase() === clean ||
-            String(g.id || '').toLowerCase() === clean ||
-            String(g.rawId || '').toLowerCase() === clean
+            String(g.documentId || '').toLowerCase() === cleanTarget ||
+            String(g.id || '').toLowerCase() === cleanTarget ||
+            String(g.rawId || '').toLowerCase() === cleanTarget
           );
+          if (matched) isExact = true;
         }
 
-        // 2. Szukamy po tytule
+        // 2. Szukamy po dokładnym lub znormalizowanym tytule
         if (!matched) {
           matched = gazetkas.find(g => {
             const t = String(g.title || '').trim().toLowerCase();
-            return t === clean || normalizeStr(t) === normClean;
-          });
-        }
-
-        // 3. Fallback częściowy
-        if (!matched) {
-          matched = gazetkas.find(g => {
-            const normTitle = normalizeStr(g.title);
+            const normT = normalizeStr(t);
             return (
-              (normClean.length >= 4 && normTitle.includes(normClean)) ||
-              (normTitle.length >= 4 && normClean.includes(normTitle))
+              (cleanTarget && (t === cleanTarget || normT === normTarget)) ||
+              (cleanTitle && (t === cleanTitle || normT === normTitle))
             );
           });
+          if (matched) isExact = true;
+        }
+
+        // 3. Fallback częściowy po tytule (np. "Jesień 2026" w "Jesień 2026/2027")
+        if (!matched) {
+          matched = gazetkas.find(g => {
+            const normT = normalizeStr(g.title);
+            return (
+              (normTarget.length >= 4 && (normT.includes(normTarget) || normTarget.includes(normT))) ||
+              (normTitle.length >= 4 && (normT.includes(normTitle) || normTitle.includes(normT)))
+            );
+          });
+          if (matched) isExact = true;
+        }
+
+        // 4. Ostateczny bezpiecznik: jeśli przyszliśmy z parametrem, a baza została zaktualizowana, bierzemy najnowszy numer
+        if (!matched && (cleanTarget || cleanTitle)) {
+          matched = gazetkas[0];
+          isExact = false;
         }
 
         if (matched) {
-          hasHandledDirectGazetka = true;
-          try {
-            sessionStorage.removeItem('pssp_active_direct_gazetka_info');
-          } catch (e) {}
+          if (isExact) {
+            hasExactDirectGazetkaHandled = true;
+            try {
+              sessionStorage.removeItem('pssp_active_direct_gazetka_info');
+            } catch (e) {}
+          }
 
-          const targetId = String(matched.documentId || matched.id || matched.rawId || '');
-          const scrollToCard = () => {
-            const targetCard = container.querySelector(`[data-gazetka-id="${targetId}"]`) ||
-                               document.getElementById(`gazetka-card-${targetId}`);
-            if (targetCard) {
+          // 1. Tworzymy lub aktualizujemy baner wyróżnionego wydania na samej górze sekcji gazetki
+          let callout = document.getElementById('gazetka-direct-callout');
+          if (!callout) {
+            callout = document.createElement('div');
+            callout.id = 'gazetka-direct-callout';
+            callout.className = 'gazetka-direct-callout';
+            if (container && container.parentNode) {
+              container.parentNode.insertBefore(callout, container);
+            }
+          }
+          callout.innerHTML = `
+            <div class="gazetka-direct-callout-info">
+              <span class="gazetka-direct-badge"><i class="fa-solid fa-bookmark" aria-hidden="true"></i> Wybrane wydanie z aktualności</span>
+              <h3 class="gazetka-direct-title">${matched.title}</h3>
+            </div>
+            ${matched.pdfUrl ? `
+              <a href="${matched.pdfUrl}" target="_blank" rel="noopener" class="gazetka-direct-open-btn" aria-label="Otwórz plik PDF wydania ${matched.title}">
+                <i class="fa-solid fa-file-pdf"></i>
+                <span>Czytaj to wydanie (PDF)</span>
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              </a>
+            ` : ''}
+          `;
+
+          // 2. Centrujemy widok i podświetlamy kafelek
+          const targetDocId = String(matched.documentId || '');
+          const targetRawId = String(matched.rawId || matched.id || '');
+          const targetTitle = String(matched.title || '').trim().toLowerCase();
+
+          const scrollToTarget = () => {
+            const calloutEl = document.getElementById('gazetka-direct-callout');
+            const targetCard = (targetDocId && container.querySelector(`[data-gazetka-docid="${targetDocId}"]`)) ||
+                               (targetDocId && container.querySelector(`[data-gazetka-id="${targetDocId}"]`)) ||
+                               (targetRawId && container.querySelector(`[data-gazetka-rawid="${targetRawId}"]`)) ||
+                               (targetRawId && container.querySelector(`[data-gazetka-id="${targetRawId}"]`)) ||
+                               container.querySelector(`[data-gazetka-title="${targetTitle.replace(/"/g, '\\"')}"]`) ||
+                               (targetDocId && document.getElementById(`gazetka-card-${targetDocId}`)) ||
+                               (targetRawId && document.getElementById(`gazetka-card-${targetRawId}`));
+
+            if (calloutEl) {
+              calloutEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else if (targetCard) {
               targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+
+            if (targetCard) {
               targetCard.classList.remove('gazetka-card-highlighted');
               void targetCard.offsetWidth;
               targetCard.classList.add('gazetka-card-highlighted');
@@ -2168,13 +2239,14 @@ document.addEventListener('DOMContentLoaded', () => {
               } catch (e) {}
               setTimeout(() => {
                 targetCard.classList.remove('gazetka-card-highlighted');
-              }, 3500);
+              }, 4000);
             }
           };
 
           requestAnimationFrame(() => {
-            scrollToCard();
-            setTimeout(scrollToCard, 100);
+            scrollToTarget();
+            setTimeout(scrollToTarget, 80);
+            setTimeout(scrollToTarget, 300);
           });
 
           return matched;
@@ -2286,6 +2358,8 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
+    // Zawsze wczytujemy najświeższy plik static fallback (data/gazetka.json z CDN / GitHub Pages – sub-50ms)
+    loadStaticFallback(false);
     loadGazetkasFromBackend();
   }
 
@@ -2306,7 +2380,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const topPageInfo = document.getElementById('news-top-page-info');
     const ITEMS_PER_PAGE = 10;
     let currentPage = 1;
-    const CACHE_KEY = 'pssp_school_news_cache_v12';
+    const CACHE_KEY = 'pssp_school_news_cache_v13';
     let allNews = [];
 
     // Czyszczenie starej pamięci podręcznej
@@ -2318,6 +2392,7 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.removeItem('pssp_school_news_cache_v5');
       localStorage.removeItem('pssp_school_news_cache_v10');
       localStorage.removeItem('pssp_school_news_cache_v11');
+      localStorage.removeItem('pssp_school_news_cache_v12');
     } catch (e) {}
 
     const CLOUD_STRAPI_URL = 'https://spoleczna-strapi.onrender.com';
@@ -2722,8 +2797,9 @@ document.addEventListener('DOMContentLoaded', () => {
           `;
         }
         if (news.gazetkaParam) {
+          const gTitle = news.gazetkaTitle || news.title || '';
           buttonsHtml += `
-            <a href="gazetka.html?wydanie=${encodeURIComponent(news.gazetkaParam)}" class="btn-more-gazetka" data-gazetka-target="${news.gazetkaParam}" data-gazetka-title="${(news.gazetkaTitle || news.title || '').replace(/"/g, '&quot;')}" title="Przejdź do gazetki i otwórz to wydanie">
+            <a href="gazetka.html?wydanie=${encodeURIComponent(news.gazetkaParam)}&tytul=${encodeURIComponent(gTitle)}" class="btn-more-gazetka" data-gazetka-target="${news.gazetkaParam}" data-gazetka-title="${gTitle.replace(/"/g, '&quot;')}" title="Przejdź do gazetki i otwórz to wydanie">
               <i class="fa-solid fa-newspaper" aria-hidden="true"></i>
               <span>Przeczytaj to wydanie w gazetce</span>
               <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
@@ -2794,9 +2870,13 @@ document.addEventListener('DOMContentLoaded', () => {
           if (items.length > 0) {
             const mapped = mapStrapiToNews(items, '');
             if (mapped.length > 0) {
-              allNews = mapped;
-              try { localStorage.setItem(CACHE_KEY, JSON.stringify(mapped)); } catch (e) {}
-              renderNews(allNews);
+              const prevStr = JSON.stringify(allNews);
+              const nextStr = JSON.stringify(mapped);
+              if (prevStr !== nextStr || container.children.length === 0) {
+                allNews = mapped;
+                try { localStorage.setItem(CACHE_KEY, nextStr); } catch (e) {}
+                renderNews(allNews);
+              }
               return true;
             }
           }
@@ -2865,11 +2945,8 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // ZAWSZE natychmiast wczytaj z GitHub Pages
-    if (allNews.length === 0) {
-      loadStaticFallback(true);
-    }
-
+    // ZAWSZE natychmiast wczytaj z GitHub Pages (sub-50ms)
+    loadStaticFallback(false);
     syncFromCloudBackend();
 
     // Prefetching danych galerii w tle podczas czytania aktualności (0 ms opóźnienia dla rodziców)
@@ -2909,10 +2986,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!btn) return;
     const target = btn.getAttribute('data-gazetka-target');
     const title = btn.getAttribute('data-gazetka-title');
-    if (target) {
+    if (target || title) {
       try {
         sessionStorage.setItem('pssp_active_direct_gazetka_info', JSON.stringify({
-          target: target,
+          target: target || '',
           title: title || ''
         }));
       } catch (err) {}
