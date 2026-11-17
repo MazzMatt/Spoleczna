@@ -2185,37 +2185,12 @@ document.addEventListener('DOMContentLoaded', () => {
             } catch (e) {}
           }
 
-          // 1. Tworzymy lub aktualizujemy baner wyróżnionego wydania na samej górze sekcji gazetki
-          let callout = document.getElementById('gazetka-direct-callout');
-          if (!callout) {
-            callout = document.createElement('div');
-            callout.id = 'gazetka-direct-callout';
-            callout.className = 'gazetka-direct-callout';
-            if (container && container.parentNode) {
-              container.parentNode.insertBefore(callout, container);
-            }
-          }
-          callout.innerHTML = `
-            <div class="gazetka-direct-callout-info">
-              <span class="gazetka-direct-badge"><i class="fa-solid fa-bookmark" aria-hidden="true"></i> Wybrane wydanie z aktualności</span>
-              <h3 class="gazetka-direct-title">${matched.title}</h3>
-            </div>
-            ${matched.pdfUrl ? `
-              <a href="${matched.pdfUrl}" target="_blank" rel="noopener" class="gazetka-direct-open-btn" aria-label="Otwórz plik PDF wydania ${matched.title}">
-                <i class="fa-solid fa-file-pdf"></i>
-                <span>Czytaj to wydanie (PDF)</span>
-                <i class="fa-solid fa-arrow-up-right-from-square"></i>
-              </a>
-            ` : ''}
-          `;
-
-          // 2. Centrujemy widok i podświetlamy kafelek
+          // Centrujemy widok i podświetlamy kafelek wybranej gazetki
           const targetDocId = String(matched.documentId || '');
           const targetRawId = String(matched.rawId || matched.id || '');
           const targetTitle = String(matched.title || '').trim().toLowerCase();
 
           const scrollToTarget = () => {
-            const calloutEl = document.getElementById('gazetka-direct-callout');
             const targetCard = (targetDocId && container.querySelector(`[data-gazetka-docid="${targetDocId}"]`)) ||
                                (targetDocId && container.querySelector(`[data-gazetka-id="${targetDocId}"]`)) ||
                                (targetRawId && container.querySelector(`[data-gazetka-rawid="${targetRawId}"]`)) ||
@@ -2224,13 +2199,8 @@ document.addEventListener('DOMContentLoaded', () => {
                                (targetDocId && document.getElementById(`gazetka-card-${targetDocId}`)) ||
                                (targetRawId && document.getElementById(`gazetka-card-${targetRawId}`));
 
-            if (calloutEl) {
-              calloutEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            } else if (targetCard) {
-              targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-
             if (targetCard) {
+              targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
               targetCard.classList.remove('gazetka-card-highlighted');
               void targetCard.offsetWidth;
               targetCard.classList.add('gazetka-card-highlighted');
@@ -2239,7 +2209,7 @@ document.addEventListener('DOMContentLoaded', () => {
               } catch (e) {}
               setTimeout(() => {
                 targetCard.classList.remove('gazetka-card-highlighted');
-              }, 4000);
+              }, 3500);
             }
           };
 
