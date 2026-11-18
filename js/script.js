@@ -2350,7 +2350,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const topPageInfo = document.getElementById('news-top-page-info');
     const ITEMS_PER_PAGE = 10;
     let currentPage = 1;
-    const CACHE_KEY = 'pssp_school_news_cache_v13';
+    const CACHE_KEY = 'pssp_school_news_cache_v14';
     let allNews = [];
 
     // Czyszczenie starej pamięci podręcznej
@@ -2363,6 +2363,7 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.removeItem('pssp_school_news_cache_v10');
       localStorage.removeItem('pssp_school_news_cache_v11');
       localStorage.removeItem('pssp_school_news_cache_v12');
+      localStorage.removeItem('pssp_school_news_cache_v13');
     } catch (e) {}
 
     const CLOUD_STRAPI_URL = 'https://spoleczna-strapi.onrender.com';
@@ -2452,7 +2453,7 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         }
 
-        // Powiązana gazetka (relacja do wydania gazetki lub inteligentne dopasowanie)
+        // Powiązana gazetka (relacja do wydania gazetki ze Strapi)
         let gazetkaParam = '';
         let gazetkaTitle = '';
         const rawGazetka = attrs.Gazetka || attrs.gazetka;
@@ -2464,13 +2465,6 @@ document.addEventListener('DOMContentLoaded', () => {
             gazetkaTitle = gazAttrs.Tytul || gazAttrs.tytul || '';
           } else if (typeof rawGazetka === 'string' || typeof rawGazetka === 'number') {
             gazetkaParam = String(rawGazetka).trim();
-          }
-        }
-        if (!gazetkaParam && (title || content)) {
-          const text = `${title} ${content}`.toLowerCase();
-          if (text.includes('społeczna times') || text.includes('spoleczna times') || text.includes('gazetk')) {
-            gazetkaParam = 'latest';
-            gazetkaTitle = 'Społeczna Times';
           }
         }
 
