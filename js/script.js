@@ -2350,7 +2350,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const topPageInfo = document.getElementById('news-top-page-info');
     const ITEMS_PER_PAGE = 10;
     let currentPage = 1;
-    const CACHE_KEY = 'pssp_school_news_cache_v14';
+    const CACHE_KEY = 'pssp_school_news_cache_v15';
     let allNews = [];
 
     // Czyszczenie starej pamięci podręcznej
@@ -2364,11 +2364,118 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.removeItem('pssp_school_news_cache_v11');
       localStorage.removeItem('pssp_school_news_cache_v12');
       localStorage.removeItem('pssp_school_news_cache_v13');
+      localStorage.removeItem('pssp_school_news_cache_v14');
     } catch (e) {}
 
     const CLOUD_STRAPI_URL = 'https://spoleczna-strapi.onrender.com';
     const isLocalhost = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
     const activeStrapiBase = window.STRAPI_URL || (isLocalhost ? 'http://localhost:1337' : CLOUD_STRAPI_URL);
+
+    // Zapobieganie wiszącym spójnikom i przyimkom na końcu linii (zasady typografii polskiej)
+    function bindPolishOrphans(str) {
+      if (!str) return '';
+      let s = String(str);
+      // 1-literowe spójniki i przyimki: a, i, o, u, w, z (oraz wielkie litery)
+      s = s.replace(/(^|[\s(„"»>])([a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ])\s+/g, '$1$2\u00A0');
+      s = s.replace(/(^|[\s(„"»>])([a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ])\s+/g, '$1$2\u00A0');
+      // 2-3 literowe popularne przyimki i spójniki
+      const shortWords = '(?:do|na|po|od|za|ze|we|ku|bo|że|co|to|nie|bez|dla|nad|pod|lub|czy|jak|aż|oraz)';
+      const regShort = new RegExp('(^|[\\s(„"»>])(' + shortWords + ')\\s+', 'gi');
+      s = s.replace(regShort, '$1$2\u00A0');
+      s = s.replace(regShort, '$1$2\u00A0');
+      // Liczby z jednostkami i datami (np. 10 listopada, 966 roku)
+      s = s.replace(/(\d+)\s+(roku|r\.|lat|klasy|klas|godz\.|listopada|października|września|stycznia|lutego|marca|kwietnia|maja|czerwca|lipca|sierpnia|grudnia)/gi, '$1\u00A0$2');
+      return s;
+    }
+
+    // Inteligentne formatowanie i czyszczenie tekstu niezależnie od źródła kopiowania
+    function formatPolishNewsContent(raw) {
+      if (!raw) return '';
+      let text = String(raw).replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+
+      // Obsługa tagów HTML w przypadku wklejenia sformatowanego tekstu z zewnętrznych stron
+      if (/<[a-z][\s\S]*>/i.test(text)) {
+        text = text.replace(/<br\s*[\/]?>/gi, '\n');
+        text = text.replace(/<\/p>/gi, '\n\n');
+        text = text.replace(/<[^>]+>/g, '');
+      }
+
+      // 1. Wyrównanie wielokrotnych spacji poziomych (np. tabulatory lub spacje po kopiowaniu tabel) do pojedynczej spacji
+      text = text.replace(/[^\S\n]+/g, ' ');
+      // 2. Brak spacji po przecinku (np. "Piłsudskiego,a" -> "Piłsudskiego, a")
+      text = text.replace(/,([a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ])/g, ', $1');
+      // 3. Standaryzacja cudzysłowów
+      text = text.replace(/,,/g, '„').replace(/’’/g, '”').replace(/‘‘/g, '„');
+      text = text.replace(/„\s+/g, '„').replace(/\s+”/g, '”');
+
+      const rawLines = text.split('\n').map(l => l.trim());
+      const paragraphs = [];
+      let cur = [];
+
+      const isListOrSpecial = (s) => {
+        if (!s) return false;
+        return /^([-*•–—]|(\d+\.)|[🌴🎉🛡️✍️💡❤️💙🎭🇵🇱🌾🤍👏🥇🥈🥉🏆📍])/.test(s);
+      };
+
+      const endsWithSentenceEnd = (s) => {
+        return /[.!?…:;]$/.test(s) || /[.!?…]["”»]$/.test(s);
+      };
+
+      const hasUnclosedQuote = (lines) => {
+        const full = lines.join(' ');
+        const openPl = (full.match(/„/g) || []).length;
+        const closePl = (full.match(/”/g) || []).length;
+        return openPl > closePl;
+      };
+
+      for (let i = 0; i < rawLines.length; i++) {
+        const line = rawLines[i];
+        if (!line) {
+          if (cur.length) {
+            paragraphs.push(cur.join(' '));
+            cur = [];
+          }
+          continue;
+        }
+
+        if (isListOrSpecial(line)) {
+          if (cur.length) {
+            paragraphs.push(cur.join(' '));
+            cur = [];
+          }
+          paragraphs.push(line);
+          continue;
+        }
+
+        if (!cur.length) {
+          cur.push(line);
+        } else {
+          const prev = cur[cur.length - 1];
+          const startsLower = /^[a-ząćęłńóśźż]/.test(line);
+          const prevEndsSentence = endsWithSentenceEnd(prev);
+          const quoteStillOpen = hasUnclosedQuote(cur);
+
+          if (!prevEndsSentence || startsLower || quoteStillOpen) {
+            cur.push(line);
+          } else {
+            paragraphs.push(cur.join(' '));
+            cur = [line];
+          }
+        }
+      }
+      if (cur.length) {
+        paragraphs.push(cur.join(' '));
+      }
+
+      return paragraphs
+        .filter(p => p.trim().length > 0)
+        .map(p => {
+          const isList = isListOrSpecial(p);
+          const cls = isList ? 'news-p news-p-list' : 'news-p';
+          return `<p class="${cls}">${bindPolishOrphans(p)}</p>`;
+        })
+        .join('');
+    }
 
     function formatPolishDate(dateStr) {
       if (!dateStr) return '';
@@ -2395,11 +2502,13 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!Array.isArray(items)) return [];
       return items.map((item, idx) => {
         const attrs = item.attributes || item;
-        const title = (attrs.Tytul || attrs.tytul || 'Aktualność szkolna').trim();
+        const rawTitle = (attrs.Tytul || attrs.tytul || 'Aktualność szkolna').trim();
+        const title = bindPolishOrphans(rawTitle);
         const rawDate = attrs.Data || attrs.data || attrs.createdAt || '';
         const dateDisplay = formatPolishDate(rawDate);
         const category = (attrs.Kategoria || attrs.kategoria || '').trim();
-        const content = (attrs.Opis || attrs.opis || '').trim();
+        const rawContent = (attrs.Opis || attrs.opis || '').trim();
+        const content = formatPolishNewsContent(rawContent);
 
         // Zdjęcie wpisu (zoptymalizowane pod WebP/AVIF, CDN oraz zachowujące proporcje)
         let imageUrl = '';

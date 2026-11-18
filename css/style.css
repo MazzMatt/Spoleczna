@@ -2279,11 +2279,6 @@ html.stop-motion *::after {
   color: var(--color-primary);
   line-height: 1.35;
   margin-bottom: 14px;
-  transition: color 0.25s ease;
-}
-
-.news-card:hover .news-card-title {
-  color: var(--color-accent-dark);
 }
 
 .news-excerpt {
@@ -2296,15 +2291,28 @@ html.stop-motion *::after {
   text-justify: inter-word;
   hyphens: auto;
   -webkit-hyphens: auto;
-  white-space: pre-line;
+  word-break: normal;
+  overflow-wrap: break-word;
 }
 
-.news-excerpt p {
+.news-excerpt p,
+.news-excerpt .news-p {
   text-align: justify;
   text-justify: inter-word;
   hyphens: auto;
   -webkit-hyphens: auto;
-  margin-bottom: 12px;
+  margin: 0 0 14px 0;
+  line-height: 1.72;
+}
+
+.news-excerpt .news-p-list {
+  margin: 0 0 6px 0;
+  text-align: left;
+}
+
+.news-excerpt p:last-child,
+.news-excerpt .news-p:last-child {
+  margin-bottom: 0;
 }
 
 .news-card-footer {
