@@ -73,6 +73,11 @@ body {
   line-height: 1.6;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  text-wrap: pretty;
+}
+
+h1, h2, h3, h4, h5, h6, p, li, blockquote, .hero-desc, .subpage-desc, .section-subtitle, .pillar-desc, .offer-card-desc {
+  text-wrap: pretty;
 }
 
 img {

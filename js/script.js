@@ -35,6 +35,102 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ------------------------------------------------------------------
+  // 0. ZASADY POLSKIEJ TYPOGRAFII (LIKWIDACJA WISZĄCYCH SPÓJNIKÓW I SIEROTEK W CAŁYM SERWISIE)
+  // ------------------------------------------------------------------
+  function bindPolishOrphans(str) {
+    if (!str) return '';
+    let s = String(str);
+
+    // 1. Spójniki 1-literowe: a, i, o, u, w, z (oraz wielkie A, I, O, U, W, Z)
+    s = s.replace(/(?<![a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ0-9])([aAiIoOuUwWzZ])[ \t]+/g, '$1\u00A0');
+
+    // 2. Krótkie przyimki i spójniki 2- i 3-literowe
+    const shortWords = '(?:do|na|po|od|za|ze|we|ku|bo|że|co|to|nie|bez|dla|nad|pod|lub|czy|jak|aż|oraz)';
+    const regShort = new RegExp('(?<![a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ0-9])(' + shortWords + ')[ \\t]+', 'gi');
+    s = s.replace(regShort, '$1\u00A0');
+
+    // 3. Typowe skróty (ul., al., pl., np., m.in., tzn., tzw., godz., tel., nr, p., dr, mgr, prof.)
+    const abbrev = '(?:ul\\.|al\\.|pl\\.|np\\.|m\\.in\\.|tzn\\.|tzw\\.|godz\\.|tel\\.|nr|p\\.|dr|mgr|prof\\.)';
+    const regAbbrev = new RegExp('(?<![a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ0-9])(' + abbrev + ')[ \\t]+', 'gi');
+    s = s.replace(regAbbrev, '$1\u00A0');
+
+    // 4. Liczby przed datami i jednostkami
+    s = s.replace(/(\b\d+)[ \t]+(roku|r\.|lat|klasy|klas|godz\.|stycznia|lutego|marca|kwietnia|maja|czerwca|lipca|sierpnia|września|października|listopada|grudnia)\b/gi, '$1\u00A0$2');
+
+    // 5. Myślnik (pauza / półpauza) - spacja niełamliwa przed myślnikiem
+    s = s.replace(/([^\s])[ \t]+([–—])[ \t]+/g, '$1\u00A0$2 ');
+
+    return s;
+  }
+
+  function applyPolishTypographyToDOM(root = document.body) {
+    if (!root) return;
+    try {
+      const walker = document.createTreeWalker(
+        root,
+        NodeFilter.SHOW_TEXT,
+        {
+          acceptNode: function(node) {
+            if (!node || !node.nodeValue || !node.nodeValue.trim()) {
+              return NodeFilter.FILTER_REJECT;
+            }
+            const parent = node.parentElement;
+            if (!parent) return NodeFilter.FILTER_REJECT;
+            const tag = parent.tagName ? parent.tagName.toLowerCase() : '';
+            if (['script', 'style', 'noscript', 'textarea', 'input', 'code', 'pre', 'svg'].includes(tag)) {
+              return NodeFilter.FILTER_REJECT;
+            }
+            if (parent.closest('script, style, noscript, textarea, input, code, pre, svg')) {
+              return NodeFilter.FILTER_REJECT;
+            }
+            return NodeFilter.FILTER_ACCEPT;
+          }
+        }
+      );
+
+      const nodesToUpdate = [];
+      while (walker.nextNode()) {
+        nodesToUpdate.push(walker.currentNode);
+      }
+
+      nodesToUpdate.forEach(node => {
+        const orig = node.nodeValue;
+        const updated = bindPolishOrphans(orig);
+        if (updated !== orig) {
+          node.nodeValue = updated;
+        }
+      });
+    } catch (e) {
+      // Bezpiecznik
+    }
+  }
+
+  // Automatyczne formatowanie typograficzne całego widoku strony
+  applyPolishTypographyToDOM(document.body);
+
+  // Strażnik MutationObserver dla dynamicznie doładowywanych treści (Strapi, filtry, modale)
+  const mainContentEl = document.getElementById('main-content') || document.body;
+  if (mainContentEl && window.MutationObserver) {
+    let typographyTimeout = null;
+    const typoObserver = new MutationObserver((mutations) => {
+      let shouldProcess = false;
+      for (let i = 0; i < mutations.length; i++) {
+        if (mutations[i].addedNodes && mutations[i].addedNodes.length > 0) {
+          shouldProcess = true;
+          break;
+        }
+      }
+      if (shouldProcess) {
+        if (typographyTimeout) clearTimeout(typographyTimeout);
+        typographyTimeout = setTimeout(() => {
+          applyPolishTypographyToDOM(mainContentEl);
+        }, 60);
+      }
+    });
+    typoObserver.observe(mainContentEl, { childList: true, subtree: true });
+  }
+
+  // ------------------------------------------------------------------
   // 1. GŁÓWNY BANER (HERO SLIDER) – PŁYNNA I NIEZAWODNA ROTACJA
   // ------------------------------------------------------------------
   const slides = document.querySelectorAll('.hero-slide');
@@ -2370,23 +2466,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const CLOUD_STRAPI_URL = 'https://spoleczna-strapi.onrender.com';
     const isLocalhost = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
     const activeStrapiBase = window.STRAPI_URL || (isLocalhost ? 'http://localhost:1337' : CLOUD_STRAPI_URL);
-
-    // Zapobieganie wiszącym spójnikom i przyimkom na końcu linii (zasady typografii polskiej)
-    function bindPolishOrphans(str) {
-      if (!str) return '';
-      let s = String(str);
-      // 1-literowe spójniki i przyimki: a, i, o, u, w, z (oraz wielkie litery)
-      s = s.replace(/(^|[\s(„"»>])([a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ])\s+/g, '$1$2\u00A0');
-      s = s.replace(/(^|[\s(„"»>])([a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ])\s+/g, '$1$2\u00A0');
-      // 2-3 literowe popularne przyimki i spójniki
-      const shortWords = '(?:do|na|po|od|za|ze|we|ku|bo|że|co|to|nie|bez|dla|nad|pod|lub|czy|jak|aż|oraz)';
-      const regShort = new RegExp('(^|[\\s(„"»>])(' + shortWords + ')\\s+', 'gi');
-      s = s.replace(regShort, '$1$2\u00A0');
-      s = s.replace(regShort, '$1$2\u00A0');
-      // Liczby z jednostkami i datami (np. 10 listopada, 966 roku)
-      s = s.replace(/(\d+)\s+(roku|r\.|lat|klasy|klas|godz\.|listopada|października|września|stycznia|lutego|marca|kwietnia|maja|czerwca|lipca|sierpnia|grudnia)/gi, '$1\u00A0$2');
-      return s;
-    }
 
     // Inteligentne formatowanie i czyszczenie tekstu niezależnie od źródła kopiowania
     function formatPolishNewsContent(raw) {
