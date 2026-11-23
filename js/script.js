@@ -29,9 +29,9 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  // Zachowanie nazwy karty w przeglądarce dla strony głównej
+  // Zachowanie oficjalnej, czystej nazwy dla wyszukiwarki i karty przeglądarki
   if (location.pathname === '/' || location.pathname.endsWith('/index.html') || location.pathname === '') {
-    document.title = 'PSSP Chełm | Strona Główna – Pierwsza Społeczna Szkoła Podstawowa';
+    document.title = 'Pierwsza Społeczna Szkoła Podstawowa w Chełmie';
   }
 
   // ------------------------------------------------------------------
