@@ -3331,6 +3331,9 @@ document.addEventListener('DOMContentLoaded', () => {
       if (/^teatr(\s+szkolny)?/i.test(text)) {
         return 'Teatr Szkolny „Arabeska”';
       }
+      if (/^manufaktur/i.test(text)) {
+        return 'Manufaktura Pomysłów';
+      }
       if (/^rekrutacj/i.test(text)) {
         return 'Rekrutacja';
       }
